@@ -1,27 +1,63 @@
 import {NextResponse} from "next/server";
-import {PrismaClient} from "@prisma/client";
+import {Prisma, PrismaClient} from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export async function GET() {
 
-    const prisma = new PrismaClient()
-    await prisma.user.create({
-        data: {
-            firstname: generateRandomString(10),
-            lastname: generateRandomString(10),
-            password: generateRandomString(10),
-        }
-    })
+    const users = await prisma.user.findMany();
 
-    const users = await prisma.user.findMany()
     return NextResponse.json(users);
 }
 
-function generateRandomString(length) {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
-    const charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+export async function POST(request) {
+
+    // Messages d'erreur
+    const missingFieldsMessage = 'Veuillez renseigner tous les champs (email, password)';
+    const invalidEmailMessage = 'Veuillez fournir une adresse e-mail valide';
+    const emailExistsErrorMessage = 'Un compte avec cet e-mail existe déjà';
+    const successMessage = 'Utilisateur créé avec succès';
+
+    // Récupération du corps de la requête
+    const requestBodyText = await request.text();
+
+    try {
+        const requestBody = JSON.parse(requestBodyText);
+        const {email = '', password = ''} = requestBody;
+
+        if (!email || !password) {
+            return NextResponse.json({message: missingFieldsMessage});
+        }
+
+        if (!isValidEmail(email)) {
+            return NextResponse.json({message: invalidEmailMessage});
+        }
+
+        const user = await prisma.user.create({
+            data: {
+                email,
+                password,
+            },
+        });
+
+        return NextResponse.json({message: successMessage, user});
+
+    } catch (error) {
+
+        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+            return NextResponse.json({message: emailExistsErrorMessage});
+        }
+
+        return NextResponse.error(error, {status: 500});
+
+    } finally {
+
+        await prisma.$disconnect();
+
     }
-    return result;
+}
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
 }
