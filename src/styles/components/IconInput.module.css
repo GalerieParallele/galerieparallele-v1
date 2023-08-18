@@ -16,5 +16,5 @@
     width: 310px;
     height: 40px;
     padding: 15px;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
 }
