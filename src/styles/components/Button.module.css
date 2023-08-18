@@ -21,7 +21,7 @@
     align-items: center;
 }
 
-.button::before, .button:hover::before {
+.button::before, .button:not(:disabled):hover::before {
     content: '';
     position: absolute;
     top: -80px;
@@ -38,11 +38,11 @@
     height: 0;
 }
 
-.button:hover::before {
+.button:not(:disabled):hover::before {
     height: 500%;
 }
 
-.button:hover, .button:disabled {
+.button:not(:disabled):hover, .button:disabled {
     color: var(--white);
 }
 
