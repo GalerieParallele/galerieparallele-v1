@@ -27,6 +27,7 @@ export default function RegisterComponent() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirm] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
 
@@ -40,7 +41,11 @@ export default function RegisterComponent() {
             return;
         }
 
+        setLoading(true)
+
         const {error} = await signUp(email, password);
+
+        setLoading(false)
 
         if (error) {
             await Toast.fire({
@@ -81,7 +86,8 @@ export default function RegisterComponent() {
             />
             <Button
                 text={"Inscription"}
-                onClick={handleSubmit}/>
+                onClick={handleSubmit}
+                isLoading={loading}/>
         </>
     )
 }

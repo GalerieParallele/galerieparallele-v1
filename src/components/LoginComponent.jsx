@@ -27,12 +27,17 @@ export default function LoginComponent() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
 
         e.preventDefault();
 
+        setLoading(true)
+
         const {user, error} = await signIn(email, password);
+
+        setLoading(false)
 
         if (error) {
             await Toast.fire({
@@ -65,7 +70,8 @@ export default function LoginComponent() {
             />
             <Button
                 text={"Connexion"}
-                onClick={handleSubmit}/>
+                onClick={handleSubmit}
+                isLoading={loading}/>
         </>
     )
 }
