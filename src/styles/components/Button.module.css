@@ -1,38 +1,62 @@
 .button {
+    --button-width: 150px;
+    --button-height: 40px;
+
     position: relative;
     text-transform: uppercase;
     font-weight: bold;
     font-size: 17px;
     background-color: transparent;
     color: var(--black);
-    padding: 8px 20px;
+    width: var(--button-width);
+    height: var(--button-height);
     border-radius: var(--border-radius);
     border: 2px solid var(--black);
     transition: var(--transition);
     cursor: pointer;
+    outline: none;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-
-.button::before {
+.button::before, .button:hover::before {
     content: '';
     position: absolute;
     top: -80px;
-    left: 0;
+    left: -30px;
     transform: rotate(45deg);
     background-color: var(--black);
     z-index: -1;
     transition: var(--transition);
-    width: 100%;
+    width: 150%;
+    border-radius: 100%;
+}
+
+.button::before {
     height: 0;
 }
 
 .button:hover::before {
     height: 500%;
-    transition: var(--transition);
-    border-radius: 100%;
 }
 
-.button:hover {
+.button:hover, .button:disabled {
     color: var(--white);
+}
+
+.button:disabled {
+    cursor: not-allowed;
+    background-color: var(--black);
+}
+
+.loader {
+    animation: spinLoad 1.5s linear infinite;
+}
+
+@keyframes spinLoad {
+    to {
+        transform: rotate(1turn);
+    }
 }
