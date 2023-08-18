@@ -5,7 +5,7 @@ import Image from "next/image";
 import {FaArrowLeft} from "react-icons/fa";
 
 import "@/app/globals.css";
-import styles from '/src/pages/login.module.css';
+import styles from '/src/styles/pages/login.module.css';
 import Link from "next/link";
 import IconInput from "@/components/IconInput";
 import {MdEmail} from "react-icons/md";
