@@ -1,58 +1,65 @@
 import {NextResponse} from "next/server";
 import {Prisma, PrismaClient} from "@prisma/client";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
 const ERROR_MESSAGES = {
-    MISSING_FIELDS: 'Veuillez renseigner tous les champs (email, password)',
-    INVALID_EMAIL: 'Veuillez fournir une adresse e-mail valide',
-    EMAIL_EXISTS: 'Un compte avec cet e-mail existe déjà',
-    SUCCESS: 'Utilisateur créé avec succès'
+    MISSING_FIELDS: 'Veuillez renseigner tous les champs.',
+    INVALID_EMAIL: 'Veuillez fournir une adresse e-mail valide.',
+    EMAIL_EXISTS: 'Un compte avec cet e-mail existe déjà.',
+    SUCCESS: 'Utilisateur créé avec succès.',
+    NO_USER_FOUND: 'Aucun utilisateur trouvé.',
 };
 
 export async function GET() {
 
     const users = await prisma.user.findMany();
 
+    if (!users) {
+        return NextResponse.json({message: ERROR_MESSAGES.NO_USER_FOUND}, {status: 404});
+    }
+
     return NextResponse.json({
-        total: users.length,
-        list: users,
-    });
+        total: users.length, list: users,
+    }, {status: 200});
 }
 
-export async function POST(request, res) {
+export async function POST(req, res) {
 
-    const requestBodyText = await request.text();
+    const requestBodyText = await req.text();
 
     try {
         const requestBody = JSON.parse(requestBodyText);
         const {email = '', password = ''} = requestBody;
 
         if (!email || !password) {
-            return NextResponse.json({message: ERROR_MESSAGES.MISSING_FIELDS});
+            return NextResponse.json({message: ERROR_MESSAGES.MISSING_FIELDS}, {status: 400});
         }
 
         if (!isValidEmail(email)) {
-            return NextResponse.json({message: ERROR_MESSAGES.INVALID_EMAIL});
+            return NextResponse.json({message: ERROR_MESSAGES.INVALID_EMAIL}, {status: 422});
         }
 
-        const saltRounds = 10;
-        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = bcrypt.hashSync(password, salt);
 
         const user = await prisma.user.create({
             data: {
-                email,
-                password: hashedPassword,
+                email, password: hashedPassword,
             },
         });
 
-        return NextResponse.json({message: ERROR_MESSAGES.SUCCESS, user});
+        return NextResponse.json({
+            message: ERROR_MESSAGES.SUCCESS, user: {
+                id: user.id, email: user.email
+            }
+        }, {status: 201});
 
     } catch (error) {
 
         if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
-            return NextResponse.json({message: ERROR_MESSAGES.EMAIL_EXISTS});
+            return NextResponse.json({message: ERROR_MESSAGES.EMAIL_EXISTS}, {status: 409});
         }
 
         return NextResponse.error(error, {status: 500});

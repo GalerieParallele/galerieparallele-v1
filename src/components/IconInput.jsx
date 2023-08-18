@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import '../app/globals.css'
 import styles from '@/styles/components/IconInput.module.css';
 
-function IconInput({IconComponent, label, type, ...inputProps}) {
+function IconInput({IconComponent, label, type, required, ...inputProps}) {
     return (
         <div>
             <div className={styles.top}>
@@ -15,6 +15,7 @@ function IconInput({IconComponent, label, type, ...inputProps}) {
             <input
                 type={type} {...inputProps}
                 className={styles.input}
+                required={required}
             />
         </div>
     );
@@ -23,11 +24,13 @@ function IconInput({IconComponent, label, type, ...inputProps}) {
 IconInput.propTypes = {
     IconComponent: PropTypes.elementType,
     label: PropTypes.string.isRequired,
-    type: PropTypes.string
+    type: PropTypes.string,
+    required: PropTypes.bool
 };
 
 IconInput.defaultProps = {
-    type: 'text'
+    type: 'text',
+    required: true
 };
 
 export default IconInput;
