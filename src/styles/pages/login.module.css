@@ -65,3 +65,13 @@
     flex-direction: column;
     gap: 25px;
 }
+
+.head h4 {
+    padding-bottom: 5px;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+}
+
+.head h4.activeSection {
+    border-bottom: 3px solid var(--black);
+}
