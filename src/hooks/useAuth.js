@@ -28,7 +28,9 @@ export function AuthProvider({children}) {
             const data = await response.json();
 
             if (response.status === 200 && data.id && data.email) {
+
                 setUser(data);
+
                 return {user: data};
             } else {
                 return {error: data.message};
@@ -61,8 +63,23 @@ export function AuthProvider({children}) {
         }
     }, []);
 
-    const signOut = useCallback(() => {
-        setUser(null);
+    /**
+     * Permet la déconnexion de l'utilisateur.
+     *
+     * @return {Promise<boolean>} True si la déconnexion a réussi, false sinon.
+     */
+    const signOut = useCallback(async () => {
+
+        const response = await fetch('/api/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.status === 200) {
+            setUser(null)
+        }
     }, []);
 
     return (
