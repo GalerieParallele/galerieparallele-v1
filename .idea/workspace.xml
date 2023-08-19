@@ -4,16 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Terminé : Impossible de lire le token dans le cookie">
-      <change afterPath="$PROJECT_DIR$/src/constants/CONFIG.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/constants/ToastConfig.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/constants/Util.js" afterDir="false" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Clean-up du code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/users/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/users/route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/authentication/AlreadyLoginComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/AlreadyLoginComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/authentication/LoginComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/LoginComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/authentication/RegisterComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/RegisterComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useAuth.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +102,7 @@
       <workItem from="1692291046849" duration="3349000" />
       <workItem from="1692364352889" duration="15024000" />
       <workItem from="1692423584874" duration="17746000" />
-      <workItem from="1692456866336" duration="4337000" />
+      <workItem from="1692456866336" duration="5274000" />
     </task>
     <task id="LOCAL-00001" summary="API - User get/create : ok">
       <option name="closed" value="true" />
@@ -248,7 +240,15 @@
       <option name="project" value="LOCAL" />
       <updated>1692441452345</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Clean-up du code">
+      <option name="closed" value="true" />
+      <created>1692461213831</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1692461213831</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,6 +272,7 @@
     <MESSAGE value="Update authentication" />
     <MESSAGE value="Auth cookie : OK" />
     <MESSAGE value="Terminé : Impossible de lire le token dans le cookie" />
-    <option name="LAST_COMMIT_MESSAGE" value="Terminé : Impossible de lire le token dans le cookie" />
+    <MESSAGE value="Clean-up du code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Clean-up du code" />
   </component>
 </project>
