@@ -52,7 +52,7 @@ export default function LoginComponent() {
                 title: MESSAGES.LOGIN_SUCCESS
             });
 
-        }, []
+        }, [email, password, signIn]
     )
 
     return (
@@ -70,9 +70,19 @@ export default function LoginComponent() {
                 onChange={(e) => setPassword(e.target.value)}
             />
             <Button
+                disabled={!isValidEmail(email) || !checkPassword(password)}
                 text={"Connexion"}
                 onClick={handleSubmit}
                 isLoading={loading}/>
         </>
     )
+}
+
+function checkPassword(password) {
+    return password.length >= 8;
+}
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
 }

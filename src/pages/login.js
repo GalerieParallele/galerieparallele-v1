@@ -14,20 +14,21 @@ import AlreadyLoginComponent from "@/components/authentication/AlreadyLoginCompo
 
 import {FaArrowLeft} from "react-icons/fa";
 
-
 export default function Login() {
 
     const [login, setLogin] = React.useState(true);
-    const randomImageNumber = chooseRandomNumber();
+
+    const imageNumber = chooseRandomNumber();
 
     const {user} = useAuth();
 
     return (<main className={styles.main}>
         <div className={styles.left}>
             <Image
-                src={`/assets/img/login/login${randomImageNumber}.jpg`}
-                alt={`Photo d'illustration de connexion numéro ${randomImageNumber}`}
+                src={`/assets/img/login/login${imageNumber}.jpg`}
+                alt={`Photo d'illustration de connexion numéro ${imageNumber}`}
                 width={500} height={500}
+                priority
             />
         </div>
         <div className={styles.right}>

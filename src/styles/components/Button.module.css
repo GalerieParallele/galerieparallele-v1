@@ -8,12 +8,13 @@
     font-size: 17px;
     background-color: transparent;
     color: var(--black);
-    width: var(--button-width);
+    min-width: var(--button-width);
     height: var(--button-height);
     border-radius: var(--border-radius);
     border: 2px solid var(--black);
     transition: var(--transition);
     cursor: pointer;
+    padding: 0 8px;
     outline: none;
     overflow: hidden;
     display: flex;
@@ -49,6 +50,7 @@
 .button:disabled {
     cursor: not-allowed;
     background-color: var(--black);
+    opacity: 0.5;
 }
 
 .loader {

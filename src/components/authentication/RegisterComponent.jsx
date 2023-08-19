@@ -60,7 +60,7 @@ export default function RegisterComponent() {
                 title: MESSAGES.REGISTER_SUCCESS
             });
 
-        }, []
+        }, [email, password, confirmPassword, signUp]
     )
 
 
@@ -86,9 +86,19 @@ export default function RegisterComponent() {
                 onChange={(e) => setConfirm(e.target.value)}
             />
             <Button
+                disabled={!isValidEmail(email) || !checkPassword(password) || password !== confirmPassword}
                 text={"Inscription"}
                 onClick={handleSubmit}
                 isLoading={loading}/>
         </>
     )
+}
+
+function checkPassword(password) {
+    return password.length >= 8;
+}
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
 }

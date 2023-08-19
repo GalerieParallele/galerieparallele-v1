@@ -2,6 +2,7 @@ import {PrismaClient} from "@prisma/client";
 import {NextResponse} from "next/server";
 
 import bcrypt from "bcryptjs";
+import jwt from 'jsonwebtoken';
 
 const prisma = new PrismaClient();
 
@@ -33,11 +34,22 @@ export async function POST(req, res) {
 
         if (!match) {
             return NextResponse.json({message: ERROR_MESSAGES.INCORRECT_INFORMATIONS}, {status: 401});
-
         }
 
+        const token = jwt.sign({
+            user: {
+                id: user.id,
+                email: user.email
+            }
+        }, process.env.JWT);
 
-        return NextResponse.json({id: user.id, email: user.email}, {status: 200});
+        return NextResponse.json({
+                id: user.id,
+                email: user.email,
+                token: token
+            },
+            {status: 200},
+            {headers: {'Set-Cookie': `token=${token}; HttpOnly; Path=/; Max-Age=${7 * 24 * 60 * 60}; SameSite=Lax; ${process.env.ENV === 'production' ? 'Secure' : ''}`}});
 
     } catch (error) {
 
