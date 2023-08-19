@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 
 import IconInput from "@/components/IconInput";
 import Button from "@/components/Button";
@@ -29,30 +29,31 @@ export default function LoginComponent() {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = useCallback(async (e) => {
 
-        e.preventDefault();
+            e.preventDefault();
 
-        setLoading(true)
+            setLoading(true)
 
-        const {user, error} = await signIn(email, password);
+            const {error} = await signIn(email, password);
 
-        setLoading(false)
+            setLoading(false)
 
-        if (error) {
+            if (error) {
+                await Toast.fire({
+                    icon: 'error',
+                    title: error
+                })
+                return;
+            }
+
             await Toast.fire({
-                icon: 'error',
-                title: error
-            })
-            return;
-        }
+                icon: 'success',
+                title: MESSAGES.LOGIN_SUCCESS
+            });
 
-        await Toast.fire({
-            icon: 'success',
-            title: MESSAGES.LOGIN_SUCCESS
-        });
-
-    }
+        }, []
+    )
 
     return (
         <>

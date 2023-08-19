@@ -3,7 +3,7 @@ import IconInput from "@/components/IconInput";
 import {MdEmail} from "react-icons/md";
 import {FiLock} from "react-icons/fi";
 import Button from "@/components/Button";
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import {useAuth} from "@/hooks/useAuth";
 import Swal from "sweetalert2";
 
@@ -29,38 +29,39 @@ export default function RegisterComponent() {
     const [confirmPassword, setConfirm] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = useCallback(async (e) => {
 
-        e.preventDefault();
+            e.preventDefault();
 
-        if (password !== confirmPassword) {
+            if (password !== confirmPassword) {
+                await Toast.fire({
+                    icon: 'error',
+                    title: MESSAGES.DIFFERENT_PASSWORDS
+                })
+                return;
+            }
+
+            setLoading(true)
+
+            const {error} = await signUp(email, password);
+
+            setLoading(false)
+
+            if (error) {
+                await Toast.fire({
+                    icon: 'error',
+                    title: error
+                })
+                return;
+            }
+
             await Toast.fire({
-                icon: 'error',
-                title: MESSAGES.DIFFERENT_PASSWORDS
-            })
-            return;
-        }
+                icon: 'success',
+                title: MESSAGES.REGISTER_SUCCESS
+            });
 
-        setLoading(true)
-
-        const {error} = await signUp(email, password);
-
-        setLoading(false)
-
-        if (error) {
-            await Toast.fire({
-                icon: 'error',
-                title: error
-            })
-            return;
-        }
-
-        await Toast.fire({
-            icon: 'success',
-            title: MESSAGES.REGISTER_SUCCESS
-        });
-
-    }
+        }, []
+    )
 
 
     return (
