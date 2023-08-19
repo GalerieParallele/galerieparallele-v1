@@ -1,25 +1,19 @@
 import React, {useCallback, useState} from "react";
 
+import {useAuth} from "@/hooks/useAuth";
+import {checkPassword, isValidEmail} from "@/constants/Util";
+
 import IconInput from "@/components/IconInput";
 import Button from "@/components/Button";
 
 import {MdEmail} from "react-icons/md";
 import {FiLock} from "react-icons/fi";
 
-import {useAuth} from "@/hooks/useAuth";
-import Swal from "sweetalert2";
+import {Toast} from "@/constants/ToastConfig";
 
 const MESSAGES = {
     LOGIN_SUCCESS: "Vous êtes désormais connecté.",
 }
-
-const Toast = Swal.mixin({
-    toast: true,
-    position: 'bottom-right',
-    showConfirmButton: false,
-    timer: 4000,
-    timerProgressBar: false,
-})
 
 export default function LoginComponent() {
 
@@ -76,13 +70,4 @@ export default function LoginComponent() {
                 isLoading={loading}/>
         </>
     )
-}
-
-function checkPassword(password) {
-    return password.length >= 8;
-}
-
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
 }
