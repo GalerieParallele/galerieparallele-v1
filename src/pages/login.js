@@ -8,17 +8,19 @@ import Link from "next/link";
 import "@/app/globals.css";
 import styles from '/src/styles/pages/login.module.css';
 
-import LoginComponent from "@/components/LoginComponent";
-import RegisterComponent from "@/components/RegisterComponent";
+import LoginComponent from "@/components/authentication/LoginComponent";
+import RegisterComponent from "@/components/authentication/RegisterComponent";
+import AlreadyLoginComponent from "@/components/authentication/AlreadyLoginComponent";
 
 import {FaArrowLeft} from "react-icons/fa";
+
 
 export default function Login() {
 
     const [login, setLogin] = React.useState(true);
     const randomImageNumber = chooseRandomNumber();
 
-    const {signIn, user} = useAuth();
+    const {user} = useAuth();
 
     return (<main className={styles.main}>
         <div className={styles.left}>
@@ -33,23 +35,32 @@ export default function Login() {
                 <FaArrowLeft className={styles.icon}/>
             </Link>
             <div className={styles.authSpace}>
-                <div className={styles.head}>
-                    <h4
-                        className={login ? styles.activeSection : ""}
-                        onClick={() => setLogin(true)}
-                    >
-                        Connexion
-                    </h4>
-                    <h4
-                        className={!login ? styles.activeSection : ""}
-                        onClick={() => setLogin(false)}
-                    >
-                        Inscription
-                    </h4>
-                </div>
-                <form className={styles.inputs}>
-                    {login ? <LoginComponent/> : <RegisterComponent/>}
-                </form>
+
+                {(user ? (
+                    <>
+                        <AlreadyLoginComponent/>
+                    </>
+                ) : (
+                    <>
+                        <div className={styles.head}>
+                            <h4
+                                className={login ? styles.activeSection : ""}
+                                onClick={() => setLogin(true)}
+                            >
+                                Connexion
+                            </h4>
+                            <h4
+                                className={!login ? styles.activeSection : ""}
+                                onClick={() => setLogin(false)}
+                            >
+                                Inscription
+                            </h4>
+                        </div>
+                        <form className={styles.inputs}>
+                            {login ? <LoginComponent/> : <RegisterComponent/>}
+                        </form>
+                    </>
+                ))}
             </div>
         </div>
     </main>);
