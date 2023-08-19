@@ -27,7 +27,7 @@ export function AuthProvider({children}) {
 
             const data = await response.json();
 
-            if (response.status === 200 && data.id && data.email) {
+            if (response.status === 200 && data.id) {
 
                 setUser(data);
 
@@ -52,7 +52,7 @@ export function AuthProvider({children}) {
 
             const data = await response.json();
 
-            if (response.status === 201 && data.user.id && data.user.email) {
+            if (response.status === 201 && data.id) {
                 setUser(data);
                 return {user: data};
             } else {

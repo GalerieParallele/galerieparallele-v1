@@ -6,7 +6,7 @@ import {useAuth} from "@/hooks/useAuth";
 
 export default function AlreadyLoginComponent() {
 
-    const {user, signOut} = useAuth();
+    const {signOut} = useAuth();
 
     const [loading, setLoading] = useState(false);
 
@@ -28,7 +28,6 @@ export default function AlreadyLoginComponent() {
             <h2>Vous êtes connecté</h2>
             <p>Vous pouvez maintenant accéder à votre espace personnel</p>
             <br/>
-            <p>E-mail: {user.email}</p>
             <Button
                 onClick={handleSubmit}
                 text={"Déconnexion"}
