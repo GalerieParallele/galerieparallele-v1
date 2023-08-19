@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 
 import Button from "@/components/Button";
 
@@ -22,6 +22,24 @@ export default function AlreadyLoginComponent() {
         setLoading(false);
 
     }, [])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch('/api/users/me', {
+                method: 'POST',
+                credentials: 'include',
+            });
+
+            if (response.status === 200) {
+                console.log("Code 200");
+            } else {
+                console.log("Code 401");
+            }
+        };
+
+        fetchData();
+    }, []);
+
 
     return (
         <>
