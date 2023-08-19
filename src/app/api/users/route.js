@@ -5,10 +5,11 @@ import {Prisma, PrismaClient} from "@prisma/client";
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 import AUTH from "@/constants/AUTH";
+import {isValidEmail} from "@/constants/Util";
 
 const prisma = new PrismaClient();
 
-const ERROR_MESSAGES = {
+const MESSAGES = {
     MISSING_FIELDS: 'Veuillez renseigner tous les champs.',
     INVALID_EMAIL: 'Veuillez fournir une adresse e-mail valide.',
     EMAIL_EXISTS: 'Un compte avec cet e-mail existe déjà.',
@@ -21,7 +22,7 @@ export async function GET() {
     const users = await prisma.user.findMany();
 
     if (!users) {
-        return NextResponse.json({message: ERROR_MESSAGES.NO_USER_FOUND}, {status: 404});
+        return NextResponse.json({message: MESSAGES.NO_USER_FOUND}, {status: 404});
     }
 
     return NextResponse.json({
@@ -38,11 +39,11 @@ export async function POST(req, res) {
         const {email = '', password = ''} = requestBody;
 
         if (!email || !password) {
-            return NextResponse.json({message: ERROR_MESSAGES.MISSING_FIELDS}, {status: 400});
+            return NextResponse.json({message: MESSAGES.MISSING_FIELDS}, {status: 400});
         }
 
         if (!isValidEmail(email)) {
-            return NextResponse.json({message: ERROR_MESSAGES.INVALID_EMAIL}, {status: 422});
+            return NextResponse.json({message: MESSAGES.INVALID_EMAIL}, {status: 422});
         }
 
         const salt = bcrypt.genSaltSync(10);
@@ -62,7 +63,7 @@ export async function POST(req, res) {
         }, process.env.JWT, {expiresIn: AUTH.TOKEN_EXPIRATION_TIME});
 
         return NextResponse.json({
-                message: ERROR_MESSAGES.SUCCESS,
+                message: MESSAGES.SUCCESS,
                 user: {
                     id: user.id,
                 }
@@ -77,7 +78,7 @@ export async function POST(req, res) {
     } catch (error) {
 
         if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
-            return NextResponse.json({message: ERROR_MESSAGES.EMAIL_EXISTS}, {status: 409});
+            return NextResponse.json({message: MESSAGES.EMAIL_EXISTS}, {status: 409});
         }
 
         return NextResponse.error(error, {status: 500});
@@ -87,9 +88,4 @@ export async function POST(req, res) {
         await prisma.$disconnect();
 
     }
-}
-
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
 }

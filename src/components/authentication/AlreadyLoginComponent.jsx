@@ -1,8 +1,13 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useState} from "react";
 
 import Button from "@/components/Button";
 
 import {useAuth} from "@/hooks/useAuth";
+import {Toast} from "@/constants/ToastConfig";
+
+const MESSAGES = {
+    SUCCESS: "Déconnexion réussie.",
+}
 
 export default function AlreadyLoginComponent() {
 
@@ -19,27 +24,14 @@ export default function AlreadyLoginComponent() {
 
         await signOut();
 
+        await Toast.fire({
+            icon: 'success',
+            title: MESSAGES.SUCCESS
+        })
+
         setLoading(false);
 
-    }, [])
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch('/api/users/me', {
-                method: 'POST',
-                credentials: 'include',
-            });
-
-            if (response.status === 200) {
-                console.log("Code 200");
-            } else {
-                console.log("Code 401");
-            }
-        };
-
-        fetchData();
-    }, []);
-
+    }, [signOut])
 
     return (
         <>

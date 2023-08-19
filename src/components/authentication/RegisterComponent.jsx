@@ -1,24 +1,22 @@
+import React, {useCallback, useState} from "react";
+
+import {useAuth} from "@/hooks/useAuth";
+
+import Button from "@/components/Button";
 import IconInput from "@/components/IconInput";
 
 import {MdEmail} from "react-icons/md";
 import {FiLock} from "react-icons/fi";
-import Button from "@/components/Button";
-import React, {useCallback, useState} from "react";
-import {useAuth} from "@/hooks/useAuth";
-import Swal from "sweetalert2";
+
+
+import {Toast} from "@/constants/ToastConfig";
+import {checkPassword, isValidEmail} from "@/constants/Util";
 
 const MESSAGES = {
     DIFFERENT_PASSWORDS: "Les mots de passe ne correspondent pas",
-    REGISTER_SUCCESS: "Vous êtes désormais inscrit."
+    REGISTER_SUCCESS: "Inscription réussie"
 }
 
-const Toast = Swal.mixin({
-    toast: true,
-    position: 'bottom-right',
-    showConfirmButton: false,
-    timer: 4000,
-    timerProgressBar: false,
-})
 
 export default function RegisterComponent() {
 
@@ -43,7 +41,10 @@ export default function RegisterComponent() {
 
             setLoading(true)
 
-            const {error} = await signUp(email, password);
+            const response = await signUp(email, password);
+
+            const {error} = response;
+
 
             setLoading(false)
 
@@ -92,13 +93,4 @@ export default function RegisterComponent() {
                 isLoading={loading}/>
         </>
     )
-}
-
-function checkPassword(password) {
-    return password.length >= 8;
-}
-
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
 }
