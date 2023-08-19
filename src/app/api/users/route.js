@@ -1,6 +1,10 @@
 import {NextResponse} from "next/server";
+
 import {Prisma, PrismaClient} from "@prisma/client";
+
 import bcrypt from "bcryptjs";
+import jwt from 'jsonwebtoken';
+import AUTH from "@/constants/AUTH";
 
 const prisma = new PrismaClient();
 
@@ -50,11 +54,25 @@ export async function POST(req, res) {
             },
         });
 
-        return NextResponse.json({
-            message: ERROR_MESSAGES.SUCCESS, user: {
-                id: user.id, email: user.email
+
+        const token = jwt.sign({
+            user: {
+                id: user.id,
             }
-        }, {status: 201});
+        }, process.env.JWT, {expiresIn: AUTH.TOKEN_EXPIRATION_TIME});
+
+        return NextResponse.json({
+                message: ERROR_MESSAGES.SUCCESS,
+                user: {
+                    id: user.id,
+                }
+            },
+            {
+                status: 201,
+                headers: {
+                    'Set-Cookie': `token=${token};HttpOnly;Max-Age=${AUTH.COOKIE_MAX_AGE}; ${AUTH.sameSiteSetting}${AUTH.secureCookieFlag}Path=/`
+                }
+            });
 
     } catch (error) {
 
