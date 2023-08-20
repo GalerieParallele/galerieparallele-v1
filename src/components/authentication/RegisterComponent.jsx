@@ -12,6 +12,8 @@ import {FiLock} from "react-icons/fi";
 import {Toast} from "@/constants/ToastConfig";
 import {checkPassword, isValidEmail} from "@/constants/Util";
 
+import styles from "@/styles/pages/login.module.css";
+
 const MESSAGES = {
     DIFFERENT_PASSWORDS: "Les mots de passe ne correspondent pas",
     REGISTER_SUCCESS: "Inscription réussie"
@@ -72,19 +74,21 @@ export default function RegisterComponent() {
                 IconComponent={MdEmail}
                 type={"email"}
                 onChange={(e) => setEmail(e.target.value)}
-
+                className={styles.input}
             />
             <IconInput
                 label={"Mot de passe"}
                 IconComponent={FiLock}
                 type={"password"}
                 onChange={(e) => setPassword(e.target.value)}
+                className={styles.input}
             />
             <IconInput
                 label={"Confirmer le mot de passe"}
                 IconComponent={FiLock}
                 type={"password"}
                 onChange={(e) => setConfirm(e.target.value)}
+                className={styles.input}
             />
             <Button
                 disabled={!isValidEmail(email) || !checkPassword(password) || password !== confirmPassword}

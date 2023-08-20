@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Clean-up du code">
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Modification docker-compose.yml">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/authentication/LoginComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/LoginComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/authentication/RegisterComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/RegisterComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/components/IconInput.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/IconInput.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/pages/login.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/pages/login.module.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +106,8 @@
       <workItem from="1692291046849" duration="3349000" />
       <workItem from="1692364352889" duration="15024000" />
       <workItem from="1692423584874" duration="17746000" />
-      <workItem from="1692456866336" duration="5274000" />
+      <workItem from="1692456866336" duration="6010000" />
+      <workItem from="1692555218865" duration="2210000" />
     </task>
     <task id="LOCAL-00001" summary="API - User get/create : ok">
       <option name="closed" value="true" />
@@ -248,7 +253,15 @@
       <option name="project" value="LOCAL" />
       <updated>1692461213831</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Modification docker-compose.yml">
+      <option name="closed" value="true" />
+      <created>1692462379528</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1692462379528</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -273,6 +286,7 @@
     <MESSAGE value="Auth cookie : OK" />
     <MESSAGE value="Terminé : Impossible de lire le token dans le cookie" />
     <MESSAGE value="Clean-up du code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Clean-up du code" />
+    <MESSAGE value="Modification docker-compose.yml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modification docker-compose.yml" />
   </component>
 </project>
