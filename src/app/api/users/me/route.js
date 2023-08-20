@@ -3,6 +3,7 @@ import {NextResponse} from "next/server";
 import {PrismaClient} from "@prisma/client";
 
 import jwt from "jsonwebtoken";
+import {cookies} from "next/headers";
 
 const prisma = new PrismaClient();
 
@@ -13,7 +14,7 @@ const MESSAGES = {
 
 export async function POST(req, res) {
 
-    const tokenFromCookie = req.cookies.token;
+    const tokenFromCookie = cookies().get("token").value;
 
     if (!tokenFromCookie) {
         return NextResponse.json({message: MESSAGES.NO_TOKEN}, {status: 401});

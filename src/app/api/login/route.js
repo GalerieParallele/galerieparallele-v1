@@ -5,6 +5,7 @@ import AUTH from "@/constants/AUTH";
 
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
+import {cookies} from "next/headers";
 
 const prisma = new PrismaClient();
 
@@ -48,14 +49,19 @@ export async function POST(req, res) {
             }
         }, process.env.JWT, {expiresIn: AUTH.TOKEN_EXPIRATION_TIME});
 
+        cookies().set('token', token, {
+            httpOnly: true,
+            maxAge: AUTH.COOKIE_MAX_AGE,
+            sameSite: AUTH.sameSiteSetting,
+            secure: AUTH.secureCookieFlag,
+            path: '/'
+        });
+
         return NextResponse.json({
                 id: user.id,
             },
             {
                 status: 200,
-                headers: {
-                    'Set-Cookie': `token=${token};HttpOnly;Max-Age=${AUTH.COOKIE_MAX_AGE}; ${AUTH.sameSiteSetting}${AUTH.secureCookieFlag}Path=/`
-                }
             });
 
 
