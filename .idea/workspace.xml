@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Style : authentification responsive">
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="route /me : update error message">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/login/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/login/route.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/api/users/me/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/users/me/route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/AUTH.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/AUTH.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useAuth.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +105,7 @@
       <workItem from="1692364352889" duration="15024000" />
       <workItem from="1692423584874" duration="17746000" />
       <workItem from="1692456866336" duration="6010000" />
-      <workItem from="1692555218865" duration="5402000" />
+      <workItem from="1692555218865" duration="6169000" />
     </task>
     <task id="LOCAL-00001" summary="API - User get/create : ok">
       <option name="closed" value="true" />
@@ -268,7 +267,15 @@
       <option name="project" value="LOCAL" />
       <updated>1692557554247</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="route /me : update error message">
+      <option name="closed" value="true" />
+      <created>1692560763261</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1692560763261</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,6 +302,7 @@
     <MESSAGE value="Clean-up du code" />
     <MESSAGE value="Modification docker-compose.yml" />
     <MESSAGE value="Style : authentification responsive" />
-    <option name="LAST_COMMIT_MESSAGE" value="Style : authentification responsive" />
+    <MESSAGE value="route /me : update error message" />
+    <option name="LAST_COMMIT_MESSAGE" value="route /me : update error message" />
   </component>
 </project>
