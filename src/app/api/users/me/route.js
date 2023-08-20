@@ -33,8 +33,6 @@ export async function POST(req, res) {
         return NextResponse.json({id: user.id, email: user.email}, {status: 200})
 
     } catch (err) {
-
-        return NextResponse.json({message: MESSAGES.NO_TOKEN}, {status: 400});
-
+        return NextResponse.json({message: MESSAGES.INVALID_TOKEN}, {status: 400});
     }
 }
