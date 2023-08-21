@@ -43,3 +43,21 @@ h2 {
 h1 {
     font-size: 36px;
 }
+
+.spin {
+    animation: spinLoad 1.5s linear infinite;
+}
+
+.littleSpin {
+    font-size: 18px;
+}
+
+.bigSpin {
+    font-size: 36px;
+}
+
+@keyframes spinLoad {
+    to {
+        transform: rotate(1turn);
+    }
+}

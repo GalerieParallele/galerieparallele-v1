@@ -1,7 +1,10 @@
 import React from 'react';
 
 import styles from '../styles/components/Button.module.css';
-import {ImSpinner6} from "react-icons/im";
+
+import "../app/globals.css"
+
+import LittleSpinner from "@/components/LittleSpinner";
 
 export default function Button({text, isLoading, onClick, disabled}) {
     return (
@@ -18,7 +21,7 @@ export default function Button({text, isLoading, onClick, disabled}) {
                 disabled={isLoading}
                 onClick={onClick}
             >
-                {isLoading ? <ImSpinner6 className={styles.loader}/> : text}
+                {isLoading ? <LittleSpinner/> : text}
             </button>
         )
     );

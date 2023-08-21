@@ -11,8 +11,10 @@ import styles from '/src/styles/pages/login.module.css';
 import LoginComponent from "@/components/authentication/LoginComponent";
 import RegisterComponent from "@/components/authentication/RegisterComponent";
 import AlreadyLoginComponent from "@/components/authentication/AlreadyLoginComponent";
+import BigSpinner from "@/components/BigSpinner";
 
 import {FaArrowLeft} from "react-icons/fa";
+
 
 export default function Login() {
 
@@ -20,7 +22,7 @@ export default function Login() {
 
     const imageNumber = chooseRandomNumber();
 
-    const {user} = useAuth();
+    const {user, isLoading} = useAuth();
 
     return (<main className={styles.main}>
         <div className={styles.left}>
@@ -37,31 +39,33 @@ export default function Login() {
             </Link>
             <div className={styles.authSpace}>
 
-                {(user ? (
-                    <>
-                        <AlreadyLoginComponent/>
-                    </>
-                ) : (
-                    <>
-                        <div className={styles.head}>
-                            <h4
-                                className={login ? styles.activeSection : ""}
-                                onClick={() => setLogin(true)}
-                            >
-                                Connexion
-                            </h4>
-                            <h4
-                                className={!login ? styles.activeSection : ""}
-                                onClick={() => setLogin(false)}
-                            >
-                                Inscription
-                            </h4>
-                        </div>
-                        <form className={styles.inputs}>
-                            {login ? <LoginComponent/> : <RegisterComponent/>}
-                        </form>
-                    </>
-                ))}
+                {isLoading ? (<BigSpinner/>) : (
+                    (user ? (
+                        <>
+                            <AlreadyLoginComponent/>
+                        </>
+                    ) : (
+                        <>
+                            <div className={styles.head}>
+                                <h4
+                                    className={login ? styles.activeSection : ""}
+                                    onClick={() => setLogin(true)}
+                                >
+                                    Connexion
+                                </h4>
+                                <h4
+                                    className={!login ? styles.activeSection : ""}
+                                    onClick={() => setLogin(false)}
+                                >
+                                    Inscription
+                                </h4>
+                            </div>
+                            <form className={styles.inputs}>
+                                {login ? <LoginComponent/> : <RegisterComponent/>}
+                            </form>
+                        </>
+                    ))
+                )}
             </div>
         </div>
     </main>);

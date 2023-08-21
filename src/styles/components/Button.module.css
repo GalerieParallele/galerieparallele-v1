@@ -52,13 +52,3 @@
     background-color: var(--black);
     opacity: 0.5;
 }
-
-.loader {
-    animation: spinLoad 1.5s linear infinite;
-}
-
-@keyframes spinLoad {
-    to {
-        transform: rotate(1turn);
-    }
-}
