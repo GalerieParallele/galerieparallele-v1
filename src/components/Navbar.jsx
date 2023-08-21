@@ -24,14 +24,26 @@ export default function Navbar() {
                     </button>
                 </div>
                 <div className={styles.center}>
-                    <Link href="/">
-                        <Image
-                            src={"/assets/img/dark-name-w-logo.svg"}
-                            alt={"logo"}
-                            width={200}
-                            height={200}
-                            priority/>
-                    </Link>
+                    <div className={styles.bigLogoName}>
+                        <Link href="/">
+                            <Image
+                                src={"/assets/img/dark-name-w-logo.svg"}
+                                alt={"logo"}
+                                width={200}
+                                height={200}
+                                priority/>
+                        </Link>
+                    </div>
+                    <div className={styles.littleLogoName}>
+                        <Link href="/">
+                            <Image
+                                src={"/assets/img/dark-logo.svg"}
+                                alt={"logo"}
+                                width={30}
+                                height={30}
+                                priority/>
+                        </Link>
+                    </div>
                 </div>
                 <div className={styles.right}>
                     <Link href="/login">
