@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Update dockerfile (packageindex.json)">
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="UPDATE : Height navbar">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/styles/components/Navbar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/Navbar.module.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -109,7 +111,7 @@
       <workItem from="1692456866336" duration="6010000" />
       <workItem from="1692555218865" duration="6252000" />
       <workItem from="1692608638241" duration="4796000" />
-      <workItem from="1692617339161" duration="19853000" />
+      <workItem from="1692617339161" duration="20720000" />
     </task>
     <task id="LOCAL-00001" summary="API - User get/create : ok">
       <option name="closed" value="true" />
@@ -407,14 +409,21 @@
       <option name="project" value="LOCAL" />
       <updated>1692637374239</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="UPDATE : Height navbar">
+      <option name="closed" value="true" />
+      <created>1692637619067</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1692637619067</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Modification du temps d'apparition des messages (toast)" />
     <MESSAGE value="Création d'un composant permettant d'indiquer à l'utilisateur qu'il est connecté et lui proposer la déconnexion" />
     <MESSAGE value="Restructuration du projet et intégration d'un front-end différent si l'utilisateur est déjà connecté" />
     <MESSAGE value="Optimisation (usecallback) login &amp; register" />
@@ -439,6 +448,7 @@
     <MESSAGE value="Rectification" />
     <MESSAGE value="Update dockerfile (last command)" />
     <MESSAGE value="Update dockerfile (packageindex.json)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update dockerfile (packageindex.json)" />
+    <MESSAGE value="UPDATE : Height navbar" />
+    <option name="LAST_COMMIT_MESSAGE" value="UPDATE : Height navbar" />
   </component>
 </project>

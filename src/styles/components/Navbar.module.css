@@ -43,3 +43,17 @@
     gap: 5px;
     color: var(--black);
 }
+
+.littleLogoName {
+    display: none;
+}
+
+@media screen and (max-width: 450px) {
+    .littleLogoName {
+        display: block;
+    }
+
+    .bigLogoName {
+        display: none;
+    }
+}
