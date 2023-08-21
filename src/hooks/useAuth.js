@@ -14,12 +14,14 @@ export function useAuth() {
 export function AuthProvider({children}) {
 
     const [user, setUser] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     const checkAuthentication = useCallback(async () => {
 
+        setIsLoading(true)
+
         try {
-            setIsLoading(true)
+
             const response = await fetch('/api/users/me', {
                 method: 'POST',
                 headers: {
@@ -29,8 +31,6 @@ export function AuthProvider({children}) {
 
             const data = await response.json();
 
-            setIsLoading(false)
-
             if (response.status === 200) {
                 setUser(data);
             } else {
@@ -39,6 +39,8 @@ export function AuthProvider({children}) {
 
         } catch (error) {
             setUser(null);
+        } finally {
+            setIsLoading(false)
         }
     }, []);
 
@@ -47,6 +49,9 @@ export function AuthProvider({children}) {
     }, [checkAuthentication]);
 
     const signIn = useCallback(async (email, password) => {
+
+        setIsLoading(true)
+
         try {
             const response = await fetch('/api/login', {
                 method: 'POST',
@@ -68,10 +73,15 @@ export function AuthProvider({children}) {
             }
         } catch (error) {
             return {error: MESSAGES.GLOBAL_ERROR_LOGIN};
+        } finally {
+            setIsLoading(false)
         }
     }, []);
 
     const signUp = useCallback(async (email, password) => {
+
+        setIsLoading(true)
+
         try {
             const response = await fetch('/api/users', {
                 method: 'POST',
@@ -91,6 +101,8 @@ export function AuthProvider({children}) {
             }
         } catch (error) {
             return {error: MESSAGES.GLOBAL_ERROR_SIGNUP};
+        } finally {
+            setIsLoading(false)
         }
     }, []);
 
@@ -100,6 +112,8 @@ export function AuthProvider({children}) {
      * @return {Promise<boolean>} True si la déconnexion a réussi, false sinon.
      */
     const signOut = useCallback(async () => {
+
+        setIsLoading(true)
 
         const response = await fetch('/api/logout', {
             method: 'POST',
@@ -111,6 +125,9 @@ export function AuthProvider({children}) {
         if (response.status === 200) {
             setUser(null)
         }
+
+        setIsLoading(false)
+
     }, []);
 
     return (

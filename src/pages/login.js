@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {useAuth} from "@/hooks/useAuth";
 
@@ -19,27 +19,38 @@ import {FaArrowLeft} from "react-icons/fa";
 export default function Login() {
 
     const [login, setLogin] = React.useState(true);
+    const [imageNumber, setImageNumber] = useState(0);
 
-    const imageNumber = chooseRandomNumber();
+    useEffect(() => {
+        setImageNumber(chooseRandomNumber());
+    }, []);
 
     const {user, isLoading} = useAuth();
 
     return (<main className={styles.main}>
         <div className={styles.left}>
-            <Image
-                src={`/assets/img/login/login${imageNumber}.jpg`}
-                alt={`Photo d'illustration de connexion numéro ${imageNumber}`}
-                width={500} height={500}
-                priority
-            />
+            {
+                imageNumber === 0 ? (
+                    <></>
+                ) : (
+                    <Image
+                        src={`/assets/img/login/login${imageNumber}.jpg`}
+                        alt={`Photo d'illustration de connexion numéro ${imageNumber}`}
+                        width={500}
+                        height={500}
+                        priority
+                    />
+                )
+            }
         </div>
         <div className={styles.right}>
             <Link href={"/"} className={styles.iconBox}>
                 <FaArrowLeft className={styles.icon}/>
             </Link>
             <div className={styles.authSpace}>
-
-                {isLoading ? (<BigSpinner/>) : (
+                {isLoading && !user ? (
+                    <BigSpinner/>
+                ) : (
                     (user ? (
                         <>
                             <AlreadyLoginComponent/>
