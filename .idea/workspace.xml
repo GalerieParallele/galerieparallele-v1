@@ -4,18 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Mise en forme du composant affichant qu'un utilisateur est déjà connecté">
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Review structure + design button">
+      <change afterPath="$PROJECT_DIR$/public/assets/img/logo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/accueil/hero/Hero.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/components/Hero.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/pages/accueil.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/BigSpinner.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/BigSpinner.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Button.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/Button.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IconInput.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/IconInput.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/LittleSpinner.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/LittleSpinner.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/authentication/AlreadyLoginComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/AlreadyLoginComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/authentication/LoginComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/LoginComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/authentication/RegisterComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/RegisterComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/items/BigSpinner.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/BigSpinner.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/Button.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/Button.module.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,26 +39,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;12.22.9&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;12.20.55&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/neosianexus/Bureau/MOI/Dev/GP/web/galerieparallele/src/components&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/snap/webstorm/329/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "javascript.nodejs.core.library.configured.version": "12.22.9",
+    "javascript.nodejs.core.library.typings.version": "12.20.55",
+    "last_opened_file_path": "/home/neosianexus/Bureau/MOI/Dev/GP/web/galerieparallele/public/assets/img",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "/snap/webstorm/329/plugins/javascript-impl/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -72,14 +69,15 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/assets/img" />
       <recent name="$PROJECT_DIR$/src/components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/accueil" />
       <recent name="$PROJECT_DIR$/src/components/items" />
       <recent name="$PROJECT_DIR$/src/components/authentication" />
       <recent name="$PROJECT_DIR$/src/styles/components" />
       <recent name="$PROJECT_DIR$/src/styles/pages" />
-      <recent name="$PROJECT_DIR$/src/styles" />
     </key>
   </component>
   <component name="RunManager">
@@ -118,7 +116,7 @@
       <workItem from="1692456866336" duration="6010000" />
       <workItem from="1692555218865" duration="6252000" />
       <workItem from="1692608638241" duration="4796000" />
-      <workItem from="1692617339161" duration="5207000" />
+      <workItem from="1692617339161" duration="9089000" />
     </task>
     <task id="LOCAL-00001" summary="API - User get/create : ok">
       <option name="closed" value="true" />
@@ -336,14 +334,21 @@
       <option name="project" value="LOCAL" />
       <updated>1692621898032</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Review structure + design button">
+      <option name="closed" value="true" />
+      <created>1692622907231</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1692622907231</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Architecture update" />
     <MESSAGE value="Réduction de l'espace entre le top et l'input d'un IconInput" />
     <MESSAGE value="Création d'un fichier permettant le style d'un Button" />
     <MESSAGE value="Mise en forme du composant Button" />
@@ -368,6 +373,7 @@
     <MESSAGE value="Création d'une page d'accueil fictive" />
     <MESSAGE value="Minor update" />
     <MESSAGE value="Mise en forme du composant affichant qu'un utilisateur est déjà connecté" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mise en forme du composant affichant qu'un utilisateur est déjà connecté" />
+    <MESSAGE value="Review structure + design button" />
+    <option name="LAST_COMMIT_MESSAGE" value="Review structure + design button" />
   </component>
 </project>
