@@ -1,4 +1,4 @@
-import {createContext, useCallback, useContext, useState} from 'react';
+import {createContext, useCallback, useContext, useEffect, useState} from 'react';
 
 const AuthContext = createContext();
 
@@ -14,6 +14,37 @@ export function useAuth() {
 export function AuthProvider({children}) {
 
     const [user, setUser] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const checkAuthentication = useCallback(async () => {
+
+        try {
+            setIsLoading(true)
+            const response = await fetch('/api/users/me', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            const data = await response.json();
+
+            setIsLoading(false)
+
+            if (response.status === 200) {
+                setUser(data);
+            } else {
+                setUser(null);
+            }
+
+        } catch (error) {
+            setUser(null);
+        }
+    }, []);
+
+    useEffect(() => {
+        checkAuthentication();
+    }, [checkAuthentication]);
 
     const signIn = useCallback(async (email, password) => {
         try {
@@ -83,7 +114,7 @@ export function AuthProvider({children}) {
     }, []);
 
     return (
-        <AuthContext.Provider value={{user, signIn, signUp, signOut}}>
+        <AuthContext.Provider value={{user, isLoading, signIn, signUp, signOut}}>
             {children}
         </AuthContext.Provider>
     );
