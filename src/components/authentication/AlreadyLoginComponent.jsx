@@ -15,7 +15,6 @@ export default function AlreadyLoginComponent() {
 
     const [loading, setLoading] = useState(false);
 
-
     const handleSubmit = useCallback(async (e) => {
 
         e.preventDefault();
@@ -37,10 +36,6 @@ export default function AlreadyLoginComponent() {
         <>
             <h2>Vous êtes connecté</h2>
             <p>Vous pouvez maintenant accéder à votre espace personnel</p>
-            <br/>
-            <p>Email: {user.email}</p>
-            <p>Roles: {user.roles}</p>
-            <br/>
             <Button
                 onClick={handleSubmit}
                 text={"Déconnexion"}

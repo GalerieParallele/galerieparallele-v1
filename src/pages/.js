@@ -16,7 +16,7 @@ export default function () {
             <h3>Accueil</h3>
             <Link href={"/login"}>S'authentifier</Link>
 
-            {user && (
+            {!isLoading && user &&  (
                 <>
                     <p>Vous êtes connecté en tant que {user.email}</p>
                     <Button onClick={handleSignOut} text={"Se déconnecter"}/>

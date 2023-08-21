@@ -1,7 +1,6 @@
 import React, {useCallback, useState} from "react";
 
 import "../../app/globals.css";
-import styles from "../../styles/pages/login.module.css";
 
 import {useAuth} from "@/hooks/useAuth";
 import {checkPassword, isValidEmail} from "@/constants/Util";
@@ -59,14 +58,14 @@ export default function LoginComponent() {
                 IconComponent={MdEmail}
                 type={"email"}
                 onChange={(e) => setEmail(e.target.value)}
-                className={styles.input}
+                disabled={loading}
             />
             <IconInput
                 label={"Mot de passe"}
                 IconComponent={FiLock}
                 type={"password"}
                 onChange={(e) => setPassword(e.target.value)}
-                className={styles.input}
+                disabled={loading}
             />
             <Button
                 disabled={!isValidEmail(email) || !checkPassword(password)}

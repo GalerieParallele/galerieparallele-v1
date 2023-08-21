@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import "@/app/globals.css";
 
-export default function Home({users}) {
+export default function Example({users}) {
     return (
         <main>
             <ul>
