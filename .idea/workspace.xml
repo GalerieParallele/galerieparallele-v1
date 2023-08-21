@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Rectification" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Update dockerfile (last command)" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -107,7 +107,7 @@
       <workItem from="1692456866336" duration="6010000" />
       <workItem from="1692555218865" duration="6252000" />
       <workItem from="1692608638241" duration="4796000" />
-      <workItem from="1692617339161" duration="19123000" />
+      <workItem from="1692617339161" duration="19543000" />
     </task>
     <task id="LOCAL-00001" summary="API - User get/create : ok">
       <option name="closed" value="true" />
@@ -381,14 +381,29 @@
       <option name="project" value="LOCAL" />
       <updated>1692636653527</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Update dockerfile (last command)">
+      <option name="closed" value="true" />
+      <created>1692636976372</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1692636976372</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Update dockerfile (last command)">
+      <option name="closed" value="true" />
+      <created>1692637100430</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1692637100430</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Loader sur les bouton d'authentification : OK" />
     <MESSAGE value="Modification du bouton lorsqu'il est désactivé" />
     <MESSAGE value="Modification du temps d'apparition des messages (toast)" />
     <MESSAGE value="Création d'un composant permettant d'indiquer à l'utilisateur qu'il est connecté et lui proposer la déconnexion" />
@@ -413,6 +428,7 @@
     <MESSAGE value="Modification des imports de styles" />
     <MESSAGE value="Minor update" />
     <MESSAGE value="Rectification" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rectification" />
+    <MESSAGE value="Update dockerfile (last command)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update dockerfile (last command)" />
   </component>
 </project>
