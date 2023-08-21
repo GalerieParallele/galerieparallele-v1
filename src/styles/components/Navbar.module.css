@@ -1,0 +1,41 @@
+.navbar {
+    padding: 15px 20px;
+    width: 100vw;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left button {
+    font-size: 17px;
+}
+
+.center a {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    width: 100%;
+    gap: 0;
+}
+
+.center {
+    font-size: 100px;
+}
+
+.right {
+
+}
+
+.right a {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+    gap: 5px;
+    color: var(--black);
+}

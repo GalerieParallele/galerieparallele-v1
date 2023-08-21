@@ -4,9 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Hero : OK">
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Hero : rotation logo : OK">
+      <change afterPath="$PROJECT_DIR$/public/assets/img/dark-logo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/img/dark-name-w-logo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Amo.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Navbar.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/components/Amo.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/components/Navbar.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/img/logo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/white-logo.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/accueil/hero/Hero.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/accueil/hero/Hero.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +118,7 @@
       <workItem from="1692456866336" duration="6010000" />
       <workItem from="1692555218865" duration="6252000" />
       <workItem from="1692608638241" duration="4796000" />
-      <workItem from="1692617339161" duration="12634000" />
+      <workItem from="1692617339161" duration="16793000" />
     </task>
     <task id="LOCAL-00001" summary="API - User get/create : ok">
       <option name="closed" value="true" />
@@ -344,14 +352,21 @@
       <option name="project" value="LOCAL" />
       <updated>1692626990277</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Hero : rotation logo : OK">
+      <option name="closed" value="true" />
+      <created>1692630534569</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1692630534569</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Création d'un fichier permettant le style d'un Button" />
     <MESSAGE value="Mise en forme du composant Button" />
     <MESSAGE value="Style de la page d'authentification : terminée" />
     <MESSAGE value="Authentification : OK" />
@@ -376,6 +391,7 @@
     <MESSAGE value="Mise en forme du composant affichant qu'un utilisateur est déjà connecté" />
     <MESSAGE value="Review structure + design button" />
     <MESSAGE value="Hero : OK" />
-    <option name="LAST_COMMIT_MESSAGE" value="Hero : OK" />
+    <MESSAGE value="Hero : rotation logo : OK" />
+    <option name="LAST_COMMIT_MESSAGE" value="Hero : rotation logo : OK" />
   </component>
 </project>

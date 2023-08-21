@@ -50,7 +50,7 @@ export default function Hero() {
             </div>
             <div className={styles.center}>
                 <Image
-                    src={"/assets/img/logo.svg"}
+                    src={"/assets/img/white-logo.svg"}
                     alt={"test"}
                     width={200}
                     height={200}
