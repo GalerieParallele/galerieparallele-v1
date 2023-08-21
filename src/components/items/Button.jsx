@@ -1,10 +1,10 @@
 import React from 'react';
 
-import styles from '../styles/components/Button.module.css';
+import styles from '../../styles/components/Button.module.css';
 
-import "../app/globals.css"
+import "../../app/globals.css"
 
-import LittleSpinner from "@/components/LittleSpinner";
+import LittleSpinner from "@/components/items/LittleSpinner";
 
 export default function Button({text, isLoading, onClick, disabled}) {
     return (

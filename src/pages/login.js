@@ -11,7 +11,7 @@ import styles from '/src/styles/pages/login.module.css';
 import LoginComponent from "@/components/authentication/LoginComponent";
 import RegisterComponent from "@/components/authentication/RegisterComponent";
 import AlreadyLoginComponent from "@/components/authentication/AlreadyLoginComponent";
-import BigSpinner from "@/components/BigSpinner";
+import BigSpinner from "@/components/items/BigSpinner";
 
 import {FaArrowLeft} from "react-icons/fa";
 

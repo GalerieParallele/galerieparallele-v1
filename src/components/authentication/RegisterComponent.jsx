@@ -2,8 +2,8 @@ import React, {useCallback, useState} from "react";
 
 import {useAuth} from "@/hooks/useAuth";
 
-import Button from "@/components/Button";
-import IconInput from "@/components/IconInput";
+import Button from "@/components/items/Button";
+import IconInput from "@/components/items/IconInput";
 
 import {MdEmail} from "react-icons/md";
 import {FiLock} from "react-icons/fi";

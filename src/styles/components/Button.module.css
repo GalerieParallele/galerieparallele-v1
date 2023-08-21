@@ -33,14 +33,16 @@
     transition: var(--transition);
     width: 150%;
     border-radius: 100%;
-}
-
-.button::before {
     height: 0;
 }
 
 .button:not(:disabled):hover::before {
-    height: 500%;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 0;
+    transform: rotate(0deg);
 }
 
 .button:not(:disabled):hover, .button:disabled {
@@ -49,6 +51,7 @@
 
 .button:disabled {
     cursor: not-allowed;
-    background-color: var(--black);
+    background-color: var(--white);
+    color: var(--black);
     opacity: 0.5;
 }
