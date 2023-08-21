@@ -5,6 +5,8 @@ import Button from "@/components/Button";
 import {useAuth} from "@/hooks/useAuth";
 import {Toast} from "@/constants/ToastConfig";
 
+import styles from "@/styles/components/AlreadyLoginComponent.module.css";
+
 const MESSAGES = {
     SUCCESS: "Déconnexion réussie.",
 }
@@ -33,7 +35,7 @@ export default function AlreadyLoginComponent() {
     }, [signOut])
 
     return (
-        <>
+        <div className={styles.container}>
             <h2>Vous êtes connecté</h2>
             <p>Vous pouvez maintenant accéder à votre espace personnel</p>
             <Button
@@ -41,6 +43,6 @@ export default function AlreadyLoginComponent() {
                 text={"Déconnexion"}
                 isLoading={loading}
             />
-        </>
+        </div>
     );
 }
