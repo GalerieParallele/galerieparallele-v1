@@ -7,7 +7,7 @@ import Navbar from "@/components/Navbar";
 
 import BigSpinner from "@/components/items/BigSpinner";
 
-import styles from '@/styles/pages/accueil.module.css'
+import styles from '../styles/pages/accueil.module.css'
 
 export default function () {
 

@@ -5,7 +5,7 @@ import Button from "@/components/items/Button";
 import {useAuth} from "@/hooks/useAuth";
 import {Toast} from "@/constants/ToastConfig";
 
-import styles from "@/styles/components/AlreadyLoginComponent.module.css";
+import styles from "../../styles/components/AlreadyLoginComponent.module.css";
 
 const MESSAGES = {
     SUCCESS: "Déconnexion réussie.",
