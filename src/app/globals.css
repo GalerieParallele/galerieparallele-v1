@@ -46,6 +46,15 @@ h1 {
 
 .spin {
     animation: spinLoad 1.5s linear infinite;
+
+}
+
+.spinBox {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center
 }
 
 .littleSpin {
@@ -53,7 +62,7 @@ h1 {
 }
 
 .bigSpin {
-    font-size: 36px;
+    font-size: 34px;
 }
 
 @keyframes spinLoad {

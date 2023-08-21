@@ -1,27 +1,31 @@
-import Link from "next/link";
+import React from "react";
+
 import {useAuth} from "@/hooks/useAuth";
-import {useCallback} from "react";
-import Button from "@/components/items/Button";
+
+import Hero from "@/components/accueil/hero/Hero";
+import BigSpinner from "@/components/items/BigSpinner";
+
+import styles from '@/styles/pages/accueil.module.css'
 
 export default function () {
 
-    const {user, isLoading, signOut} = useAuth()
-
-    const handleSignOut = useCallback(() => {
-        signOut()
-    }, [signOut])
+    const {isLoading} = useAuth()
 
     return (
         <>
-            <h3>Accueil</h3>
-            <Link href={"/login"}>S'authentifier</Link>
+            <main className={styles.main}>
+                {isLoading ? (
+                    <BigSpinner/>
+                ) : (
+                    <>
+                        <Hero/>
+                        <div>
+                            <p className={styles.p}>salut</p>
+                        </div>
+                    </>
 
-            {!isLoading && user &&  (
-                <>
-                    <p>Vous êtes connecté en tant que {user.email}</p>
-                    <Button onClick={handleSignOut} text={"Se déconnecter"}/>
-                </>
-            )}
+                )}
+            </main>
         </>
     )
 }
