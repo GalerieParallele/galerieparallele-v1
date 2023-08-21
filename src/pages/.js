@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {useAuth} from "@/hooks/useAuth";
 import {useCallback} from "react";
-import Button from "@/components/Button";
+import Button from "@/components/items/Button";
 
 export default function () {
 

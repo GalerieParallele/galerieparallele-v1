@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from "react";
 
-import Button from "@/components/Button";
+import Button from "@/components/items/Button";
 
 import {useAuth} from "@/hooks/useAuth";
 import {Toast} from "@/constants/ToastConfig";
