@@ -8,13 +8,16 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  password String @db.VarChar(255)
-  roles    Json   @default("[\"ROLE_USER\"]")
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  password String  @db.VarChar(255)
+  roles    Json    @default("[\"ROLE_USER\"]")
+  Artist   Artist?
 }
 
-model ArtisteCategory {
-  id   Int    @id @default(autoincrement())
-  name String @db.VarChar(255)
+model Artist {
+  id     Int    @id @default(autoincrement())
+  userid Int    @unique
+  pseudo String @unique
+  User   User   @relation(fields: [userid], references: [id])
 }
