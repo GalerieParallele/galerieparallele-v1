@@ -10,6 +10,7 @@ import Amo from "@/components/Amo";
 import {useAuth} from "@/hooks/useAuth";
 
 import styles from '../styles/components/Navbar.module.css';
+import {IoIosSettings} from "react-icons/io";
 
 export default function Navbar() {
 
@@ -49,6 +50,10 @@ export default function Navbar() {
                     <Link href="/login">
                         <BiSolidUser/>
                         <p>{user ? "Mon compte" : "S'identifier"}</p>
+                    </Link>
+                    <span className={styles.verticalSeparator}/>
+                    <Link href="/admin">
+                        <p><IoIosSettings className={styles.adminIcon}/></p>
                     </Link>
                 </div>
             </div>

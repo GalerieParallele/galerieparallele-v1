@@ -33,7 +33,11 @@
 }
 
 .right {
-
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+gap: 7px;
 }
 
 .right a {
@@ -44,6 +48,21 @@
     font-size: 17px;
     gap: 5px;
     color: var(--black);
+}
+
+.right a p {
+    display: flex;
+}
+
+.adminIcon {
+    animation: spin 3s linear infinite;
+}
+
+.verticalSeparator {
+    height: 15px;
+    width: 2px;
+    border-radius: 20px;
+    background-color: var(--light-gray);
 }
 
 .littleLogoName {
@@ -63,5 +82,11 @@
 
     .bigLogoName {
         display: none;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
     }
 }
