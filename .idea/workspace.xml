@@ -4,8 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Section artiste : appel API : OK">
-      <change beforePath="$PROJECT_DIR$/prisma/migrations/migration_lock.toml" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/migrations/migration_lock.toml" afterDir="false" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Migration permettant la création de la table Artiste">
+      <change afterPath="$PROJECT_DIR$/src/components/accueil/mentra/Mentra.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/components/Mentra.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/accueil/artistes/Artiste.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/accueil/artistes/Artiste.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/authentication/LoginComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/LoginComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/authentication/RegisterComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/RegisterComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/example.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/components/Artiste.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/Artiste.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/components/ArtisteCard.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/ArtisteCard.module.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,8 +26,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -68,11 +78,11 @@
       <recent name="$PROJECT_DIR$/src/components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Développement\Web\ALTERNANCE\gp\src\pages\example" />
       <recent name="$PROJECT_DIR$/src/components/accueil/actu" />
       <recent name="$PROJECT_DIR$/public/assets/img" />
       <recent name="$PROJECT_DIR$/src/app" />
       <recent name="$PROJECT_DIR$/src/components/accueil" />
-      <recent name="$PROJECT_DIR$/src/components/items" />
     </key>
   </component>
   <component name="RunManager">
@@ -114,7 +124,7 @@
       <workItem from="1692617339161" duration="21123000" />
       <workItem from="1692684078185" duration="5139000" />
       <workItem from="1692693632006" duration="339000" />
-      <workItem from="1692693994587" duration="4163000" />
+      <workItem from="1692693994587" duration="8117000" />
     </task>
     <task id="LOCAL-00001" summary="API - User get/create : ok">
       <option name="closed" value="true" />
@@ -452,14 +462,21 @@
       <option name="project" value="LOCAL" />
       <updated>1692697922198</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Migration permettant la création de la table Artiste">
+      <option name="closed" value="true" />
+      <created>1692698343255</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1692698343255</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Auth cookie : OK" />
     <MESSAGE value="Terminé : Impossible de lire le token dans le cookie" />
     <MESSAGE value="Clean-up du code" />
     <MESSAGE value="Modification docker-compose.yml" />
@@ -484,7 +501,8 @@
     <MESSAGE value="Section actu : OK" />
     <MESSAGE value="Section artistes : OK" />
     <MESSAGE value="Section artiste : appel API : OK" />
-    <option name="LAST_COMMIT_MESSAGE" value="Section artiste : appel API : OK" />
+    <MESSAGE value="Migration permettant la création de la table Artiste" />
+    <option name="LAST_COMMIT_MESSAGE" value="Migration permettant la création de la table Artiste" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
