@@ -10,6 +10,7 @@ import {FiLock} from "react-icons/fi";
 
 import {Toast} from "@/constants/ToastConfig";
 import {checkPassword, isValidEmail} from "@/constants/Util";
+import Head from "next/head";
 
 const MESSAGES = {
     DIFFERENT_PASSWORDS: "Les mots de passe ne correspondent pas",
@@ -66,6 +67,9 @@ export default function RegisterComponent() {
 
     return (
         <>
+            <Head>
+                <title>GP - Inscription</title>
+            </Head>
             <IconInput
                 label={"E-mail"}
                 IconComponent={MdEmail}
