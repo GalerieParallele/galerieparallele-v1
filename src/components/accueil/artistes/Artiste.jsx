@@ -26,9 +26,12 @@ export default function Artiste() {
     return (
         <div className={styles.artiste}>
             <div className={styles.top}>
-                {artists.map(artist => (
-                    <ArtisteCard key={artist.pseudo} pseudo={artist.pseudo}/>
-                ))}
+                {artists.length === 0 ? <h3>Aucun artiste trouvé...</h3> :
+                    artists.map(artist => (
+                        <ArtisteCard key={artist.pseudo} pseudo={artist.pseudo}/>
+                    ))
+
+                }
             </div>
             <div className={styles.bottom}>
                 <Button text={"Nos artistes"} isWhite/>
