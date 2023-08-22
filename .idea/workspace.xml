@@ -4,18 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Migration permettant la création de la table Artiste">
-      <change afterPath="$PROJECT_DIR$/src/components/accueil/mentra/Mentra.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/components/Mentra.module.css" afterDir="false" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Création + design de la section Mentra">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/accueil/artistes/Artiste.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/accueil/artistes/Artiste.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/authentication/LoginComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/LoginComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/authentication/RegisterComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/RegisterComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/example.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/Artiste.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/Artiste.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/ArtisteCard.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/ArtisteCard.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/components/Navbar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/Navbar.module.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,15 +117,7 @@
       <workItem from="1692617339161" duration="21123000" />
       <workItem from="1692684078185" duration="5139000" />
       <workItem from="1692693632006" duration="339000" />
-      <workItem from="1692693994587" duration="8117000" />
-    </task>
-    <task id="LOCAL-00001" summary="API - User get/create : ok">
-      <option name="closed" value="true" />
-      <created>1692276055134</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1692276055134</updated>
+      <workItem from="1692693994587" duration="10370000" />
     </task>
     <task id="LOCAL-00002" summary="Authentification : Page de connexion/inscription commencée. Design et système à terminer">
       <option name="closed" value="true" />
@@ -470,20 +455,69 @@
       <option name="project" value="LOCAL" />
       <updated>1692698343255</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Affichage quand aucun artiste n'est en entrée dans la base de données">
+      <option name="closed" value="true" />
+      <created>1692702407193</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1692702407193</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Ajout de style pour la section Artiste">
+      <option name="closed" value="true" />
+      <created>1692702600698</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1692702600698</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Suppression de la page d'exemple">
+      <option name="closed" value="true" />
+      <created>1692702614614</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1692702614614</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Ajout d'un titre à la page d'accueil et de la section mentra">
+      <option name="closed" value="true" />
+      <created>1692702651749</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1692702651749</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Suppression import inutile (Head)">
+      <option name="closed" value="true" />
+      <created>1692702718614</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1692702718614</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Ajout d'un titre aux pages">
+      <option name="closed" value="true" />
+      <created>1692702749554</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1692702749554</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Création + design de la section Mentra">
+      <option name="closed" value="true" />
+      <created>1692702769051</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1692702769052</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Terminé : Impossible de lire le token dans le cookie" />
-    <MESSAGE value="Clean-up du code" />
-    <MESSAGE value="Modification docker-compose.yml" />
-    <MESSAGE value="Style : authentification responsive" />
-    <MESSAGE value="route /me : update error message" />
-    <MESSAGE value="route /me cookie : OK" />
-    <MESSAGE value="Optimisation de la route /me + fonctionnelle" />
     <MESSAGE value="Ajout/Modification des spinner de chargement" />
     <MESSAGE value="Création d'une page d'accueil fictive" />
     <MESSAGE value="Mise en forme du composant affichant qu'un utilisateur est déjà connecté" />
@@ -502,7 +536,14 @@
     <MESSAGE value="Section artistes : OK" />
     <MESSAGE value="Section artiste : appel API : OK" />
     <MESSAGE value="Migration permettant la création de la table Artiste" />
-    <option name="LAST_COMMIT_MESSAGE" value="Migration permettant la création de la table Artiste" />
+    <MESSAGE value="Affichage quand aucun artiste n'est en entrée dans la base de données" />
+    <MESSAGE value="Ajout de style pour la section Artiste" />
+    <MESSAGE value="Suppression de la page d'exemple" />
+    <MESSAGE value="Ajout d'un titre à la page d'accueil et de la section mentra" />
+    <MESSAGE value="Suppression import inutile (Head)" />
+    <MESSAGE value="Ajout d'un titre aux pages" />
+    <MESSAGE value="Création + design de la section Mentra" />
+    <option name="LAST_COMMIT_MESSAGE" value="Création + design de la section Mentra" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
