@@ -14,6 +14,7 @@ import AlreadyLoginComponent from "@/components/authentication/AlreadyLoginCompo
 import BigSpinner from "@/components/items/BigSpinner";
 
 import {FaArrowLeft} from "react-icons/fa";
+import Head from "next/head";
 
 
 export default function Login() {
@@ -27,7 +28,8 @@ export default function Login() {
 
     const {user, isLoading} = useAuth();
 
-    return (<main className={styles.main}>
+    return (
+        <main className={styles.main}>
         <div className={styles.left}>
             {
                 imageNumber === 0 ? (

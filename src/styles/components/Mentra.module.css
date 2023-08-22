@@ -1,0 +1,8 @@
+.mentra {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    height: 220px;
+}

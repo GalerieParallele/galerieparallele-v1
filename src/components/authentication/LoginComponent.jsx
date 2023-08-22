@@ -12,6 +12,7 @@ import {MdEmail} from "react-icons/md";
 import {FiLock} from "react-icons/fi";
 
 import {Toast} from "@/constants/ToastConfig";
+import Head from "next/head";
 
 const MESSAGES = {
     LOGIN_SUCCESS: "Vous êtes désormais connecté.",
@@ -53,6 +54,9 @@ export default function LoginComponent() {
 
     return (
         <>
+            <Head>
+                <title>GP - Connexion</title>
+            </Head>
             <IconInput
                 label={"E-mail"}
                 IconComponent={MdEmail}
