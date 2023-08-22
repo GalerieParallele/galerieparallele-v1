@@ -5,4 +5,9 @@
     align-items: center;
     gap: 25px;
     height: 220px;
+    text-align: center;
+}
+
+.mentra h3 {
+    width: 70vw;
 }
