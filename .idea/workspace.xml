@@ -4,20 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Minor update">
-      <change afterPath="$PROJECT_DIR$/src/components/admin/AdminBottom.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/constants/MESSAGES.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/constants/ROUTES.js" afterDir="false" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Major update (routes constants)">
+      <change afterPath="$PROJECT_DIR$/src/components/admin/AdminLink.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/components/AdminLink.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Amo.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/Amo.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/Navbar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/accueil/artistes/Artiste.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/accueil/artistes/Artiste.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/authentication/AlreadyLoginComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/AlreadyLoginComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useAuth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/logout/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/logout/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/AdminBottom.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/AdminBottom.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/Button.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/Button.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/styles/pages/admin.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/pages/admin.module.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,8 +22,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -128,15 +121,7 @@
       <workItem from="1692684078185" duration="5139000" />
       <workItem from="1692693632006" duration="339000" />
       <workItem from="1692693994587" duration="11326000" />
-      <workItem from="1692713781907" duration="5717000" />
-    </task>
-    <task id="LOCAL-00014" summary="Optimisation (usecallback) login &amp; register">
-      <option name="closed" value="true" />
-      <created>1692426058628</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1692426058628</updated>
+      <workItem from="1692713781907" duration="10859000" />
     </task>
     <task id="LOCAL-00015" summary="Update authentication">
       <option name="closed" value="true" />
@@ -522,14 +507,21 @@
       <option name="project" value="LOCAL" />
       <updated>1692717767918</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="Major update (routes constants)">
+      <option name="closed" value="true" />
+      <created>1692719540525</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1692719540525</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="UPDATE : Height navbar" />
     <MESSAGE value="Responsive : navbar logo" />
     <MESSAGE value="Section actu : OK" />
     <MESSAGE value="Section artistes : OK" />
@@ -554,7 +546,8 @@
     <MESSAGE value="Ajout de deux fonctions permettant de vérifier le/les rôle(s) des utilisateurs" />
     <MESSAGE value="Workspace" />
     <MESSAGE value="Minor update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor update" />
+    <MESSAGE value="Major update (routes constants)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Major update (routes constants)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

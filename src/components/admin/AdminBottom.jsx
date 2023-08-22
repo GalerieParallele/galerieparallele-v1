@@ -1,14 +1,20 @@
-import styles from "@/styles/pages/admin.module.css";
+import React, {useCallback, useState} from "react";
+
+import {useAuth} from "@/hooks/useAuth";
+
 import Button from "@/components/items/Button";
 import {PiSignOutBold} from "react-icons/pi";
-import React, {useCallback, useState} from "react";
+
 import {Toast} from "@/constants/ToastConfig";
-import {useAuth} from "@/hooks/useAuth";
 import MESSAGES from "@/constants/MESSAGES";
-import {router} from "next/client";
 import ROUTES from "@/constants/ROUTES";
 
+import styles from "@/styles/pages/admin.module.css";
+import {useRouter} from "next/router";
+
 export default function AdminBottom() {
+
+    const router = useRouter();
 
     const {signOut} = useAuth();
 
@@ -24,7 +30,7 @@ export default function AdminBottom() {
 
         setLoading(false);
 
-        router.push(ROUTES.ACCUEIL);
+        await router.push(ROUTES.ACCUEIL);
 
         await Toast.fire({
             icon: 'success',

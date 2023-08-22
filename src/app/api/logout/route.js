@@ -3,6 +3,7 @@ import {NextResponse} from "next/server";
 import AUTH from "@/constants/AUTH";
 
 export async function POST(req, res) {
+
     return NextResponse.json(
         {
             message: 'Déconnexion réussie.'

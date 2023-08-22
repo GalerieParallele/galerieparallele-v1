@@ -8,16 +8,18 @@
 
 .right {
     padding: 20px;
+    width: 80%;
 }
 
 .left {
-    padding: 20px 0;
-}
-
-.left {
+    padding: 40px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     background-color: var(--black);
     box-shadow: var(--shadow);
-    width: auto;
+    width: 230px;
     height: 100%;
     color: var(--white);
 }
@@ -36,8 +38,17 @@
     height: 100%;
 }
 
+.center {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .bottom {
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    gap: 10px;
+    padding: 0 15px;
 }

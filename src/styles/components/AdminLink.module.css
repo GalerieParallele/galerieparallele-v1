@@ -1,0 +1,30 @@
+.adminLink {
+    color: var(--white);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 20px;
+    transition: var(--transition);
+}
+
+.adminLink:hover{
+    background-color: var(--white);
+    color: var(--black);
+}
+
+.adminLink:hover .icon,
+.adminLink:hover a {
+    color: var(--black); /* change the color to black on hover */
+}
+
+.icon {
+    color: var(--white);
+    font-size: 15px;
+}
+
+.adminLink a {
+    color: var(--white);
+    text-decoration: none;
+}
