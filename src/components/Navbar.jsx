@@ -3,14 +3,16 @@ import React from 'react';
 import Link from "next/link";
 import Image from "next/image";
 
+import {IoIosSettings} from "react-icons/io";
 import {BiSolidUser} from "react-icons/bi";
 import {SlMenu} from "react-icons/sl";
+
 import Amo from "@/components/Amo";
+
+import styles from '../styles/components/Navbar.module.css';
 
 import {useAuth} from "@/hooks/useAuth";
 
-import styles from '../styles/components/Navbar.module.css';
-import {IoIosSettings} from "react-icons/io";
 import ROLES from "@/constants/ROLES";
 
 export default function Navbar() {

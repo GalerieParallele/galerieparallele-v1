@@ -133,11 +133,19 @@ export function AuthProvider({children}) {
     }, []);
 
     const hasRole = useCallback((role) => {
-        return user && user.roles && user.roles.includes(role);
+        return user
+            && user.roles
+            && user.roles.length > 0
+            && Array.isArray(user.roles)
+            && user.roles.includes(role);
     }, [user]);
 
     const hasRoles = useCallback((roles) => {
-        return user && user.roles && roles.every(role => user.roles.includes(role));
+        return user
+            && user.roles
+            && user.roles.length > 0
+            && Array.isArray(user.roles)
+            && roles.every(role => user.roles.includes(role));
     }, [user]);
 
     return (
