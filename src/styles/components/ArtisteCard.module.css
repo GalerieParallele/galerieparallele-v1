@@ -17,7 +17,7 @@
 
 .imageContainer img {
     height: 100%;
-    width: 100%;
+    width: 150px;
     object-fit: cover;
     border-radius:var(--border-radius);
 }
