@@ -16,14 +16,6 @@ export function AuthProvider({children}) {
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const hasRole = useCallback((role) => {
-        return user && user.roles.includes(role);
-    }, [user]);
-
-    const hasRoles = useCallback((roles) => {
-        return user && roles.every(role => user.roles.includes(role));
-    }, [user]);
-
     const checkAuthentication = useCallback(async () => {
 
         setIsLoading(true)
@@ -102,7 +94,9 @@ export function AuthProvider({children}) {
             const data = await response.json();
 
             if (response.status === 201) {
+
                 setUser(data);
+
                 return {user: data};
             } else {
                 return {error: data.message};
@@ -137,6 +131,14 @@ export function AuthProvider({children}) {
         setIsLoading(false)
 
     }, []);
+
+    const hasRole = useCallback((role) => {
+        return user && user.roles && user.roles.includes(role);
+    }, [user]);
+
+    const hasRoles = useCallback((roles) => {
+        return user && user.roles && roles.every(role => user.roles.includes(role));
+    }, [user]);
 
     return (
         <AuthContext.Provider value={{user, isLoading, signIn, signUp, signOut, hasRoles, hasRole}}>
