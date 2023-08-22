@@ -16,6 +16,14 @@ export function AuthProvider({children}) {
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
+    const hasRole = useCallback((role) => {
+        return user && user.roles.includes(role);
+    }, [user]);
+
+    const hasRoles = useCallback((roles) => {
+        return user && roles.every(role => user.roles.includes(role));
+    }, [user]);
+
     const checkAuthentication = useCallback(async () => {
 
         setIsLoading(true)
@@ -131,7 +139,7 @@ export function AuthProvider({children}) {
     }, []);
 
     return (
-        <AuthContext.Provider value={{user, isLoading, signIn, signUp, signOut}}>
+        <AuthContext.Provider value={{user, isLoading, signIn, signUp, signOut, hasRoles, hasRole}}>
             {children}
         </AuthContext.Provider>
     );
