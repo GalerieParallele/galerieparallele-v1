@@ -3,7 +3,7 @@ import React from "react";
 import {useAuth} from "@/hooks/useAuth";
 
 import Hero from "@/components/accueil/hero/Hero";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/items/Navbar";
 import Actu from "@/components/accueil/actu/Actu";
 
 import BigSpinner from "@/components/items/BigSpinner";

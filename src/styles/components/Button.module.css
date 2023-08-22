@@ -3,21 +3,20 @@
     --button-bg-color: var(--white);
     --button-border-color: var(--black);
     --button-width: 150px;
-    --button-height: 40px;
+    --button-height: 35px;
 
     position: relative;
     text-transform: uppercase;
-    font-weight: bold;
-    font-size: 17px;
+    font-weight: 600;
+    font-size: 15px;
     background-color: transparent;
     color: var(--button-color);
-    min-width: var(--button-width);
     height: var(--button-height);
     border-radius: var(--border-radius);
     border: 2px solid var(--button-border-color);
     transition: var(--transition);
     cursor: pointer;
-    padding: 0 8px;
+    padding: 8px;
     outline: none;
     overflow: hidden;
     display: flex;

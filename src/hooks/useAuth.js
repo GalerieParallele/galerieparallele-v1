@@ -1,4 +1,5 @@
 import {createContext, useCallback, useContext, useEffect, useState} from 'react';
+import ROUTES from "@/constants/ROUTES";
 
 const AuthContext = createContext();
 
@@ -22,7 +23,7 @@ export function AuthProvider({children}) {
 
         try {
 
-            const response = await fetch('/api/users/me', {
+            const response = await fetch(ROUTES.API.USER.ME, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -53,7 +54,7 @@ export function AuthProvider({children}) {
         setIsLoading(true)
 
         try {
-            const response = await fetch('/api/login', {
+            const response = await fetch(ROUTES.API.AUTHENTICATION.LOGIN, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -83,7 +84,7 @@ export function AuthProvider({children}) {
         setIsLoading(true)
 
         try {
-            const response = await fetch('/api/users', {
+            const response = await fetch(ROUTES.API.AUTHENTICATION.REGISTER, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -117,7 +118,7 @@ export function AuthProvider({children}) {
 
         setIsLoading(true)
 
-        const response = await fetch('/api/logout', {
+        const response = await fetch(ROUTES.API.AUTHENTICATION.LOGOUT, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

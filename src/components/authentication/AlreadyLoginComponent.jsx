@@ -13,11 +13,11 @@ const MESSAGES = {
 
 export default function AlreadyLoginComponent() {
 
-    const {signOut, user} = useAuth();
+    const {signOut} = useAuth();
 
     const [loading, setLoading] = useState(false);
 
-    const handleSubmit = useCallback(async (e) => {
+    const handleSignOut = useCallback(async (e) => {
 
         e.preventDefault();
 
@@ -25,12 +25,12 @@ export default function AlreadyLoginComponent() {
 
         await signOut();
 
+        setLoading(false);
+
         await Toast.fire({
             icon: 'success',
             title: MESSAGES.SUCCESS
         })
-
-        setLoading(false);
 
     }, [signOut])
 
@@ -39,7 +39,7 @@ export default function AlreadyLoginComponent() {
             <h2>Vous êtes connecté</h2>
             <p>Vous pouvez maintenant accéder à votre espace personnel</p>
             <Button
-                onClick={handleSubmit}
+                onClick={handleSignOut}
                 text={"Déconnexion"}
                 isLoading={loading}
             />

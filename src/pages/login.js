@@ -15,6 +15,7 @@ import BigSpinner from "@/components/items/BigSpinner";
 
 import {FaArrowLeft} from "react-icons/fa";
 import Head from "next/head";
+import ROUTES from "@/constants/ROUTES";
 
 
 export default function Login() {
@@ -30,58 +31,58 @@ export default function Login() {
 
     return (
         <main className={styles.main}>
-        <div className={styles.left}>
-            {
-                imageNumber === 0 ? (
-                    <></>
-                ) : (
-                    <Image
-                        src={`/assets/img/login/login${imageNumber}.jpg`}
-                        alt={`Photo d'illustration de connexion numéro ${imageNumber}`}
-                        width={500}
-                        height={500}
-                        priority
-                    />
-                )
-            }
-        </div>
-        <div className={styles.right}>
-            <Link href={"/"} className={styles.iconBox}>
-                <FaArrowLeft className={styles.icon}/>
-            </Link>
-            <div className={styles.authSpace}>
-                {isLoading && !user ? (
-                    <BigSpinner/>
-                ) : (
-                    (user ? (
-                        <>
-                            <AlreadyLoginComponent/>
-                        </>
+            <div className={styles.left}>
+                {
+                    imageNumber === 0 ? (
+                        <></>
                     ) : (
-                        <>
-                            <div className={styles.head}>
-                                <h4
-                                    className={login ? styles.activeSection : ""}
-                                    onClick={() => setLogin(true)}
-                                >
-                                    Connexion
-                                </h4>
-                                <h4
-                                    className={!login ? styles.activeSection : ""}
-                                    onClick={() => setLogin(false)}
-                                >
-                                    Inscription
-                                </h4>
-                            </div>
-                            <form className={styles.inputs}>
-                                {login ? <LoginComponent/> : <RegisterComponent/>}
-                            </form>
-                        </>
-                    ))
-                )}
+                        <Image
+                            src={`/assets/img/login/login${imageNumber}.jpg`}
+                            alt={`Photo d'illustration de connexion numéro ${imageNumber}`}
+                            width={500}
+                            height={500}
+                            priority
+                        />
+                    )
+                }
             </div>
-        </div>
-    </main>);
+            <div className={styles.right}>
+                <Link href={ROUTES.ACCUEIL} className={styles.iconBox}>
+                    <FaArrowLeft className={styles.icon}/>
+                </Link>
+                <div className={styles.authSpace}>
+                    {isLoading && !user ? (
+                        <BigSpinner/>
+                    ) : (
+                        (user ? (
+                            <>
+                                <AlreadyLoginComponent/>
+                            </>
+                        ) : (
+                            <>
+                                <div className={styles.head}>
+                                    <h4
+                                        className={login ? styles.activeSection : ""}
+                                        onClick={() => setLogin(true)}
+                                    >
+                                        Connexion
+                                    </h4>
+                                    <h4
+                                        className={!login ? styles.activeSection : ""}
+                                        onClick={() => setLogin(false)}
+                                    >
+                                        Inscription
+                                    </h4>
+                                </div>
+                                <form className={styles.inputs}>
+                                    {login ? <LoginComponent/> : <RegisterComponent/>}
+                                </form>
+                            </>
+                        ))
+                    )}
+                </div>
+            </div>
+        </main>);
 }
 
 function chooseRandomNumber() {

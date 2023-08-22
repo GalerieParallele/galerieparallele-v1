@@ -7,13 +7,14 @@ import {IoIosSettings} from "react-icons/io";
 import {BiSolidUser} from "react-icons/bi";
 import {SlMenu} from "react-icons/sl";
 
-import Amo from "@/components/Amo";
+import Amo from "@/components/items/Amo";
 
-import styles from '../styles/components/Navbar.module.css';
+import styles from '../../styles/components/Navbar.module.css';
 
 import {useAuth} from "@/hooks/useAuth";
 
 import ROLES from "@/constants/ROLES";
+import ROUTES from "@/constants/ROUTES";
 
 export default function Navbar() {
 
@@ -30,7 +31,7 @@ export default function Navbar() {
                 </div>
                 <div className={styles.center}>
                     <div className={styles.bigLogoName}>
-                        <Link href="/">
+                        <Link href={ROUTES.ACCUEIL}>
                             <Image
                                 src={"/assets/img/dark-name-w-logo.svg"}
                                 alt={"logo"}
@@ -40,7 +41,7 @@ export default function Navbar() {
                         </Link>
                     </div>
                     <div className={styles.littleLogoName}>
-                        <Link href="/">
+                        <Link href={ROUTES.ACCUEIL}>
                             <Image
                                 src={"/assets/img/dark-logo.svg"}
                                 alt={"logo"}
@@ -51,14 +52,14 @@ export default function Navbar() {
                     </div>
                 </div>
                 <div className={styles.right}>
-                    <Link href="/login">
+                    <Link href={ROUTES.LOGIN}>
                         <BiSolidUser/>
                         <p>{user ? "Mon compte" : "S'identifier"}</p>
                     </Link>
                     {hasRole(ROLES.ADMIN) && (
                         <>
                             <span className={styles.verticalSeparator}/>
-                            <Link href="/admin">
+                            <Link href={ROUTES.ADMIN}>
                                 <IoIosSettings className={styles.adminIcon}/>
                             </Link>
                         </>
