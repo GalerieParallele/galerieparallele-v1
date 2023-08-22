@@ -19,9 +19,17 @@ const MESSAGES = {
 
 export async function GET() {
 
-    const users = await prisma.user.findMany();
+    const users = await prisma.user.findMany(
+        {
+            select: {
+                id: true,
+                email: true,
+                roles: true,
+            }
+        }
+    );
 
-    if (!users) {
+    if (!users.length) {
         return NextResponse.json({message: MESSAGES.NO_USER_FOUND}, {status: 404});
     }
 
