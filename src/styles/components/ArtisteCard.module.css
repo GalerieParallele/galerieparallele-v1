@@ -1,0 +1,23 @@
+.artisteCard {
+    height: 270px;
+    width: 220px;
+    border-radius:var(--border-radius);
+    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+.imageContainer {
+    position: relative;
+    height: 130px;
+}
+
+.imageContainer img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius:var(--border-radius);
+}

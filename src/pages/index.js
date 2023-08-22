@@ -9,6 +9,7 @@ import Actu from "@/components/accueil/actu/Actu";
 import BigSpinner from "@/components/items/BigSpinner";
 
 import styles from '../styles/pages/accueil.module.css'
+import Artiste from "@/components/accueil/artistes/Artiste";
 
 export default function Index() {
 
@@ -24,6 +25,7 @@ export default function Index() {
                         <Hero/>
                         <Navbar/>
                         <Actu/>
+                        <Artiste/>
                     </>
 
                 )}
