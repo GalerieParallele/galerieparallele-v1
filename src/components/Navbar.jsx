@@ -11,10 +11,12 @@ import {useAuth} from "@/hooks/useAuth";
 
 import styles from '../styles/components/Navbar.module.css';
 import {IoIosSettings} from "react-icons/io";
+import ROLES from "@/constants/ROLES";
 
 export default function Navbar() {
 
-    const {user} = useAuth();
+    const {user, hasRole} = useAuth();
+
     return (
         <>
             <Amo/>
@@ -51,10 +53,14 @@ export default function Navbar() {
                         <BiSolidUser/>
                         <p>{user ? "Mon compte" : "S'identifier"}</p>
                     </Link>
-                    <span className={styles.verticalSeparator}/>
-                    <Link href="/admin">
-                        <p><IoIosSettings className={styles.adminIcon}/></p>
-                    </Link>
+                    {hasRole(ROLES.ADMIN) && (
+                        <>
+                            <span className={styles.verticalSeparator}/>
+                            <Link href="/admin">
+                                <IoIosSettings className={styles.adminIcon}/>
+                            </Link>
+                        </>
+                    )}
                 </div>
             </div>
         </>
