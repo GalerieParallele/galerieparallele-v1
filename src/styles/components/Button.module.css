@@ -1,4 +1,7 @@
 .button {
+    --button-color: var(--black);
+    --button-bg-color: var(--white);
+    --button-border-color: var(--black);
     --button-width: 150px;
     --button-height: 40px;
 
@@ -7,11 +10,11 @@
     font-weight: bold;
     font-size: 17px;
     background-color: transparent;
-    color: var(--black);
+    color: var(--button-color);
     min-width: var(--button-width);
     height: var(--button-height);
     border-radius: var(--border-radius);
-    border: 2px solid var(--black);
+    border: 2px solid var(--button-border-color);
     transition: var(--transition);
     cursor: pointer;
     padding: 0 8px;
@@ -20,15 +23,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
 }
 
-.button::before, .button:not(:disabled):hover::before {
+.button.white {
+    --button-color: var(--white);
+    --button-bg-color: var(--black);
+    --button-border-color: var(--white);
+}
+
+.button::before,
+.button:not(:disabled):hover::before {
     content: '';
     position: absolute;
     top: -80px;
     left: -30px;
     transform: rotate(45deg);
-    background-color: var(--black);
+    background-color: var(--button-border-color);
     z-index: -1;
     transition: var(--transition);
     width: 150%;
@@ -45,13 +56,14 @@
     transform: rotate(0deg);
 }
 
-.button:not(:disabled):hover, .button:disabled {
-    color: var(--white);
+.button:not(:disabled):hover,
+.button:disabled {
+    color: var(--button-bg-color);
 }
 
 .button:disabled {
     cursor: not-allowed;
-    background-color: var(--white);
-    color: var(--black);
+    background-color: var(--button-bg-color);
+    color: var(--button-color);
     opacity: 0.5;
 }
