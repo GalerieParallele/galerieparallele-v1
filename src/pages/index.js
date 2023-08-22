@@ -10,6 +10,8 @@ import BigSpinner from "@/components/items/BigSpinner";
 
 import styles from '../styles/pages/accueil.module.css'
 import Artiste from "@/components/accueil/artistes/Artiste";
+import Head from "next/head";
+import Mentra from "@/components/accueil/mentra/Mentra";
 
 export default function Index() {
 
@@ -17,6 +19,9 @@ export default function Index() {
 
     return (
         <>
+            <Head>
+                <title>GP - Accueil</title>
+            </Head>
             <main className={styles.main}>
                 {isLoading ? (
                     <BigSpinner/>
@@ -26,6 +31,7 @@ export default function Index() {
                         <Navbar/>
                         <Actu/>
                         <Artiste/>
+                        <Mentra/>
                     </>
 
                 )}
