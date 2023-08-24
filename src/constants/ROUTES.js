@@ -1,7 +1,9 @@
 const ROUTES = {
     ACCUEIL: "/",
-    LOGIN: "/login",
+    LOGIN: "/connexion",
     ADMIN: "/admin",
+    ADMIN_ARTICLES_HOME: "/admin/articles/home",
+    ADMIN_USERS_HOME: "/admin/utilisateurs/home",
     API: {
         ARTISTES: {
             GET: "/api/artistes",

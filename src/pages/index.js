@@ -8,7 +8,7 @@ import Actu from "@/components/accueil/actu/Actu";
 
 import BigSpinner from "@/components/items/BigSpinner";
 
-import styles from '../styles/pages/accueil.module.css'
+import styles from '../styles/pages/Accueil.module.css'
 import Artiste from "@/components/accueil/artistes/Artiste";
 import Head from "next/head";
 import Mentra from "@/components/accueil/mentra/Mentra";
