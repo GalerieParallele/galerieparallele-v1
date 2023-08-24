@@ -1,6 +1,6 @@
 import React from "react";
 
-import styles from "../../../styles/components/Actu.module.css"
+import styles from "../../../styles/components/home/Actu.module.css"
 import Image from "next/image";
 import Button from "@/components/items/Button";
 

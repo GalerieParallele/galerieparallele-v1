@@ -1,8 +1,9 @@
 import Admin from "@/components/admin/Admin";
+import AdminStat from "@/components/admin/home/AdminStat";
 
-export default function Index(){
+export default function Index() {
 
-    return<Admin>
-        <p>salut</p>
+    return <Admin>
+        <AdminStat/>
     </Admin>
 }

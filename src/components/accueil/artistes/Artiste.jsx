@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import ArtisteCard from "@/components/accueil/artistes/ArtisteCard";
 import Button from "@/components/items/Button";
 
-import styles from "../../../styles/components/Artiste.module.css";
+import styles from "../../../styles/components/artiste/Artiste.module.css";
 import ROUTES from "@/constants/ROUTES";
 
 export default function Artiste() {

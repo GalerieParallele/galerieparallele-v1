@@ -1,6 +1,8 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 
+import Head from "next/head";
 import {useAuth} from "@/hooks/useAuth";
+import {checkPassword, isValidEmail} from "@/constants/Util";
 
 import Button from "@/components/items/Button";
 import IconInput from "@/components/items/IconInput";
@@ -9,17 +11,15 @@ import {MdEmail} from "react-icons/md";
 import {FiLock} from "react-icons/fi";
 
 import {Toast} from "@/constants/ToastConfig";
-import {checkPassword, isValidEmail} from "@/constants/Util";
-import Head from "next/head";
+
+import useSocket from "@/hooks/useSocket";
 
 const MESSAGES = {
     DIFFERENT_PASSWORDS: "Les mots de passe ne correspondent pas",
     REGISTER_SUCCESS: "Inscription réussie"
-}
-
+};
 
 export default function RegisterComponent() {
-
     const {signUp} = useAuth();
 
     const [email, setEmail] = useState("");
@@ -27,75 +27,49 @@ export default function RegisterComponent() {
     const [confirmPassword, setConfirm] = useState("");
     const [loading, setLoading] = useState(false);
 
+    const socket = useSocket();  // Obtenez directement l'instance du socket ici
+
+    const showToast = useCallback(async (icon, title) => {
+        await Toast.fire({icon, title});
+    }, []);
+
     const handleSubmit = useCallback(async (e) => {
+        e.preventDefault();
 
-            e.preventDefault();
+        if (password !== confirmPassword) {
+            await showToast('error', MESSAGES.DIFFERENT_PASSWORDS);
+            return;
+        }
 
-            if (password !== confirmPassword) {
-                await Toast.fire({
-                    icon: 'error',
-                    title: MESSAGES.DIFFERENT_PASSWORDS
-                })
-                return;
-            }
+        setLoading(true);
 
-            setLoading(true)
+        const {error} = await signUp(email, password);
+        setLoading(false);
 
-            const response = await signUp(email, password);
+        if (error) {
+            await showToast('error', error);
+            return;
+        }
 
-            const {error} = response;
+        if (socket) {
+            socket.emit('userRegister');
+        }
 
+        await showToast('success', MESSAGES.REGISTER_SUCCESS);
 
-            setLoading(false)
-
-            if (error) {
-                await Toast.fire({
-                    icon: 'error',
-                    title: error
-                })
-                return;
-            }
-
-            await Toast.fire({
-                icon: 'success',
-                title: MESSAGES.REGISTER_SUCCESS
-            });
-
-        }, [email, password, confirmPassword, signUp]
-    )
-
+    }, [email, password, confirmPassword, signUp, socket, showToast]);
 
     return (
         <>
-            <Head>
-                <title>GP - Inscription</title>
-            </Head>
-            <IconInput
-                label={"E-mail"}
-                IconComponent={MdEmail}
-                type={"email"}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={loading}
-            />
-            <IconInput
-                label={"Mot de passe"}
-                IconComponent={FiLock}
-                type={"password"}
-                onChange={(e) => setPassword(e.target.value)}
-                disabled={loading}
-            />
-            <IconInput
-                label={"Confirmer le mot de passe"}
-                IconComponent={FiLock}
-                type={"password"}
-                onChange={(e) => setConfirm(e.target.value)}
-                disabled={loading}
-            />
-            <Button
-                disabled={!isValidEmail(email) || !checkPassword(password) || password !== confirmPassword}
-                text={"Inscription"}
-                onClick={handleSubmit}
-                isLoading={loading}/>
+            <Head><title>GP - Inscription</title></Head>
+            <IconInput label="E-mail" IconComponent={MdEmail} type="email" onChange={(e) => setEmail(e.target.value)}
+                       disabled={loading}/>
+            <IconInput label="Mot de passe" IconComponent={FiLock} type="password"
+                       onChange={(e) => setPassword(e.target.value)} disabled={loading}/>
+            <IconInput label="Confirmer le mot de passe" IconComponent={FiLock} type="password"
+                       onChange={(e) => setConfirm(e.target.value)} disabled={loading}/>
+            <Button disabled={!isValidEmail(email) || !checkPassword(password) || password !== confirmPassword}
+                    text="Inscription" onClick={handleSubmit} isLoading={loading}/>
         </>
-    )
+    );
 }

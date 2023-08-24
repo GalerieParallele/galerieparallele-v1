@@ -10,6 +10,7 @@ const ROUTES = {
         },
         USER: {
             ME: "/api/users/me",
+            GET: "/api/users",
         },
         AUTHENTICATION: {
             LOGIN: "/api/login",

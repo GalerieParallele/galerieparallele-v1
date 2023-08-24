@@ -2,7 +2,7 @@ import React from "react";
 
 import Image from "next/image";
 
-import styles from "../../../styles/components/ArtisteCard.module.css"
+import styles from "../../../styles/components/artiste/ArtisteCard.module.css"
 
 export default function ArtisteCard({pseudo}) {
 

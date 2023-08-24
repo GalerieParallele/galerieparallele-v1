@@ -13,6 +13,7 @@ model User {
   password String  @db.VarChar(255)
   roles    Json    @default("[\"ROLE_USER\"]")
   Artist   Artist?
+  Devlog   Devlog?
 }
 
 model Artist {
@@ -20,4 +21,13 @@ model Artist {
   userid Int    @unique
   pseudo String @unique
   User   User   @relation(fields: [userid], references: [id])
+}
+
+model Devlog {
+  id        Int      @id @default(autoincrement())
+  userid    Int      @unique
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+  User      User     @relation(fields: [userid], references: [id])
 }

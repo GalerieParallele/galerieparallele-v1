@@ -9,7 +9,7 @@ import {SlMenu} from "react-icons/sl";
 
 import Amo from "@/components/items/Amo";
 
-import styles from '../../styles/components/Navbar.module.css';
+import styles from '../../styles/components/items/Navbar.module.css';
 
 import {useAuth} from "@/hooks/useAuth";
 

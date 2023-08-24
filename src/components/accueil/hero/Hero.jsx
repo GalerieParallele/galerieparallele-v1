@@ -4,7 +4,7 @@ import {BiChevronsDown} from "react-icons/bi";
 
 import Image from "next/image";
 
-import styles from "../../../styles/components/Hero.module.css";
+import styles from "../../../styles/components/home/Hero.module.css";
 
 export default function Hero() {
 

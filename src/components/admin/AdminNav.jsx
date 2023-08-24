@@ -11,12 +11,12 @@ import AdminLink from "@/components/admin/AdminLink";
 import {TfiWrite} from "react-icons/tfi";
 import {BiSolidUser} from "react-icons/bi";
 
-import styles from "../../styles/components/AdminNav.module.css"
+import styles from "../../styles/components/admin/AdminNav.module.css"
 
 export default function AdminNav() {
     return <>
         <div>
-            <Link href={ROUTES.ACCUEIL}>
+            <Link href={ROUTES.ADMIN}>
                 <div className={styles.imageContainer}>
                     <Image
                         src={"/assets/img/white-logo.svg"}

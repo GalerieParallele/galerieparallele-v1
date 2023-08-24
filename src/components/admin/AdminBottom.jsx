@@ -9,7 +9,7 @@ import {Toast} from "@/constants/ToastConfig";
 import MESSAGES from "@/constants/MESSAGES";
 import ROUTES from "@/constants/ROUTES";
 
-import styles from "@/styles/components/AdminNav.module.css";
+import styles from "@/styles/components/admin/AdminNav.module.css";
 import {useRouter} from "next/router";
 
 export default function AdminBottom() {
