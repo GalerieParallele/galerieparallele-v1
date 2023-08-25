@@ -9,7 +9,6 @@ export default function Editor({onEditorChange}) {
     const onEditorReady = (event) => {
         setEditorInstance(event.editor);
 
-        // Ajoutez un écouteur pour suivre les changements dans l'éditeur
         event.editor.on("change", function() {
             if (onEditorChange) {
                 onEditorChange(event.editor.getData());

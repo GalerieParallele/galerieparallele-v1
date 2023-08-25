@@ -13,7 +13,8 @@ function IconInput({IconComponent, label, type, required, ...inputProps}) {
                 <p>{label}</p>
             </div>
             <input
-                type={type} {...inputProps}
+                type={type}
+                {...inputProps}
                 className={styles.input}
                 required={required}
             />

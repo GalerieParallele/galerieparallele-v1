@@ -56,11 +56,11 @@ export default function AdminArticles() {
                 </div>
                 <div className={styles.articlesItem}>
                     {loading ? (
-                        <p style={{
+                        <div style={{
                             textAlign: "center",
                         }}>
                             <BigSpinner/>
-                        </p>
+                        </div>
                     ) : articlesList && articlesList.length > 0 ? (
                         articlesList.map(article => (
                             <ArticleItem

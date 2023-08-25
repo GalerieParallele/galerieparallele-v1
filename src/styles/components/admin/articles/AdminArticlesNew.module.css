@@ -1,0 +1,23 @@
+.main {
+display: flex;
+flex-direction: column;
+    width: 100%;
+gap: 50px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 30px;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title input {
+    width: 500px
+}
