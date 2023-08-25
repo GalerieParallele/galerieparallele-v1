@@ -30,5 +30,5 @@ AdminLink.propTypes = {
 
 AdminLink.defaultProps = {
     IconComponent: MdQuestionMark,
-    to: ROUTES.ADMIN
+    to: ROUTES.ADMIN.INDEX
 }

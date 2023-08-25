@@ -2,9 +2,9 @@ import Admin from "@/components/admin/Admin";
 import Link from "next/link";
 import ROUTES from "@/constants/ROUTES";
 
-export default function AdminUsersHome() {
+export default function AdminUsersIndex() {
     return <Admin>
         <h1>Accueil - utilisateurs</h1>
-        <Link href={ROUTES.ADMIN}>Retour</Link>
+        <Link href={ROUTES.ADMIN.INDEX}>Retour</Link>
     </Admin>
 }

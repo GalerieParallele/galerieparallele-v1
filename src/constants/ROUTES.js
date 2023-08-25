@@ -1,9 +1,17 @@
 const ROUTES = {
     ACCUEIL: "/",
     LOGIN: "/connexion",
-    ADMIN: "/admin",
-    ADMIN_ARTICLES_HOME: "/admin/articles/home",
-    ADMIN_USERS_HOME: "/admin/utilisateurs/home",
+    ADMIN: {
+        INDEX: "/admin",
+        ARTICLES: {
+            INDEX: "/admin/articles",
+            NEW: "/admin/articles/new",
+        },
+        USERS: {
+            INDEX: "/admin/utilisateurs",
+            NEW: "/admin/utilisateurs/new",
+        }
+    },
     API: {
         ARTISTES: {
             GET: "/api/artistes",
