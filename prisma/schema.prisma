@@ -8,12 +8,13 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
-  password String  @db.VarChar(255)
-  roles    Json    @default("[\"ROLE_USER\"]")
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
+  password String    @db.VarChar(255)
+  roles    Json      @default("[\"ROLE_USER\"]")
   Artist   Artist?
-  Devlog   Devlog?
+  Devlogs  Devlog[]
+  Articles Article[]
 }
 
 model Artist {
@@ -23,11 +24,22 @@ model Artist {
   User   User   @relation(fields: [userid], references: [id])
 }
 
+model Article {
+  id        Int      @id @default(autoincrement())
+  userid    Int
+  title     String   @db.VarChar(255)
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  User      User     @relation(fields: [userid], references: [id])
+}
+
 model Devlog {
   id        Int      @id @default(autoincrement())
-  userid    Int      @unique
-  title     String
-  content   String
+  userid    Int
+  title     String   @db.VarChar(255)
+  content   String   @db.Text
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   User      User     @relation(fields: [userid], references: [id])
 }

@@ -4,18 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Major update (socket)">
-      <change afterPath="$PROJECT_DIR$/src/components/items/Editor.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/admin/articles/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/admin/articles/new/index.js" afterDir="false" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Editor : OK">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/AdminLink.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/AdminLink.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/AdminNav.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/AdminNav.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/ROUTES.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/ROUTES.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/articles/home.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/utilisateurs/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/utilisateurs/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,15 +118,8 @@
       <workItem from="1692693994587" duration="11326000" />
       <workItem from="1692713781907" duration="10859000" />
       <workItem from="1692886795108" duration="22570000" />
-      <workItem from="1692944752840" duration="5999000" />
-    </task>
-    <task id="LOCAL-00017" summary="Terminé : Impossible de lire le token dans le cookie">
-      <option name="closed" value="true" />
-      <created>1692441452345</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1692441452345</updated>
+      <workItem from="1692944752840" duration="6222000" />
+      <workItem from="1692970586529" duration="674000" />
     </task>
     <task id="LOCAL-00018" summary="Clean-up du code">
       <option name="closed" value="true" />
@@ -521,14 +505,21 @@
       <option name="project" value="LOCAL" />
       <updated>1692920691423</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="Editor : OK">
+      <option name="closed" value="true" />
+      <created>1692950963853</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1692950963854</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Section artistes : OK" />
     <MESSAGE value="Section artiste : appel API : OK" />
     <MESSAGE value="Migration permettant la création de la table Artiste" />
     <MESSAGE value="Affichage quand aucun artiste n'est en entrée dans la base de données" />
@@ -553,7 +544,8 @@
     <MESSAGE value="Major update (routes constants)" />
     <MESSAGE value="Major update (admin dashboard &amp; routes)" />
     <MESSAGE value="Major update (socket)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Major update (socket)" />
+    <MESSAGE value="Editor : OK" />
+    <option name="LAST_COMMIT_MESSAGE" value="Editor : OK" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
