@@ -2,13 +2,16 @@ const ROUTES = {
     ACCUEIL: "/",
     LOGIN: "/connexion",
     ADMIN: {
-        INDEX: "/admin",
+        HOME: "/admin",
         ARTICLES: {
-            INDEX: "/admin/articles",
+            HOME: "/admin/articles",
             NEW: "/admin/articles/new",
+            EDIT: "/admin/articles/edit/",
+            PREVIEW: "/admin/articles/view/",
+            DELETE: "/admin/articles/delete/",
         },
         USERS: {
-            INDEX: "/admin/utilisateurs",
+            HOME: "/admin/utilisateurs",
             NEW: "/admin/utilisateurs/new",
         }
     },
@@ -19,6 +22,9 @@ const ROUTES = {
         USER: {
             ME: "/api/users/me",
             GET: "/api/users",
+        },
+        ARTICLES: {
+            GET: "/api/articles",
         },
         AUTHENTICATION: {
             LOGIN: "/api/login",

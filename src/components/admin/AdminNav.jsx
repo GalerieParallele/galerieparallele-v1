@@ -16,7 +16,7 @@ import styles from "../../styles/components/admin/AdminNav.module.css"
 export default function AdminNav() {
     return <>
         <div>
-            <Link href={ROUTES.ADMIN.INDEX}>
+            <Link href={ROUTES.ADMIN.HOME}>
                 <div className={styles.imageContainer}>
                     <Image
                         src={"/assets/img/white-logo.svg"}
@@ -31,12 +31,12 @@ export default function AdminNav() {
             <AdminLink
                 text={"Articles"}
                 IconComponent={TfiWrite}
-                to={ROUTES.ADMIN.ARTICLES.INDEX}
+                to={ROUTES.ADMIN.ARTICLES.HOME}
             />
             <AdminLink
                 text={"Utilisateurs"}
                 IconComponent={BiSolidUser}
-                to={ROUTES.ADMIN.USERS.INDEX}
+                to={ROUTES.ADMIN.USERS.HOME}
             />
         </div>
         <AdminBottom/>

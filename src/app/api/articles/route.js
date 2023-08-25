@@ -4,41 +4,46 @@ import {PrismaClient} from "@prisma/client";
 const prisma = new PrismaClient();
 
 const MESSAGE = {
-    NO_ARTIST_FOUND: "Aucun artiste trouvé.",
-    GLOBAL_ERROR: "Une erreur est survenue lors de la récupération des artistes."
+    NO_ARTICLES_FOUND: "Aucun article trouvé.",
+    GLOBAL_ERROR: "Une erreur est survenue lors de la récupération des articles."
 }
 
-export async function GET() {
 
+export async function GET() {
     try {
 
-        const artists = await prisma.artist.findMany({
+        const articles = await prisma.article.findMany({
             select: {
-                pseudo: true,
                 User: {
                     select: {
-                        email: true
+                        email: true,
                     }
-                }
+                },
+                id: true,
+                title: true,
+                content: true,
+                createdAt: true,
+                private: true,
             }
         });
 
-        const total = artists.length;
+        const total = articles.length;
 
         if (!total) {
             return NextResponse.json({
-                    message: MESSAGE.NO_ARTIST_FOUND
+                    message: MESSAGE.NO_ARTICLES_FOUND
                 },
                 {status: 404}
-            );
+            )
         }
 
         return NextResponse.json({
-                total: total,
-                list: artists,
+                total,
+                list: articles
             },
             {status: 200}
-        );
+        )
+
 
     } catch (error) {
 
@@ -50,4 +55,3 @@ export async function GET() {
 
     }
 }
-

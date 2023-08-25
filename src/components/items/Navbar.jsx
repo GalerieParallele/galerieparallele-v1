@@ -59,7 +59,7 @@ export default function Navbar() {
                     {hasRole(ROLES.ADMIN) && (
                         <>
                             <span className={styles.verticalSeparator}/>
-                            <Link href={ROUTES.ADMIN}>
+                            <Link href={ROUTES.ADMIN.HOME}>
                                 <IoIosSettings className={styles.adminIcon}/>
                             </Link>
                         </>

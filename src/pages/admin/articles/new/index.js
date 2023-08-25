@@ -12,7 +12,7 @@ export default function AdminArticlesIndex() {
     return (
         <Admin>
             <h1>Rédiger un nouvel article</h1>
-            <Link href={ROUTES.ADMIN.ARTICLES.INDEX}>Retour</Link>
+            <Link href={ROUTES.ADMIN.ARTICLES.HOME}>Retour</Link>
             <br/>
             <Editor onEditorChange={setEditorData}/>
             <br/>
