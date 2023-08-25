@@ -29,6 +29,7 @@ model Article {
   userid    Int
   title     String   @db.VarChar(255)
   content   String   @db.Text
+  private   Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   User      User     @relation(fields: [userid], references: [id])
