@@ -8,8 +8,8 @@
 
 .right {
     padding: 20px;
-    width: 80%;
-    overflow-y: scroll;
+    width: 100%;
+    overflow-y: auto;
     overflow-x: hidden;
     margin-left: 250px;
 }
