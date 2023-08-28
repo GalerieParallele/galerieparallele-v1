@@ -74,6 +74,7 @@ export async function POST(req, res) {
                 message: MESSAGES.SUCCESS,
                 user: {
                     id: user.id,
+                    roles: user.roles,
                 }
             },
             {

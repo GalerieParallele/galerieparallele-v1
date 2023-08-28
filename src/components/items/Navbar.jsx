@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import Link from "next/link";
 import Image from "next/image";
@@ -23,7 +23,7 @@ export default function Navbar() {
     return (
         <>
             <Amo/>
-            <div className={styles.navbar}>
+            <div className={styles.navbar} key={user ? user.id : 'unlogged'}>
                 <div className={styles.left}>
                     <button>
                         <SlMenu/>

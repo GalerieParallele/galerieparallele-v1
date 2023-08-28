@@ -15,6 +15,8 @@ export function useAuth() {
 export function AuthProvider({children}) {
 
     const [user, setUser] = useState(null);
+    const [roles, setRoles] = useState([]);
+
     const [isLoading, setIsLoading] = useState(false);
 
     const checkAuthentication = useCallback(async () => {
@@ -34,12 +36,15 @@ export function AuthProvider({children}) {
 
             if (response.status === 200) {
                 setUser(data);
+                setRoles(data.roles);
             } else {
                 setUser(null);
+                setRoles([])
             }
 
         } catch (error) {
             setUser(null);
+            setRoles([])
         } finally {
             setIsLoading(false)
         }
@@ -67,6 +72,7 @@ export function AuthProvider({children}) {
             if (response.status === 200) {
 
                 setUser(data);
+                setRoles(data.roles);
 
                 return {user: data};
             } else {
@@ -97,6 +103,7 @@ export function AuthProvider({children}) {
             if (response.status === 201) {
 
                 setUser(data);
+                setRoles(data.roles)
 
                 return {user: data};
             } else {
@@ -127,6 +134,7 @@ export function AuthProvider({children}) {
 
         if (response.status === 200) {
             setUser(null)
+            setRoles([])
         }
 
         setIsLoading(false)
@@ -134,20 +142,12 @@ export function AuthProvider({children}) {
     }, []);
 
     const hasRole = useCallback((role) => {
-        return user
-            && user.roles
-            && user.roles.length > 0
-            && Array.isArray(user.roles)
-            && user.roles.includes(role);
-    }, [user]);
+        return roles.includes(role);
+    }, [roles]);
 
     const hasRoles = useCallback((roles) => {
-        return user
-            && user.roles
-            && user.roles.length > 0
-            && Array.isArray(user.roles)
-            && roles.every(role => user.roles.includes(role));
-    }, [user]);
+        return roles.some(role => hasRole(role));
+    }, [hasRole]);
 
     return (
         <AuthContext.Provider value={{user, isLoading, signIn, signUp, signOut, hasRoles, hasRole}}>
