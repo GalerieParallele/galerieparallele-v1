@@ -4,8 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="New article : OK">
-      <change beforePath="$PROJECT_DIR$/src/styles/pages/Admin.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/pages/Admin.module.css" afterDir="false" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Problème de re-rendu navbar permettant d'afficher (ou non) le panel admin : OK">
+      <change afterPath="$PROJECT_DIR$/src/app/api/articles/getSpecial/route.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/admin/articles/EditorSkeleton.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/items/PageLoader.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/admin/articles/edit/[id].js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/items/Editor.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/Editor.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/ROUTES.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/ROUTES.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/articles/new/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/articles/new/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,8 +25,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -27,6 +36,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2TCaTeeCh1gUTreDmILjintDKhh" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -50,7 +62,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/snap/webstorm/329/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/snap/webstorm/332/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -68,11 +80,11 @@
       <recent name="$PROJECT_DIR$/src/components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app/api/articles/edit" />
+      <recent name="$PROJECT_DIR$/src/app/api/articles" />
+      <recent name="$PROJECT_DIR$/src/app/api/articles/edit/[id]" />
       <recent name="$PROJECT_DIR$/src/components/admin/home" />
       <recent name="$PROJECT_DIR$/src/components/admin" />
-      <recent name="$PROJECT_DIR$/src/components" />
-      <recent name="$PROJECT_DIR$/src/styles/components/home" />
-      <recent name="$PROJECT_DIR$/src/styles/components/items" />
     </key>
   </component>
   <component name="RunManager">
@@ -118,23 +130,11 @@
       <workItem from="1692713781907" duration="10859000" />
       <workItem from="1692886795108" duration="22570000" />
       <workItem from="1692944752840" duration="6222000" />
-      <workItem from="1692970586529" duration="17683000" />
-    </task>
-    <task id="LOCAL-00022" summary="route /me cookie : OK">
-      <option name="closed" value="true" />
-      <created>1692561466187</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1692561466187</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Optimisation de la route /me + fonctionnelle">
-      <option name="closed" value="true" />
-      <created>1692609459604</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1692609459604</updated>
+      <workItem from="1692970586529" duration="17768000" />
+      <workItem from="1692989508136" duration="3000" />
+      <workItem from="1693164335036" duration="253000" />
+      <workItem from="1693194809879" duration="11550000" />
+      <workItem from="1693226667143" duration="5641000" />
     </task>
     <task id="LOCAL-00024" summary="Ajout/Modification des spinner de chargement">
       <option name="closed" value="true" />
@@ -512,14 +512,29 @@
       <option name="project" value="LOCAL" />
       <updated>1692989005808</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="Minor update">
+      <option name="closed" value="true" />
+      <created>1692989475880</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1692989475880</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Problème de re-rendu navbar permettant d'afficher (ou non) le panel admin : OK">
+      <option name="closed" value="true" />
+      <created>1693197755017</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1693197755018</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Suppression de la page d'exemple" />
     <MESSAGE value="Ajout d'un titre à la page d'accueil et de la section mentra" />
     <MESSAGE value="Suppression import inutile (Head)" />
     <MESSAGE value="Ajout d'un titre aux pages" />
@@ -535,7 +550,6 @@
     <MESSAGE value="Ajout d'un fichier permettant de stocker les contantes concernant les rôles" />
     <MESSAGE value="Ajout de deux fonctions permettant de vérifier le/les rôle(s) des utilisateurs" />
     <MESSAGE value="Workspace" />
-    <MESSAGE value="Minor update" />
     <MESSAGE value="Major update (routes constants)" />
     <MESSAGE value="Major update (admin dashboard &amp; routes)" />
     <MESSAGE value="Major update (socket)" />
@@ -544,7 +558,9 @@
     <MESSAGE value="Add migrations" />
     <MESSAGE value="View article index : OK" />
     <MESSAGE value="New article : OK" />
-    <option name="LAST_COMMIT_MESSAGE" value="New article : OK" />
+    <MESSAGE value="Minor update" />
+    <MESSAGE value="Problème de re-rendu navbar permettant d'afficher (ou non) le panel admin : OK" />
+    <option name="LAST_COMMIT_MESSAGE" value="Problème de re-rendu navbar permettant d'afficher (ou non) le panel admin : OK" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

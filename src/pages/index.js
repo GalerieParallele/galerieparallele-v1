@@ -12,6 +12,7 @@ import styles from '../styles/pages/Accueil.module.css'
 import Artiste from "@/components/accueil/artistes/Artiste";
 import Head from "next/head";
 import Mentra from "@/components/accueil/mentra/Mentra";
+import PageLoader from "@/components/items/PageLoader";
 
 export default function Index() {
 
@@ -22,20 +23,22 @@ export default function Index() {
             <Head>
                 <title>GP - Accueil</title>
             </Head>
-            <main className={styles.main}>
-                {isLoading ? (
-                    <BigSpinner/>
-                ) : (
-                    <>
+
+            {isLoading ? (
+                <PageLoader/>
+            ) : (
+                <>
+                    <main className={styles.main}>
                         <Hero/>
                         <Navbar/>
                         <Actu/>
                         <Artiste/>
                         <Mentra/>
-                    </>
+                    </main>
+                </>
 
-                )}
-            </main>
+            )}
+
         </>
     )
 }

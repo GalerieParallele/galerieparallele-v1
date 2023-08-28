@@ -3,22 +3,19 @@ import React, {useEffect, useState} from "react";
 import ROUTES from "@/constants/ROUTES";
 
 import Admin from "@/components/admin/Admin";
-import Editor from "@/components/items/Editor";
 import Button from "@/components/items/Button";
 
 import {AiOutlineArrowLeft} from "react-icons/ai";
 
 import styles from "@/styles/components/admin/articles/AdminArticlesNew.module.css";
-import IconInput from "@/components/items/IconInput";
-import {BsTextParagraph} from "react-icons/bs";
 import {useRouter} from "next/router";
 import BigSpinner from "@/components/items/BigSpinner";
 import {Toast} from "@/constants/ToastConfig";
+import EditorSkeleton from "@/components/admin/articles/EditorSkeleton";
 
 export default function AdminArticlesIndex() {
 
     const [isLoading, setIsLoading] = useState(true);
-    const [editorData, setEditorData] = useState("");
     const [formData, setFormData] = useState({
         title: "",
         content: "",
@@ -40,7 +37,7 @@ export default function AdminArticlesIndex() {
             private: formData.private,
         };
 
-        const res = await fetch("/api/articles", {
+        const res = await fetch(ROUTES.API.ARTICLES.GET, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -75,36 +72,11 @@ export default function AdminArticlesIndex() {
                     </div>
                 ) : (
                     <>
-                        <div className={styles.content}>
-                            <div className={`${styles.center} ${styles.title}`}>
-                                <IconInput
-                                    label={"Titre"}
-                                    IconComponent={BsTextParagraph}
-                                    value={formData.title}
-                                    type={"text"}
-                                    onChange={(e) => {
-                                        setFormData(prevState => ({...prevState, title: e.target.value}))
-                                    }}
-                                    required
-                                />
-                            </div>
-                            <Editor onEditorChange={(content) => {
-                                setEditorData(content);
-                                setFormData(prevState => ({...prevState, content: content}))
-                            }}/>
-                            <div className={styles.center}>
-                                <p>Privé</p>
-                                <input type={"checkbox"} onChange={(e) => {
-                                    setFormData(prevState => ({...prevState, private: e.target.checked}));
-                                }}/>
-                            </div>
-                        </div>
-                        <div className={styles.center}>
-                            <Button
-                                text={"Publier"}
-                                onClick={handleSubmit}
-                            />
-                        </div>
+                        <EditorSkeleton
+                            onSubmit={handleSubmit}
+                            formData={formData}
+                            setFormData={setFormData}
+                        />
                     </>
                 )}
             </main>
