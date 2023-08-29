@@ -4,20 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Article : création &amp; édition : OK">
-      <change afterPath="$PROJECT_DIR$/src/components/home/shop/Shop.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/shop/ShopItem.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/components/home/Shop.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/components/home/ShopItem.module.css" afterDir="false" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Sticky navbar + amo &amp; restructuration &quot;acccueil&quot; &gt;&gt; &quot;home&quot;">
+      <change afterPath="$PROJECT_DIR$/public/assets/img/shop/article1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/accueil/actu/Actu.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/actu/Actu.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/accueil/artistes/Artiste.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/artistes/Artiste.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/accueil/artistes/ArtisteCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/artistes/ArtisteCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/accueil/hero/Hero.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/hero/Hero.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/accueil/mentra/Mentra.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/mentra/Mentra.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/items/Amo.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/items/Amo.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/items/Navbar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/items/Navbar.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/shop/Shop.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/shop/Shop.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/shop/ShopItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/shop/ShopItem.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/components/home/Shop.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/home/Shop.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/components/home/ShopItem.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/home/ShopItem.module.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,28 +40,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;18.17.1&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;18.17.1&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/neosianexus/Bureau/MOI/Dev/GP/Web&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/snap/webstorm/332/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "ignore.virus.scanning.warn.message": "true",
+    "javascript.nodejs.core.library.configured.version": "18.17.1",
+    "javascript.nodejs.core.library.typings.version": "18.17.1",
+    "last_opened_file_path": "/home/neosianexus/Bureau/MOI/Dev/GP/Web/public/assets/img/shop",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "/snap/webstorm/332/plugins/javascript-impl/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -79,15 +72,16 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/assets/img/shop" />
       <recent name="$PROJECT_DIR$/public/assets/img" />
       <recent name="$PROJECT_DIR$/src/components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/assets/img/identity" />
       <recent name="$PROJECT_DIR$/src/app/api/articles/edit" />
       <recent name="$PROJECT_DIR$/src/app/api/articles" />
       <recent name="$PROJECT_DIR$/src/app/api/articles/edit/[id]" />
       <recent name="$PROJECT_DIR$/src/components/admin/home" />
-      <recent name="$PROJECT_DIR$/src/components/admin" />
     </key>
   </component>
   <component name="RunManager">
@@ -138,23 +132,7 @@
       <workItem from="1693164335036" duration="253000" />
       <workItem from="1693194809879" duration="11550000" />
       <workItem from="1693226667143" duration="6446000" />
-      <workItem from="1693268861522" duration="932000" />
-    </task>
-    <task id="LOCAL-00025" summary="Création d'une page d'accueil fictive">
-      <option name="closed" value="true" />
-      <created>1692613423507</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1692613423507</updated>
-    </task>
-    <task id="LOCAL-00026" summary="Minor update">
-      <option name="closed" value="true" />
-      <created>1692621612772</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1692621612773</updated>
+      <workItem from="1693268861522" duration="2523000" />
     </task>
     <task id="LOCAL-00027" summary="Mise en forme du composant affichant qu'un utilisateur est déjà connecté">
       <option name="closed" value="true" />
@@ -532,15 +510,29 @@
       <option name="project" value="LOCAL" />
       <updated>1693232328971</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="Création des fichiers nécessaires à la section &quot;Shop&quot;">
+      <option name="closed" value="true" />
+      <created>1693269858772</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1693269858772</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Sticky navbar + amo &amp; restructuration &quot;acccueil&quot; &gt;&gt; &quot;home&quot;">
+      <option name="closed" value="true" />
+      <created>1693269889726</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1693269889726</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Suppression import inutile (Head)" />
-    <MESSAGE value="Ajout d'un titre aux pages" />
     <MESSAGE value="Création + design de la section Mentra" />
     <MESSAGE value="Ajout de l'icon admin dans la navbar" />
     <MESSAGE value="Centrage du texte de mentra" />
@@ -564,7 +556,9 @@
     <MESSAGE value="Minor update" />
     <MESSAGE value="Problème de re-rendu navbar permettant d'afficher (ou non) le panel admin : OK" />
     <MESSAGE value="Article : création &amp; édition : OK" />
-    <option name="LAST_COMMIT_MESSAGE" value="Article : création &amp; édition : OK" />
+    <MESSAGE value="Création des fichiers nécessaires à la section &quot;Shop&quot;" />
+    <MESSAGE value="Sticky navbar + amo &amp; restructuration &quot;acccueil&quot; &gt;&gt; &quot;home&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Sticky navbar + amo &amp; restructuration &quot;acccueil&quot; &gt;&gt; &quot;home&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

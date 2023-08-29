@@ -1,3 +1,25 @@
 .shop {
 
+    background-color: var(--white);
+
+    box-shadow: var(--shadow);
+
+    height: 500px;
+    width: 100%;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
+}
+
+.list {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    align-items: center;
+    gap: 158px;
 }
