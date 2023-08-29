@@ -15,6 +15,7 @@ import PageLoader from "@/components/items/PageLoader";
 
 import styles from '../styles/pages/Accueil.module.css'
 import Pro from "@/components/home/pro/Pro";
+import Picto from "@/components/items/picto/Picto";
 
 export default function Index() {
 
@@ -38,6 +39,7 @@ export default function Index() {
                         <Mentra/>
                         <Shop/>
                         <Pro/>
+                        <Picto/>
                     </main>
                 </>
 

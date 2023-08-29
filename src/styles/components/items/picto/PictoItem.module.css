@@ -1,0 +1,31 @@
+.pictoItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+.pictoItem:hover .icon {
+    transform: rotate(360deg);
+}
+
+.icon {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 80px;
+    height: 80px;
+
+    border-radius: 100%;
+
+    padding: 15px;
+
+    background: linear-gradient(5deg, rgba(0, 0, 0, 1) 0%, rgba(32, 32, 32, 1) 40%, rgba(44, 44, 44, 1) 64%, rgba(55, 55, 55, 1) 100%);
+
+    color: var(--white);
+
+    transition: var(--transition);
+}

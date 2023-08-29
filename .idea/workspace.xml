@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Section articles (shop) : OK">
-      <change afterPath="$PROJECT_DIR$/public/assets/img/pro.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/pro/Pro.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/components/home/Pro.module.css" afterDir="false" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Rectification du responsive de l'image">
+      <change afterPath="$PROJECT_DIR$/src/components/items/picto/Picto.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/items/picto/PictoItem.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/components/items/picto/Picto.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/components/items/picto/PictoItem.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.js" afterDir="false" />
     </list>
@@ -76,11 +77,11 @@
       <recent name="$PROJECT_DIR$/src/components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/styles/components/items/picto" />
+      <recent name="$PROJECT_DIR$/src/components/items/Picto" />
       <recent name="$PROJECT_DIR$/public/assets/img/identity" />
       <recent name="$PROJECT_DIR$/src/app/api/articles/edit" />
       <recent name="$PROJECT_DIR$/src/app/api/articles" />
-      <recent name="$PROJECT_DIR$/src/app/api/articles/edit/[id]" />
-      <recent name="$PROJECT_DIR$/src/components/admin/home" />
     </key>
   </component>
   <component name="RunManager">
@@ -131,23 +132,7 @@
       <workItem from="1693164335036" duration="253000" />
       <workItem from="1693194809879" duration="11550000" />
       <workItem from="1693226667143" duration="6446000" />
-      <workItem from="1693268861522" duration="3980000" />
-    </task>
-    <task id="LOCAL-00028" summary="Review structure + design button">
-      <option name="closed" value="true" />
-      <created>1692622907231</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1692622907231</updated>
-    </task>
-    <task id="LOCAL-00029" summary="Hero : OK">
-      <option name="closed" value="true" />
-      <created>1692626990277</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1692626990277</updated>
+      <workItem from="1693268861522" duration="4952000" />
     </task>
     <task id="LOCAL-00030" summary="Hero : rotation logo : OK">
       <option name="closed" value="true" />
@@ -525,15 +510,29 @@
       <option name="project" value="LOCAL" />
       <updated>1693271655907</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="Section pro : OK">
+      <option name="closed" value="true" />
+      <created>1693273096891</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1693273096891</updated>
+    </task>
+    <task id="LOCAL-00078" summary="Rectification du responsive de l'image">
+      <option name="closed" value="true" />
+      <created>1693273345392</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1693273345392</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Ajout de l'icon admin dans la navbar" />
-    <MESSAGE value="Centrage du texte de mentra" />
     <MESSAGE value="Ajout d'une fonctionnalité dans le hook d'authentification permettant de vérifier le/les rôle(s) d'un utilisateur" />
     <MESSAGE value="Ajout d'une bar de chargement des pages" />
     <MESSAGE value="Mise en forme de la bar de scroll" />
@@ -557,7 +556,9 @@
     <MESSAGE value="Création des fichiers nécessaires à la section &quot;Shop&quot;" />
     <MESSAGE value="Sticky navbar + amo &amp; restructuration &quot;acccueil&quot; &gt;&gt; &quot;home&quot;" />
     <MESSAGE value="Section articles (shop) : OK" />
-    <option name="LAST_COMMIT_MESSAGE" value="Section articles (shop) : OK" />
+    <MESSAGE value="Section pro : OK" />
+    <MESSAGE value="Rectification du responsive de l'image" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rectification du responsive de l'image" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

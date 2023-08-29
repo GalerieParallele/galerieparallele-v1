@@ -1,0 +1,11 @@
+.picto {
+
+    padding: 40px 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 200px;
+}
