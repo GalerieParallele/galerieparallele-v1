@@ -16,6 +16,7 @@ import PageLoader from "@/components/items/PageLoader";
 import styles from '../styles/pages/Accueil.module.css'
 import Pro from "@/components/home/pro/Pro";
 import Picto from "@/components/items/picto/Picto";
+import Amo from "@/components/home/amo/Amo";
 
 export default function Index() {
 
@@ -40,6 +41,7 @@ export default function Index() {
                         <Shop/>
                         <Pro/>
                         <Picto/>
+                        <Amo/>
                     </main>
                 </>
 
