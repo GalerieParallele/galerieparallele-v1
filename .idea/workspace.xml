@@ -4,17 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Problème de re-rendu navbar permettant d'afficher (ou non) le panel admin : OK">
-      <change afterPath="$PROJECT_DIR$/src/app/api/articles/getSpecial/route.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/admin/articles/EditorSkeleton.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/items/PageLoader.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/admin/articles/edit/[id].js" afterDir="false" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Article : création &amp; édition : OK">
+      <change afterPath="$PROJECT_DIR$/src/components/home/shop/Shop.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/home/shop/ShopItem.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/components/home/Shop.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/components/home/ShopItem.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/items/Editor.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/Editor.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/ROUTES.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/ROUTES.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/articles/new/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/articles/new/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/accueil/actu/Actu.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/actu/Actu.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/accueil/artistes/Artiste.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/artistes/Artiste.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/accueil/artistes/ArtisteCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/artistes/ArtisteCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/accueil/hero/Hero.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/hero/Hero.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/accueil/mentra/Mentra.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/mentra/Mentra.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/components/items/Amo.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/items/Amo.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/components/items/Navbar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/items/Navbar.module.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +28,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -134,15 +137,8 @@
       <workItem from="1692989508136" duration="3000" />
       <workItem from="1693164335036" duration="253000" />
       <workItem from="1693194809879" duration="11550000" />
-      <workItem from="1693226667143" duration="5641000" />
-    </task>
-    <task id="LOCAL-00024" summary="Ajout/Modification des spinner de chargement">
-      <option name="closed" value="true" />
-      <created>1692612586436</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1692612586436</updated>
+      <workItem from="1693226667143" duration="6446000" />
+      <workItem from="1693268861522" duration="932000" />
     </task>
     <task id="LOCAL-00025" summary="Création d'une page d'accueil fictive">
       <option name="closed" value="true" />
@@ -528,14 +524,21 @@
       <option name="project" value="LOCAL" />
       <updated>1693197755018</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="Article : création &amp; édition : OK">
+      <option name="closed" value="true" />
+      <created>1693232328971</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1693232328971</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Ajout d'un titre à la page d'accueil et de la section mentra" />
     <MESSAGE value="Suppression import inutile (Head)" />
     <MESSAGE value="Ajout d'un titre aux pages" />
     <MESSAGE value="Création + design de la section Mentra" />
@@ -560,7 +563,8 @@
     <MESSAGE value="New article : OK" />
     <MESSAGE value="Minor update" />
     <MESSAGE value="Problème de re-rendu navbar permettant d'afficher (ou non) le panel admin : OK" />
-    <option name="LAST_COMMIT_MESSAGE" value="Problème de re-rendu navbar permettant d'afficher (ou non) le panel admin : OK" />
+    <MESSAGE value="Article : création &amp; édition : OK" />
+    <option name="LAST_COMMIT_MESSAGE" value="Article : création &amp; édition : OK" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

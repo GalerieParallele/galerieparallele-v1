@@ -1,4 +1,9 @@
 .navbar {
+
+    z-index: 99999999;
+
+    background-color: var(--white);
+
     padding: 12px 30px;
     width: 100vw;
 
@@ -8,6 +13,10 @@
     align-items: center;
 
     box-shadow: var(--shadow);
+
+    position: sticky;
+    top: 40px;
+    left: 0;
 }
 
 .left button {
