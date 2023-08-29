@@ -14,6 +14,7 @@ import Shop from "@/components/home/shop/Shop";
 import PageLoader from "@/components/items/PageLoader";
 
 import styles from '../styles/pages/Accueil.module.css'
+import Pro from "@/components/home/pro/Pro";
 
 export default function Index() {
 
@@ -36,6 +37,7 @@ export default function Index() {
                         <Artiste/>
                         <Mentra/>
                         <Shop/>
+                        <Pro/>
                     </main>
                 </>
 
