@@ -12,6 +12,7 @@ import {TfiWrite} from "react-icons/tfi";
 import {BiSolidUser} from "react-icons/bi";
 
 import styles from "../../styles/components/admin/AdminNav.module.css"
+import {AiOutlineCloudUpload} from "react-icons/ai";
 
 export default function AdminNav() {
     return <>
@@ -37,6 +38,11 @@ export default function AdminNav() {
                 text={"Utilisateurs"}
                 IconComponent={BiSolidUser}
                 to={ROUTES.ADMIN.USERS.HOME}
+            />
+            <AdminLink
+                text={"Cloud"}
+                IconComponent={AiOutlineCloudUpload}
+                to={ROUTES.ADMIN.MY_CLOUD.HOME}
             />
         </div>
         <AdminBottom/>

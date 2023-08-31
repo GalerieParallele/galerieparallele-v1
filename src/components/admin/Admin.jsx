@@ -5,6 +5,7 @@ import useSocket from "@/hooks/useSocket";
 import { Toast } from "@/constants/ToastConfig";
 
 export default function Admin({ children }) {
+
     const socket = useSocket();
 
     useEffect(() => {

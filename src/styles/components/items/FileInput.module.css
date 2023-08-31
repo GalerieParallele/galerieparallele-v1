@@ -1,0 +1,43 @@
+.container {
+    background-color: var(--white);
+    box-shadow: var(--shadow);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.inputFile {
+    display: none;
+}
+
+.top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.top label {
+    background-color: var(--black);
+    color: var(--white);
+    padding: 10px;
+    border-radius: var(--border-radius);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container input[type="text"] {
+    border:  1px solid var(--black);
+    padding: 8px;
+    border-radius: var(--border-radius);
+}
+
+.container input:disabled {
+    cursor: not-allowed;
+}

@@ -2,6 +2,7 @@ const BASE = {
     ADMIN: `/admin`,
     ADMIN_ARTICLES: `/admin/articles`,
     ADMIN_USERS: `/admin/utilisateurs`,
+    ADMIN_MON_CLOUD: `/admin/my-cloud`,
 
     API: `/api/`,
     API_USERS: `/api/users`,
@@ -23,6 +24,9 @@ const ROUTES = {
         USERS: {
             HOME: `${BASE.ADMIN_USERS}`,
             NEW: `${BASE.ADMIN_USERS}/new`,
+        },
+        MY_CLOUD: {
+            HOME: `${BASE.ADMIN_MON_CLOUD}`
         }
     },
     API: {
