@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Firebase upload : OK">
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="minor update (docker standalone)">
       <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,23 +130,7 @@
       <workItem from="1693226667143" duration="6446000" />
       <workItem from="1693268861522" duration="5257000" />
       <workItem from="1693415025769" duration="10000" />
-      <workItem from="1693512869166" duration="9401000" />
-    </task>
-    <task id="LOCAL-00033" summary="Minor update">
-      <option name="closed" value="true" />
-      <created>1692636152376</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1692636152376</updated>
-    </task>
-    <task id="LOCAL-00034" summary="Rectification">
-      <option name="closed" value="true" />
-      <created>1692636653527</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1692636653527</updated>
+      <workItem from="1693512869166" duration="9710000" />
     </task>
     <task id="LOCAL-00035" summary="Update dockerfile (last command)">
       <option name="closed" value="true" />
@@ -523,14 +508,29 @@
       <option name="project" value="LOCAL" />
       <updated>1693521815637</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="minor update (docker standalone)">
+      <option name="closed" value="true" />
+      <created>1693522282091</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1693522282091</updated>
+    </task>
+    <task id="LOCAL-00083" summary="minor update (docker standalone)">
+      <option name="closed" value="true" />
+      <created>1693522356698</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1693522356698</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Ajout d'une verification du role utilisateur dans la barre de navigation (accès admin dashboard)" />
     <MESSAGE value="Modification des marges horizontale dans la barre de navigation" />
     <MESSAGE value="Installation de la barre de progression de chargement dans les package" />
     <MESSAGE value="Ajout d'un fichier permettant de stocker les contantes concernant les rôles" />
@@ -555,7 +555,8 @@
     <MESSAGE value="Picto : OK" />
     <MESSAGE value="Upload file : OK" />
     <MESSAGE value="Firebase upload : OK" />
-    <option name="LAST_COMMIT_MESSAGE" value="Firebase upload : OK" />
+    <MESSAGE value="minor update (docker standalone)" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor update (docker standalone)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
