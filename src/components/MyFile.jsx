@@ -1,8 +1,11 @@
-import {deleteObject, getDownloadURL, getMetadata, listAll, ref,} from "firebase/storage";
-import {storage} from "../../firebaseConfig";
+import React from "react";
+
+import StorageUtils from "@/utils/StorageUtils";
 import {useEffect, useState} from "react";
+
 import Button from "@/components/items/Button";
 import LittleSpinner from "@/components/items/LittleSpinner";
+
 import Image from "next/image";
 import {Toast} from "@/constants/ToastConfig";
 
@@ -12,61 +15,37 @@ export default function MyFile({user}) {
     const [fileMetadata, setFileMetadata] = useState({});
     const [loading, setLoading] = useState(true);
 
-    const getFileMetadata = async (fileRef) => {
-        try {
-            return await getMetadata(fileRef);
-        } catch (error) {
-            console.error("Error while fetching file metadata: ", error);
-            return null; // Si une erreur se produit, renvoyer null
-        }
+    const getFileMetadata = async (path) => {
+        return await StorageUtils.getFileMetadata(path);
     }
-
     const deleteFile = async (fileRef) => {
-        try {
-            await deleteObject(fileRef);
+        const result = await StorageUtils.deleteFile(fileRef.fullPath);
+        if (result.success) {
             const updatedFiles = files.filter(file => file.name !== fileRef.name);
             setFiles(updatedFiles);
 
             await Toast.fire({
                 icon: 'success',
-                title: `Fichier "${fileRef.name} correctement supprimé."`,
-
-            })
-        } catch (error) {
-            console.error("Error deleting the file: ", error);
+                title: `Fichier "${fileRef.name}" correctement supprimé.`,
+            });
+        } else {
+            console.error("Error deleting the file: ", result.error);
+            // Gérer l'erreur comme vous le souhaitez
         }
     }
-
     const retrieveFiles = async () => {
         setLoading(true);
-        const storageRef = ref(storage, `${user.id}/`);
-        try {
-            const fileList = await listAll(storageRef);
-            return fileList.items;
-        } catch (error) {
-            console.error("Error while fetching files: ", error);
-            return []; // Retourner un tableau vide en cas d'erreur
-        } finally {
-            setLoading(false);
-        }
+        const fileList = await StorageUtils.listFiles(`${user.id}/`);
+        setLoading(false);
+        return fileList;
     }
-
-    const getFileURL = async (fileRef) => {
-        try {
-            return await getDownloadURL(fileRef);
-        } catch (error) {
-            console.error("Error while fetching file URL: ", error);
-            return null; // Si une erreur se produit, renvoyer null
-        }
-    }
-
     const loadFiles = async () => {
         const fileList = await retrieveFiles();
         const urls = {};
         const metadataList = {};
 
         for (let file of fileList) {
-            urls[file.name] = await getFileURL(file);
+            urls[file.name] = await StorageUtils.getFileURL(file.fullPath);
             metadataList[file.name] = await getFileMetadata(file);
         }
 
@@ -87,7 +66,7 @@ export default function MyFile({user}) {
             alignItems: "center",
             padding: "20px 0"
         }}>
-           <Button
+            <Button
                 text={"Rafraîchir"}
                 onClick={loadFiles}
             />

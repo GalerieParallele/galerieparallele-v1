@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="minor update (docker standalone)">
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/FirestoreUtils.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/StorageUtils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firebaseConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/firebaseConfig.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MyFile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MyFile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/items/FileInput.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/FileInput.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +69,7 @@
       <map>
         <entry key="com.haulmont.rcb.reactComponents" value="false" />
         <entry key="com.haulmont.rcb.reactInspector" value="false" />
+        <entry key="com.haulmont.rcb.storybook" value="false" />
       </map>
     </option>
   </component>
@@ -130,15 +137,9 @@
       <workItem from="1693226667143" duration="6446000" />
       <workItem from="1693268861522" duration="5257000" />
       <workItem from="1693415025769" duration="10000" />
-      <workItem from="1693512869166" duration="9710000" />
-    </task>
-    <task id="LOCAL-00035" summary="Update dockerfile (last command)">
-      <option name="closed" value="true" />
-      <created>1692636976372</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1692636976372</updated>
+      <workItem from="1693512869166" duration="10202000" />
+      <workItem from="1693679584657" duration="4000" />
+      <workItem from="1693843034025" duration="3676000" />
     </task>
     <task id="LOCAL-00036" summary="Update dockerfile (last command)">
       <option name="closed" value="true" />
@@ -524,7 +525,15 @@
       <option name="project" value="LOCAL" />
       <updated>1693522356698</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="minor update (docker standalone)">
+      <option name="closed" value="true" />
+      <created>1693522584919</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1693522584919</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

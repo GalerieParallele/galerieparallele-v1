@@ -12,6 +12,7 @@ import LittleSpinner from "@/components/items/LittleSpinner";
 import {AiOutlineCloudUpload} from "react-icons/ai";
 import {RiDeleteBin6Line} from "react-icons/ri";
 import styles from "@/styles/components/items/FileInput.module.css"
+import StorageUtils from "@/utils/StorageUtils";
 
 export default function FileInput() {
     const [file, setFile] = useState(null);
@@ -29,28 +30,18 @@ export default function FileInput() {
         setFile(selectedFile || null);
     }
 
-    const handleUploadFile = () => {
+    const handleUploadFile = async () => {
+
         if (!file) return;
 
         setIsUploading(true);
 
-        const storageRef = ref(storage, `${user.id}/${customFileName || file.name}`);
-        const uploadTask = uploadBytesResumable(storageRef, file);
-
-        uploadTask.on('state_changed',
-            (snapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                setProgress(progress);
-            },
-            () => {
-                // Handle error here if any
-            },
-            () => {
-                getDownloadURL(uploadTask.snapshot.ref).then(() => {
-                    setIsUploading(false);
-                });
-            }
-        );
+        const result = await StorageUtils.uploadFile(file, `${user.id}/${customFileName || file.name}`);
+        if (result.success) {
+            setIsUploading(false);
+        } else {
+            // GERER LES ERREURS
+        }
     }
 
     return (
