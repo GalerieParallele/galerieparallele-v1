@@ -1,0 +1,9 @@
+.draganddrop {
+    background-color: var(--white);
+
+    box-shadow: var(--shadow);
+
+    width: fit-content;
+
+    padding: 1rem;
+}

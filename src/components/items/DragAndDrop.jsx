@@ -2,36 +2,74 @@ import React, {useCallback, useRef, useState} from 'react';
 
 import StorageUtils from '@/utils/StorageUtils';
 
+import styles from "../../styles/components/items/DragAndDrop.module.css"
+
 function DragAndDrop({onFilesUploaded}) {
 
-    const [isDragging, setIsDragging] = useState(false);
-    const fileInputRef = useRef(null);
-    const [selectedFiles, setSelectedFiles] = useState([]);
-    const [uploadingFiles, setUploadingFiles] = useState({});  // pour stocker les progressions
+    const [isDragging, setIsDragging] = useState(false); // Permet de savoir si l'utilisateur est en train de drag un fichier
+    const fileInputRef = useRef(null); // Permet de stocker la référence de l'input file
+    const [selectedFiles, setSelectedFiles] = useState([]); // Permet de stocker les fichiers sélectionnés
+    const [uploadingFiles, setUploadingFiles] = useState({});  // Permet de stocker les progessions d'envoi de chaque fichier
 
 
+    /**
+     * Permet d'ouvrir la fenêtre de sélection de fichier
+     * @type {(function(*): void)|*}
+     */
     const handleClick = useCallback((e) => {
         fileInputRef.current.click();
     }, []);
 
+    /**
+     * Permet de gérer le drag enter
+     * @type {(function(*): void)|*}
+     */
     const handleDragEnter = useCallback((e) => {
         e.preventDefault();
         e.stopPropagation();
         setIsDragging(true);
     }, []);
 
+    /**
+     * Permet de gérer le drag leave
+     * @type {(function(*): void)|*}
+     */
     const handleDragLeave = useCallback((e) => {
         e.preventDefault();
         e.stopPropagation();
         setIsDragging(false);
     }, []);
 
+    /**
+     * Permet de gérer la sélection de fichier
+     * @type {(function(*): void)|*}
+     */
     const handleFileSelect = useCallback((e) => {
         let files = [...e.target.files, ...selectedFiles];
         setSelectedFiles(files);
         e.target.value = '';
     }, [selectedFiles]);
 
+    /**
+     * Permet de gérer le drop
+     * @type {(function(*): void)|*}
+     */
+    const handleDrop = useCallback((e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        setIsDragging(false);
+        let files = [...e.dataTransfer.files]; // Convertir la liste des fichiers en tableau
+
+        // Ajouter les fichiers dans la liste des fichiers sélectionnés
+        setSelectedFiles(prev => [...prev, ...files]);
+    }, []);
+
+    /**
+     * Permet d'envoyer un fichier vers le cloud
+     * @param file
+     * @returns {Promise<void>}
+     */
     const handleUploadFile = async (file) => {
         const onProgress = (progress) => {
             setUploadingFiles(prev => ({...prev, [file.name]: progress}));
@@ -50,25 +88,10 @@ function DragAndDrop({onFilesUploaded}) {
         });
     };
 
-
-    const handleDrop = useCallback((e) => {
-        e.preventDefault();
-        e.stopPropagation();
-
-        setIsDragging(false);
-        let files = [...e.dataTransfer.files]; // Convertir la liste des fichiers en tableau
-
-        // Ajouter les fichiers dans la liste des fichiers sélectionnés
-        setSelectedFiles(prev => [...prev, ...files]);
-    }, []);
-
-
     return (
         <>
             <div
-                style={{
-                    border: isDragging ? '2px dashed #000' : '2px solid #ccc', padding: 20, textAlign: 'center'
-                }}
+                className={styles.draganddrop}
                 onDragEnter={handleDragEnter}
                 onDragLeave={handleDragLeave}
                 onDragOver={(e) => e.preventDefault()} // Permet de rendre la zone "droppable"
