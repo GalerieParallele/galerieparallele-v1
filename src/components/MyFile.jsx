@@ -1,7 +1,6 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 import StorageUtils from "@/utils/StorageUtils";
-import {useEffect, useState} from "react";
 
 import Button from "@/components/items/Button";
 import LittleSpinner from "@/components/items/LittleSpinner";
@@ -14,6 +13,7 @@ export default function MyFile({user}) {
     const [fileURLs, setFileURLs] = useState({});
     const [fileMetadata, setFileMetadata] = useState({});
     const [loading, setLoading] = useState(true);
+    const [dataLoading, setDataLoading] = useState(false);
 
     const getFileMetadata = async (path) => {
         return await StorageUtils.getFileMetadata(path);
@@ -40,6 +40,7 @@ export default function MyFile({user}) {
         return fileList;
     }
     const loadFiles = async () => {
+        setDataLoading(true)
         const fileList = await retrieveFiles();
         const urls = {};
         const metadataList = {};
@@ -52,6 +53,7 @@ export default function MyFile({user}) {
         setFiles(fileList);
         setFileURLs(urls);
         setFileMetadata(metadataList);
+        setDataLoading(false)
     };
 
     useEffect(() => {
@@ -67,11 +69,12 @@ export default function MyFile({user}) {
             padding: "20px 0"
         }}>
             <Button
-                text={"Rafraîchir"}
+                text={dataLoading ? <LittleSpinner/> : "Rafraîchir"}
                 onClick={loadFiles}
+                disabled={dataLoading}
             />
             <div>
-                {loading ? <LittleSpinner/> : (
+                {loading ? null : (
                     <>
                         {files.length === 0 ? (
                             <p>Aucun fichier dans le cloud</p>

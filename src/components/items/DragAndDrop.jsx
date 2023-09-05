@@ -6,8 +6,11 @@ function DragAndDrop({onFilesUploaded}) {
 
     const [isDragging, setIsDragging] = useState(false);
     const fileInputRef = useRef(null);
+    const [selectedFiles, setSelectedFiles] = useState([]);
+    const [uploadingFiles, setUploadingFiles] = useState({});  // pour stocker les progressions
 
-    const handleClick = useCallback(() => {
+
+    const handleClick = useCallback((e) => {
         fileInputRef.current.click();
     }, []);
 
@@ -23,41 +26,76 @@ function DragAndDrop({onFilesUploaded}) {
         setIsDragging(false);
     }, []);
 
-    const handleDrop = useCallback(async (e) => {
+    const handleFileSelect = useCallback((e) => {
+        let files = [...e.target.files, ...selectedFiles];
+        setSelectedFiles(files);
+        e.target.value = '';
+    }, [selectedFiles]);
+
+    const handleUploadFile = async (file) => {
+        const onProgress = (progress) => {
+            setUploadingFiles(prev => ({...prev, [file.name]: progress}));
+        };
+
+        const result = await StorageUtils.uploadFile(file, `1/${file.name}`, onProgress);
+        onFilesUploaded(result);
+
+        // Supprimer le fichier de la liste après l'envoi
+        setSelectedFiles(prevFiles => prevFiles.filter(f => f !== file));
+        // Supprimer la progression pour ce fichier
+        setUploadingFiles(prev => {
+            const newUploading = {...prev};
+            delete newUploading[file.name];
+            return newUploading;
+        });
+    };
+
+
+    const handleDrop = useCallback((e) => {
         e.preventDefault();
         e.stopPropagation();
 
         setIsDragging(false);
-        let files = [...e.dataTransfer.files]; // Permet de convertir la liste des fichiers en tableau
+        let files = [...e.dataTransfer.files]; // Convertir la liste des fichiers en tableau
 
-        // Ajouter des validations pour les types de fichiers, la taille, etc.
+        // Ajouter les fichiers dans la liste des fichiers sélectionnés
+        setSelectedFiles(prev => [...prev, ...files]);
+    }, []);
 
-        const uploadPromises = files.map(file => StorageUtils.uploadFile(file, `1/${file.name}`));
-        const uploadResults = await Promise.all(uploadPromises);
 
-        onFilesUploaded(uploadResults);
-
-    }, [onFilesUploaded]);
-
-    return (<div
-            style={{
-                border: isDragging ? '2px dashed #000' : '2px solid #ccc', padding: 20, textAlign: 'center'
-            }}
-            onDragEnter={handleDragEnter}
-            onDragLeave={handleDragLeave}
-            onDragOver={(e) => e.preventDefault()} // Permet de rendre la zone "droppable"
-            onDrop={handleDrop}
-            onClick={handleClick}
-        >
-            {isDragging ? 'Relâchez pour télécharger' : 'Glissez et déposez vos fichiers ici ou cliquez pour sélectionner'}
-            <input
-                type="file"
-                multiple
-                style={{display: 'none'}}
-                onChange={(e) => handleDrop({dataTransfer: {files: e.target.files}})}
-                ref={fileInputRef}
-            />
-        </div>);
+    return (
+        <>
+            <div
+                style={{
+                    border: isDragging ? '2px dashed #000' : '2px solid #ccc', padding: 20, textAlign: 'center'
+                }}
+                onDragEnter={handleDragEnter}
+                onDragLeave={handleDragLeave}
+                onDragOver={(e) => e.preventDefault()} // Permet de rendre la zone "droppable"
+                onDrop={handleDrop}
+                onClick={handleClick}
+            >
+                {isDragging ? 'Relâchez pour sélectionner' : 'Glissez et déposez vos fichiers ici ou cliquez pour sélectionner'}
+                <input
+                    type="file"
+                    multiple
+                    style={{display: 'none'}}
+                    onChange={handleFileSelect}
+                    ref={fileInputRef}
+                />
+            </div>
+            {selectedFiles.map((file, index) => (
+                <div key={index}>
+                    {file.name}
+                    {uploadingFiles[file.name] ?
+                        (<progress value={uploadingFiles[file.name]} max="100"></progress>)
+                        :
+                        (<button onClick={() => handleUploadFile(file)}>Envoyer</button>)
+                    }
+                </div>
+            ))}
+        </>
+    );
 }
 
 export default DragAndDrop;

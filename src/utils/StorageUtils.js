@@ -15,12 +15,23 @@ class StorageUtils {
      * Permet d'envoyer un fichier sur le cloud.
      * @param file
      * @param path
+     * @param onProgress
      * @returns {Promise<{success: boolean, error}|{success: boolean, downloadURL: string}>}
      */
-    static async uploadFile(file, path) {
+    static async uploadFile(file, path, onProgress) {
         try {
             const storageRef = ref(storage, `${path || file.name}`);
-            await uploadBytesResumable(storageRef, file);
+
+            const uploadTask = uploadBytesResumable(storageRef, file);
+
+            uploadTask.on('state_changed', snapshot => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                if (onProgress) {
+                    onProgress(progress);
+                }
+            });
+
+            await uploadTask;
 
             return {
                 success: true,
@@ -31,6 +42,7 @@ class StorageUtils {
             return {success: false, error};
         }
     }
+
 
     /**
      * Permet de récupérer l'URL d'un fichier sur le cloud.
