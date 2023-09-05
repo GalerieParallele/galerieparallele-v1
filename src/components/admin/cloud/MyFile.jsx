@@ -4,9 +4,10 @@ import StorageUtils from "@/utils/StorageUtils";
 
 import Button from "@/components/items/Button";
 import LittleSpinner from "@/components/items/LittleSpinner";
-
-import Image from "next/image";
 import {Toast} from "@/constants/ToastConfig";
+import {AiOutlineFileImage, AiOutlineFileUnknown, AiOutlineFileZip} from "react-icons/ai";
+import {MdOndemandVideo} from "react-icons/md";
+import {FaRegFilePdf} from "react-icons/fa";
 
 export default function MyFile({user}) {
     const [files, setFiles] = useState([]);
@@ -14,6 +15,22 @@ export default function MyFile({user}) {
     const [fileMetadata, setFileMetadata] = useState({});
     const [loading, setLoading] = useState(true);
     const [dataLoading, setDataLoading] = useState(false);
+
+    function switchFunction(param) {
+        switch (param) {
+            case "image":
+                return <AiOutlineFileImage size={150}/>;
+            case "video":
+                return <MdOndemandVideo size={150}/>;
+            case "pdf":
+                return <FaRegFilePdf size={150}/>;
+            case "zip":
+                return <AiOutlineFileZip size={150}/>;
+            default:
+                return <AiOutlineFileUnknown size={150}/>;
+        }
+    }
+
 
     const getFileMetadata = async (path) => {
         return await StorageUtils.getFileMetadata(path);
@@ -77,52 +94,37 @@ export default function MyFile({user}) {
                 {loading ? null : (
                     <>
                         {files.length === 0 ? (
-                            <p>Aucun fichier dans le cloud</p>
+                            <p style={{
+                                marginTop: "20px",
+                            }}>Aucun fichier dans le cloud</p>
                         ) : (
                             <div style={{
                                 display: "flex",
-                                flexDirection: "column",
+                                flexDirection: "row",
                                 flexWrap: "wrap",
                                 alignItems: "center",
                                 justifyContent: "center",
                                 gap: "5px"
                             }}>
                                 {files.map(fileRef => (
-                                    <div key={fileRef.name} style={{
-                                        padding: "10px",
-                                        border: "1px solid var(--black)",
-                                        width: "100%"
-                                    }}>
-                                        <div>
-                                            {fileMetadata[fileRef.name]?.contentType.startsWith('image/') ? (
-                                                <>
-                                                    <Image src={fileURLs[fileRef.name]} alt={fileRef.name}
-                                                           width={200}
-                                                           height={200}
-                                                    />
-                                                    <a href={fileURLs[fileRef.name]} target="_blank"
-                                                       rel="noopener noreferrer">
-                                                        Nom du fichier: {fileRef.name}
-                                                    </a>
-                                                    <Button
-                                                        text={"Supprimer"}
-                                                        onClick={() => deleteFile(fileRef)}
-                                                    />
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <a href={fileURLs[fileRef.name]} target="_blank"
-                                                       rel="noopener noreferrer">
-                                                        {fileRef.name}
-                                                    </a>
-                                                    <Button
-                                                        text={"Supprimer"}
-                                                        onClick={() => deleteFile(fileRef)}
-                                                    />
-                                                </>
-                                            )}
-                                        </div>
-                                    </div>
+                                    <>
+                                        {switchFunction(fileMetadata[fileRef.name].contentType.split("/")[0])}
+                                        <p>{fileRef.name}</p>
+                                        <a
+                                            href={fileURLs[fileRef.name]}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            style={{
+                                                textDecoration: "none",
+                                                color: "var(--black)",
+                                            }}>
+                                            Accéder au fichier
+                                        </a>
+                                        <Button
+                                            text={"Supprimer"}
+                                            onClick={() => deleteFile(fileRef)}
+                                        />
+                                    </>
                                 ))}
                             </div>
                         )}
