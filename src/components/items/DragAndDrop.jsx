@@ -1,9 +1,15 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 
 import StorageUtils from '@/utils/StorageUtils';
 
 function DragAndDrop({onFilesUploaded}) {
+
     const [isDragging, setIsDragging] = useState(false);
+    const fileInputRef = useRef(null);
+
+    const handleClick = useCallback(() => {
+        fileInputRef.current.click();
+    }, []);
 
     const handleDragEnter = useCallback((e) => {
         e.preventDefault();
@@ -33,17 +39,15 @@ function DragAndDrop({onFilesUploaded}) {
 
     }, [onFilesUploaded]);
 
-    return (
-        <div
+    return (<div
             style={{
-                border: isDragging ? '2px dashed #000' : '2px solid #ccc',
-                padding: 20,
-                textAlign: 'center'
+                border: isDragging ? '2px dashed #000' : '2px solid #ccc', padding: 20, textAlign: 'center'
             }}
             onDragEnter={handleDragEnter}
             onDragLeave={handleDragLeave}
             onDragOver={(e) => e.preventDefault()} // Permet de rendre la zone "droppable"
             onDrop={handleDrop}
+            onClick={handleClick}
         >
             {isDragging ? 'Relâchez pour télécharger' : 'Glissez et déposez vos fichiers ici ou cliquez pour sélectionner'}
             <input
@@ -51,9 +55,9 @@ function DragAndDrop({onFilesUploaded}) {
                 multiple
                 style={{display: 'none'}}
                 onChange={(e) => handleDrop({dataTransfer: {files: e.target.files}})}
+                ref={fileInputRef}
             />
-        </div>
-    );
+        </div>);
 }
 
 export default DragAndDrop;
