@@ -38,6 +38,11 @@
 
 .iconcloud {
     font-size: 80px;
+    transition: var(--transition);
+}
+
+.draganddrop:hover .iconcloud{
+    animation: zoomIn 1s ease-in-out infinite;
 }
 
 .realTimeStats {
@@ -69,4 +74,13 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
+}
+
+@keyframes zoomIn {
+    0%,100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
 }
