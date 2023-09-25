@@ -18,6 +18,7 @@ import Pro from "@/components/home/pro/Pro";
 import Picto from "@/components/items/picto/Picto";
 import Amo from "@/components/home/amo/Amo";
 import MainMagazine from "@/components/home/magazine/MainMagazine";
+import Footer from "@/components/items/footer/Footer";
 
 export default function Index() {
 
@@ -44,6 +45,7 @@ export default function Index() {
                         <Picto/>
                         <Amo/>
                         <MainMagazine/>
+                        <Footer/>
                     </main>
                 </>
 

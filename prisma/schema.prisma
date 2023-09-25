@@ -36,10 +36,18 @@ model Article {
 }
 
 model Devlog {
-  id        Int      @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
   userid    Int
-  title     String   @db.VarChar(255)
-  content   String   @db.Text
-  createdAt DateTime @default(now())
-  User      User     @relation(fields: [userid], references: [id])
+  tags      DevlogType
+  title     String     @db.VarChar(255)
+  content   String     @db.Text
+  createdAt DateTime   @default(now())
+  User      User       @relation(fields: [userid], references: [id])
+}
+
+enum DevlogType {
+  UPDATE
+  CREATE
+  DELETE
+  REVIEW
 }

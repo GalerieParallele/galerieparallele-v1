@@ -1,0 +1,21 @@
+.main {
+
+  text-align: center;
+
+  border: 2px solid var(--white);
+
+  padding: 30px;
+
+  border-radius: var(--border-radius);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+
+  p {
+    text-align: left;
+    font-style: italic;
+  }
+
+}

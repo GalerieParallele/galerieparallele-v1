@@ -1,0 +1,21 @@
+.main {
+
+  display: flex;
+    flex-direction: column;
+  gap: 15px;
+
+  h5 {
+    text-transform: uppercase;
+  }
+
+  a {
+    color: var(--white);
+  }
+
+  .separator {
+    height: 3px;
+    width: 120px;
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+  }
+}
