@@ -3,7 +3,7 @@ const nextConfig = {
     reactStrictMode: true,
     output: "standalone",
     images: {
-        domains: ['firebasestorage.googleapis.com'],
+        domains: ['firebasestorage.googleapis.com', 'picsum.photos'],
     }
 }
 
