@@ -19,6 +19,7 @@ import Picto from "@/components/items/picto/Picto";
 import Amo from "@/components/home/amo/Amo";
 import MainMagazine from "@/components/home/magazine/MainMagazine";
 import Footer from "@/components/items/footer/Footer";
+import MainInstagram from "@/components/home/instagram/MainInstagram";
 
 export default function Index() {
 
@@ -45,12 +46,12 @@ export default function Index() {
                         <Picto/>
                         <Amo/>
                         <MainMagazine/>
+                        <MainInstagram/>
                         <Footer/>
                     </main>
                 </>
 
             )}
-
         </>
     )
 }
