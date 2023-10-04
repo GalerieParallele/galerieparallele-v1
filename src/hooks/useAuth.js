@@ -79,6 +79,7 @@ export function AuthProvider({children}) {
                 return {error: data.message};
             }
         } catch (error) {
+            console.log(error)
             return {error: MESSAGES.GLOBAL_ERROR_LOGIN};
         } finally {
             setIsLoading(false)

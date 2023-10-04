@@ -2,7 +2,7 @@ import React from 'react';
 
 import PropTypes from "prop-types";
 
-import styles from "../../../styles/components/admin/AdminStatItem.module.css"
+import styles from "./AdminStatItem.module.css"
 
 export default function AdminStatItem({number, type}) {
     return <div className={styles.adminStatItem}>

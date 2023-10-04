@@ -1,8 +1,8 @@
 import React from "react";
 
-import styles from "@/styles/components/home/Shop.module.css"
+import styles from "@/components/home/shop/Shop.module.css"
 import ShopItem from "@/components/home/shop/ShopItem";
-import Button from "@/components/items/Button";
+import Button from "@/components/items/button/Button";
 
 export default function Shop() {
     return (

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 
 import ArtisteCard from "@/components/home/artistes/ArtisteCard";
-import Button from "@/components/items/Button";
+import Button from "@/components/items/button/Button";
 
-import styles from "../../../styles/components/artiste/Artiste.module.css";
+import styles from "./Artiste.module.css";
 import ROUTES from "@/constants/ROUTES";
 
 export default function Artiste() {

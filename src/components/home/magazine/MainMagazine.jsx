@@ -1,7 +1,7 @@
 import MagazineItem from "@/components/home/magazine/MagazineItem";
 
 import styles from "./MainMagazine.module.scss";
-import Button from "@/components/items/Button";
+import Button from "@/components/items/button/Button";
 
 export default function MainMagazine() {
     return (

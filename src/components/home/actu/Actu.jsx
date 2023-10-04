@@ -1,8 +1,8 @@
 import React from "react";
 
-import styles from "../../../styles/components/home/Actu.module.css"
+import styles from "./Actu.module.css"
 import Image from "next/image";
-import Button from "@/components/items/Button";
+import Button from "@/components/items/button/Button";
 
 export default function Actu() {
     return (

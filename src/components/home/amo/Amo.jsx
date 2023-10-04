@@ -1,6 +1,6 @@
 import React from "react";
 
-import styles from "@/styles/components/home/Amo.module.css"
+import styles from "@/components/home/amo/Amo.module.css"
 
 export default function Amo() {
     return (

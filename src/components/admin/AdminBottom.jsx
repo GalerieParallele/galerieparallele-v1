@@ -2,14 +2,15 @@ import React, {useCallback, useState} from "react";
 
 import {useAuth} from "@/hooks/useAuth";
 
-import Button from "@/components/items/Button";
+import Button from "@/components/items/button/Button";
 import {PiSignOutBold} from "react-icons/pi";
 
 import {Toast} from "@/constants/ToastConfig";
 import MESSAGES from "@/constants/MESSAGES";
 import ROUTES from "@/constants/ROUTES";
 
-import styles from "@/styles/components/admin/AdminNav.module.css";
+import styles from "./AdminNav.module.css";
+
 import {useRouter} from "next/router";
 
 export default function AdminBottom() {

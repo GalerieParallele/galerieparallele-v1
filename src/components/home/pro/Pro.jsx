@@ -2,9 +2,9 @@ import React from "react";
 
 import Image from "next/image";
 
-import Button from "@/components/items/Button";
+import Button from "@/components/items/button/Button";
 
-import styles from "@/styles/components/home/Pro.module.css"
+import styles from "@/components/home/pro/Pro.module.css"
 
 export default function Pro() {
     return (

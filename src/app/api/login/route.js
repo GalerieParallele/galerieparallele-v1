@@ -37,6 +37,8 @@ export async function POST(req, res) {
             return NextResponse.json({message: ERROR_MESSAGES.INCORRECT_INFORMATIONS}, {status: 401});
         }
 
+        console.log(user);
+
         const match = bcrypt.compareSync(password, user.password);
 
         if (!match) {

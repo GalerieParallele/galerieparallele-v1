@@ -2,19 +2,27 @@ import React, {useCallback, useRef, useState} from 'react';
 
 import StorageUtils from '@/utils/StorageUtils';
 
-import styles from "../../styles/components/items/DragAndDrop.module.css"
+import styles from "./DragAndDrop.module.css"
 import {AiOutlineCloudUpload} from "react-icons/ai";
-import Button from "@/components/items/Button";
+import Button from "@/components/items/button/Button";
 import {BiSelectMultiple} from "react-icons/bi";
 import {TbWorldUpload} from "react-icons/tb";
+import {useAuth} from "@/hooks/useAuth";
+import {Toast} from "@/constants/ToastConfig";
 
 function DragAndDrop({onFilesUploaded}) {
+
+    const {user} = useAuth();
 
     const fileInputRef = useRef(null); // Permet de stocker la référence de l'input file
     const [selectedFiles, setSelectedFiles] = useState([]); // Permet de stocker les fichiers sélectionnés
     const [uploadingFiles, setUploadingFiles] = useState({});  // Permet de stocker les progessions d'envoi de chaque fichier
     const [customFileName, setCustomFileName] = useState({}); // Permet de stocker le nom personnalisé du fichier
 
+    /**
+     * Permet de formater la taille d'un fichier
+     * @type {(function(*): string)|*}
+     */
     const formatSizeFile = useCallback((size) => {
         if (size < 1024) {
             return `${size} octets`;
@@ -37,12 +45,14 @@ function DragAndDrop({onFilesUploaded}) {
 
 
     /**
-     * Permet de gérer la sélection de fichier
-     * @type {(function(*): void)|*}
+     * Permet d'ajouter des fichiers à la liste des fichiers sélectionnés (sans doublons)
+     * @param files
      */
-    const handleFileSelect = useCallback((e) => {
-        let files = [...e.target.files, ...selectedFiles];
-        setSelectedFiles(files);
+    const addFiles = (files) => {
+        setSelectedFiles(prev => {
+            const newFiles = files.filter(f => !prev.map(pf => pf.name).includes(f.name));
+            return [...prev, ...newFiles];
+        });
         setCustomFileName(prev => {
             const newCustomFileName = {...prev};
             files.forEach(file => {
@@ -52,21 +62,20 @@ function DragAndDrop({onFilesUploaded}) {
             });
             return newCustomFileName;
         });
-        e.target.value = '';
-    }, [selectedFiles]);
+    }
 
-    /**
-     * Permet de gérer le drop
-     * @type {(function(*): void)|*}
-     */
+    const handleFileSelect = useCallback((e) => {
+        let files = [...e.target.files];
+        addFiles(files);
+        e.target.value = '';
+    }, []);
+
     const handleDrop = useCallback((e) => {
         e.preventDefault();
         e.stopPropagation();
 
         let files = [...e.dataTransfer.files]; // Convertir la liste des fichiers en tableau
-
-        // Ajouter les fichiers dans la liste des fichiers sélectionnés
-        setSelectedFiles(prev => [...prev, ...files]);
+        addFiles(files);
     }, []);
 
     /**
@@ -75,11 +84,20 @@ function DragAndDrop({onFilesUploaded}) {
      * @returns {Promise<void>}
      */
     const handleUploadFile = async (file) => {
+
+        if (!user) {
+            Toast.fire({
+                icon: 'error',
+                title: 'Vous devez être connecté pour envoyer des fichiers'
+            });
+            return;
+        }
+
         const onProgress = (progress) => {
             setUploadingFiles(prev => ({...prev, [file.name]: progress}));
         };
 
-        const result = await StorageUtils.uploadFile(file, `1/${customFileName[file.name] || file.name}`, onProgress);
+        const result = await StorageUtils.uploadFile(file, `${user.id}/${customFileName[file.name] || file.name}`, onProgress);
         onFilesUploaded(result);
 
         // Supprimer le fichier de la liste après l'envoi

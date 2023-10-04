@@ -7,7 +7,7 @@ import ROUTES from "@/constants/ROUTES";
 
 import {MdQuestionMark} from "react-icons/md";
 
-import styles from "../../styles/components/admin/AdminLink.module.css"
+import styles from "./AdminLink.module.css"
 
 export default function AdminLink({IconComponent, text, to}) {
     return <Link

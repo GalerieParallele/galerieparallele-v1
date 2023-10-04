@@ -2,8 +2,8 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import '../../app/globals.css'
-import styles from '../../styles/components/items/IconInput.module.css';
+import '../../../app/globals.css'
+import styles from './IconInput.module.css';
 
 function IconInput({IconComponent, label, type, required, ...inputProps}) {
     return (

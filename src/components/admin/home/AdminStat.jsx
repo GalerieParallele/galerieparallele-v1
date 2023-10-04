@@ -1,8 +1,12 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import AdminStatItem from "@/components/admin/home/AdminStatItem";
-import styles from "../../../styles/components/admin/AdminStat.module.css";
+import React, {useCallback, useEffect, useState} from 'react';
+
 import ROUTES from "@/constants/ROUTES";
+
 import useSocket from "@/hooks/useSocket";
+
+import AdminStatItem from "@/components/admin/home/AdminStatItem";
+
+import styles from "./AdminStat.module.css";
 
 export default function AdminStat() {
     const [totalUsers, setTotalUsers] = useState(0);
@@ -12,7 +16,7 @@ export default function AdminStat() {
         try {
             const res = await fetch(ROUTES.API.USER.GET);
             if (!res.ok) throw new Error(res.statusText);
-            const { total } = await res.json();
+            const {total} = await res.json();
             setTotalUsers(total);
         } catch (error) {
             console.error("Erreur lors de la récupération des utilisateurs:", error);
@@ -20,6 +24,7 @@ export default function AdminStat() {
     }, []);
 
     useEffect(() => {
+
         getUsers();
 
         if (!socket) return;
@@ -31,11 +36,9 @@ export default function AdminStat() {
         return () => socket.off('userRegister', handleUserRegistration);
     }, [socket, getUsers]);
 
-    return (
-        <div className={styles.adminStat}>
-            <AdminStatItem number={totalUsers} type="Utilisateurs" />
-            <AdminStatItem number={30} type="Artistes" />
-            <AdminStatItem number={6} type="Articles" />
-        </div>
-    );
+    return (<div className={styles.adminStat}>
+            <AdminStatItem number={totalUsers} type="Utilisateurs"/>
+            <AdminStatItem number={30} type="Artistes"/>
+            <AdminStatItem number={6} type="Articles"/>
+        </div>);
 }

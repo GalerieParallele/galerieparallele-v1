@@ -1,10 +1,14 @@
-import React, { useEffect } from "react";
-import AdminNav from "@/components/admin/AdminNav";
-import styles from "../../styles/pages/Admin.module.css";
-import useSocket from "@/hooks/useSocket";
-import { Toast } from "@/constants/ToastConfig";
+import React, {useEffect} from "react";
 
-export default function Admin({ children }) {
+import {Toast} from "@/constants/ToastConfig";
+
+import AdminNav from "@/components/admin/AdminNav";
+
+import useSocket from "@/hooks/useSocket";
+
+import styles from "./Admin.module.css";
+
+export default function Admin({children}) {
 
     const socket = useSocket();
 
@@ -28,7 +32,7 @@ export default function Admin({ children }) {
     return (
         <main className={styles.main}>
             <div className={styles.left}>
-                <AdminNav />
+                <AdminNav/>
             </div>
             <div className={styles.right}>
                 {children}

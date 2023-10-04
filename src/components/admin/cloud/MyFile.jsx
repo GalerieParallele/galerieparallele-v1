@@ -1,15 +1,26 @@
 import React, {useEffect, useState} from "react";
 
+// Import des utilitaires et composants
 import StorageUtils from "@/utils/StorageUtils";
-
-import Button from "@/components/items/Button";
+import Button from "@/components/items/button/Button";
 import LittleSpinner from "@/components/items/LittleSpinner";
 import {Toast} from "@/constants/ToastConfig";
+
+// Import des icons
 import {AiOutlineFileImage, AiOutlineFileUnknown, AiOutlineFileZip} from "react-icons/ai";
 import {MdOndemandVideo} from "react-icons/md";
 import {FaRegFilePdf} from "react-icons/fa";
 
+// Import du CSS
+import styles from './MyFile.module.css';
+import {BsFileTextFill} from "react-icons/bs";
+import {useRouter} from "next/router";
+import Link from "next/link";
+
 export default function MyFile({user}) {
+
+    const router = useRouter();
+
     const [files, setFiles] = useState([]);
     const [fileURLs, setFileURLs] = useState({});
     const [fileMetadata, setFileMetadata] = useState({});
@@ -18,19 +29,23 @@ export default function MyFile({user}) {
 
     function switchFunction(param) {
         switch (param) {
-            case "image":
-                return <AiOutlineFileImage size={150}/>;
+            case "png":
+            case "jpg":
+            case "jpeg":
+            case "gif":
+                return <AiOutlineFileImage/>;
             case "video":
-                return <MdOndemandVideo size={150}/>;
+                return <MdOndemandVideo/>;
             case "pdf":
-                return <FaRegFilePdf size={150}/>;
+                return <FaRegFilePdf/>;
             case "zip":
-                return <AiOutlineFileZip size={150}/>;
+                return <AiOutlineFileZip/>;
+            case "plain":
+                return <BsFileTextFill/>;
             default:
-                return <AiOutlineFileUnknown size={150}/>;
+                return <AiOutlineFileUnknown/>;
         }
     }
-
 
     const getFileMetadata = async (path) => {
         return await StorageUtils.getFileMetadata(path);
@@ -78,53 +93,46 @@ export default function MyFile({user}) {
     }, [user]);
 
     return (
-        <div style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "20px 0"
-        }}>
+        <div className={styles.root}>
             <Button
                 text={dataLoading ? <LittleSpinner/> : "Rafraîchir"}
                 onClick={loadFiles}
                 disabled={dataLoading}
             />
-            <div>
+            <div className={styles.spaceList}>
                 {loading ? null : (
                     <>
                         {files.length === 0 ? (
-                            <p style={{
-                                marginTop: "20px",
-                            }}>Aucun fichier dans le cloud</p>
+                            <p className={styles.noFileText}>Aucun fichier dans le cloud</p>
                         ) : (
-                            <div style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                flexWrap: "wrap",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                gap: "5px"
-                            }}>
-                                {files.map(fileRef => (
-                                    <>
-                                        {switchFunction(fileMetadata[fileRef.name].contentType.split("/")[0])}
+                            <div className={styles.fileListContainer}>
+                                {files.map((fileRef, index) => (
+                                    <div className={styles.fileItem} key={index}>
+                                        <span className={styles.icon}>
+                                            {switchFunction(fileMetadata[fileRef.name].contentType.split("/")[1])}
+                                        </span>
                                         <p>{fileRef.name}</p>
-                                        <a
-                                            href={fileURLs[fileRef.name]}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            style={{
-                                                textDecoration: "none",
-                                                color: "var(--black)",
-                                            }}>
-                                            Accéder au fichier
-                                        </a>
-                                        <Button
-                                            text={"Supprimer"}
-                                            onClick={() => deleteFile(fileRef)}
-                                        />
-                                    </>
+                                        {/*<a*/}
+                                        {/*    href={fileURLs[fileRef.name]}*/}
+                                        {/*    target="_blank"*/}
+                                        {/*    rel="noopener noreferrer"*/}
+                                        {/*    className={styles.linkStyle}*/}
+                                        {/*>*/}
+                                        {/*    Accéder au fichier*/}
+                                        {/*</a>*/}
+                                        <div className={styles.actionButton}>
+                                            <Link href={fileURLs[fileRef.name]} target={"_blank"}>
+                                                <Button
+                                                    text={"Voir"}
+                                                />
+                                            </Link>
+                                            <Button
+                                                text={"Supprimer"}
+                                                onClick={() => deleteFile(fileRef)}
+                                            />
+                                        </div>
+
+                                    </div>
                                 ))}
                             </div>
                         )}

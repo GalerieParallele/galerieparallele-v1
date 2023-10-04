@@ -11,7 +11,7 @@ import AdminLink from "@/components/admin/AdminLink";
 import {TfiWrite} from "react-icons/tfi";
 import {BiSolidUser} from "react-icons/bi";
 
-import styles from "../../styles/components/admin/AdminNav.module.css"
+import styles from "./AdminNav.module.css"
 import {AiOutlineCloudUpload} from "react-icons/ai";
 
 export default function AdminNav() {

@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import "@/app/globals.css";
-import styles from '/src/styles/pages/Login.module.css';
+import styles from './Index.module.css';
 
 import LoginComponent from "@/components/authentication/LoginComponent";
 import RegisterComponent from "@/components/authentication/RegisterComponent";
@@ -14,11 +14,10 @@ import AlreadyLoginComponent from "@/components/authentication/AlreadyLoginCompo
 import BigSpinner from "@/components/items/BigSpinner";
 
 import {FaArrowLeft} from "react-icons/fa";
-import Head from "next/head";
 import ROUTES from "@/constants/ROUTES";
 
 
-export default function Connexion() {
+export default function Index() {
 
     const [login, setLogin] = React.useState(true);
     const [imageNumber, setImageNumber] = useState(0);

@@ -1,6 +1,6 @@
 import React from "react";
 
-import styles from "@/styles/components/items/picto/Picto.module.css"
+import styles from "./Picto.module.css"
 import PictoItem from "@/components/items/picto/PictoItem";
 import {FaQuestion} from "react-icons/fa";
 

@@ -5,8 +5,8 @@ import "../../app/globals.css";
 import {useAuth} from "@/hooks/useAuth";
 import {checkPassword, isValidEmail} from "@/constants/Util";
 
-import IconInput from "@/components/items/IconInput";
-import Button from "@/components/items/Button";
+import IconInput from "@/components/items/iconinput/IconInput";
+import Button from "@/components/items/button/Button";
 
 import {MdEmail} from "react-icons/md";
 import {FiLock} from "react-icons/fi";
@@ -63,6 +63,7 @@ export default function LoginComponent() {
                 type={"email"}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={loading}
+                autoComplete={"email"}
             />
             <IconInput
                 label={"Mot de passe"}
@@ -70,6 +71,7 @@ export default function LoginComponent() {
                 type={"password"}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loading}
+                autoComplete={"current-password"}
             />
             <Button
                 disabled={!isValidEmail(email) || !checkPassword(password)}

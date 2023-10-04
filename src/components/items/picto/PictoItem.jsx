@@ -1,6 +1,6 @@
 import React from "react";
 
-import styles from "@/styles/components/items/picto/PictoItem.module.css"
+import styles from "./PictoItem.module.css"
 import PropTypes from "prop-types";
 
 export default function PictoItem({IconComponent, title}) {

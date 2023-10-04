@@ -1,11 +1,21 @@
 import React from "react";
-import Editor from "@/components/items/Editor";
-import IconInput from "@/components/items/IconInput";
-import { BsTextParagraph } from "react-icons/bs";
-import styles from "@/styles/components/admin/articles/AdminArticlesNew.module.css";
-import Button from "@/components/items/Button";
 
-export default function EditorSkeleton({ onSubmit, formData, setFormData, defaultTitle, defaultContent, defaultChecked }) {
+import Editor from "@/components/items/Editor";
+import IconInput from "@/components/items/iconinput/IconInput";
+import Button from "@/components/items/button/Button";
+
+import {BsTextParagraph} from "react-icons/bs";
+
+import styles from "./AdminArticlesNew.module.css";
+
+export default function EditorSkeleton({
+                                           onSubmit,
+                                           formData,
+                                           setFormData,
+                                           defaultTitle,
+                                           defaultContent,
+                                           defaultChecked
+                                       }) {
     return (
         <>
             <div className={styles.content}>
@@ -27,7 +37,7 @@ export default function EditorSkeleton({ onSubmit, formData, setFormData, defaul
                 <Editor
                     defaultContent={formData.content || defaultContent}
                     onEditorChange={(content) => {
-                        setFormData(prevState => ({ ...prevState, content }));
+                        setFormData(prevState => ({...prevState, content}));
                     }}
                 />
                 <div className={styles.center}>
@@ -45,7 +55,7 @@ export default function EditorSkeleton({ onSubmit, formData, setFormData, defaul
                 </div>
             </div>
             <div className={styles.center}>
-                <Button text="Publier" onClick={onSubmit} />
+                <Button text="Publier" onClick={onSubmit}/>
             </div>
         </>
     );
@@ -55,5 +65,6 @@ EditorSkeleton.defaultProps = {
     defaultTitle: "",
     defaultContent: "",
     defaultChecked: false,
-    onSubmit: () => {},
+    onSubmit: () => {
+    },
 };

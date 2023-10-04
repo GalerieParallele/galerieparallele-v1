@@ -7,9 +7,9 @@ import {IoIosSettings} from "react-icons/io";
 import {BiSolidUser} from "react-icons/bi";
 import {SlMenu} from "react-icons/sl";
 
-import Amo from "@/components/items/Amo";
+import Amo from "@/components/items/amo/Amo";
 
-import styles from '../../styles/components/items/Navbar.module.css';
+import styles from './Navbar.module.css';
 
 import {useAuth} from "@/hooks/useAuth";
 

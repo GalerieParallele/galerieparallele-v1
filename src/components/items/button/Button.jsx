@@ -1,8 +1,8 @@
 import React from 'react';
 
-import styles from '../../styles/components/items/Button.module.css';
+import styles from './Button.module.css';
 
-import "../../app/globals.css"
+import "../../../app/globals.css"
 
 import LittleSpinner from "@/components/items/LittleSpinner";
 

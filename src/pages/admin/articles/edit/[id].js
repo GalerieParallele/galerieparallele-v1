@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router"; // Correction de l'importation du routeur
 import ROUTES from "@/constants/ROUTES";
 import PageLoader from "@/components/items/PageLoader";
-import styles from "@/styles/components/admin/articles/AdminArticlesNew.module.css";
-import Button from "@/components/items/Button";
+import styles from "@/components/admin/articles/AdminArticlesNew.module.css";
+import Button from "@/components/items/button/Button";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import BigSpinner from "@/components/items/BigSpinner";
 import EditorSkeleton from "@/components/admin/articles/EditorSkeleton";

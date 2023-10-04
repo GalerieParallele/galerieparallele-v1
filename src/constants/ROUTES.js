@@ -11,7 +11,7 @@ const BASE = {
 
 const ROUTES = {
     ACCUEIL: `/`,
-    LOGIN: `/connexion`,
+    LOGIN: `/auth`,
     ADMIN: {
         HOME: `${BASE.ADMIN}`,
         ARTICLES: {
