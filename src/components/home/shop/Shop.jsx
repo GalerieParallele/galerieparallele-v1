@@ -21,7 +21,7 @@ export default function Shop() {
                     imgSrc={"article1.png"}
                 />
             </div>
-            <div>
+            <div className={styles.buttonSpace}>
                 <Button
                     text={"VOIR PLUS"}
                 />

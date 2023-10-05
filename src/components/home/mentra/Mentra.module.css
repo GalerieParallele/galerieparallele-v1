@@ -4,8 +4,9 @@
     justify-content: center;
     align-items: center;
     gap: 25px;
-    height: 220px;
+    height: fit-content;
     text-align: center;
+    padding: 40px 0;
 }
 
 .mentra h3 {

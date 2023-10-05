@@ -7,7 +7,8 @@
     height: 500px;
     width: 100%;
 
-    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: auto;
 
     display: flex;
     flex-direction: column;
@@ -22,4 +23,23 @@
     justify-content: stretch;
     align-items: center;
     gap: 158px;
+}
+
+.buttonSpace {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 1200px) {
+    .list {
+        gap: 110px;
+    }
+}
+
+@media screen and (max-width: 870px) {
+    .shop {
+        align-items: flex-start;
+    }
 }

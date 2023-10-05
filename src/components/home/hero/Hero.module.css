@@ -62,6 +62,8 @@
 .center img {
     transform: rotate(-110deg);
     transition: var(--transition);
+    height: 220px;
+    width: 220px;
 }
 
 @keyframes moveDown{
@@ -85,5 +87,14 @@
 @media screen and (max-width: 768px) {
     .center img {
         transform: rotate(0deg);
+        height: 200px;
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .center img {
+        height: 150px;
+        width: 150px;
     }
 }
