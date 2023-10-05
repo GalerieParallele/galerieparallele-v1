@@ -20,6 +20,7 @@ import MainMagazine from "@/components/home/magazine/MainMagazine";
 import Footer from "@/components/items/footer/Footer";
 import MainInstagram from "@/components/home/instagram/MainInstagram";
 import Navbar from "@/components/items/navbar/Navbar";
+import Newletters from "@/components/home/newsletters/Newletters";
 
 export default function Index() {
 
@@ -47,6 +48,7 @@ export default function Index() {
                         <Amo/>
                         <MainMagazine/>
                         <MainInstagram/>
+                        <Newletters/>
                         <Footer/>
                     </main>
                 </>
