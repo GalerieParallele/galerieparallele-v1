@@ -17,7 +17,7 @@ import {BsFileTextFill} from "react-icons/bs";
 import {useRouter} from "next/router";
 import Link from "next/link";
 
-export default function MyFile({user}) {
+export default function MyFile({user, refreshFiles}) {
 
     const router = useRouter();
 
@@ -90,7 +90,7 @@ export default function MyFile({user}) {
 
     useEffect(() => {
         loadFiles();
-    }, [user]);
+    }, [user, refreshFiles]);
 
     return (
         <div className={styles.root}>

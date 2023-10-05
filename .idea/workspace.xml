@@ -4,79 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Instagram terminé">
-      <change afterPath="$PROJECT_DIR$/src/components/admin/cloud/MyFile.module.css" afterDir="false" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Cloud terminé">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/login/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/login/route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/Admin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/Admin.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/AdminBottom.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/AdminBottom.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/AdminLink.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/AdminLink.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/AdminNav.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/AdminNav.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/articles/ArticleItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/articles/ArticleItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/articles/EditorSkeleton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/articles/EditorSkeleton.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/admin/cloud/MyFile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/cloud/MyFile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/home/AdminStat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/home/AdminStat.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/home/AdminStatItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/home/AdminStatItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/authentication/AlreadyLoginComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/AlreadyLoginComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/authentication/LoginComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/LoginComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/authentication/RegisterComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/RegisterComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/actu/Actu.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/actu/Actu.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/amo/Amo.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/amo/Amo.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/artistes/Artiste.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/artistes/Artiste.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/artistes/ArtisteCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/artistes/ArtisteCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/hero/Hero.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/hero/Hero.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/magazine/MainMagazine.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/magazine/MainMagazine.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/mentra/Mentra.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/mentra/Mentra.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/pro/Pro.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/pro/Pro.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/shop/Shop.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/shop/Shop.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/shop/ShopItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/shop/ShopItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/items/Amo.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/amo/Amo.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/items/Button.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/button/Button.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/items/DragAndDrop.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/draganddrop/DragAndDrop.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/items/FileInput.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/fileinput/FileInput.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/items/IconInput.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/iconinput/IconInput.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/items/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/navbar/Navbar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/items/footer/FooterArtistContact.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/footer/FooterArtistContact.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/items/picto/Picto.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/picto/Picto.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/items/picto/PictoItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/picto/PictoItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/ROUTES.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/ROUTES.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useAuth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/articles/edit/[id].js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/articles/edit/[id].js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/articles/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/articles/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/articles/new/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/articles/new/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/items/draganddrop/DragAndDrop.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/draganddrop/DragAndDrop.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/admin/my-cloud/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/my-cloud/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/utilisateurs/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/utilisateurs/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/connexion.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/auth/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/admin/AdminLink.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/AdminLink.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/admin/AdminNav.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/AdminNav.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/admin/AdminStat.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/home/AdminStat.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/admin/AdminStatItem.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/home/AdminStatItem.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/admin/articles/AdminArticles.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/articles/AdminArticles.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/admin/articles/AdminArticlesNew.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/articles/AdminArticlesNew.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/admin/articles/ArticleItem.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/articles/ArticleItem.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/artiste/Artiste.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/artistes/Artiste.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/artiste/ArtisteCard.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/artistes/ArtisteCard.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/authentication/AlreadyLoginComponent.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/AlreadyLoginComponent.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/home/Actu.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/actu/Actu.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/home/Amo.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/amo/Amo.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/home/Hero.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/hero/Hero.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/home/Mentra.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/mentra/Mentra.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/home/Pro.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/pro/Pro.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/home/Shop.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/shop/Shop.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/home/ShopItem.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/shop/ShopItem.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/items/Amo.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/amo/Amo.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/items/Button.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/button/Button.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/items/DragAndDrop.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/draganddrop/DragAndDrop.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/items/FileInput.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/fileinput/FileInput.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/items/IconInput.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/iconinput/IconInput.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/items/Navbar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/navbar/Navbar.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/items/picto/Picto.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/picto/Picto.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/items/picto/PictoItem.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/picto/PictoItem.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/pages/Accueil.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Index.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/pages/Admin.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/Admin.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/pages/Login.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/auth/Index.module.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,15 +151,7 @@
       <workItem from="1696420863226" duration="599000" />
       <workItem from="1696452663334" duration="9000" />
       <workItem from="1696456120274" duration="10000" />
-      <workItem from="1696459830364" duration="3271000" />
-    </task>
-    <task id="LOCAL-00042" summary="Section artiste : appel API : OK">
-      <option name="closed" value="true" />
-      <created>1692697922198</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1692697922198</updated>
+      <workItem from="1696459830364" duration="4264000" />
     </task>
     <task id="LOCAL-00043" summary="Migration permettant la création de la table Artiste">
       <option name="closed" value="true" />
@@ -613,7 +537,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696281268548</updated>
     </task>
-    <option name="localTasksCounter" value="91" />
+    <task id="LOCAL-00091" summary="Cloud terminé">
+      <option name="closed" value="true" />
+      <created>1696463290736</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1696463290737</updated>
+    </task>
+    <option name="localTasksCounter" value="92" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -631,7 +563,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Major update (admin dashboard &amp; routes)" />
     <MESSAGE value="Major update (socket)" />
     <MESSAGE value="Editor : OK" />
     <MESSAGE value="Update : DB schema" />
@@ -656,6 +587,7 @@
     <MESSAGE value="Espace magazine : ok" />
     <MESSAGE value="Footer terminé" />
     <MESSAGE value="Instagram terminé" />
-    <option name="LAST_COMMIT_MESSAGE" value="Instagram terminé" />
+    <MESSAGE value="Cloud terminé" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cloud terminé" />
   </component>
 </project>

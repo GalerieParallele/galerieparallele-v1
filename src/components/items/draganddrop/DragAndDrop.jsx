@@ -110,6 +110,16 @@ function DragAndDrop({onFilesUploaded}) {
         });
     };
 
+    /**
+     * Permet d'envoyer plusieurs fichiers vers le cloud en même temps (en parallèle) et d'attendre la fin de tous les envois avant de continuer le code
+     * @param files
+     * @returns {Promise<void>}
+     */
+    const handleUploadMultipleFiles = async (files) => {
+        const uploadPromises = files.map(file => handleUploadFile(file));
+        await Promise.all(uploadPromises);
+    };
+
     return (
         <>
             <main className={styles.main}>
@@ -158,9 +168,7 @@ function DragAndDrop({onFilesUploaded}) {
                     <div>
                         {selectedFiles.length > 0 &&
                             <Button
-                                onClick={() => {
-                                    selectedFiles.forEach(file => handleUploadFile(file));
-                                }}
+                                onClick={() => handleUploadMultipleFiles(selectedFiles)}
                                 text={"Tout envoyer"}
                             />
                         }
