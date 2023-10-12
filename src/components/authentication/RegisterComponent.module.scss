@@ -1,0 +1,27 @@
+.button {
+
+  padding: 10px 25px;
+
+  transition: var(--transition);
+
+  border-radius: var(--border-radius);
+
+  text-transform: uppercase;
+
+  .buttonContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+}
+
+.active {
+  background-color: var(--black);
+  color: var(--white);
+}
+
+.notActive {
+  background-color: var(--white);
+  border: 2px solid var(--black);
+}

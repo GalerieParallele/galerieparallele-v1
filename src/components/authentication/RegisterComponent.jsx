@@ -8,6 +8,11 @@ import {MdEmail} from "react-icons/md";
 import {FiLock} from "react-icons/fi";
 import {Toast} from "@/constants/ToastConfig";
 import useSocket from "@/hooks/useSocket";
+import {AiOutlineFieldNumber, AiOutlinePercentage} from "react-icons/ai";
+
+import styles from "./RegisterComponent.module.scss";
+import {BsCheckCircleFill} from "react-icons/bs";
+import {ImCross} from "react-icons/im";
 
 const MESSAGES = {
     DIFFERENT_PASSWORDS: "Les mots de passe ne correspondent pas",
@@ -15,13 +20,17 @@ const MESSAGES = {
 };
 
 export default function RegisterComponent() {
+
     const {signUp} = useAuth();
 
     const [formData, setFormData] = useState({
         email: "",
         password: "",
         confirmPassword: "",
+        siret: "",
+        tva: "",
     });
+    const [isPro, setIsPro] = useState(false);
     const [loading, setLoading] = useState(false);
     const socket = useSocket();
 
@@ -31,7 +40,16 @@ export default function RegisterComponent() {
 
     const handleChange = (e) => {
         const {name, value} = e.target;
+
+        if (name === "isPro") {
+            setIsPro(prev => !prev);
+            setFormData(prev => ({...prev, [name]: !isPro}));
+            return;
+        }
+
         setFormData(prev => ({...prev, [name]: value}));
+
+        console.log(formData);
     };
 
     const handleSubmit = useCallback(
@@ -65,6 +83,36 @@ export default function RegisterComponent() {
     return (
         <>
             <Head><title>GP - Inscription</title></Head>
+            <div style={{display: "none"}}>
+                <input
+                    name="isPro"
+                    type="checkbox"
+                    value={formData.isPro}
+                    onChange={handleChange}
+                    disabled={loading}
+                    style={{
+                        width: "fit-content",
+                    }}
+                />
+            </div>
+            <button
+                type="button"
+                onClick={() => handleChange({target: {name: "isPro"}})}
+                disabled={loading}
+                className={`${styles.button} ${isPro ? styles.active : styles.notActive}`}
+            >
+                {isPro ? (
+                    <div className={styles.buttonContent}>
+                        <span>Je suis professionnel</span>
+                        <span>{<BsCheckCircleFill/>}</span>
+                    </div>
+                ) : (
+                    <div className={styles.buttonContent}>
+                        <span>Je suis particulier</span>
+                        <span>{<ImCross/>}</span>
+                    </div>
+                )}
+            </button>
             <IconInput
                 label="E-mail"
                 name="email"
@@ -92,6 +140,28 @@ export default function RegisterComponent() {
                 onChange={handleChange}
                 disabled={loading}
             />
+            {isPro && (
+                <>
+                    <IconInput
+                        label={"SIRET"}
+                        name={"siret"}
+                        IconComponent={AiOutlineFieldNumber}
+                        type={"text"}
+                        value={formData.siret}
+                        onChange={handleChange}
+                        disabled={loading}
+                    />
+                    <IconInput
+                        label={"TVA"}
+                        name={"tva"}
+                        IconComponent={AiOutlinePercentage}
+                        type={"text"}
+                        value={formData.tva}
+                        onChange={handleChange}
+                        disabled={loading}
+                    />
+                </>
+            )}
             <Button
                 disabled={
                     !isValidEmail(formData.email) ||
