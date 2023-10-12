@@ -14,10 +14,12 @@ import AlreadyLoginComponent from "@/components/authentication/AlreadyLoginCompo
 import BigSpinner from "@/components/items/BigSpinner";
 
 import {FaArrowLeft} from "react-icons/fa";
-import ROUTES from "@/constants/ROUTES";
+import {useRouter} from "next/router";
 
 
 export default function Index() {
+
+    const router = useRouter();
 
     const [login, setLogin] = React.useState(true);
     const [imageNumber, setImageNumber] = useState(0);
@@ -46,9 +48,13 @@ export default function Index() {
                 }
             </div>
             <div className={styles.right}>
-                <Link href={ROUTES.ACCUEIL} className={styles.iconBox}>
+                <button
+                    onClick={() => {
+                        router.back();
+                    }}
+                    className={styles.iconBox}>
                     <FaArrowLeft className={styles.icon}/>
-                </Link>
+                </button>
                 <div className={styles.authSpace}>
                     {isLoading && !user ? (
                         <BigSpinner/>
