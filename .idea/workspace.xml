@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Hero, mentra &amp; shop responsive add">
-      <change afterPath="$PROJECT_DIR$/src/components/home/newsletters/Newletters.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/newsletters/Newletters.module.css" afterDir="false" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Ajout de champs supplémentaires dans le formulaire d'inscription">
+      <change afterPath="$PROJECT_DIR$/src/pages/artistes/profil/artisteTest/index.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/items/navbar/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/navbar/Navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/auth/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/auth/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,14 +157,6 @@
       <workItem from="1696456120274" duration="10000" />
       <workItem from="1696459830364" duration="4397000" />
       <workItem from="1696506422259" duration="2501000" />
-    </task>
-    <task id="LOCAL-00045" summary="Ajout de style pour la section Artiste">
-      <option name="closed" value="true" />
-      <created>1692702600698</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1692702600698</updated>
     </task>
     <task id="LOCAL-00046" summary="Suppression de la page d'exemple">
       <option name="closed" value="true" />
@@ -546,7 +542,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696509051033</updated>
     </task>
-    <option name="localTasksCounter" value="94" />
+    <task id="LOCAL-00094" summary="Ajout de champs supplémentaires dans le formulaire d'inscription">
+      <option name="closed" value="true" />
+      <created>1697114154388</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1697114154388</updated>
+    </task>
+    <option name="localTasksCounter" value="95" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -564,7 +568,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update : DB schema" />
     <MESSAGE value="Add migrations" />
     <MESSAGE value="View article index : OK" />
     <MESSAGE value="New article : OK" />
@@ -589,6 +592,7 @@
     <MESSAGE value="Cloud terminé" />
     <MESSAGE value="AutoRefresh lors de l'upload de fichier" />
     <MESSAGE value="Hero, mentra &amp; shop responsive add" />
-    <option name="LAST_COMMIT_MESSAGE" value="Hero, mentra &amp; shop responsive add" />
+    <MESSAGE value="Ajout de champs supplémentaires dans le formulaire d'inscription" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajout de champs supplémentaires dans le formulaire d'inscription" />
   </component>
 </project>
