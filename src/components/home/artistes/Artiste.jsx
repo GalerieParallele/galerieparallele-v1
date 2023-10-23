@@ -35,7 +35,7 @@ export default function Artiste() {
                 }
             </div>
             <div className={styles.bottom}>
-                <Button text={"Nos artistes"} isWhite/>
+                <Button text={"Nos artist"} isWhite/>
             </div>
         </div>
     );

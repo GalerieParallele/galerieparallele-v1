@@ -1,0 +1,17 @@
+.main {
+
+  width: fit-content;
+  position: relative;
+
+  margin-bottom: 30px;
+
+  .bottomLine {
+    position: absolute;
+    bottom: -9px;
+    left: 0;
+    width: 108%;
+    height: 4px;
+    border-radius: var(--border-radius);
+    background-color: var(--black);
+  }
+}

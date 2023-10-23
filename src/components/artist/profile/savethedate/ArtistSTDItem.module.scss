@@ -1,0 +1,157 @@
+.main {
+  height: 100%;
+
+  .item {
+
+    position: relative;
+
+    width: 110px;
+    height: 110px;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    .overlay {
+
+      transition: var(--transition);
+
+      z-index: 4;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      display: none;
+
+      opacity: 0;
+
+      width: 100%;
+      height: 100%;
+
+      color: var(--black);
+
+      font-weight: bolder;
+      font-size: 1.5rem;
+    }
+
+    .mainContent {
+
+      width: 100%;
+      height: 100%;
+
+      .date {
+        text-align: center;
+        padding: 4px 0;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        z-index: 5;
+        background-color: var(--black);
+        color: var(--white);
+      }
+
+      .imgContainer {
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        img {
+          width: 100%;
+          height: 100%;
+
+          object-fit: cover;
+        }
+      }
+    }
+  }
+
+  &:hover {
+    .overlay {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 1;
+      background-color: var(--light-white);
+    }
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); // Fond semi-transparent
+    z-index: 15; // S'assurer qu'elle est au-dessus des autres éléments
+
+    .modalContent {
+      position: relative;
+      background: white;
+      z-index: 16; // Au-dessus du fond
+      width: 60%;
+
+      border-radius: var(--border-radius);
+
+      overflow: hidden;
+
+      .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        z-index: 16;
+        background-color: var(--red);
+        border-radius: 50%;
+
+
+        .buttonIcon {
+          color: var(--white);
+          font-size: 20px;
+        }
+      }
+
+      .modalHead {
+        .imgContainer {
+          width: 100%;
+          height: 350px;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+      }
+
+      .modalMain {
+        height: 230px;
+        padding: 20px;
+        overflow-y: auto;
+      }
+    }
+  }
+
+  .modalFilter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); // Fond semi-transparent
+    z-index: 15; // S'assurer qu'il est au-dessus des autres éléments
+  }
+
+}

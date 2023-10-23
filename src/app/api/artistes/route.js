@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 const MESSAGE = {
     NO_ARTIST_FOUND: "Aucun artiste trouvé.",
-    GLOBAL_ERROR: "Une erreur est survenue lors de la récupération des artistes."
+    GLOBAL_ERROR: "Une erreur est survenue lors de la récupération des artist."
 }
 
 export async function GET() {

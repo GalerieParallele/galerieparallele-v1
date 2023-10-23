@@ -1,0 +1,51 @@
+.main {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 12px;
+
+  h2 {
+    font-weight: 800;
+  }
+
+  .socialsList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 12px;
+
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--black);
+      font-size: 1.5rem;
+    }
+
+    .verticalSeparator {
+      width: 2px;
+      height: 15px;
+      background-color: var(--light-gray);
+      border-radius: var(--border-radius);
+    }
+  }
+
+  .website a {
+    margin-top: 10px;
+    color: var(--black);
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .tags {
+    font-size: 0.8rem;
+    font-style: italic;
+  }
+}

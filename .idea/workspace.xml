@@ -5,22 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Modification docker-compose ajout de traefik pour le https">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/artist/profile/ArtistProfileHead.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/artist/profile/ArtistProfileHead.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/artist/profile/avatar/ArtistProfileAvatar.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/artist/profile/avatar/ArtistProfileAvatar.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/artist/profile/bio/ArtistProfileBio.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/artist/profile/bio/ArtistProfileBio.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/artist/profile/portrait/ArtistProfilePortait.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/artist/profile/portrait/ArtistProfilePortait.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/artist/profile/portrait/RowPortrait.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/artist/profile/portrait/RowPortrait.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/artist/profile/savethedate/ArtistProfileSTD.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/artist/profile/savethedate/ArtistProfileSTD.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/artist/profile/savethedate/ArtistSTDItem.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/artist/profile/savethedate/ArtistSTDItem.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/artist/profile/social/ArtistProfileSocial.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/artist/profile/social/ArtistProfileSocial.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/Admin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/Admin.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/home/AdminStat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/home/AdminStat.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/authentication/RegisterComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/RegisterComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/authentication/RegisterComponent.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/RegisterComponent.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/CONFIG.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/CONFIG.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/context/SocketContext.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useSocket.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/auth/Index.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/auth/Index.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/auth/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/auth/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/provider/SocketProvider.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/artistes/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/artistes/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/artistes/Artiste.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/artistes/Artiste.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/artistes/profil/artisteTest/Index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/artistes/profil/artisteTest/Index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/artistes/profil/artisteTest/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/artistes/profil/artisteTest/index.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,11 +96,11 @@
       <recent name="$PROJECT_DIR$/src/components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/artist/profile/social" />
+      <recent name="$PROJECT_DIR$/src/components/artist/profile/avatar" />
       <recent name="$PROJECT_DIR$/src/pages/auth" />
       <recent name="$PROJECT_DIR$/src/pages" />
       <recent name="$PROJECT_DIR$/src/components/items/iconinput" />
-      <recent name="$PROJECT_DIR$/src/components/items/fileinput" />
-      <recent name="$PROJECT_DIR$/src/components/items/draganddrop" />
     </key>
   </component>
   <component name="RunManager">

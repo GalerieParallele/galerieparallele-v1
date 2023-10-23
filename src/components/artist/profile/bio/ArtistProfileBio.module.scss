@@ -1,0 +1,34 @@
+.main {
+  overflow: hidden;
+
+  p {
+    overflow: hidden;
+    line-height: 30px;
+    margin: 0;
+    transition: all 0.3s ease-out;
+    max-height: 30px * 4;
+    text-overflow: ellipsis;
+  }
+
+  .expanded {
+    max-height: none;
+  }
+
+  .buttonSpace {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .toggleButton {
+    margin-top: 15px;
+    text-transform: uppercase;
+    background-color: var(--black);
+    border: none;
+    border-radius: var(--border-radius);
+    color: var(--white);
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+}
