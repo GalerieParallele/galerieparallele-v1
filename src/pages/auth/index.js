@@ -76,7 +76,7 @@ export default function Index() {
                                         className={!login ? styles.activeSection : ""}
                                         onClick={() => setLogin(false)}
                                     >
-                                        Inscription
+                                        Devenir Membre
                                     </h4>
                                 </div>
                                 <form className={styles.inputs}>

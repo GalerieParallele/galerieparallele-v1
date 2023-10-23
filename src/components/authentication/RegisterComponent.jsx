@@ -7,12 +7,11 @@ import IconInput from "@/components/items/iconinput/IconInput";
 import {MdEmail} from "react-icons/md";
 import {FiLock} from "react-icons/fi";
 import {Toast} from "@/constants/ToastConfig";
-import useSocket from "@/hooks/useSocket";
 import {AiOutlineFieldNumber, AiOutlinePercentage} from "react-icons/ai";
 
 import styles from "./RegisterComponent.module.scss";
-import {BsCheckCircleFill} from "react-icons/bs";
-import {ImCross} from "react-icons/im";
+import {BsFillPersonFill, BsTelephoneFill} from "react-icons/bs";
+import {FaLocationDot} from "react-icons/fa6";
 
 const MESSAGES = {
     DIFFERENT_PASSWORDS: "Les mots de passe ne correspondent pas",
@@ -24,15 +23,20 @@ export default function RegisterComponent() {
     const {signUp} = useAuth();
 
     const [formData, setFormData] = useState({
+        lastname: "",
+        firstname: "",
+        street: "",
+        city: "",
+        postalCode: "",
         email: "",
-        password: "",
-        confirmPassword: "",
+        phone: "",
         siret: "",
         tva: "",
+        password: "",
+        confirmPassword: "",
     });
     const [isPro, setIsPro] = useState(false);
     const [loading, setLoading] = useState(false);
-    const socket = useSocket();
 
     const showToast = useCallback(async (icon, title) => {
         await Toast.fire({icon, title});
@@ -71,23 +75,20 @@ export default function RegisterComponent() {
                 return;
             }
 
-            if (socket) {
-                socket.emit('userRegister');
-            }
 
             await showToast('success', MESSAGES.REGISTER_SUCCESS);
         },
-        [formData, signUp, socket, showToast]
+        [formData, signUp, showToast]
     );
 
     return (
         <>
-            <Head><title>GP - Inscription</title></Head>
+            <Head><title>GP - Devenir Membre</title></Head>
             <div style={{display: "none"}}>
                 <input
                     name="isPro"
                     type="checkbox"
-                    value={formData.isPro}
+                    value={isPro}
                     onChange={handleChange}
                     disabled={loading}
                     style={{
@@ -99,69 +100,114 @@ export default function RegisterComponent() {
                 type="button"
                 onClick={() => handleChange({target: {name: "isPro"}})}
                 disabled={loading}
-                className={`${styles.button} ${isPro ? styles.active : styles.notActive}`}
+                className={`${styles.button}`}
             >
-                {isPro ? (
-                    <div className={styles.buttonContent}>
-                        <span>Je suis professionnel</span>
-                        <span>{<BsCheckCircleFill/>}</span>
+                <div className={styles.buttonContent}>
+                    <p className={`${styles.label} ${!isPro ? styles.activeLabel : styles.inactiveLabel}`}>Particulier</p>
+                    <div className={styles.switch}>
+                        <span
+                            className={
+                                `${styles.switchIcon} 
+                            ${isPro ? styles.enable : styles.disable}`
+                            }/>
                     </div>
-                ) : (
-                    <div className={styles.buttonContent}>
-                        <span>Je suis particulier</span>
-                        <span>{<ImCross/>}</span>
-                    </div>
-                )}
+                    <p className={`${styles.label} ${isPro ? styles.activeLabel : styles.inactiveLabel}`}>Professionnel</p>
+                </div>
             </button>
-            <IconInput
-                label="E-mail"
-                name="email"
-                IconComponent={MdEmail}
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                disabled={loading}
-            />
-            <IconInput
-                label="Mot de passe"
-                name="password"
-                IconComponent={FiLock}
-                type="password"
-                value={formData.password}
-                onChange={handleChange}
-                disabled={loading}
-            />
-            <IconInput
-                label="Confirmer le mot de passe"
-                name="confirmPassword"
-                IconComponent={FiLock}
-                type="password"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                disabled={loading}
-            />
-            {isPro && (
-                <>
-                    <IconInput
-                        label={"SIRET"}
-                        name={"siret"}
-                        IconComponent={AiOutlineFieldNumber}
-                        type={"text"}
-                        value={formData.siret}
-                        onChange={handleChange}
-                        disabled={loading}
-                    />
-                    <IconInput
-                        label={"TVA"}
-                        name={"tva"}
-                        IconComponent={AiOutlinePercentage}
-                        type={"text"}
-                        value={formData.tva}
-                        onChange={handleChange}
-                        disabled={loading}
-                    />
-                </>
-            )}
+            <div className={styles.rows}>
+                <IconInput
+                    label="Nom"
+                    name="lastname"
+                    IconComponent={BsFillPersonFill}
+                    type="text"
+                    autoComplete="family-name"
+                    value={formData.lastname}
+                    onChange={handleChange}
+                    disabled={loading}
+                />
+                <IconInput
+                    label="Prénom"
+                    name="firstname"
+                    IconComponent={BsFillPersonFill}
+                    type="text"
+                    autoComplete="given-name"
+                    value={formData.firstname}
+                    onChange={handleChange}
+                    disabled={loading}
+                />
+                <IconInput
+                    label="Rue"
+                    name="street"
+                    IconComponent={FaLocationDot}
+                    type="street"
+                    autoComplete="street-address"
+                    value={formData.street}
+                    onChange={handleChange}
+                    disabled={loading}
+                />
+                <IconInput
+                    label={"Ville"}
+                    name={"city"}
+                    IconComponent={FaLocationDot}
+                    type={"text"}
+                    autoComplete={"address-level2"}
+                    value={formData.city}
+                    onChange={handleChange}
+                    disabled={loading}
+                />
+                <IconInput
+                    label={"Code postal"}
+                    name={"postalCode"}
+                    IconComponent={FaLocationDot}
+                    type={"postalCode"}
+                    autoComplete={"postal-code"}
+                    value={formData.postalCode}
+                    onChange={handleChange}
+                    disabled={loading}
+                />
+                <IconInput
+                    label={"Email"}
+                    name={"email"}
+                    IconComponent={MdEmail}
+                    type={"email"}
+                    autoComplete={"email"}
+                    value={formData.email}
+                    onChange={handleChange}
+                    disabled={loading}
+                />
+                <IconInput
+                    label={"Téléphone"}
+                    name={"phone"}
+                    IconComponent={BsTelephoneFill}
+                    type={"phone"}
+                    autoComplete={"tel"}
+                    value={formData.phone}
+                    onChange={handleChange}
+                    disabled={loading}
+                />
+                {isPro && (
+                    <>
+                        <IconInput
+                            label={"SIRET"}
+                            name={"siret"}
+                            IconComponent={AiOutlineFieldNumber}
+                            type={"text"}
+                            value={formData.siret}
+                            onChange={handleChange}
+                            disabled={loading}
+                        />
+                        <IconInput
+                            label={"Numéro TVA"}
+                            name={"tva"}
+                            IconComponent={AiOutlinePercentage}
+                            type={"text"}
+                            value={formData.tva}
+                            onChange={handleChange}
+                            disabled={loading}
+                        />
+                    </>
+                )}
+            </div>
             <Button
                 disabled={
                     !isValidEmail(formData.email) ||

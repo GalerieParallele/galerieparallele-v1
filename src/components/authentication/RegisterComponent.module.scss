@@ -1,27 +1,61 @@
+.rows {
+  height: 280px;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+
+  padding: 10px 5px;
+}
+
 .button {
 
   padding: 10px 25px;
-
-  transition: var(--transition);
-
-  border-radius: var(--border-radius);
-
-  text-transform: uppercase;
 
   .buttonContent {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 10px;
+
+    .label {
+      font-size: 1.1rem;
+    }
+
+    .inactiveLabel {
+      color: var(--light-gray);
+    }
+
+    .activeLabel {
+      color: var(--black);
+    }
+
+    .switch {
+      background-color: var(--light-gray);
+
+      border-radius: var(--border-radius);
+
+      width: 30px;
+      height: 12px;
+
+      position: relative;
+
+      .switchIcon {
+        width: 12px;
+        height: 12px;
+        border-radius: 100%;
+        background-color: var(--black);
+        position: absolute;
+      }
+
+      .disable {
+        left: 0;
+      }
+
+      .enable {
+        right: 0;
+      }
+    }
   }
-}
-
-.active {
-  background-color: var(--black);
-  color: var(--white);
-}
-
-.notActive {
-  background-color: var(--white);
-  border: 2px solid var(--black);
 }

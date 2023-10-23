@@ -4,8 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Suppression du ts config inutile">
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Modification docker-compose ajout de traefik pour le https">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/Admin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/Admin.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/home/AdminStat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/home/AdminStat.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/authentication/RegisterComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/RegisterComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/authentication/RegisterComponent.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/RegisterComponent.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/CONFIG.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/CONFIG.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/context/SocketContext.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useSocket.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/auth/Index.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/auth/Index.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/auth/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/auth/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/provider/SocketProvider.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +69,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/snap/webstorm/334/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2021.3.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -151,15 +166,7 @@
       <workItem from="1696459830364" duration="4397000" />
       <workItem from="1696506422259" duration="2501000" />
       <workItem from="1697121663743" duration="2894000" />
-      <workItem from="1698041599912" duration="367000" />
-    </task>
-    <task id="LOCAL-00053" summary="Ajout d'une fonctionnalité dans le hook d'authentification permettant de vérifier le/les rôle(s) d'un utilisateur">
-      <option name="closed" value="true" />
-      <created>1692714105299</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1692714105299</updated>
+      <workItem from="1698041599912" duration="10108000" />
     </task>
     <task id="LOCAL-00054" summary="Ajout d'une bar de chargement des pages">
       <option name="closed" value="true" />
@@ -545,7 +552,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697123616828</updated>
     </task>
-    <option name="localTasksCounter" value="102" />
+    <task id="LOCAL-00102" summary="Modification docker-compose ajout de traefik pour le https">
+      <option name="closed" value="true" />
+      <created>1698042234723</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1698042234724</updated>
+    </task>
+    <option name="localTasksCounter" value="103" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -563,7 +578,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Sticky navbar + amo &amp; restructuration &quot;acccueil&quot; &gt;&gt; &quot;home&quot;" />
     <MESSAGE value="Section articles (shop) : OK" />
     <MESSAGE value="Section pro : OK" />
     <MESSAGE value="Rectification du responsive de l'image" />
@@ -588,6 +602,7 @@
     <MESSAGE value="Suppression de l'import inutile" />
     <MESSAGE value="Auto update &amp; reformat" />
     <MESSAGE value="Suppression du ts config inutile" />
-    <option name="LAST_COMMIT_MESSAGE" value="Suppression du ts config inutile" />
+    <MESSAGE value="Modification docker-compose ajout de traefik pour le https" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modification docker-compose ajout de traefik pour le https" />
   </component>
 </project>
