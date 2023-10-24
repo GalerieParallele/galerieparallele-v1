@@ -247,8 +247,6 @@ export default function artisteTest() {
                     <video
                         src={"https://firebasestorage.googleapis.com/v0/b/dp-gallery-37d61.appspot.com/o/10%2FLevalet%20%20odyss%C3%A9e%20artistique.mp4?alt=media&token=d1b94160-8eaa-4f77-b2bb-c9afe5e31a4b"}
                         typeof={"video/mp4"}
-                        controls={false}
-                        loop={true}
                         autoPlay={true}
                     />
                 </section>

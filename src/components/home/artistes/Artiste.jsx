@@ -28,10 +28,10 @@ export default function Artiste() {
         <div className={styles.artiste}>
             <div className={styles.top}>
                 {artists.length === 0 ? <h3>Aucun artiste trouvé...</h3> :
-                    artists.map(artist => (
-                        <ArtisteCard key={artist.pseudo} pseudo={artist.pseudo}/>
+                    artists.map((artist, index) => (
+                        // <ArtisteCard key={artist.pseudo} pseudo={artist.pseudo}/>
+                        <div key={index}>test</div>
                     ))
-
                 }
             </div>
             <div className={styles.bottom}>

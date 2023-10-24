@@ -4,8 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Ajout de swiper + exposition year update">
-      <change beforePath="$PROJECT_DIR$/src/components/artist/profile/expo/ArtistProfileExpoItem.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/artist/profile/expo/ArtistProfileExpoItem.module.scss" afterDir="false" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Mise en page de la page artiste">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/users/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/users/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/artistes/Artiste.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/artistes/Artiste.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/artistes/profil/artisteTest/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/artistes/profil/artisteTest/index.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,8 +49,8 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "ignore.virus.scanning.warn.message": "true",
-    "javascript.nodejs.core.library.configured.version": "20.4.0",
-    "javascript.nodejs.core.library.typings.version": "20.4.0",
+    "javascript.nodejs.core.library.configured.version": "18.17.1",
+    "javascript.nodejs.core.library.typings.version": "18.17.1",
     "last_opened_file_path": "D:/Développement/Web/ALTERNANCE/Web/public/assets/img/artistes",
     "list.type.of.created.stylesheet": "SCSS",
     "node.js.detected.package.eslint": "true",
@@ -153,6 +158,7 @@
       <workItem from="1696506422259" duration="2501000" />
       <workItem from="1697121663743" duration="2894000" />
       <workItem from="1698041599912" duration="10108000" />
+      <workItem from="1698160913488" duration="5586000" />
     </task>
     <task id="LOCAL-00057" summary="Modification des marges horizontale dans la barre de navigation">
       <option name="closed" value="true" />

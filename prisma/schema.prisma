@@ -8,46 +8,108 @@ datasource db {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  email    String    @unique
-  password String    @db.VarChar(255)
-  roles    Json      @default("[\"ROLE_USER\"]")
-  Artist   Artist?
-  Devlogs  Devlog[]
-  Articles Article[]
+  id         Int       @id @default(autoincrement())
+  avatarURL  String?   @db.Text
+  email      String    @unique
+  lastname   String    @db.VarChar(255)
+  firstname  String    @db.VarChar(255)
+  street     String    @db.VarChar(255)
+  city       String    @db.VarChar(255)
+  postalCode String    @db.VarChar(255)
+  phone      String    @db.VarChar(255)
+  password   String    @db.VarChar(255)
+  roles      Json      @default("[\"ROLE_USER\"]")
+  Artist     Artist?
+  Articles   Article[]
 }
 
-model Artist {
-  id     Int    @id @default(autoincrement())
-  userid Int    @unique
-  pseudo String @unique
-  User   User   @relation(fields: [userid], references: [id])
+model SaveTheDate {
+  id Int @id @default(autoincrement())
+
+  title    String   @db.VarChar(255)
+  content  String   @db.Text
+  date     DateTime
+  photoURL String   @db.Text
+
+  artistId Int
+  Artist   Artist @relation(fields: [artistId], references: [id], onDelete: Cascade)
 }
 
 model Article {
   id        Int      @id @default(autoincrement())
-  userid    Int
   title     String   @db.VarChar(255)
   content   String   @db.Text
   private   Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
-  User      User     @relation(fields: [userid], references: [id])
+
+  userid Int?
+  User   User? @relation(fields: [userid], references: [id], onDelete: SetNull)
 }
 
-model Devlog {
-  id        Int        @id @default(autoincrement())
-  userid    Int
-  tags      DevlogType
-  title     String     @db.VarChar(255)
-  content   String     @db.Text
-  createdAt DateTime   @default(now())
-  User      User       @relation(fields: [userid], references: [id])
+model Tag {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique
+  ArtistTag ArtistTag[]
+  OeuvreTag OeuvreTag[]
 }
 
-enum DevlogType {
-  UPDATE
-  CREATE
-  DELETE
-  REVIEW
+model Artist {
+  id Int @id @default(autoincrement())
+
+  tva   String @unique
+  siret String @unique
+
+  pseudo String?
+
+  bio String? @db.Text
+
+  instagram String?
+  facebook  String?
+  linkedin  String?
+  website   String?
+
+  ArtistTag   ArtistTag[]
+  SaveTheDate SaveTheDate[]
+
+  userid       Int         @unique
+  User         User        @relation(fields: [userid], references: [id], onDelete: Cascade)
+  Exposition   Exposition? @relation(fields: [expositionId], references: [id], onDelete: Cascade)
+  expositionId Int?
+}
+
+model ArtistTag {
+  id       Int    @id @default(autoincrement())
+  artistId Int
+  tagId    Int
+  Artist   Artist @relation(fields: [artistId], references: [id], onDelete: Cascade)
+  Tag      Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@map("artist_tag")
+}
+
+model Oeuvre {
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String      @db.Text
+  OeuvreTag   OeuvreTag[]
+}
+
+model OeuvreTag {
+  id       Int    @id @default(autoincrement())
+  oeuvreId Int
+  tagId    Int
+  Oeuvre   Oeuvre @relation(fields: [oeuvreId], references: [id], onDelete: Cascade)
+  Tag      Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@map("oeuvre_tag")
+}
+
+model Exposition {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String   @db.Text
+  date        DateTime
+  photoURL    String   @db.Text
+  Artist      Artist[]
 }
