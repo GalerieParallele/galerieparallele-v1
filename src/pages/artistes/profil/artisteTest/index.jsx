@@ -9,7 +9,7 @@ import ArtistProfilSTD from "@/components/artist/profile/savethedate/ArtistProfi
 import ArtistProfileBio from "@/components/artist/profile/bio/ArtistProfileBio";
 import Picto from "@/components/items/picto/Picto";
 import Footer from "@/components/items/footer/Footer";
-import ArtistProfilePortait from "@/components/artist/profile/portrait/ArtistProfilePortait";
+import ArtistProfileExpo from "@/components/artist/profile/expo/ArtistProfileExpo";
 
 export default function artisteTest() {
 
@@ -113,7 +113,78 @@ export default function artisteTest() {
     const fakeExpos = [
         {
             year: 2023,
-
+            content: [
+                {
+                    name: "Nom de l'exposition 1",
+                    location: "Paris (FR)",
+                },
+                {
+                    name: "Nom de l'exposition 2",
+                    location: "Paris (FR)",
+                },
+                {
+                    name: "Nom de l'exposition 3",
+                    location: "Paris (FR)",
+                },
+            ]
+        },
+        {
+            year: 2022,
+            content: [
+                {
+                    name: "Nom de l'exposition 1",
+                    location: "Paris (FR)",
+                },
+                {
+                    name: "Nom de l'exposition 2",
+                    location: "Paris (FR)",
+                },
+                {
+                    name: "Nom de l'exposition 3",
+                    location: "Paris (FR)",
+                },
+                {
+                    name: "Nom de l'exposition 4",
+                    location: "Paris (FR)",
+                }
+            ]
+        },
+        {
+            year: 2021,
+            content: [
+                {
+                    name: "Nom de l'exposition 1",
+                    location: "Paris (FR)",
+                },
+                {
+                    name: "Nom de l'exposition 2",
+                    location: "Paris (FR)",
+                },
+                {
+                    name: "Nom de l'exposition 3",
+                    location: "Paris (FR)",
+                },
+                {
+                    name: "Nom de l'exposition 4",
+                    location: "Paris (FR)",
+                },
+                {
+                    name: "Nom de l'exposition 1",
+                    location: "Paris (FR)",
+                },
+                {
+                    name: "Nom de l'exposition 2",
+                    location: "Paris (FR)",
+                },
+                {
+                    name: "Nom de l'exposition 3",
+                    location: "Paris (FR)",
+                },
+                {
+                    name: "Nom de l'exposition 4",
+                    location: "Paris (FR)",
+                }
+            ]
         }
     ]
 
@@ -180,20 +251,21 @@ export default function artisteTest() {
                         autoPlay={true}
                     />
                 </section>
-                <div>
-
-                </div>
-                <div>
-                    {/* Portrait chinois */}
-                    <ArtistProfileHead
-                        title={"Portrait chinois"}
-                    />
+                <section className={styles.expoPrice}>
                     <div>
-                        <ArtistProfilePortait
-                            questionsList={fakeQuestion}
+                        <ArtistProfileHead
+                            title={"Expositions"}
+                        />
+                        <ArtistProfileExpo
+                            expositions={fakeExpos}
                         />
                     </div>
-                </div>
+                    <div>
+                        <ArtistProfileHead
+                            title={"Récompenses"}
+                        />
+                    </div>
+                </section>
                 <div>
                     {/* Oeuvres */}
                     <ArtistProfileHead

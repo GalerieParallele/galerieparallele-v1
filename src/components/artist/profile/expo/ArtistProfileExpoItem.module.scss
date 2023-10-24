@@ -1,0 +1,53 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+
+  .preview {
+    font-size: 1.1rem;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--black);
+    border-radius: 25px;
+  }
+
+  .year {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-weight: 500;
+    font-size: 1.05rem;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    background-color: var(--white);
+    box-shadow: var(--shadow);
+    padding: 5px;
+  }
+
+  .rightContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    .rightContentPreview {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
+    }
+    .list {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+}
