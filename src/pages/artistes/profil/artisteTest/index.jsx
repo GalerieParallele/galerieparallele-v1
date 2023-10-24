@@ -10,6 +10,7 @@ import ArtistProfileBio from "@/components/artist/profile/bio/ArtistProfileBio";
 import Picto from "@/components/items/picto/Picto";
 import Footer from "@/components/items/footer/Footer";
 import ArtistProfileExpo from "@/components/artist/profile/expo/ArtistProfileExpo";
+import ArtistProfilePortrait from "@/components/artist/profile/portrait/ArtistProfilePortrait";
 
 export default function artisteTest() {
 
@@ -267,10 +268,7 @@ export default function artisteTest() {
                     </div>
                 </section>
                 <div>
-                    {/* Oeuvres */}
-                    <ArtistProfileHead
-                        title={"Oeuvres"}
-                    />
+                    <ArtistProfilePortrait />
                 </div>
             </div>
             <Picto/>
