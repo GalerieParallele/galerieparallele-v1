@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Suppression du portrait chinois + ajout d'une section expositions et récompenses">
-      <change afterPath="$PROJECT_DIR$/src/components/artist/profile/portrait/ArtistProfilePortrait.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/artist/profile/portrait/ArtistProfilePortrait.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Ajout de swiper + exposition year update">
       <change beforePath="$PROJECT_DIR$/src/components/artist/profile/expo/ArtistProfileExpoItem.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/artist/profile/expo/ArtistProfileExpoItem.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/artistes/profil/artisteTest/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/artistes/profil/artisteTest/index.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,14 +153,6 @@
       <workItem from="1696506422259" duration="2501000" />
       <workItem from="1697121663743" duration="2894000" />
       <workItem from="1698041599912" duration="10108000" />
-    </task>
-    <task id="LOCAL-00056" summary="Ajout d'une verification du role utilisateur dans la barre de navigation (accès admin dashboard)">
-      <option name="closed" value="true" />
-      <created>1692716449779</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1692716449779</updated>
     </task>
     <task id="LOCAL-00057" summary="Modification des marges horizontale dans la barre de navigation">
       <option name="closed" value="true" />
@@ -552,7 +538,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698140638631</updated>
     </task>
-    <option name="localTasksCounter" value="105" />
+    <task id="LOCAL-00105" summary="Ajout de swiper + exposition year update">
+      <option name="closed" value="true" />
+      <created>1698142979671</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1698142979671</updated>
+    </task>
+    <option name="localTasksCounter" value="106" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -570,7 +564,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Rectification du responsive de l'image" />
     <MESSAGE value="Picto : OK" />
     <MESSAGE value="Upload file : OK" />
     <MESSAGE value="Firebase upload : OK" />
@@ -595,6 +588,7 @@
     <MESSAGE value="Modification docker-compose ajout de traefik pour le https" />
     <MESSAGE value="Remise en page section artiste" />
     <MESSAGE value="Suppression du portrait chinois + ajout d'une section expositions et récompenses" />
-    <option name="LAST_COMMIT_MESSAGE" value="Suppression du portrait chinois + ajout d'une section expositions et récompenses" />
+    <MESSAGE value="Ajout de swiper + exposition year update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajout de swiper + exposition year update" />
   </component>
 </project>
