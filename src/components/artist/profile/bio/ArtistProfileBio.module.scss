@@ -6,8 +6,13 @@
     line-height: 30px;
     margin: 0;
     transition: all 0.3s ease-out;
-    max-height: 30px * 4;
+    max-height: 30px * 8;
     text-overflow: ellipsis;
+    text-align: justify;
+  }
+
+  .fadeEnd {
+    -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
   }
 
   .expanded {
@@ -16,19 +21,46 @@
 
   .buttonSpace {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
   }
 
   .toggleButton {
+    font-size: 1.8rem;
     margin-top: 15px;
-    text-transform: uppercase;
-    background-color: var(--black);
     border: none;
     border-radius: var(--border-radius);
-    color: var(--white);
+    color: var(--black);
     padding: 5px 10px;
     cursor: pointer;
+    font-weight: bold;
+    text-decoration: underline;
     transition: background-color 0.3s;
+  }
+
+  .down {
+    animation: down 2s ease-in-out infinite;
+  }
+
+  .up {
+    animation: up 2s ease-in-out infinite;
+  }
+
+  @keyframes down {
+    0%, 100% {
+      transform: translateY(-10px);
+    }
+    50% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes up {
+    0%, 100% {
+      transform: translateY(10px);
+    }
+    50% {
+      transform: translateY(0);
+    }
   }
 }

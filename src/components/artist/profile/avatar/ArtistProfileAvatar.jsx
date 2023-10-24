@@ -8,8 +8,8 @@ export default function ArtistProfilAvatar({imgSrc, descImg}) {
             <Image
                 src={imgSrc}
                 alt={descImg}
-                width={200}
-                height={200}
+                width={1000}
+                height={1000}
             />
         </div>
     )

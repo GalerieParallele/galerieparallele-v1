@@ -23,23 +23,23 @@ export default function ArtistProfileSocial({fullName, instagram, facebook, link
                     <AiFillLinkedin/>
                 </Link>
             </>)}
+            {
+                website && (<>
+                    {(instagram || facebook || linkedin) && <span className={styles.verticalSeparator}/>}
+                    <Link href={website} passHref>
+                        <IoEarth/>
+                    </Link>
+                </>)
+            }
         </div>
-        {website && (
-            <div className={styles.website}>
-                <Link href={website} passHref>
-                        <span>
-                            <IoEarth/>
-                        </span>
-                    <span>
-                        Site internet
-                    </span>
-                </Link>
-            </div>
-        )}
         {tags && tags.length > 0 && (
             <div className={styles.tags}>
                 {tags.map((tag, index) => (
-                    <span key={index}>#{tag.name} </span>
+                    <span
+                        key={index}
+                        className={styles.tagItem}>
+                        #{tag.name}
+                    </span>
                 ))}
             </div>
         )}
