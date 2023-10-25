@@ -45,6 +45,12 @@
       font-size: 1.2rem;
       color: var(--white);
       padding: 15px;
+      transition: var(--transition);
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.05);
+      }
     }
 
     .delete {

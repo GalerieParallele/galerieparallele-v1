@@ -31,6 +31,7 @@ const ROUTES = {
         },
         ARTISTES: {
             HOME: `${BASE.ADMIN_ARTISTES}`,
+            NEW: `${BASE.ADMIN_ARTISTES}/new`,
         }
     },
     API: {

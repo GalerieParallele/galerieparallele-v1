@@ -12,12 +12,22 @@ function IconInput({IconComponent, label, type, required, ...inputProps}) {
                 <div>{IconComponent && <IconComponent/>}</div>
                 <p>{label}</p>
             </div>
-            <input
-                type={type}
-                {...inputProps}
-                className={styles.input}
-                required={required}
-            />
+            {
+                type === 'textarea' ? (
+                    <textarea
+                        {...inputProps}
+                        className={styles.input}
+                        required={required}
+                    />
+                ) : (
+                    <input
+                        type={type}
+                        {...inputProps}
+                        className={styles.input}
+                        required={required}
+                    />
+                )
+            }
         </div>
     );
 }

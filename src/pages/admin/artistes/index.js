@@ -43,12 +43,14 @@ export default function ArtistesIndex() {
                         <SearchBar
                             placeholder={"Rechercher un artiste"}
                         />
-                        <div className={styles.addButton}>
+                        <button
+                            onClick={() => router.push(ROUTES.ADMIN.ARTISTES.NEW)}
+                            className={styles.addButton}>
                             <div className={styles.tooltip}>
                                 Ajouter un artiste
                             </div>
                             <BsPersonAdd/>
-                        </div>
+                        </button>
                     </div>
                     <div className={styles.statCount}>
                         {loading ?
