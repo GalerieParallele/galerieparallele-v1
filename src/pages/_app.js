@@ -5,7 +5,7 @@ import "@/app/globals.css"
 function MyApp({Component, pageProps}) {
     return (
         <AuthProvider>
-            <NextNProgress options={{easing: 'ease', speed: 500}}/>
+            <NextNProgress options={{easing: 'ease', speed: 500, showSpinner: false}}/>
             <Component {...pageProps} />
         </AuthProvider>
     );

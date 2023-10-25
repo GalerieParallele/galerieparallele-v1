@@ -3,7 +3,6 @@ import Navbar from "@/components/items/navbar/Navbar";
 import ArtistProfilAvatar from "@/components/artist/profile/avatar/ArtistProfileAvatar";
 import ArtistProfileSocial from "@/components/artist/profile/social/ArtistProfileSocial";
 
-import styles from './Index.module.scss';
 import ArtistProfileHead from "@/components/artist/profile/ArtistProfileHead";
 import ArtistProfilSTD from "@/components/artist/profile/savethedate/ArtistProfileSTD";
 import ArtistProfileBio from "@/components/artist/profile/bio/ArtistProfileBio";
@@ -11,6 +10,8 @@ import Picto from "@/components/items/picto/Picto";
 import Footer from "@/components/items/footer/Footer";
 import ArtistProfileExpo from "@/components/artist/profile/expo/ArtistProfileExpo";
 import ArtistProfilePortrait from "@/components/artist/profile/portrait/ArtistProfilePortrait";
+
+import styles from './Index.module.scss';
 
 export default function artisteTest() {
 
@@ -266,7 +267,7 @@ export default function artisteTest() {
                     </div>
                 </section>
                 <div>
-                    <ArtistProfilePortrait />
+                    <ArtistProfilePortrait/>
                 </div>
             </div>
             <Picto/>

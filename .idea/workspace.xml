@@ -4,12 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Mise en page de la page artiste">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Modification database schema + api">
+      <change afterPath="$PROJECT_DIR$/src/components/admin/artistes/ArtisteCard.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/admin/artistes/ArtisteCard.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/items/searchbar/SearchBar.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/items/searchbar/SearchBar.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/admin/artistes/Index.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/admin/artistes/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/artistes/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/artistes/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/login/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/login/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/users/me/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/users/me/route.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/api/users/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/users/route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/artistes/Artiste.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/artistes/Artiste.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/AdminNav.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/AdminNav.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/ROUTES.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/ROUTES.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useAuth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/artistes/profil/artisteTest/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/artistes/profil/artisteTest/index.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,28 +53,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "ignore.virus.scanning.warn.message": "true",
-    "javascript.nodejs.core.library.configured.version": "18.17.1",
-    "javascript.nodejs.core.library.typings.version": "18.17.1",
-    "last_opened_file_path": "D:/Développement/Web/ALTERNANCE/Web/public/assets/img/artistes",
-    "list.type.of.created.stylesheet": "SCSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2021.3.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;18.17.1&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;18.17.1&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Développement/Web/ALTERNANCE/Web/public/assets/img/artistes&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2021.3.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -159,6 +171,7 @@
       <workItem from="1697121663743" duration="2894000" />
       <workItem from="1698041599912" duration="10108000" />
       <workItem from="1698160913488" duration="5586000" />
+      <workItem from="1698233192676" duration="9243000" />
     </task>
     <task id="LOCAL-00057" summary="Modification des marges horizontale dans la barre de navigation">
       <option name="closed" value="true" />

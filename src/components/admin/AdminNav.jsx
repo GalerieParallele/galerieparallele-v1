@@ -13,6 +13,7 @@ import {BiSolidUser} from "react-icons/bi";
 
 import styles from "./AdminNav.module.css"
 import {AiOutlineCloudUpload} from "react-icons/ai";
+import {FaPaintBrush} from "react-icons/fa";
 
 export default function AdminNav() {
     return <>
@@ -29,15 +30,20 @@ export default function AdminNav() {
             </Link>
         </div>
         <div className={styles.center}>
+            {/*<AdminLink*/}
+            {/*    text={"Articles"}*/}
+            {/*    IconComponent={TfiWrite}*/}
+            {/*    to={ROUTES.ADMIN.ARTICLES.HOME}*/}
+            {/*/>*/}
+            {/*<AdminLink*/}
+            {/*    text={"Utilisateurs"}*/}
+            {/*    IconComponent={BiSolidUser}*/}
+            {/*    to={ROUTES.ADMIN.USERS.HOME}*/}
+            {/*/>*/}
             <AdminLink
-                text={"Articles"}
-                IconComponent={TfiWrite}
-                to={ROUTES.ADMIN.ARTICLES.HOME}
-            />
-            <AdminLink
-                text={"Utilisateurs"}
-                IconComponent={BiSolidUser}
-                to={ROUTES.ADMIN.USERS.HOME}
+                text={"Artistes"}
+                IconComponent={FaPaintBrush}
+                to={ROUTES.ADMIN.ARTISTES.HOME}
             />
             <AdminLink
                 text={"Cloud"}

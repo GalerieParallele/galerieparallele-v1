@@ -14,12 +14,16 @@ export async function GET() {
 
         const artists = await prisma.artist.findMany({
             select: {
+                id: true,
                 pseudo: true,
                 User: {
                     select: {
-                        email: true
+                        email: true,
+                        avatarURL: true,
+                        firstname: true,
+                        lastname: true,
                     }
-                }
+                },
             }
         });
 

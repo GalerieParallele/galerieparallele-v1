@@ -49,8 +49,8 @@ export async function GET() {
             postalCode: true,
             phone: true,
             roles: true,
-        }, include: {
-            Artist: true, Articles: true
+            Artist: true,
+            Articles: true,
         },
     });
 

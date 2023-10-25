@@ -37,6 +37,7 @@ export function AuthProvider({children}) {
             if (response.status === 200) {
                 setUser(data);
                 setRoles(data.roles);
+                console.log(data)
             } else {
                 setUser(null);
                 setRoles([])

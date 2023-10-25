@@ -52,7 +52,12 @@ export async function POST(req, res) {
             return NextResponse.json({message: MESSAGES.USER_NOT_FOUND}, {status: HTTP_STATUS.BAD_REQUEST});
         }
 
-        return NextResponse.json({id: user.id, email: user.email, roles: user.roles}, {status: HTTP_STATUS.OK});
+        return NextResponse.json({
+            id: user.id,
+            email: user.email,
+            roles: user.roles,
+            avatarURL: user.avatarURL,
+        }, {status: HTTP_STATUS.OK});
     } catch (err) {
         return NextResponse.json({message: MESSAGES.INVALID_TOKEN}, {status: HTTP_STATUS.BAD_REQUEST});
     } finally {

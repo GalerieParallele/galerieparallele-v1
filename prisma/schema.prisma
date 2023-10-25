@@ -69,13 +69,13 @@ model Artist {
   linkedin  String?
   website   String?
 
-  ArtistTag   ArtistTag[]
-  SaveTheDate SaveTheDate[]
+  ArtistTag    ArtistTag[]
+  SaveTheDate  SaveTheDate[]
+  Exposition   Exposition[]
+  ArtistOeuvre ArtistOeuvre[]
 
-  userid       Int         @unique
-  User         User        @relation(fields: [userid], references: [id], onDelete: Cascade)
-  Exposition   Exposition? @relation(fields: [expositionId], references: [id], onDelete: Cascade)
-  expositionId Int?
+  userid Int  @unique
+  User   User @relation(fields: [userid], references: [id], onDelete: Cascade)
 }
 
 model ArtistTag {
@@ -89,10 +89,11 @@ model ArtistTag {
 }
 
 model Oeuvre {
-  id          Int         @id @default(autoincrement())
+  id          Int            @id @default(autoincrement())
   name        String
-  description String      @db.Text
+  description String         @db.Text
   OeuvreTag   OeuvreTag[]
+  Artists     ArtistOeuvre[]
 }
 
 model OeuvreTag {
@@ -105,11 +106,21 @@ model OeuvreTag {
   @@map("oeuvre_tag")
 }
 
+model ArtistOeuvre {
+  artistId Int
+  oeuvreId Int
+  Artist   Artist @relation(fields: [artistId], references: [id], onDelete: Cascade)
+  Oeuvre   Oeuvre @relation(fields: [oeuvreId], references: [id], onDelete: Cascade)
+
+  @@id([artistId, oeuvreId])
+}
+
 model Exposition {
   id          Int      @id @default(autoincrement())
   name        String
   description String   @db.Text
   date        DateTime
   photoURL    String   @db.Text
-  Artist      Artist[]
+  artistId    Int
+  Artist      Artist   @relation(fields: [artistId], references: [id], onDelete: Cascade)
 }

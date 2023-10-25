@@ -31,13 +31,30 @@ export async function POST(req, res) {
             return NextResponse.json({message: ERROR_MESSAGES.MISSING_FIELDS}, {status: 400});
         }
 
-        const user = await prisma.user.findUnique({where: {email: email}});
+        const user = await prisma.user.findUnique(
+            {
+                where: {
+                    email: email
+                },
+                select: {
+                    id: true,
+                    email: true,
+                    roles: true,
+                    avatarURL: true,
+                    firstname: true,
+                    lastname: true,
+                    phone: true,
+                    street: true,
+                    postalCode: true,
+                    city: true,
+                    password: true,
+                }
+            }
+        );
 
         if (!user) {
             return NextResponse.json({message: ERROR_MESSAGES.INCORRECT_INFORMATIONS}, {status: 401});
         }
-
-        console.log(user);
 
         const match = bcrypt.compareSync(password, user.password);
 
@@ -61,7 +78,15 @@ export async function POST(req, res) {
 
         return NextResponse.json({
                 id: user.id,
+                email: user.email,
                 roles: user.roles,
+                avatarURL: user.avatarURL,
+                firstname: user.firstname,
+                lastname: user.lastname,
+                phone: user.phone,
+                street: user.street,
+                postalCode: user.postalCode,
+                city: user.city,
             },
             {
                 status: 200,

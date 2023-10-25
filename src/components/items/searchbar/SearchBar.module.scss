@@ -1,0 +1,42 @@
+.main {
+
+  width: fit-content;
+
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+
+  border-radius: var(--border-radius);
+
+  border: 2px solid var(--black);
+  background-color: var(--white);
+  box-shadow: var(--shadow);
+
+  .searchBarInput {
+    padding: 0 15px;
+  }
+
+  .searchBarIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    background-color: var(--black);
+    color: var(--white);
+
+    svg {
+      transition: var(--transition);
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      & svg {
+        transform: scale(1.2);
+      }
+    }
+  }
+}
