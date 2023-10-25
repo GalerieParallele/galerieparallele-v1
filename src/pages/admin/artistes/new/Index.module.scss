@@ -1,5 +1,10 @@
 .main {
 
+  display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+
   .head {
     text-align: center;
   }
