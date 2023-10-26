@@ -35,7 +35,6 @@ const MESSAGES = {
     NO_USER_FOUND: 'Aucun utilisateur trouvé.',
 };
 
-
 const UserSchema = z.object({
     id: z.number({
         required_error: "L'identifiant utilisateur est requis.",
@@ -229,19 +228,21 @@ export async function GET() {
             return NextResponse.json({message: MESSAGES.NO_USER_FOUND}, {status: 404});
         }
 
-        const validatedUsers = UsersResponseSchema.parse({
-            total: users.length,
-            list: users,
+        const validatedUsers = users.map(user => UserSchema.parse(user));
+
+        const response = UsersResponseSchema.parse({
+            total: validatedUsers.length,
+            list: validatedUsers,
         });
 
-        return NextResponse.json(validatedUsers, {status: 200});
+        return NextResponse.json(response, {status: 200});
 
     } catch (error) {
 
         console.log(error);
 
         if (error instanceof z.ZodError) {
-            return NextResponse.json({errors: error.errors}, {status: 400});
+            return NextResponse.json({errors: error.errors[0].message}, {status: 400});
         }
 
         return NextResponse.error(MESSAGES.API_SERVER_ERROR, {status: 500});
@@ -327,7 +328,12 @@ export async function PATCH(req) {
 
         updatedUser.password = undefined;
 
-        return NextResponse.json({message: MESSAGES.SUCCESS_EDIT, user: updatedUser}, {status: 200});
+        const validatedUser = UserSchema.parse(updatedUser);
+
+        return NextResponse.json({
+            message: MESSAGES.SUCCESS_EDIT,
+            user: validatedUser
+        }, {status: 200});
 
     } catch (error) {
 
@@ -337,12 +343,12 @@ export async function PATCH(req) {
             return NextResponse.json({message: error.errors[0].message}, {status: 400});
         }
 
-        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
-            return NextResponse.json({message: MESSAGES.EMAIL_EXISTS}, {status: 409});
-        }
-
         if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
             return NextResponse.json({message: MESSAGES.INVALID_USER}, {status: 404});
+        }
+
+        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+            return NextResponse.json({message: MESSAGES.EMAIL_EXISTS}, {status: 409});
         }
 
         return NextResponse.error(MESSAGES.API_SERVER_ERROR, {status: 500});
