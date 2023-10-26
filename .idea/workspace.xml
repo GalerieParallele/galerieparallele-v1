@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Ajout des placeholder sur les séléceteurs multiples">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/artistes/new/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/artistes/new/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,22 +156,6 @@
       <workItem from="1698041599912" duration="10108000" />
       <workItem from="1698160913488" duration="5586000" />
       <workItem from="1698233192676" duration="16540000" />
-    </task>
-    <task id="LOCAL-00062" summary="Minor update">
-      <option name="closed" value="true" />
-      <created>1692717767918</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1692717767918</updated>
-    </task>
-    <task id="LOCAL-00063" summary="Major update (routes constants)">
-      <option name="closed" value="true" />
-      <created>1692719540525</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1692719540525</updated>
     </task>
     <task id="LOCAL-00064" summary="Major update (admin dashboard &amp; routes)">
       <option name="closed" value="true" />
@@ -549,7 +533,23 @@
       <option name="project" value="LOCAL" />
       <updated>1698316507369</updated>
     </task>
-    <option name="localTasksCounter" value="111" />
+    <task id="LOCAL-00111" summary="Changement du nombre minimum de numérotation">
+      <option name="closed" value="true" />
+      <created>1698330305956</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1698330305957</updated>
+    </task>
+    <task id="LOCAL-00112" summary="CHangement des informations juridiques, déplacement dans la bonne section">
+      <option name="closed" value="true" />
+      <created>1698330335241</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1698330335241</updated>
+    </task>
+    <option name="localTasksCounter" value="113" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -567,8 +567,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Edit du drag &amp; drop (bug restant à corriger)" />
-    <MESSAGE value="Système drag &amp; drop fonctionnel" />
     <MESSAGE value="Espace magazine : ok" />
     <MESSAGE value="Footer terminé" />
     <MESSAGE value="Instagram terminé" />
@@ -592,6 +590,8 @@
     <MESSAGE value="Modification du schéma de base de données" />
     <MESSAGE value="Oeuvre admin artiste design" />
     <MESSAGE value="Ajout des placeholder sur les séléceteurs multiples" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout des placeholder sur les séléceteurs multiples" />
+    <MESSAGE value="Changement du nombre minimum de numérotation" />
+    <MESSAGE value="CHangement des informations juridiques, déplacement dans la bonne section" />
+    <option name="LAST_COMMIT_MESSAGE" value="CHangement des informations juridiques, déplacement dans la bonne section" />
   </component>
 </project>

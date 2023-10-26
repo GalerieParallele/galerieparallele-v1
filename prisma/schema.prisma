@@ -92,6 +92,8 @@ model Artist {
   Exposition   Exposition[]
   ArtistOeuvre ArtistOeuvre[]
 
+  LegalInformation LegalInformation?
+
   userid Int  @unique
   User   User @relation(fields: [userid], references: [id], onDelete: Cascade)
 }
@@ -113,6 +115,26 @@ model ArtistTag {
   Tag      Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
 
   @@map("artist_tag")
+}
+
+model LegalInformation {
+  id Int @id @default(autoincrement())
+
+  societe String
+
+  adrNumVoie    String
+  adrRue        String
+  adrVille      String
+  adrCodePostal String
+
+  siret String @unique
+  tva   String @unique
+
+  numMaisonsDesArtistes String
+  numSecuriteSociale    String @unique
+
+  artistId Int    @unique
+  Artist   Artist @relation(fields: [artistId], references: [id], onDelete: Cascade)
 }
 
 // --------------------------------------------------------------
