@@ -305,6 +305,7 @@ export default function ArtisteAdminNew() {
                                     </div>
                                 </div>
                                 <Select
+                                    placeholder={"Sélectionner un ou plusieurs artistes connu"}
                                     closeMenuOnSelect={false}
                                     components={animatedComponents}
                                     defaultValue={[]}
@@ -335,6 +336,7 @@ export default function ArtisteAdminNew() {
                                     </div>
                                 </div>
                                 <Select
+                                    placeholder={"Sélectionner un ou plusieurs artistes non référencé"}
                                     closeMenuOnSelect={false}
                                     components={animatedComponents}
                                     defaultValue={[]}
@@ -365,6 +367,7 @@ export default function ArtisteAdminNew() {
                                     </div>
                                 </div>
                                 <Select
+                                    placeholder={"Sélectionner un ou plusieurs type pour l'oeuvre"}
                                     closeMenuOnSelect={false}
                                     components={animatedComponents}
                                     defaultValue={[]}
@@ -395,6 +398,7 @@ export default function ArtisteAdminNew() {
                                     </div>
                                 </div>
                                 <Select
+                                    placeholder={"Sélectionner un ou plusieurs tags pour l'oeuvre"}
                                     closeMenuOnSelect={false}
                                     components={animatedComponents}
                                     defaultValue={[]}
