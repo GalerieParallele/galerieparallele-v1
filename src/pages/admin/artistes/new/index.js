@@ -160,16 +160,6 @@ export default function ArtisteAdminNew() {
                         <ArtisteNewSectionItem
                             sectionName={"Informations juridiques"}
                         >
-                            <p>Prochainement...</p>
-                        </ArtisteNewSectionItem>
-                        <ArtisteNewSectionItem
-                            sectionName={"Relations contractuelles"}
-                        >
-                            <p>Prochainement...</p>
-                        </ArtisteNewSectionItem>
-                        <ArtisteNewSectionItem
-                            sectionName={"Informations artiste"}
-                        >
                             <IconInput
                                 label={"Numéro de SIRET (non visible sur le site)"}
                                 type={"text"}
@@ -182,6 +172,15 @@ export default function ArtisteAdminNew() {
                                 IconComponent={AiOutlineFieldNumber}
                                 placeholder={"Ex: 12345678912345"}
                             />
+                        </ArtisteNewSectionItem>
+                        <ArtisteNewSectionItem
+                            sectionName={"Relations contractuelles"}
+                        >
+                            <p>Prochainement...</p>
+                        </ArtisteNewSectionItem>
+                        <ArtisteNewSectionItem
+                            sectionName={"Informations artiste"}
+                        >
                             <IconInput
                                 label={"Nom d'artiste"}
                                 type={"text"}
