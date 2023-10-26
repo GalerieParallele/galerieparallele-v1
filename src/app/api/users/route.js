@@ -6,7 +6,7 @@ import {Prisma, PrismaClient} from "@prisma/client";
 
 import jwt from 'jsonwebtoken';
 import AUTH from "@/constants/AUTH";
-import {hashPassword} from "@/constants/Util";
+import {getUserFromToken, hashPassword} from "@/constants/Util";
 
 const prisma = new PrismaClient();
 
@@ -202,7 +202,7 @@ const UpdateUserSchema = z.object({
         .optional(),
 });
 
-export async function GET() {
+export async function GET(req) {
 
     try {
 
@@ -250,7 +250,13 @@ export async function GET() {
     }
 }
 
-export async function POST(req) {
+export async function POST(req, res) {
+
+    const {user, message} = await getUserFromToken(req);
+
+    if (message !== null) {
+        return NextResponse.json({message: message}, {status: 401});
+    }
 
     try {
 

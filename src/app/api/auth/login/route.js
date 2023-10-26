@@ -76,17 +76,13 @@ export async function POST(req, res) {
             path: '/'
         });
 
+        user.artist = undefined;
+        user.articles = undefined;
+        user.password = undefined;
+
         return NextResponse.json({
-                id: user.id,
-                email: user.email,
-                roles: user.roles,
-                avatarURL: user.avatarURL,
-                firstname: user.firstname,
-                lastname: user.lastname,
-                phone: user.phone,
-                street: user.street,
-                postalCode: user.postalCode,
-                city: user.city,
+                user: user,
+                token: token,
             },
             {
                 status: 200,

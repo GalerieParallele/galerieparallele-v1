@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Route API permettant de récupérer un tag précis, terminé">
-      <change afterPath="$PROJECT_DIR$/src/app/api/typesoeuvres/route.js" afterDir="false" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Add route typesOeuvres ✅">
+      <change afterPath="$PROJECT_DIR$/src/app/api/typesoeuvres/gettypeoeuvrebyid/route.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/tags/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/tags/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/auth/login/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/auth/login/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/auth/logout/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/auth/logout/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/users/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/users/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/Util.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/Util.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,9 +21,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
         <option value="SCSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -157,22 +160,6 @@
       <workItem from="1698041599912" duration="10108000" />
       <workItem from="1698160913488" duration="5586000" />
       <workItem from="1698233192676" duration="16540000" />
-    </task>
-    <task id="LOCAL-00070" summary="New article : OK">
-      <option name="closed" value="true" />
-      <created>1692989005808</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1692989005808</updated>
-    </task>
-    <task id="LOCAL-00071" summary="Minor update">
-      <option name="closed" value="true" />
-      <created>1692989475880</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1692989475880</updated>
     </task>
     <task id="LOCAL-00072" summary="Problème de re-rendu navbar permettant d'afficher (ou non) le panel admin : OK">
       <option name="closed" value="true" />
@@ -550,7 +537,23 @@
       <option name="project" value="LOCAL" />
       <updated>1698357463131</updated>
     </task>
-    <option name="localTasksCounter" value="119" />
+    <task id="LOCAL-00119" summary="Rectification tag display in code">
+      <option name="closed" value="true" />
+      <created>1698358743183</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1698358743183</updated>
+    </task>
+    <task id="LOCAL-00120" summary="Add route typesOeuvres ✅">
+      <option name="closed" value="true" />
+      <created>1698358761721</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1698358761721</updated>
+    </task>
+    <option name="localTasksCounter" value="121" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -568,8 +571,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Ajout de champs supplémentaires dans le formulaire d'inscription" />
-    <MESSAGE value="Import du fichier de styles global dans tout le projet" />
     <MESSAGE value="Modification du bouton retour dans la page d'authentification. Désormais il renvoie bien à la dernière page consulté avant celle-ci." />
     <MESSAGE value="Création d'une fausse page profil artiste" />
     <MESSAGE value="Rename du fichier" />
@@ -593,6 +594,8 @@
     <MESSAGE value="Route USER terminé" />
     <MESSAGE value="Tag route api added + user route api update" />
     <MESSAGE value="Route API permettant de récupérer un tag précis, terminé" />
-    <option name="LAST_COMMIT_MESSAGE" value="Route API permettant de récupérer un tag précis, terminé" />
+    <MESSAGE value="Rectification tag display in code" />
+    <MESSAGE value="Add route typesOeuvres ✅" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add route typesOeuvres ✅" />
   </component>
 </project>
