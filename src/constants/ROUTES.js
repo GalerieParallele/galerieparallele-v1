@@ -1,58 +1,71 @@
-const BASE = {
-    ADMIN: `/admin`,
-    ADMIN_ARTICLES: `/admin/articles`,
-    ADMIN_USERS: `/admin/utilisateurs`,
-    ADMIN_MON_CLOUD: `/admin/my-cloud`,
-    ADMIN_ARTISTES: `/admin/artistes`,
+const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : 'https://galerieparallele.com/';
+const API_BASE = `${BASE_URL}api/`;
 
-    API: `/api/`,
-    API_USERS: `/api/users`,
-    API_ARTICLES: `/api/articles`,
-}
+/**
+ * Permet de créer un chemin à partir de segments
+ * @param segments {string[]}
+ * @returns {string} Le chemin créé à partir des segments
+ */
+const createPath = (...segments) => segments.join('/');
 
-const ROUTES = {
-    ACCUEIL: `/`,
-    LOGIN: `/auth`,
-    ADMIN: {
-        HOME: `${BASE.ADMIN}`,
-        ARTICLES: {
-            HOME: `${BASE.ADMIN_ARTICLES}`,
-            NEW: `${BASE.ADMIN_ARTICLES}/new`,
-            EDIT: `${BASE.ADMIN_ARTICLES}/edit/`,
-            PREVIEW: `${BASE.ADMIN_ARTICLES}/view/`,
-            DELETE: `${BASE.ADMIN_ARTICLES}/delete/`,
-        },
-        USERS: {
-            HOME: `${BASE.ADMIN_USERS}`,
-            NEW: `${BASE.ADMIN_USERS}/new`,
-        },
-        MY_CLOUD: {
-            HOME: `${BASE.ADMIN_MON_CLOUD}`
-        },
-        ARTISTES: {
-            HOME: `${BASE.ADMIN_ARTISTES}`,
-            NEW: `${BASE.ADMIN_ARTISTES}/new`,
-        }
+/**
+ * Permet de créer une URL à partir de segments
+ */
+const PATHS = {
+    HOME: '',
+    AUTH: 'auth',
+    ARTISTES: {
+        TEST: createPath('artistes', 'profil', 'artisteTest'),
     },
-    API: {
-        ARTISTES: {
-            GET: `${BASE.API}artistes`,
-        },
-        USER: {
-            GET: `${BASE.API_USERS}`,
-            ME: `${BASE.API_USERS}/me`,
-        },
+    ADMIN: {
+        HOME: createPath('admin'),
         ARTICLES: {
-            GET: `${BASE.API_ARTICLES}`,
-            PUT: `${BASE.API_ARTICLES}`,
-            GET_SPECIAL: `${BASE.API_ARTICLES}/getSpecial?id=`,
+            HOME: createPath('admin', 'articles'),
+            EDIT: createPath('admin', 'articles', 'edit'),
+            NEW: createPath('admin', 'articles', 'new'),
+            PREVIEW: createPath('admin', 'articles', 'preview'),
         },
-        AUTHENTICATION: {
-            LOGIN: `${BASE.API}login`,
-            LOGOUT: `${BASE.API}logout`,
-            REGISTER: `${BASE.API}users`,
+        ARTISTES: {
+            HOME: createPath('admin', 'artistes'),
+            NEW: createPath('admin', 'artistes', 'new'),
+        },
+        CLOUD: {
+            HOME: createPath('admin', 'cloud'),
+        },
+        UTILISATEURS: {
+            HOME: createPath('admin', 'utilisateurs'),
         },
     }
+}
+
+/**
+ * Permet de créer une route à partir d'un chemin
+ */
+const ROUTES = {
+    HOME: BASE_URL + PATHS.HOME,
+    AUTH: BASE_URL + PATHS.AUTH,
+    ARTISTES: {
+        TEST: BASE_URL + PATHS.ARTISTES.TEST,
+    },
+    ADMIN: {
+        HOME: BASE_URL + PATHS.ADMIN.HOME,
+        ARTICLES: {
+            HOME: BASE_URL + PATHS.ADMIN.ARTICLES.HOME,
+            EDIT: BASE_URL + PATHS.ADMIN.ARTICLES.EDIT,
+            NEW: BASE_URL + PATHS.ADMIN.ARTICLES.NEW,
+            PREVIEW: BASE_URL + PATHS.ADMIN.ARTICLES.PREVIEW,
+        },
+        ARTISTES: {
+            HOME: BASE_URL + PATHS.ADMIN.ARTISTES.HOME,
+            NEW: BASE_URL + PATHS.ADMIN.ARTISTES.NEW,
+        },
+        CLOUD: {
+            HOME: BASE_URL + PATHS.ADMIN.CLOUD.HOME,
+        },
+        UTILISATEURS: {
+            HOME: BASE_URL + PATHS.ADMIN.UTILISATEURS.HOME,
+        },
+    },
 }
 
 export default ROUTES;

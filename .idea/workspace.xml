@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Ajout des informations légales concernant les artistes">
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Revue complète du modèle de base de données afin de préverser l'intégrité des données">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/login/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/auth/login/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/AdminBottom.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/AdminBottom.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/AdminNav.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/AdminNav.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/articles/ArticleItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/articles/ArticleItem.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/items/navbar/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/navbar/Navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/ROUTES.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/ROUTES.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/my-cloud/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/cloud/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,11 +83,11 @@
       <recent name="$PROJECT_DIR$/src/components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app/api/auth" />
       <recent name="$PROJECT_DIR$/src/components/artist/profile/social" />
       <recent name="$PROJECT_DIR$/src/components/artist/profile/avatar" />
       <recent name="$PROJECT_DIR$/src/pages/auth" />
       <recent name="$PROJECT_DIR$/src/pages" />
-      <recent name="$PROJECT_DIR$/src/components/items/iconinput" />
     </key>
   </component>
   <component name="RunManager">
@@ -156,14 +162,6 @@
       <workItem from="1698041599912" duration="10108000" />
       <workItem from="1698160913488" duration="5586000" />
       <workItem from="1698233192676" duration="16540000" />
-    </task>
-    <task id="LOCAL-00065" summary="Major update (socket)">
-      <option name="closed" value="true" />
-      <created>1692920691422</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1692920691423</updated>
     </task>
     <task id="LOCAL-00066" summary="Editor : OK">
       <option name="closed" value="true" />
@@ -549,7 +547,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698330971286</updated>
     </task>
-    <option name="localTasksCounter" value="114" />
+    <task id="LOCAL-00114" summary="Revue complète du modèle de base de données afin de préverser l'intégrité des données">
+      <option name="closed" value="true" />
+      <created>1698332335934</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1698332335934</updated>
+    </task>
+    <option name="localTasksCounter" value="115" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -567,7 +573,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Footer terminé" />
     <MESSAGE value="Instagram terminé" />
     <MESSAGE value="Cloud terminé" />
     <MESSAGE value="AutoRefresh lors de l'upload de fichier" />
@@ -592,6 +597,7 @@
     <MESSAGE value="Changement du nombre minimum de numérotation" />
     <MESSAGE value="CHangement des informations juridiques, déplacement dans la bonne section" />
     <MESSAGE value="Ajout des informations légales concernant les artistes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout des informations légales concernant les artistes" />
+    <MESSAGE value="Revue complète du modèle de base de données afin de préverser l'intégrité des données" />
+    <option name="LAST_COMMIT_MESSAGE" value="Revue complète du modèle de base de données afin de préverser l'intégrité des données" />
   </component>
 </project>

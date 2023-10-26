@@ -31,7 +31,7 @@ export default function AdminBottom() {
 
         setLoading(false);
 
-        await router.push(ROUTES.ACCUEIL);
+        await router.push(ROUTES.HOME);
 
         await Toast.fire({
             icon: 'success',
@@ -45,7 +45,7 @@ export default function AdminBottom() {
         <Button
             text={"Retour au site"}
             isWhite
-            onClick={() => router.push(ROUTES.ACCUEIL)}
+            onClick={() => router.push(ROUTES.HOME)}
         />
         <Button
             text={<PiSignOutBold/>}

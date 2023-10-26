@@ -48,7 +48,7 @@ export default function AdminNav() {
             <AdminLink
                 text={"Cloud"}
                 IconComponent={AiOutlineCloudUpload}
-                to={ROUTES.ADMIN.MY_CLOUD.HOME}
+                to={ROUTES.ADMIN.CLOUD.HOME}
             />
         </div>
         <AdminBottom/>

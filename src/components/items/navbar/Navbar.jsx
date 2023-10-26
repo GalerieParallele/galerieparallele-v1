@@ -31,7 +31,7 @@ export default function Navbar() {
                 </div>
                 <div className={styles.center}>
                     <div className={styles.bigLogoName}>
-                        <Link href={ROUTES.ACCUEIL}>
+                        <Link href={ROUTES.HOME}>
                             <Image
                                 src={"/assets/img/dark-name-w-logo.svg"}
                                 alt={"logo"}
@@ -41,7 +41,7 @@ export default function Navbar() {
                         </Link>
                     </div>
                     <div className={styles.littleLogoName}>
-                        <Link href={ROUTES.ACCUEIL}>
+                        <Link href={ROUTES.HOME}>
                             <Image
                                 src={"/assets/img/dark-logo.svg"}
                                 alt={"logo"}
@@ -52,7 +52,7 @@ export default function Navbar() {
                     </div>
                 </div>
                 <div className={styles.right}>
-                    <Link href={ROUTES.LOGIN}>
+                    <Link href={ROUTES.AUTH}>
                         <BiSolidUser/>
                         <p>{user ? "Mon compte" : "S'identifier"}</p>
                     </Link>

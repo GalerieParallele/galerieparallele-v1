@@ -37,18 +37,18 @@ export default function ArticleItem({id, title, content, lock}) {
             <p>{htmlToText(content)}</p>
         </div>
         <div className={styles.buttons}>
-            <button onClick={() => {
-                router.push(`${ROUTES.ADMIN.ARTICLES.EDIT}${id}`)
+            <button onClick={async () => {
+                await router.push(`${ROUTES.ADMIN.ARTICLES.EDIT}/${id}`)
             }}>
                 <FaRegEdit/>
             </button>
-            <button onClick={() => {
-                router.push(`${ROUTES.ADMIN.ARTICLES.PREVIEW}${id}`)
+            <button onClick={async () => {
+                await router.push(`${ROUTES.ADMIN.ARTICLES.PREVIEW}/${id}`)
             }}>
                 <ImEye/>
             </button>
             <button onClick={() => {
-                router.push(`${ROUTES.ADMIN.ARTICLES.DELETE}${id}`)
+                // TODO : open modal to confirm delete
             }}>
                 <AiFillDelete/>
             </button>
