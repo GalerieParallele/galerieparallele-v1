@@ -29,10 +29,6 @@ export async function POST(req) {
 
         const requestBody = GetUserByIdSchema.parse(JSON.parse(await req.text()));
 
-        if (!(requestBody.id instanceof Number)) {
-            return NextResponse.json({message: MESSAGES.INVALID_USER}, {status: 404});
-        }
-
         const id = requestBody.id;
 
         const user = await prisma.user.findUnique({

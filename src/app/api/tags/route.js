@@ -22,6 +22,9 @@ const TagsSchema = z.object({
             required_error: "L'id du tag est requis.",
             invalid_type_error: "L'id du tag doit être un nombre entier positif.",
         })
+        .int({
+            message: "L'id du tag doit être un nombre entier positif.",
+        })
         .positive({
             message: "L'id du tag doit être un nombre entier positif.",
         }),
@@ -37,7 +40,11 @@ const TagsResponseSchema = z.object({
         .number({
             required_error: "Le nombre total de tags est requis.",
             invalid_type_error: "Le nombre total de tags doit être un nombre entier positif.",
-        }).min(0, {
+        })
+        .int({
+            message: "Le nombre total de tags doit être un nombre entier positif.",
+        })
+        .min(0, {
             message: "Le nombre total de tags doit être un nombre entier positif.",
         }),
     list: z
@@ -57,6 +64,9 @@ const UpdateTagSchema = z.object({
         .number({
             required_error: "L'id du tag est requis.",
             invalid_type_error: "L'id du tag doit être un nombre entier positif.",
+        })
+        .int({
+            message: "L'id du tag doit être un nombre entier positif.",
         })
         .positive({
             message: "L'id du tag doit être un nombre entier positif.",
