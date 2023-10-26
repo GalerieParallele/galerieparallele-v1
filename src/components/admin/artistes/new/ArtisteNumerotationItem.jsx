@@ -36,7 +36,7 @@ export default function ArtisteNumerotationItem() {
                         <p>{`Oeuvre numérotée et limitée à ${inputValue ? inputValue : 0} exemplaires`}</p>
                         <input
                             type="number"
-                            min={2}
+                            min={1}
                             value={inputValue}
                             onChange={(e) => {
                                 if (e.target.value == 1) {
