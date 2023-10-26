@@ -16,7 +16,7 @@ const MESSAGES = {
     SUCCESS_DELETE: "Le tag a été supprimé avec succès.",
 }
 
-const TagsSchema = z.object({
+const TagSchema = z.object({
     id: z
         .number({
             required_error: "L'id du tag est requis.",
@@ -48,7 +48,7 @@ const TagsResponseSchema = z.object({
             message: "Le nombre total de tags doit être un nombre entier positif.",
         }),
     list: z
-        .array(TagsSchema),
+        .array(TagSchema),
 })
 
 const CreateTagSchema = z.object({
@@ -89,7 +89,7 @@ export async function GET() {
             return NextResponse.json({message: MESSAGES.NO_TAGS}, {status: 404})
         }
 
-        const validatedTags = tags.map(tag => TagsSchema.parse(tag))
+        const validatedTags = tags.map(tag => TagSchema.parse(tag))
 
         const response = TagsResponseSchema.parse({
             total: validatedTags.length,
@@ -125,7 +125,7 @@ export async function POST(req) {
             data,
         })
 
-        const validatedTag = TagsSchema.parse(tag)
+        const validatedTag = TagSchema.parse(tag)
 
         return NextResponse.json({
             message: MESSAGES.SUCCESS_CREATE,
@@ -170,7 +170,7 @@ export async function PATCH(req) {
             data,
         })
 
-        const validatedTag = TagsSchema.parse(tag)
+        const validatedTag = TagSchema.parse(tag)
 
         return NextResponse.json({
             message: MESSAGES.SUCCESS_EDIT,
@@ -203,7 +203,7 @@ export async function DELETE(req) {
 
     try {
 
-        const {id} = TagsSchema.pick({id: true}).parse(JSON.parse(await req.text()));
+        const {id} = TagSchema.pick({id: true}).parse(JSON.parse(await req.text()));
 
         await prisma.tag.delete({
             where: {
