@@ -35,6 +35,13 @@ const PATHS = {
         UTILISATEURS: {
             HOME: createPath('admin', 'utilisateurs'),
         },
+    },
+    API: {
+        AUTH: {
+            LOGIN: createPath('auth', 'login'),
+            LOGOUT: createPath('auth', 'logout'),
+            ME: createPath('auth', 'me'),
+        }
     }
 }
 

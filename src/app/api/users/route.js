@@ -1,11 +1,12 @@
 import {NextResponse} from "next/server";
 
+import {z} from 'zod';
+
 import {Prisma, PrismaClient} from "@prisma/client";
 
-import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 import AUTH from "@/constants/AUTH";
-import {checkPassword, isValidEmail} from "@/constants/Util";
+import {hashPassword} from "@/constants/Util";
 
 const prisma = new PrismaClient();
 
@@ -20,8 +21,6 @@ const MESSAGES = {
     MISSING_POSTAL_CODE: 'Veuillez renseigner un code postal.',
     MISSING_PHONE: 'Veuillez renseigner un numéro de téléphone.',
     MISSING_PASSWORD: 'Veuillez renseigner un mot de passe.',
-    MISSING_TVA: 'Veuillez renseigner un numéro de TVA.',
-    MISSING_SIRET: 'Veuillez renseigner un numéro de SIRET.',
 
     INVALID_EMAIL: 'Veuillez fournir une adresse e-mail valide.',
     INVALID_PASSWORD: 'Veuillez fournir un mot de passe valide.',
@@ -30,128 +29,247 @@ const MESSAGES = {
     EMAIL_EXISTS: 'Un compte avec cet e-mail existe déjà.',
 
     SUCCESS_CREATE: 'Utilisateur créé avec succès.',
+    SUCCESS_EDIT: 'Utilisateur modifié avec succès.',
     SUCCESS_DELETE: 'Utilisateur supprimé avec succès.',
 
     NO_USER_FOUND: 'Aucun utilisateur trouvé.',
 };
 
+
+const UserSchema = z.object({
+    id: z.number({
+        required_error: "L'identifiant utilisateur est requis.",
+        invalid_type_error: "L'identifiant doit être un nombre.",
+    }),
+    avatarURL: z.string({
+        invalid_type_error: "L'URL de l'avatar doit être une chaîne de caractères.",
+    }).url({
+        message: "L'URL de l'avatar doit être une URL valide.",
+    }).nullable({
+        message: "L'URL de l'avatar peut être nulle.",
+    }),
+    email: z.string({
+        required_error: "L'adresse e-mail est requise.",
+        invalid_type_error: "L'adresse e-mail doit être une chaîne de caractères.",
+    }).email({
+        message: "L'adresse e-mail doit être une adresse e-mail valide.",
+    }),
+    lastname: z.string({
+        required_error: "Le nom de famille est requis.",
+        invalid_type_error: "Le nom de famille doit être une chaîne de caractères.",
+    }).min(1, {
+        message: "Le nom de famille ne peut pas être vide.",
+    }),
+    firstname: z.string({
+        required_error: "Le prénom est requis.",
+        invalid_type_error: "Le prénom doit être une chaîne de caractères.",
+    }).min(1, {
+        message: "Le prénom ne peut pas être vide.",
+    }),
+    street: z.string({
+        required_error: "La rue est requise.",
+        invalid_type_error: "La rue doit être une chaîne de caractères.",
+    }).min(1, {
+        message: "La rue ne peut pas être vide.",
+    }),
+    city: z.string({
+        required_error: "La ville est requise.",
+        invalid_type_error: "La ville doit être une chaîne de caractères.",
+    }).min(1, {
+        message: "La ville ne peut pas être vide.",
+    }),
+    postalCode: z.string({
+        required_error: "Le code postal est requis.",
+        invalid_type_error: "Le code postal doit être une chaîne de caractères.",
+    }).min(1, {
+        message: "Le code postal ne peut pas être vide.",
+    }),
+    phone: z.string({
+        required_error: "Le numéro de téléphone est requis.",
+        invalid_type_error: "Le numéro de téléphone doit être une chaîne de caractères.",
+    }).min(10, {
+        message: "Le numéro de téléphone doit contenir 10 chiffres.",
+    }).max(10, {
+        message: "Le numéro de téléphone doit contenir 10 chiffres.",
+    }),
+    roles: z.array(z.string({
+        invalid_type_error: "Les rôles doivent être des chaînes de caractères.",
+    })).min(1, {
+        message: "L'utilisateur doit avoir au moins un rôle.",
+    }),
+});
+
+const UsersResponseSchema = z.object({
+    total: z.number({
+        description: "Nombre total d'utilisateurs.",
+    }),
+    list: z.array(UserSchema),
+});
+
+const CreateUserSchema = z.object({
+    avatarURL: z
+        .string({
+            invalid_type_error: "L'URL de l'avatar doit être une chaîne de caractères.",
+        })
+        .url({message: "L'URL de l'avatar est invalide."})
+        .optional(),
+    email: z
+        .string({
+            invalid_type_error: "L'adresse e-mail doit être une chaîne de caractères.",
+            required_error: "L'adresse e-mail est requise.",
+        })
+        .email({message: "L'adresse e-mail est invalide."}),
+    lastname: z
+        .string({
+            invalid_type_error: "Le nom de famille doit être une chaîne de caractères.",
+            required_error: "Le nom de famille est requis.",
+        })
+        .min(1, {message: "Le nom de famille ne peut pas être vide.",}),
+    firstname: z
+        .string({
+            invalid_type_error: "Le prénom doit être une chaîne de caractères.",
+            required_error: "Le prénom est requis.",
+        })
+        .min(1, {message: "Le prénom ne peut pas être vide."}),
+    street: z
+        .string({
+            invalid_type_error: "La rue doit être une chaîne de caractères.",
+            required_error: "La rue est requise.",
+        })
+        .min(1, {message: "La rue ne peut pas être vide."}),
+    city: z
+        .string({
+            invalid_type_error: "La ville doit être une chaîne de caractères.",
+            required_error: "La ville est requise.",
+        })
+        .min(1, {message: "La ville ne peut pas être vide."}),
+    postalCode: z
+        .string({
+            invalid_type_error: "Le code postal doit être une chaîne de caractères.",
+            required_error: "Le code postal est requis.",
+        })
+        .min(1, {message: "Le code postal ne peut pas être vide."}),
+    phone: z
+        .string({
+            invalid_type_error: "Le numéro de téléphone doit être une chaîne de caractères.",
+            required_error: "Le numéro de téléphone est requis.",
+        })
+        .regex(/^(0|\+33)[1-9]([-. ]?[0-9]{2}){4}$/, {message: "Numéro de téléphone invalide."})
+        .min(10, {message: "Le numéro de téléphone doit contenir 10 chiffres."})
+        .max(10),
+    password: z
+        .string({
+            invalid_type_error: "Le mot de passe doit être une chaîne de caractères.",
+            required_error: "Le mot de passe est requis.",
+        })
+        .min(8, {message: "Le mot de passe doit contenir au moins 8 caractères."})
+        .max(32, {message: "Le mot de passe ne peut pas contenir plus de 32 caractères."})
+        .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/, {message: "Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial."}),
+});
+
+const UpdateUserSchema = z.object({
+    id: z.number().positive({message: "L'identifiant doit être un nombre positif."}),
+    avatarURL: z.string({message: "L'URL de l'avatar doit être une chaîne de caractères."})
+        .url({message: "L'URL de l'avatar doit être une URL valide."})
+        .nullable({message: "L'URL de l'avatar peut être nulle."})
+        .optional(),
+    email: z.string({message: "L'adresse e-mail doit être une chaîne de caractères."})
+        .email({message: "L'adresse e-mail doit être valide."})
+        .optional(),
+    lastname: z.string({message: "Le nom de famille doit être une chaîne de caractères."})
+        .min(1, {message: "Le nom de famille ne peut pas être vide."})
+        .optional(),
+    firstname: z.string({message: "Le prénom doit être une chaîne de caractères."})
+        .min(1, {message: "Le prénom ne peut pas être vide."})
+        .optional(),
+    street: z.string({message: "La rue doit être une chaîne de caractères."})
+        .min(1, {message: "La rue ne peut pas être vide."})
+        .optional(),
+    city: z.string({message: "La ville doit être une chaîne de caractères."})
+        .min(1, {message: "La ville ne peut pas être vide."})
+        .optional(),
+    postalCode: z.string({message: "Le code postal doit être une chaîne de caractères."})
+        .min(1, {message: "Le code postal ne peut pas être vide."})
+        .optional(),
+    phone: z.string({message: "Le numéro de téléphone doit être une chaîne de caractères."})
+        .length(10, {message: "Le numéro de téléphone doit contenir 10 chiffres."})
+        .optional(),
+    password: z.string({message: "Le mot de passe doit être une chaîne de caractères."})
+        .min(8, {message: "Le mot de passe doit contenir au moins 8 caractères."})
+        .max(32, {message: "Le mot de passe ne peut pas contenir plus de 32 caractères."})
+        .optional(),
+    roles: z.array(z.string({message: "Les rôles doivent être des chaînes de caractères."}))
+        .min(1, {message: "L'utilisateur doit avoir au moins un rôle."})
+        .optional(),
+});
+
 export async function GET() {
 
-    const users = await prisma.user.findMany({
-        select: {
-            id: true,
-            avatarURL: true,
-            email: true,
-            lastname: true,
-            firstname: true,
-            street: true,
-            city: true,
-            postalCode: true,
-            phone: true,
-            roles: true,
-            Artist: true,
-            Articles: true,
-        },
-    });
+    try {
 
-    if (!users.length) {
-        return NextResponse.json({message: MESSAGES.NO_USER_FOUND}, {status: 404});
+        const users = await prisma.user.findMany({
+            select: {
+                id: true,
+                avatarURL: true,
+                email: true,
+                lastname: true,
+                firstname: true,
+                street: true,
+                city: true,
+                postalCode: true,
+                phone: true,
+                roles: true,
+                articles: false,
+                artist: false,
+                password: false,
+            },
+        });
+
+        if (!users.length) {
+            return NextResponse.json({message: MESSAGES.NO_USER_FOUND}, {status: 404});
+        }
+
+        const validatedUsers = UsersResponseSchema.parse({
+            total: users.length,
+            list: users,
+        });
+
+        return NextResponse.json(validatedUsers, {status: 200});
+
+    } catch (error) {
+
+        console.log(error);
+
+        if (error instanceof z.ZodError) {
+            return NextResponse.json({errors: error.errors}, {status: 400});
+        }
+
+        return NextResponse.error(MESSAGES.API_SERVER_ERROR, {status: 500});
+
     }
-
-    return NextResponse.json({
-        total: users.length, list: users,
-    }, {status: 200});
 }
 
 export async function POST(req) {
 
-    const requestBodyText = await req.text();
-
     try {
-        const requestBody = JSON.parse(requestBodyText);
-        const {
-            email = '',
-            lastname = '',
-            firstname = '',
-            street = '',
-            city = '',
-            postalCode = '',
-            phone = '',
-            password = '',
-            avatarURL = '',
-            artist_tva = '',
-            artist_siret = '',
-        } = requestBody;
 
-        if (!email) {
-            return NextResponse.json({message: MESSAGES.MISSING_EMAIL}, {status: 422});
+        const requestBody = CreateUserSchema.parse(JSON.parse(await req.text()));
+
+        const hashedPassword = hashPassword(requestBody.password);
+
+        const userData = {
+            ...requestBody,
+            password: hashedPassword,
+            lastname: requestBody.lastname.toUpperCase(),
+        };
+
+        if (requestBody.avatarURL) {
+            userData.avatarURL = requestBody.avatarURL;
         }
 
-        if (!isValidEmail(email)) {
-            return NextResponse.json({message: MESSAGES.INVALID_EMAIL}, {status: 422});
-        }
-
-        if (!lastname) {
-            return NextResponse.json({message: MESSAGES.MISSING_LASTNAME}, {status: 422});
-        }
-
-        if (!firstname) {
-            return NextResponse.json({message: MESSAGES.MISSING_FIRSTNAME}, {status: 422});
-        }
-
-        if (!street) {
-            return NextResponse.json({message: MESSAGES.MISSING_STREET}, {status: 422});
-        }
-
-        if (!city) {
-            return NextResponse.json({message: MESSAGES.MISSING_CITY}, {status: 422});
-        }
-
-        if (!postalCode) {
-            return NextResponse.json({message: MESSAGES.MISSING_POSTAL_CODE}, {status: 422});
-        }
-
-        if (!phone) {
-            return NextResponse.json({message: MESSAGES.MISSING_PHONE}, {status: 422});
-        }
-
-        if (!password) {
-            return NextResponse.json({message: MESSAGES.MISSING_PASSWORD}, {status: 422});
-        }
-
-        if (!checkPassword(password)) {
-            return NextResponse.json({message: MESSAGES.INVALID_PASSWORD}, {status: 422});
-        }
-
-        const salt = bcrypt.genSaltSync(10);
-        const hashedPassword = bcrypt.hashSync(password, salt);
-
-        const data = {
-            email, lastname, firstname, street, city, postalCode, phone, password: hashedPassword,
-        }
-
-        if (avatarURL) {
-            data.avatarURL = avatarURL;
-        }
-
-        if (artist_tva && !artist_siret) {
-            return NextResponse.json({message: MESSAGES.MISSING_SIRET}, {status: 422});
-        }
-
-        if (artist_siret && !artist_tva) {
-            return NextResponse.json({message: MESSAGES.MISSING_TVA}, {status: 422});
-        }
-
-        if (artist_tva && artist_siret) {
-            data.Artist = {
-                create: {
-                    tva: artist_tva,
-                    siret: artist_siret,
-                }
-            }
-        }
-
-        const user = await prisma.user.create({data});
+        const user = await prisma.user.create({
+            data: userData,
+        });
 
         const token = jwt.sign({
             user: {
@@ -160,84 +278,102 @@ export async function POST(req) {
         }, process.env.JWT, {expiresIn: AUTH.TOKEN_EXPIRATION_TIME});
 
         return NextResponse.json({
-            message: MESSAGES.SUCCESS_CREATE, user: {
-                id: user.id,
-                email: user.email,
-                lastname: user.lastname,
-                firstname: user.firstname,
-                street: user.street,
-                city: user.city,
-                postalCode: user.postalCode,
-                phone: user.phone,
-                avatarURL: user.avatarURL,
-                articles: user.Articles,
-                roles: user.roles,
-            }
+            message: MESSAGES.SUCCESS_CREATE,
+            token,
+            user: {
+                ...user,
+                password: undefined,
+            },
         }, {
             status: 201, headers: {
                 'Set-Cookie': `token=${token};HttpOnly;Max-Age=${AUTH.COOKIE_MAX_AGE}; ${AUTH.sameSiteSetting}${AUTH.secureCookieFlag}Path=/`
             }
         });
 
-    } catch
-        (error) {
+    } catch (error) {
+
+        console.log(error);
+
+        if (error instanceof z.ZodError) {
+            return NextResponse.json({message: error.errors[0].message}, {status: 400});
+        }
 
         if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
             return NextResponse.json({message: MESSAGES.EMAIL_EXISTS}, {status: 409});
         }
 
-        return NextResponse.error(error, {status: 500});
+        return NextResponse.error(MESSAGES.API_SERVER_ERROR, {status: 500});
 
-    } finally {
+    }
+}
 
-        await prisma.$disconnect();
+export async function PATCH(req) {
 
+    try {
+
+        const requestBody = UpdateUserSchema.parse(JSON.parse(await req.text()));
+
+        const userId = requestBody.id;
+        delete requestBody.id;
+
+        if (requestBody.password) {
+            requestBody.password = hashPassword(requestBody.password);
+        }
+
+        const updatedUser = await prisma.user.update({
+            where: {id: userId},
+            data: requestBody,
+        });
+
+        updatedUser.password = undefined;
+
+        return NextResponse.json({message: MESSAGES.SUCCESS_EDIT, user: updatedUser}, {status: 200});
+
+    } catch (error) {
+
+        console.log(error);
+
+        if (error instanceof z.ZodError) {
+            return NextResponse.json({message: error.errors[0].message}, {status: 400});
+        }
+
+        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+            return NextResponse.json({message: MESSAGES.EMAIL_EXISTS}, {status: 409});
+        }
+
+        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+            return NextResponse.json({message: MESSAGES.INVALID_USER}, {status: 404});
+        }
+
+        return NextResponse.error(MESSAGES.API_SERVER_ERROR, {status: 500});
     }
 }
 
 export async function DELETE(req) {
 
-    const requestBodyText = await req.text();
-
-    const requestBody = JSON.parse(requestBodyText);
-
-    const {
-        id = '',
-    } = requestBody;
-
-    if (!id) {
-        return NextResponse.json({message: MESSAGES.MISSING_ID}, {status: 422});
-    }
-
     try {
 
-        const user = await prisma.user.findUnique({
-            where: {
-                id,
-            }
-        });
-
-        if (!user) {
-            return NextResponse.json({message: MESSAGES.INVALID_USER}, {status: 404});
-        }
+        const {id} = UserSchema.pick({id: true}).parse(JSON.parse(await req.text()));
 
         await prisma.user.delete({
-            where: {
-                id,
-            }
+            where: {id},
         });
 
         return NextResponse.json({message: MESSAGES.SUCCESS_DELETE}, {status: 200});
 
     } catch (error) {
 
-        return NextResponse.error(error, {status: 500});
+        console.log(error);
 
-    } finally {
+        if (error instanceof z.ZodError) {
+            return NextResponse.json({message: error.errors[0].message}, {status: 400});
+        }
 
-        await prisma.$disconnect();
+        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+            return NextResponse.json({message: MESSAGES.INVALID_USER}, {status: 404});
+        }
+
+        return NextResponse.error(MESSAGES.API_SERVER_ERROR, {status: 500});
 
     }
-
-
 }
