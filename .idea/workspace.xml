@@ -4,15 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Styles admin artiste">
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Modification du schéma de base de données">
+      <change afterPath="$PROJECT_DIR$/src/components/admin/artistes/new/ArtisteNumerotationItem.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/admin/artistes/new/ArtisteNumerotationItem.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/migrations/migration_lock.toml" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/migrations/migration_lock.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/artistes/new/ArtisteNewSectionItem.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/artistes/new/ArtisteNewSectionItem.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/authentication/LoginComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/LoginComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/items/iconinput/IconInput.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/iconinput/IconInput.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/items/iconinput/IconInput.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/iconinput/IconInput.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useAuth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/artistes/new/Index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/artistes/new/Index.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/admin/artistes/new/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/artistes/new/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -163,14 +161,6 @@
       <workItem from="1698041599912" duration="10108000" />
       <workItem from="1698160913488" duration="5586000" />
       <workItem from="1698233192676" duration="16540000" />
-    </task>
-    <task id="LOCAL-00059" summary="Ajout d'un fichier permettant de stocker les contantes concernant les rôles">
-      <option name="closed" value="true" />
-      <created>1692716529563</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1692716529563</updated>
     </task>
     <task id="LOCAL-00060" summary="Ajout de deux fonctions permettant de vérifier le/les rôle(s) des utilisateurs">
       <option name="closed" value="true" />
@@ -556,7 +546,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698253900303</updated>
     </task>
-    <option name="localTasksCounter" value="108" />
+    <task id="LOCAL-00108" summary="Modification du schéma de base de données">
+      <option name="closed" value="true" />
+      <created>1698308374956</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1698308374957</updated>
+    </task>
+    <option name="localTasksCounter" value="109" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -574,7 +572,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Firebase upload : OK" />
     <MESSAGE value="minor update (docker standalone)" />
     <MESSAGE value="Création de fonctions utilitaires permettant de communiquer avec les services de firebase" />
     <MESSAGE value="Edit du drag &amp; drop (bug restant à corriger)" />
@@ -599,6 +596,7 @@
     <MESSAGE value="Ajout de swiper + exposition year update" />
     <MESSAGE value="Début du style du back office artiste admin" />
     <MESSAGE value="Styles admin artiste" />
-    <option name="LAST_COMMIT_MESSAGE" value="Styles admin artiste" />
+    <MESSAGE value="Modification du schéma de base de données" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modification du schéma de base de données" />
   </component>
 </project>

@@ -1,0 +1,36 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+    gap: 20px;
+
+  .head {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    input {
+      width: fit-content;
+    }
+  }
+
+  .inputNum {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
+
+    input {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      padding: 8px 15px;
+        border-radius: var(--border-radius);
+    }
+  }
+
+
+}

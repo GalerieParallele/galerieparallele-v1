@@ -1,8 +1,8 @@
 .main {
 
   display: flex;
-    flex-direction: column;
-    gap: 40px;
+  flex-direction: column;
+  gap: 40px;
 
 
   .head {
@@ -14,31 +14,25 @@
     flex-direction: column;
     gap: 20px;
 
-    .part {
+    .specialSection {
+
       display: flex;
-      flex-direction: row;
-      gap: 15px;
+      flex-direction: column;
+      gap: 20px;
 
-      .specialSection {
+      border-radius: var(--border-radius);
 
+      padding: 15px;
+
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+
+      .specialSectionHead {
         display: flex;
-        flex-direction: column;
-        gap: 20px;
-
-        border-radius: var(--border-radius);
-
-        padding: 15px;
-
-        background-color: var(--white);
-        box-shadow: var(--shadow);
-
-        .specialSectionHead {
-          display: flex;
-          flex-direction: row;
-          justify-content: flex-start;
-          align-items: center;
-          gap: 10px;
-        }
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
       }
     }
   }
