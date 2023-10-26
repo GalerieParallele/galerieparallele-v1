@@ -6,7 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Styles admin artiste">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/artistes/new/Index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/artistes/new/Index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/migrations/migration_lock.toml" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/migrations/migration_lock.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/artistes/new/ArtisteNewSectionItem.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/artistes/new/ArtisteNewSectionItem.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/authentication/LoginComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/authentication/LoginComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/items/iconinput/IconInput.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/iconinput/IconInput.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/items/iconinput/IconInput.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/iconinput/IconInput.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useAuth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/artistes/new/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/artistes/new/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

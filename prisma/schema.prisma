@@ -7,6 +7,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// User model ----------------------------------------------------
+
 model User {
   id         Int       @id @default(autoincrement())
   avatarURL  String?   @db.Text
@@ -23,6 +25,10 @@ model User {
   Articles   Article[]
 }
 
+// --------------------------------------------------------------
+
+// Save the date model -------------------------------------------
+
 model SaveTheDate {
   id Int @id @default(autoincrement())
 
@@ -34,6 +40,10 @@ model SaveTheDate {
   artistId Int
   Artist   Artist @relation(fields: [artistId], references: [id], onDelete: Cascade)
 }
+
+// --------------------------------------------------------------
+
+// Article model -------------------------------------------------
 
 model Article {
   id        Int      @id @default(autoincrement())
@@ -47,6 +57,10 @@ model Article {
   User   User? @relation(fields: [userid], references: [id], onDelete: SetNull)
 }
 
+// --------------------------------------------------------------
+
+// Tag model -----------------------------------------------------
+
 model Tag {
   id        Int         @id @default(autoincrement())
   name      String      @unique
@@ -54,11 +68,15 @@ model Tag {
   OeuvreTag OeuvreTag[]
 }
 
+// --------------------------------------------------------------
+
+// Artist model --------------------------------------------------
+
 model Artist {
   id Int @id @default(autoincrement())
 
-  tva   String @unique
-  siret String @unique
+  tva   String? @unique
+  siret String? @unique
 
   pseudo String?
 
@@ -78,6 +96,15 @@ model Artist {
   User   User @relation(fields: [userid], references: [id], onDelete: Cascade)
 }
 
+model Exposition {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String? @db.Text
+  year        Int
+  artistId    Int
+  Artist      Artist  @relation(fields: [artistId], references: [id], onDelete: Cascade)
+}
+
 model ArtistTag {
   id       Int    @id @default(autoincrement())
   artistId Int
@@ -88,12 +115,54 @@ model ArtistTag {
   @@map("artist_tag")
 }
 
+// --------------------------------------------------------------
+
+// Oeuvre model --------------------------------------------------
+
 model Oeuvre {
-  id          Int            @id @default(autoincrement())
-  name        String
-  description String         @db.Text
-  OeuvreTag   OeuvreTag[]
-  Artists     ArtistOeuvre[]
+  id   Int    @id @default(autoincrement()) // ID Unique de l'oeuvre
+  name String // Nom de l'oeuvre
+
+  description String? @db.Text // Description de l'oeuvre
+  anecdote    String? @db.Text // Anecdote de l'oeuvre
+
+  hauteur  Int // Hauteur de l'oeuvre
+  longueur Int // Longueur de l'oeuvre
+  largeur  Int? // Largeur de l'oeuvre
+
+  numerotation Int // Numérotation de l'oeuvre
+  support      String // Support de l'oeuvre
+  technique    String // Technique de l'oeuvre
+  encadrement  String // Encadrement de l'oeuvre
+  signature    String // Signature de l'oeuvre
+
+  Artists            ArtistOeuvre[] // Artistes de l'oeuvre
+  UnknowArtistOeuvre UnknowArtistOeuvre[] // Artistes inconnus de l'oeuvre
+
+  OeuvreTag       OeuvreTag[] // Tags de l'oeuvre
+  CompositionType CompositionType[] // Types de l'oeuvre
+  OeuvreImage     OeuvreImage[] // Images de l'oeuvre
+}
+
+model OeuvreImage {
+  id       Int    @id @default(autoincrement()) // ID Unique de l'image
+  mediaURL String @db.Text // URL de l'image
+  oeuvreId Int // ID de l'oeuvre
+  Oeuvre   Oeuvre @relation(fields: [oeuvreId], references: [id], onDelete: Cascade) // Oeuvre de l'image
+}
+
+model TypeOeuvre {
+  id              Int               @id @default(autoincrement()) // ID Unique du type
+  name            String            @unique // Nom du type
+  CompositionType CompositionType[] // Types de l'oeuvre
+}
+
+model CompositionType {
+  id           Int        @id @default(autoincrement())
+  oeuvreId     Int
+  typeOeuvreId Int
+  Oeuvre       Oeuvre     @relation(fields: [oeuvreId], references: [id], onDelete: Cascade)
+  TypeOeuvre   TypeOeuvre @relation(fields: [typeOeuvreId], references: [id], onDelete: Cascade)
 }
 
 model OeuvreTag {
@@ -115,12 +184,23 @@ model ArtistOeuvre {
   @@id([artistId, oeuvreId])
 }
 
-model Exposition {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String   @db.Text
-  date        DateTime
-  photoURL    String   @db.Text
-  artistId    Int
-  Artist      Artist   @relation(fields: [artistId], references: [id], onDelete: Cascade)
+model UnknowArtistOeuvre {
+  artistId Int
+  oeuvreId Int
+  Artist   UnknowArtist @relation(fields: [artistId], references: [id], onDelete: Cascade)
+  Oeuvre   Oeuvre       @relation(fields: [oeuvreId], references: [id], onDelete: Cascade)
+
+  @@id([artistId, oeuvreId])
 }
+
+// --------------------------------------------------------------
+
+// UnknowArtist model --------------------------------------------
+
+model UnknowArtist {
+  id                 Int                  @id @default(autoincrement())
+  name               String
+  UnknowArtistOeuvre UnknowArtistOeuvre[]
+}
+
+// --------------------------------------------------------------

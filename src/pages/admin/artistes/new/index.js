@@ -43,122 +43,125 @@ export default function ArtisteAdminNew() {
                         <h3>Création d&apos;un nouvel artiste</h3>
                     </div>
                     <div className={styles.sectionList}>
-                        <div className={styles.part}>
-                            <ArtisteNewSectionItem
-                                sectionName={"Informations utilisateur"}
-                            >
-                                <IconInput
-                                    label={"E-mail"}
-                                    type={"email"}
-                                    IconComponent={MdEmail}
-                                    placeholder={"Ex: example@mail.com"}
-                                />
-                                <IconInput
-                                    label={"Mot de passe"}
-                                    type={"password"}
-                                    IconComponent={MdPassword}
-                                    placeholder={"Ex: euI8k%$uYvg"}
-                                />
-                                <IconInput
-                                    label={"Avatar"}
-                                    type={"file"}
-                                    IconComponent={RxAvatar}
-                                />
-                                <IconInput
-                                    label={"Prénom"}
-                                    type={"text"}
-                                    IconComponent={BsFillFileEarmarkPersonFill}
-                                    placeholder={"Ex: Jean"}
-                                />
-                                <IconInput
-                                    label={"Nom"}
-                                    type={"text"}
-                                    IconComponent={BsFillFileEarmarkPersonFill}
-                                    placeholder={"Ex: Dupont"}
-                                />
-                                <IconInput
-                                    label={"Numéro de téléphone"}
-                                    type={"tel"}
-                                    IconComponent={BsTelephoneFill}
-                                    placeholder={"Ex: 0769141995"}
-                                />
-                                <IconInput
-                                    label={"Adresse"}
-                                    type={"text"}
-                                    IconComponent={IoHome}
-                                    placeholder={"Ex: 1 rue de la paix"}
-                                />
-                                <IconInput
-                                    label={"Ville"}
-                                    type={"text"}
-                                    IconComponent={IoHome}
-                                    placeholder={"Ex: Paris"}
-                                />
-                                <IconInput
-                                    label={"Code postal"}
-                                    type={"text"}
-                                    IconComponent={IoHome}
-                                    placeholder={"Ex: 75000"}
-                                />
-                            </ArtisteNewSectionItem>
-                            <ArtisteNewSectionItem
-                                sectionName={"Informations artiste"}
-                            >
-                                <IconInput
-                                    label={"Nom d'artiste"}
-                                    type={"text"}
-                                    IconComponent={BsFillFileEarmarkPersonFill}
-                                    placeholder={"Ex: M4TRIX"}
-                                />
-                                <div className={styles.specialSection}>
-                                    <div className={styles.specialSectionHead}>
+                        <ArtisteNewSectionItem
+                            sectionName={"Informations utilisateur"}
+                        >
+                            <IconInput
+                                label={"E-mail"}
+                                type={"email"}
+                                IconComponent={MdEmail}
+                                placeholder={"Ex: example@mail.com"}
+                            />
+                            <IconInput
+                                label={"Mot de passe"}
+                                type={"password"}
+                                IconComponent={MdPassword}
+                                placeholder={"Ex: euI8k%$uYvg"}
+                            />
+                            <IconInput
+                                label={"Avatar"}
+                                type={"file"}
+                                IconComponent={RxAvatar}
+                            />
+                            <IconInput
+                                label={"Prénom"}
+                                type={"text"}
+                                IconComponent={BsFillFileEarmarkPersonFill}
+                                placeholder={"Ex: Jean"}
+                            />
+                            <IconInput
+                                label={"Nom"}
+                                type={"text"}
+                                IconComponent={BsFillFileEarmarkPersonFill}
+                                placeholder={"Ex: Dupont"}
+                            />
+                            <IconInput
+                                label={"Numéro de téléphone"}
+                                type={"tel"}
+                                IconComponent={BsTelephoneFill}
+                                placeholder={"Ex: 0769141995"}
+                            />
+                            <IconInput
+                                label={"Adresse"}
+                                type={"text"}
+                                IconComponent={IoHome}
+                                placeholder={"Ex: 1 rue de la paix"}
+                            />
+                            <IconInput
+                                label={"Ville"}
+                                type={"text"}
+                                IconComponent={IoHome}
+                                placeholder={"Ex: Paris"}
+                            />
+                            <IconInput
+                                label={"Code postal"}
+                                type={"text"}
+                                IconComponent={IoHome}
+                                placeholder={"Ex: 75000"}
+                            />
+                        </ArtisteNewSectionItem>
+                        <ArtisteNewSectionItem
+                            sectionName={"Informations artiste"}
+                        >
+                            <IconInput
+                                label={"Numéro de SIRET (non visible sur le site)"}
+                                type={"text"}
+                                IconComponent={AiOutlineFieldNumber}
+                                placeholder={"Ex: 12345678912345"}
+                            />
+                            <IconInput
+                                label={"Numéro de TVA (non visible sur le site)"}
+                                type={"text"}
+                                IconComponent={AiOutlineFieldNumber}
+                                placeholder={"Ex: 12345678912345"}
+                            />
+                            <IconInput
+                                label={"Nom d'artiste"}
+                                type={"text"}
+                                IconComponent={BsFillFileEarmarkPersonFill}
+                                placeholder={"Ex: M4TRIX"}
+                            />
+                            <IconInput
+                                label={"Facebook"}
+                                type={"text"}
+                                IconComponent={AiFillFacebook}
+                                placeholder={"Ex: https://www.facebook.com/..."}
+                            />
+                            <IconInput
+                                label={"Instagram"}
+                                type={"text"}
+                                IconComponent={AiFillInstagram}
+                                placeholder={"Ex: https://www.instagram.com/..."}
+                            />
+                            <IconInput
+                                label={"LinkedIn"}
+                                type={"text"}
+                                IconComponent={AiFillLinkedin}
+                                placeholder={"Ex: https://www.linkedin.com/..."}
+                            />
+                            <IconInput
+                                label={"Site web"}
+                                type={"text"}
+                                IconComponent={FaEarthAfrica}
+                                placeholder={"Ex: https://www.m4trix.com"}
+                            />
+                            <div className={styles.specialSection}>
+                                <div className={styles.specialSectionHead}>
                                         <span>
                                             <GrTextAlignCenter/>
                                         </span>
-                                        <div>
-                                            <p>Biographie</p>
-                                        </div>
+                                    <div>
+                                        <p>Biographie</p>
                                     </div>
-                                    <Editor/>
                                 </div>
-                                <IconInput
-                                    label={"Facebook"}
-                                    type={"text"}
-                                    IconComponent={AiFillFacebook}
-                                    placeholder={"Ex: https://www.facebook.com/..."}
-                                />
-                                <IconInput
-                                    label={"Instagram"}
-                                    type={"text"}
-                                    IconComponent={AiFillInstagram}
-                                    placeholder={"Ex: https://www.instagram.com/..."}
-                                />
-                                <IconInput
-                                    label={"LinkedIn"}
-                                    type={"text"}
-                                    IconComponent={AiFillLinkedin}
-                                    placeholder={"Ex: https://www.linkedin.com/..."}
-                                />
-                                <IconInput
-                                    label={"Site web"}
-                                    type={"text"}
-                                    IconComponent={FaEarthAfrica}
-                                    placeholder={"Ex: https://www.m4trix.com"}
-                                />
-                                <IconInput
-                                    label={"Numéro de SIRET"}
-                                    type={"text"}
-                                    IconComponent={AiOutlineFieldNumber}
-                                    placeholder={"Ex: 12345678912345"}
-                                />
-                                <IconInput
-                                    label={"Numéro de TVA"}
-                                    type={"text"}
-                                    IconComponent={AiOutlineFieldNumber}
-                                    placeholder={"Ex: 12345678912345"}
-                                />
-                            </ArtisteNewSectionItem>
-                        </div>
+                                <Editor/>
+                            </div>
+                        </ArtisteNewSectionItem>
+                        <ArtisteNewSectionItem
+                            sectionName={"Save The Date"}
+                        >
+                            <p>Prochainement...</p>
+                        </ArtisteNewSectionItem>
                     </div>
                 </div>
             </main>

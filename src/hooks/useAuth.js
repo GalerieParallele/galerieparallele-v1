@@ -59,6 +59,8 @@ export function AuthProvider({children}) {
 
         setIsLoading(true)
 
+        console.log("1", email, password);
+
         try {
             const response = await fetch(ROUTES.API.AUTHENTICATION.LOGIN, {
                 method: 'POST',

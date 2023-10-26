@@ -6,6 +6,11 @@
     margin-bottom: 8px;
 }
 
+.required {
+    cursor: pointer;
+    color: var(--red);
+}
+
 .input {
     display: flex;
     flex-direction: row;

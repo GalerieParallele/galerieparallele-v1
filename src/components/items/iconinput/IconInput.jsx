@@ -4,13 +4,30 @@ import PropTypes from 'prop-types';
 
 import '../../../app/globals.css'
 import styles from './IconInput.module.css';
+import Swal from "sweetalert2";
 
 function IconInput({IconComponent, label, type, required, ...inputProps}) {
+
+    const handleOpenModalInformationRequired = async () => {
+        await Swal.fire(
+            'Champ requis',
+            'Ce champ est requis pour continuer',
+            'info'
+        )
+    }
     return (
         <div>
             <div className={styles.top}>
                 <div>{IconComponent && <IconComponent/>}</div>
-                <p>{label}</p>
+                <p>
+                    {label}
+                    <span
+                        onClick={handleOpenModalInformationRequired}
+                        className={styles.required}
+                        title={"Champ requis"}>
+                    {required && '*'}
+                    </span>
+                </p>
             </div>
             {
                 type === 'textarea' ? (
@@ -41,7 +58,7 @@ IconInput.propTypes = {
 
 IconInput.defaultProps = {
     type: 'text',
-    required: true
+    required: false
 };
 
 export default IconInput;

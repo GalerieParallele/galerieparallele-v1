@@ -28,32 +28,28 @@ export default function LoginComponent() {
 
     const handleSubmit = useCallback(async (e) => {
 
-            e.preventDefault();
+        e.preventDefault();
 
-            setLoading(true)
+        setLoading(true)
 
-            const {error} = await signIn(email, password);
+        const {error} = await signIn(email, password);
 
-            setLoading(false)
+        setLoading(false)
 
-            if (error) {
-                await Toast.fire({
-                    icon: 'error',
-                    title: error
-                })
-                return;
-            }
-
+        if (error) {
             await Toast.fire({
-                icon: 'success',
-                title: MESSAGES.LOGIN_SUCCESS
-            });
+                icon: 'error', title: error
+            })
+            return;
+        }
 
-        }, [email, password, signIn]
-    )
+        await Toast.fire({
+            icon: 'success', title: MESSAGES.LOGIN_SUCCESS
+        });
 
-    return (
-        <>
+    }, [email, password, signIn])
+
+    return (<>
             <Head>
                 <title>GP - Connexion</title>
             </Head>
@@ -78,6 +74,5 @@ export default function LoginComponent() {
                 text={"Connexion"}
                 onClick={handleSubmit}
                 isLoading={loading}/>
-        </>
-    )
+        </>)
 }
