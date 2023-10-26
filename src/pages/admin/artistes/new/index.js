@@ -26,7 +26,7 @@ import Editor from "@/components/items/Editor";
 import {GrTextAlignCenter} from "react-icons/gr";
 import {FaEarthAfrica} from "react-icons/fa6";
 import Select from 'react-select';
-import {BiGroup, BiLaugh, BiSolidGroup} from "react-icons/bi";
+import {BiGroup, BiImageAdd, BiLaugh, BiSolidGroup} from "react-icons/bi";
 import {FiHash} from "react-icons/fi";
 import {IoIosResize} from "react-icons/io";
 import ArtisteNumerotationItem from "@/components/admin/artistes/new/ArtisteNumerotationItem";
@@ -356,6 +356,19 @@ export default function ArtisteAdminNew() {
                                     onChange={handleChangeUnknownArtist}
                                     value={formData.oeuvreUnknownArtist}
                                 />
+                            </div>
+                            <div className={styles.specialSection}>
+                                <div className={styles.specialSectionHead}>
+                                        <span>
+                                            <BiImageAdd/>
+                                        </span>
+                                    <div>
+                                        <p>Image(s)</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    {/*TODO : Ajouter un composant pour ajouter une ou plusieurs images*/}
+                                </div>
                             </div>
                             <div className={styles.specialSection}>
                                 <div className={styles.specialSectionHead}>
