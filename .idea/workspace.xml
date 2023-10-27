@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Ajout de la possiblité d'ajouter des tags à un article">
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Ajout des deux possiblités d'authorization (avec et sans majuscule)">
+      <change afterPath="$PROJECT_DIR$/src/app/api/articles/route.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/ROUTES.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/ROUTES.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/Util.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/Util.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useAuth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/tags/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/tags/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/typesoeuvres/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/typesoeuvres/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/users/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/users/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/artistes/new/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/artistes/new/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +29,20 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "NeosiaNexus"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="d271aba5-559c-491f-99bb-7f7c262f4ef7" />
+        <option name="url" value="https://github.com/GalerieParallele/Web.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -159,31 +174,7 @@
       <workItem from="1698041599912" duration="10108000" />
       <workItem from="1698160913488" duration="5586000" />
       <workItem from="1698233192676" duration="16540000" />
-      <workItem from="1698401252174" duration="6532000" />
-    </task>
-    <task id="LOCAL-00076" summary="Section articles (shop) : OK">
-      <option name="closed" value="true" />
-      <created>1693271655907</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1693271655907</updated>
-    </task>
-    <task id="LOCAL-00077" summary="Section pro : OK">
-      <option name="closed" value="true" />
-      <created>1693273096891</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
-      <option name="project" value="LOCAL" />
-      <updated>1693273096891</updated>
-    </task>
-    <task id="LOCAL-00078" summary="Rectification du responsive de l'image">
-      <option name="closed" value="true" />
-      <created>1693273345392</created>
-      <option name="number" value="00078" />
-      <option name="presentableId" value="LOCAL-00078" />
-      <option name="project" value="LOCAL" />
-      <updated>1693273345392</updated>
+      <workItem from="1698401252174" duration="18621000" />
     </task>
     <task id="LOCAL-00079" summary="Picto : OK">
       <option name="closed" value="true" />
@@ -553,7 +544,31 @@
       <option name="project" value="LOCAL" />
       <updated>1698410520746</updated>
     </task>
-    <option name="localTasksCounter" value="125" />
+    <task id="LOCAL-00125" summary="Add register route">
+      <option name="closed" value="true" />
+      <created>1698413093573</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1698413093573</updated>
+    </task>
+    <task id="LOCAL-00126" summary="Modification des routes api dans le hook de gestion authentification">
+      <option name="closed" value="true" />
+      <created>1698413136185</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1698413136185</updated>
+    </task>
+    <task id="LOCAL-00127" summary="Ajout des deux possiblités d'authorization (avec et sans majuscule)">
+      <option name="closed" value="true" />
+      <created>1698413175933</created>
+      <option name="number" value="00127" />
+      <option name="presentableId" value="LOCAL-00127" />
+      <option name="project" value="LOCAL" />
+      <updated>1698413175933</updated>
+    </task>
+    <option name="localTasksCounter" value="128" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -571,9 +586,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Auto update &amp; reformat" />
-    <MESSAGE value="Suppression du ts config inutile" />
-    <MESSAGE value="Modification docker-compose ajout de traefik pour le https" />
     <MESSAGE value="Remise en page section artiste" />
     <MESSAGE value="Suppression du portrait chinois + ajout d'une section expositions et récompenses" />
     <MESSAGE value="Ajout de swiper + exposition year update" />
@@ -596,6 +608,9 @@
     <MESSAGE value="Sécurisation de l'API : OK" />
     <MESSAGE value="Route API permettant de gérer les artistes non référencé terminé" />
     <MESSAGE value="Ajout de la possiblité d'ajouter des tags à un article" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout de la possiblité d'ajouter des tags à un article" />
+    <MESSAGE value="Add register route" />
+    <MESSAGE value="Modification des routes api dans le hook de gestion authentification" />
+    <MESSAGE value="Ajout des deux possiblités d'authorization (avec et sans majuscule)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajout des deux possiblités d'authorization (avec et sans majuscule)" />
   </component>
 </project>

@@ -16,7 +16,12 @@ const MESSAGES = {
     SUCCESS_DELETE: "Le tag a été supprimé avec succès.",
 }
 
-const TagSchema = z.object({
+const name = z.string({
+    required_error: "Le nom du tag est requis.",
+    invalid_type_error: "Le nom du tag doit être une chaîne de caractères.",
+}).transform(tagName => tagName.toUpperCase())
+
+export const TagSchema = z.object({
     id: z
         .number({
             required_error: "L'id du tag est requis.",
@@ -28,11 +33,7 @@ const TagSchema = z.object({
         .positive({
             message: "L'id du tag doit être un nombre entier positif.",
         }),
-    name: z
-        .string({
-            required_error: "Le nom du tag est requis.",
-            invalid_type_error: "Le nom du tag doit être une chaîne de caractères.",
-        }),
+    name,
 })
 
 const TagsResponseSchema = z.object({
@@ -52,11 +53,7 @@ const TagsResponseSchema = z.object({
 })
 
 const CreateTagSchema = z.object({
-    name: z
-        .string({
-            required_error: "Le nom du tag est requis.",
-            invalid_type_error: "Le nom du tag doit être une chaîne de caractères.",
-        }),
+    name,
 })
 
 const UpdateTagSchema = z.object({
@@ -71,11 +68,7 @@ const UpdateTagSchema = z.object({
         .positive({
             message: "L'id du tag doit être un nombre entier positif.",
         }),
-    name: z
-        .string({
-            required_error: "Le nom du tag est requis.",
-            invalid_type_error: "Le nom du tag doit être une chaîne de caractères.",
-        }),
+    name,
 })
 
 
@@ -118,7 +111,7 @@ export async function POST(req) {
         const requestBody = CreateTagSchema.parse(JSON.parse(await req.text()))
 
         const data = {
-            name: requestBody.name.toUpperCase(),
+            name: requestBody.name,
         }
 
         const tag = await prisma.tag.create({

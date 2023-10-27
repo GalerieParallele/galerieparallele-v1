@@ -32,7 +32,7 @@ const TypeOeuvreSchema = z.object({
         .string({
             required_error: "Le nom du type d'oeuvre est requis.",
             invalid_type_error: "Le nom du type d'oeuvre doit être une chaîne de caractères.",
-        }),
+        }).transform(name => name.toUpperCase()),
 })
 
 const TypesOeuvreResponseSchema = z.object({
@@ -117,7 +117,7 @@ export async function POST(req) {
         const requestBody = CreateTypeOeuvreSchema.parse(JSON.parse(await req.text()))
 
         const data = {
-            name: requestBody.name.toUpperCase(),
+            name: requestBody.name,
         }
 
         const typeOeuvre = await prisma.typesOeuvre.create({
@@ -159,7 +159,7 @@ export async function PATCH(req) {
         delete requestBody.id;
 
         const data = {
-            name: requestBody.name.toUpperCase(),
+            name: requestBody.name,
         }
 
         const typeOeuvre = await prisma.typesOeuvre.update({

@@ -202,7 +202,7 @@ const UpdateUserSchema = z.object({
         .optional(),
 });
 
-export async function GET(req) {
+export async function GET() {
 
     try {
 
@@ -250,7 +250,7 @@ export async function GET(req) {
     }
 }
 
-export async function POST(req, res) {
+export async function POST(req) {
 
     const {user, message} = await getUserFromToken(req);
 

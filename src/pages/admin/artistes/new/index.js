@@ -21,16 +21,17 @@ import {RxAvatar} from "react-icons/rx";
 import {BsFillFileEarmarkPersonFill, BsHammer, BsTelephoneFill} from "react-icons/bs";
 import ArtisteNewSectionItem from "@/components/admin/artistes/new/ArtisteNewSectionItem";
 import {IoHome, IoTextOutline} from "react-icons/io5";
-import {PiListNumbers, PiStool, PiTextIndentBold, PiUserRectangleBold} from "react-icons/pi";
+import {PiListNumbers, PiStool, PiUserRectangleBold} from "react-icons/pi";
 import Editor from "@/components/items/Editor";
 import {GrTextAlignCenter} from "react-icons/gr";
 import {FaEarthAfrica} from "react-icons/fa6";
-import Select from 'react-select';
 import {BiGroup, BiImageAdd, BiLaugh, BiSolidGroup} from "react-icons/bi";
 import {FiHash} from "react-icons/fi";
 import {IoIosResize} from "react-icons/io";
 import ArtisteNumerotationItem from "@/components/admin/artistes/new/ArtisteNumerotationItem";
 import {FaHandHoldingHeart, FaSignature} from "react-icons/fa";
+import CreatableSelect from "react-select/creatable";
+import Select from 'react-select'
 
 export default function ArtisteAdminNew() {
 
@@ -334,7 +335,7 @@ export default function ArtisteAdminNew() {
                                         <p>Artistes non référencé</p>
                                     </div>
                                 </div>
-                                <Select
+                                <CreatableSelect
                                     placeholder={"Sélectionner un ou plusieurs artistes non référencé"}
                                     closeMenuOnSelect={false}
                                     components={animatedComponents}
@@ -378,7 +379,7 @@ export default function ArtisteAdminNew() {
                                         <p>Type de l&lsquo;oeuvre</p>
                                     </div>
                                 </div>
-                                <Select
+                                <CreatableSelect
                                     placeholder={"Sélectionner un ou plusieurs type pour l'oeuvre"}
                                     closeMenuOnSelect={false}
                                     components={animatedComponents}
@@ -409,7 +410,7 @@ export default function ArtisteAdminNew() {
                                         <p>Tags</p>
                                     </div>
                                 </div>
-                                <Select
+                                <CreatableSelect
                                     placeholder={"Sélectionner un ou plusieurs tags pour l'oeuvre"}
                                     closeMenuOnSelect={false}
                                     components={animatedComponents}
