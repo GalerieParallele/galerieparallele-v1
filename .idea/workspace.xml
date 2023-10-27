@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Route API permettant de gérer les artistes non référencé terminé">
-      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Ajout de la possiblité d'ajouter des tags à un article">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/ROUTES.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/ROUTES.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/Util.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/Util.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useAuth.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,15 +159,7 @@
       <workItem from="1698041599912" duration="10108000" />
       <workItem from="1698160913488" duration="5586000" />
       <workItem from="1698233192676" duration="16540000" />
-      <workItem from="1698401252174" duration="3730000" />
-    </task>
-    <task id="LOCAL-00075" summary="Sticky navbar + amo &amp; restructuration &quot;acccueil&quot; &gt;&gt; &quot;home&quot;">
-      <option name="closed" value="true" />
-      <created>1693269889726</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1693269889726</updated>
+      <workItem from="1698401252174" duration="6532000" />
     </task>
     <task id="LOCAL-00076" summary="Section articles (shop) : OK">
       <option name="closed" value="true" />
@@ -549,7 +545,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698410099788</updated>
     </task>
-    <option name="localTasksCounter" value="124" />
+    <task id="LOCAL-00124" summary="Ajout de la possiblité d'ajouter des tags à un article">
+      <option name="closed" value="true" />
+      <created>1698410520746</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1698410520746</updated>
+    </task>
+    <option name="localTasksCounter" value="125" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -567,7 +571,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Suppression de l'import inutile" />
     <MESSAGE value="Auto update &amp; reformat" />
     <MESSAGE value="Suppression du ts config inutile" />
     <MESSAGE value="Modification docker-compose ajout de traefik pour le https" />
@@ -592,6 +595,7 @@
     <MESSAGE value="Début de la sécurisation API" />
     <MESSAGE value="Sécurisation de l'API : OK" />
     <MESSAGE value="Route API permettant de gérer les artistes non référencé terminé" />
-    <option name="LAST_COMMIT_MESSAGE" value="Route API permettant de gérer les artistes non référencé terminé" />
+    <MESSAGE value="Ajout de la possiblité d'ajouter des tags à un article" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajout de la possiblité d'ajouter des tags à un article" />
   </component>
 </project>

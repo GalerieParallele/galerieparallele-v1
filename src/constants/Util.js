@@ -1,7 +1,6 @@
 import bcrypt from "bcryptjs";
 import {PrismaClient} from "@prisma/client";
 import jwt from "jsonwebtoken";
-import {cookies} from "next/headers";
 
 const prisma = new PrismaClient();
 
@@ -60,7 +59,7 @@ export async function getUserFromToken(req) {
         return null;
     }
 
-    const token = req.headers.get('authorization')?.split(' ')[1] || cookies().get("token")?.value;
+    const token = req.headers.get('authorization')?.split(' ')[1] || req.headers.get('Authorization')?.split(' ')[1]
 
     const user = token ? await verifyAndFindUser(token) : null;
 
