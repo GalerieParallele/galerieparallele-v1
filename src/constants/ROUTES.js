@@ -41,6 +41,7 @@ const PATHS = {
             LOGIN: createPath('auth', 'login'),
             LOGOUT: createPath('auth', 'logout'),
             ME: createPath('auth', 'me'),
+            REGISTER: createPath('users'),
         }
     }
 }
@@ -73,6 +74,14 @@ const ROUTES = {
             HOME: BASE_URL + PATHS.ADMIN.UTILISATEURS.HOME,
         },
     },
+    API: {
+        AUTH: {
+            LOGIN: API_BASE + PATHS.API.AUTH.LOGIN,
+            LOGOUT: API_BASE + PATHS.API.AUTH.LOGOUT,
+            ME: API_BASE + PATHS.API.AUTH.ME,
+            REGISTER: API_BASE + PATHS.API.AUTH.REGISTER,
+        }
+    }
 }
 
 export default ROUTES;
