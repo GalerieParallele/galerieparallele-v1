@@ -10,19 +10,21 @@ datasource db {
 // User model ----------------------------------------------------
 
 model User {
-  id         Int       @id @default(autoincrement())
-  avatarURL  String?   @db.Text
-  email      String    @unique
-  lastname   String    @db.VarChar(255)
-  firstname  String    @db.VarChar(255)
-  street     String    @db.VarChar(255)
-  city       String    @db.VarChar(255)
-  postalCode String    @db.VarChar(255)
-  phone      String    @db.VarChar(255)
-  password   String    @db.VarChar(255)
-  roles      Json      @default("[\"ROLE_USER\"]")
-  artist     Artist?
-  articles   Article[]
+  id         Int     @id @default(autoincrement())
+  avatarURL  String? @db.Text
+  email      String  @unique
+  lastname   String  @db.VarChar(255)
+  firstname  String  @db.VarChar(255)
+  street     String  @db.VarChar(255)
+  city       String  @db.VarChar(255)
+  postalCode String  @db.VarChar(255)
+  phone      String  @db.VarChar(255)
+  password   String  @db.VarChar(255)
+  roles      Json    @default("[\"ROLE_USER\"]")
+
+  artist Artist?
+
+  articles Article[]
 }
 
 // --------------------------------------------------------------
@@ -53,8 +55,19 @@ model Article {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
+  tags ArticleTag[]
+
   editorId Int?
   editor   User? @relation(fields: [editorId], references: [id], onDelete: SetNull)
+}
+
+model ArticleTag {
+  articleId Int
+  tagId     Int
+  article   Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([articleId, tagId])
 }
 
 // --------------------------------------------------------------
@@ -62,10 +75,12 @@ model Article {
 // Tag model -----------------------------------------------------
 
 model Tag {
-  id      Int         @id @default(autoincrement())
-  name    String      @unique
-  artists ArtistTag[]
-  oeuvres OeuvreTag[]
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  artists  ArtistTag[]
+  oeuvres  OeuvreTag[]
+  articles ArticleTag[]
 }
 
 // --------------------------------------------------------------

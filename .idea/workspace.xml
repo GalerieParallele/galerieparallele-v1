@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Sécurisation de l'API : OK">
-      <change afterPath="$PROJECT_DIR$/src/app/api/artistsunknow/getbyid/route.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/api/artistsunknow/route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/tags/gettagbyid/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/tags/getbyid/route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/typesoeuvres/gettypeoeuvrebyid/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/typesoeuvres/getbyid/route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/users/getuserbyid/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/users/getbyid/route.js" afterDir="false" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Route API permettant de gérer les artistes non référencé terminé">
+      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,15 +155,7 @@
       <workItem from="1698041599912" duration="10108000" />
       <workItem from="1698160913488" duration="5586000" />
       <workItem from="1698233192676" duration="16540000" />
-      <workItem from="1698401252174" duration="3418000" />
-    </task>
-    <task id="LOCAL-00074" summary="Création des fichiers nécessaires à la section &quot;Shop&quot;">
-      <option name="closed" value="true" />
-      <created>1693269858772</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1693269858772</updated>
+      <workItem from="1698401252174" duration="3730000" />
     </task>
     <task id="LOCAL-00075" summary="Sticky navbar + amo &amp; restructuration &quot;acccueil&quot; &gt;&gt; &quot;home&quot;">
       <option name="closed" value="true" />
@@ -554,7 +541,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698365862641</updated>
     </task>
-    <option name="localTasksCounter" value="123" />
+    <task id="LOCAL-00123" summary="Route API permettant de gérer les artistes non référencé terminé">
+      <option name="closed" value="true" />
+      <created>1698410099788</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1698410099788</updated>
+    </task>
+    <option name="localTasksCounter" value="124" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -572,7 +567,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Rename du fichier" />
     <MESSAGE value="Suppression de l'import inutile" />
     <MESSAGE value="Auto update &amp; reformat" />
     <MESSAGE value="Suppression du ts config inutile" />
@@ -597,6 +591,7 @@
     <MESSAGE value="Add route typesOeuvres ✅" />
     <MESSAGE value="Début de la sécurisation API" />
     <MESSAGE value="Sécurisation de l'API : OK" />
-    <option name="LAST_COMMIT_MESSAGE" value="Sécurisation de l'API : OK" />
+    <MESSAGE value="Route API permettant de gérer les artistes non référencé terminé" />
+    <option name="LAST_COMMIT_MESSAGE" value="Route API permettant de gérer les artistes non référencé terminé" />
   </component>
 </project>
