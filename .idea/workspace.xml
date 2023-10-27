@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Add route typesOeuvres ✅">
-      <change afterPath="$PROJECT_DIR$/src/app/api/typesoeuvres/gettypeoeuvrebyid/route.js" afterDir="false" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Début de la sécurisation API">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/auth/login/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/auth/login/route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/auth/logout/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/auth/logout/route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/users/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/users/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/auth/me/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/auth/me/route.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/constants/Util.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/Util.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -160,14 +157,6 @@
       <workItem from="1698041599912" duration="10108000" />
       <workItem from="1698160913488" duration="5586000" />
       <workItem from="1698233192676" duration="16540000" />
-    </task>
-    <task id="LOCAL-00072" summary="Problème de re-rendu navbar permettant d'afficher (ou non) le panel admin : OK">
-      <option name="closed" value="true" />
-      <created>1693197755017</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1693197755018</updated>
     </task>
     <task id="LOCAL-00073" summary="Article : création &amp; édition : OK">
       <option name="closed" value="true" />
@@ -553,7 +542,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698358761721</updated>
     </task>
-    <option name="localTasksCounter" value="121" />
+    <task id="LOCAL-00121" summary="Début de la sécurisation API">
+      <option name="closed" value="true" />
+      <created>1698364289539</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1698364289539</updated>
+    </task>
+    <option name="localTasksCounter" value="122" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -571,7 +568,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Modification du bouton retour dans la page d'authentification. Désormais il renvoie bien à la dernière page consulté avant celle-ci." />
     <MESSAGE value="Création d'une fausse page profil artiste" />
     <MESSAGE value="Rename du fichier" />
     <MESSAGE value="Suppression de l'import inutile" />
@@ -596,6 +592,7 @@
     <MESSAGE value="Route API permettant de récupérer un tag précis, terminé" />
     <MESSAGE value="Rectification tag display in code" />
     <MESSAGE value="Add route typesOeuvres ✅" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add route typesOeuvres ✅" />
+    <MESSAGE value="Début de la sécurisation API" />
+    <option name="LAST_COMMIT_MESSAGE" value="Début de la sécurisation API" />
   </component>
 </project>
