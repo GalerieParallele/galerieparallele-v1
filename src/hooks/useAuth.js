@@ -25,7 +25,7 @@ export function AuthProvider({children}) {
 
         try {
 
-            const response = await fetch(ROUTES.API.USER.ME, {
+            const response = await fetch(ROUTES.API.AUTH.ME, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -37,7 +37,6 @@ export function AuthProvider({children}) {
             if (response.status === 200) {
                 setUser(data);
                 setRoles(data.roles);
-                console.log(data)
             } else {
                 setUser(null);
                 setRoles([])
@@ -59,10 +58,8 @@ export function AuthProvider({children}) {
 
         setIsLoading(true)
 
-        console.log("1", email, password);
-
         try {
-            const response = await fetch(ROUTES.API.AUTHENTICATION.LOGIN, {
+            const response = await fetch(ROUTES.API.AUTH.LOGIN, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -82,8 +79,11 @@ export function AuthProvider({children}) {
                 return {error: data.message};
             }
         } catch (error) {
+
             console.log(error)
+
             return {error: MESSAGES.GLOBAL_ERROR_LOGIN};
+
         } finally {
             setIsLoading(false)
         }
@@ -94,7 +94,7 @@ export function AuthProvider({children}) {
         setIsLoading(true)
 
         try {
-            const response = await fetch(ROUTES.API.AUTHENTICATION.REGISTER, {
+            const response = await fetch(ROUTES.API.AUTH.REGISTER, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -129,7 +129,7 @@ export function AuthProvider({children}) {
 
         setIsLoading(true)
 
-        const response = await fetch(ROUTES.API.AUTHENTICATION.LOGOUT, {
+        const response = await fetch(ROUTES.API.AUTH.LOGOUT, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
