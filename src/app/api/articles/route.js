@@ -9,6 +9,8 @@ const prisma = new PrismaClient();
 const MESSAGES = {
     ARTICLES_NOT_FOUND: "Aucun article n'a été trouvé.",
     ARTICLE_EDITOR_NOT_FOUND: "L'éditeur de l'article n'a pas été trouvé.",
+
+    SUCCESS_DELETE: "L'article a bien été supprimé.",
 }
 
 const id = z.number({
@@ -70,7 +72,7 @@ const ArticleSchema = z.object({
     editorId
 });
 
-const CreateArticleSchema = ArticleSchema
+const ArticleCreateSchema = ArticleSchema
     .omit({id: true, createdAt: true, updatedAt: true, tags: true})
     .extend({
         tags: z.array(z.string().transform(tagName => tagName.toUpperCase())).optional()
@@ -86,6 +88,10 @@ const ArticlesResponseSchema = z.object({
         message: "Le nombre total d'articles doit être un nombre entier positif."
     }),
     list: z.array(ArticleSchema)
+});
+
+const ArticleDeleteSchema = z.object({
+    id
 });
 
 const ArticleUpdateSchema = ArticleSchema
@@ -147,7 +153,7 @@ export async function POST(req) {
 
     try {
 
-        const requestBody = CreateArticleSchema.parse(JSON.parse(await req.text()));
+        const requestBody = ArticleCreateSchema.parse(JSON.parse(await req.text()));
 
         const tags = requestBody.tags;
         delete requestBody.tags;
@@ -317,6 +323,47 @@ export async function PATCH(req) {
         }
 
         return NextResponse.json({message: MESSAGES.API_SERVER_ERROR}, {status: 500});
+    }
+
+}
+
+export async function DELETE(req) {
+
+    try {
+
+        const request = ArticleDeleteSchema.parse(JSON.parse(await req.text()));
+
+        const articleId = request.id;
+
+        await prisma.article.delete({
+            where: {id: articleId},
+        });
+
+        return NextResponse.json({message: MESSAGES.SUCCESS_DELETE}, {status: 200});
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        if (error instanceof z.ZodError) {
+            return NextResponse.json({message: error.errors[0].message}, {status: 400});
+        }
+
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            if (error.code === 'P2025') {
+                return NextResponse.json({message: MESSAGES.ARTICLES_NOT_FOUND}, {status: 404});
+            }
+            if (error.code === 'P2002') {
+                return NextResponse.json({message: MESSAGES.ARTICLE_EDITOR_NOT_FOUND}, {status: 404});
+            }
+            if (error.code === 'P2003') {
+                return NextResponse.json({message: MESSAGES.ARTICLE_EDITOR_NOT_FOUND}, {status: 404});
+            }
+        }
+
+        return NextResponse.json({message: MESSAGES.API_SERVER_ERROR}, {status: 500});
+
     }
 
 }
