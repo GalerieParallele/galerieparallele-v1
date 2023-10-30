@@ -4,7 +4,9 @@ import {
     AiFillFacebook,
     AiFillInstagram,
     AiFillLinkedin,
-    AiOutlineArrowLeft, AiOutlineColumnHeight, AiOutlineColumnWidth,
+    AiOutlineArrowLeft,
+    AiOutlineColumnHeight,
+    AiOutlineColumnWidth,
     AiOutlineFieldNumber
 } from "react-icons/ai";
 import ROUTES from "@/constants/ROUTES";
@@ -32,6 +34,8 @@ import ArtisteNumerotationItem from "@/components/admin/artistes/new/ArtisteNume
 import {FaHandHoldingHeart, FaSignature} from "react-icons/fa";
 import CreatableSelect from "react-select/creatable";
 import Select from 'react-select'
+import {Toast} from "@/constants/ToastConfig";
+import StorageUtils from "@/utils/StorageUtils";
 
 export default function ArtisteAdminNew() {
 
@@ -39,8 +43,20 @@ export default function ArtisteAdminNew() {
 
     const animatedComponents = makeAnimated();
 
+    const [avatarURL, setAvatarURL] = useState(undefined);
+
     const [formData, setFormData] = useState({
-        email: '',
+        user: {
+            email: undefined,
+            avatarURL: undefined,
+            password: undefined,
+            firstname: undefined,
+            lastname: undefined,
+            phone: undefined,
+            street: undefined,
+            city: undefined,
+            postalCode: undefined,
+        },
         oeuvreArtist: [],
         oeuvreUnknownArtist: [],
         oeuvreType: [],
@@ -75,12 +91,88 @@ export default function ArtisteAdminNew() {
         });
     };
 
-    const handleChange = (e) => {
+    const handleUserChange = (e) => {
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value
+            user: {
+                ...formData.user,
+                [e.target.name]: e.target.value
+            }
         });
         console.log(formData);
+    };
+
+    const handleChangeAvatar = (e) => {
+        e.preventDefault();
+        setAvatarURL(e.target.files[0]);
+    };
+
+    const handleSubmit = async (e) => {
+
+        e.preventDefault();
+
+        if (avatarURL) {
+            const {downloadURL, error, success} = await StorageUtils.uploadFile(avatarURL, 'avatar', null);
+
+            if (!success) {
+                await Toast.fire({
+                    icon: 'error',
+                    title: error.toString()
+                });
+                return;
+            }
+
+            setFormData({
+                ...formData,
+                user: {
+                    ...formData.user,
+                    avatarURL: downloadURL
+                }
+            });
+        }
+
+        const res = await fetch('/api/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData.user),
+        });
+
+        const result = await res.json();
+
+        if (result.error) {
+            await Toast.fire({
+                icon: 'error',
+                title: result.error
+            });
+        } else {
+            await Toast.fire({
+                icon: 'success',
+                title: result.message
+            });
+        }
+    };
+
+    const handleGeneratePassword = (e) => {
+
+        e.preventDefault();
+
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#!*$^:/;.,?&';
+        let password = '';
+        const charactersLength = characters.length;
+
+        for (let i = 0; i < 12; i++) {
+            password += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+
+        setFormData({
+            ...formData,
+            user: {
+                ...formData.user,
+                password: password
+            }
+        });
     };
 
     return (
@@ -96,6 +188,10 @@ export default function ArtisteAdminNew() {
                     <div className={styles.head}>
                         <h1>Artistes</h1>
                         <h3>Création d&apos;un nouvel artiste</h3>
+                        <Button
+                            text={"Enregistrer"}
+                            onClick={handleSubmit}
+                        />
                     </div>
                     <div className={styles.sectionList}>
                         <ArtisteNewSectionItem
@@ -106,56 +202,109 @@ export default function ArtisteAdminNew() {
                                 type={"email"}
                                 IconComponent={MdEmail}
                                 placeholder={"Ex: example@mail.com"}
-                                onChange={handleChange}
+                                onChange={handleUserChange}
                                 name={"email"}
-                                value={formData.email}
+                                value={formData.user.email}
+                                required
                             />
-                            <IconInput
-                                label={"Mot de passe"}
-                                type={"password"}
-                                IconComponent={MdPassword}
-                                placeholder={"Ex: euI8k%$uYvg"}
-                            />
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    justifyContent: "center",
+                                    alignItems: "flex-end",
+                                    width: "100%",
+                                    gap: "1rem"
+                                }}>
+                                <div style={{
+                                    width: "100%",
+                                }}>
+                                    <IconInput
+                                        label={"Mot de passe"}
+                                        type={"password"}
+                                        IconComponent={MdPassword}
+                                        placeholder={"Ex: euI8k%$uYvg"}
+                                        onChange={handleUserChange}
+                                        name={"password"}
+                                        value={formData.user.password}
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <Button
+                                        type={""}
+                                        text={"Générer"}
+                                        onClick={handleGeneratePassword}
+                                    />
+                                </div>
+                            </div>
                             <IconInput
                                 label={"Avatar"}
                                 type={"file"}
                                 IconComponent={RxAvatar}
+                                onChange={handleChangeAvatar}
+                                name={"avatarURL"}
+                                accept={"image/*"}
                             />
                             <IconInput
                                 label={"Prénom"}
                                 type={"text"}
                                 IconComponent={BsFillFileEarmarkPersonFill}
                                 placeholder={"Ex: Jean"}
+                                onChange={handleUserChange}
+                                name={"firstname"}
+                                value={formData.user.firstname}
+                                required
                             />
                             <IconInput
                                 label={"Nom"}
                                 type={"text"}
                                 IconComponent={BsFillFileEarmarkPersonFill}
                                 placeholder={"Ex: Dupont"}
+                                onChange={handleUserChange}
+                                name={"lastname"}
+                                value={formData.user.lastname}
+                                required
                             />
                             <IconInput
                                 label={"Numéro de téléphone"}
                                 type={"tel"}
                                 IconComponent={BsTelephoneFill}
                                 placeholder={"Ex: 0769141995"}
+                                onChange={handleUserChange}
+                                name={"phone"}
+                                value={formData.user.phone}
+                                required
                             />
                             <IconInput
                                 label={"Adresse"}
                                 type={"text"}
                                 IconComponent={IoHome}
                                 placeholder={"Ex: 1 rue de la paix"}
+                                onChange={handleUserChange}
+                                name={"street"}
+                                value={formData.user.street}
+                                required
                             />
                             <IconInput
                                 label={"Ville"}
                                 type={"text"}
                                 IconComponent={IoHome}
                                 placeholder={"Ex: Paris"}
+                                onChange={handleUserChange}
+                                name={"city"}
+                                value={formData.user.city}
+                                required
                             />
                             <IconInput
                                 label={"Code postal"}
                                 type={"text"}
                                 IconComponent={IoHome}
                                 placeholder={"Ex: 75000"}
+                                onChange={handleUserChange}
+                                name={"postalCode"}
+                                value={formData.user.postalCode}
+                                required
                             />
                         </ArtisteNewSectionItem>
                         <ArtisteNewSectionItem
