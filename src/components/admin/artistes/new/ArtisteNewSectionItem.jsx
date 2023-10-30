@@ -20,7 +20,9 @@ export default function ArtisteNewSectionItem({sectionName, children}) {
             </div>
             <h3>{sectionName}</h3>
         </button>
-        <form className={`${!open ? styles.close : styles.open} ${styles.sectionContent}`}>
+        <form
+            onSubmit={(e) => e.preventDefault()}
+            className={`${!open ? styles.close : styles.open} ${styles.sectionContent}`}>
             {children}
         </form>
     </div>)
