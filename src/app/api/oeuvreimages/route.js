@@ -209,7 +209,7 @@ export async function DELETE(req) {
         if (error instanceof Prisma.PrismaClientKnownRequestError) {
 
             if (error.code === 'P2025') {
-                return NextResponse.json({message: MESSAGES.INVALID_USER}, {status: 404});
+                return NextResponse.json({message: MESSAGES.OEUVRE_IMAGE_NOT_FOUND}, {status: 404});
             }
 
             if (error.code === 'P2002') {
