@@ -43,9 +43,9 @@ const TagsResponseSchema = z.object({
             invalid_type_error: "Le nombre total de tags doit être un nombre entier positif.",
         })
         .int({
-            message: "Le nombre total de tags doit être un nombre entier positif.",
+            message: "Le nombre total de tags doit être un nombre entier.",
         })
-        .min(0, {
+        .positive({
             message: "Le nombre total de tags doit être un nombre entier positif.",
         }),
     list: z
