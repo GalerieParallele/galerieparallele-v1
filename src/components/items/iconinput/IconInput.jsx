@@ -25,7 +25,7 @@ function IconInput({IconComponent, label, type, required, ...inputProps}) {
                         onClick={handleOpenModalInformationRequired}
                         className={styles.required}
                         title={"Champ requis"}>
-                    {required && '*'}
+                    {required && ' *'}
                     </span>
                 </p>
             </div>
