@@ -252,11 +252,11 @@ export async function GET() {
 
 export async function POST(req) {
 
-    const {user, message} = await getUserFromToken(req);
-
-    if (message !== null) {
-        return NextResponse.json({message: message}, {status: 401});
-    }
+    // const {user, message} = await getUserFromToken(req);
+    //
+    // if (message !== null) {
+    //     return NextResponse.json({message: message}, {status: 401});
+    // }
 
     try {
 
