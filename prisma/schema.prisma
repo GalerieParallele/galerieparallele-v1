@@ -163,6 +163,8 @@ model Oeuvre {
   longueur Int // Longueur de l'oeuvre
   largeur  Int? // Largeur de l'oeuvre
 
+  prix Int @default(0) // Prix de l'oeuvre
+
   numerotation Int // Numérotation de l'oeuvre
   support      String // Support de l'oeuvre
   technique    String // Technique de l'oeuvre
