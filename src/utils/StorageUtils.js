@@ -35,11 +35,16 @@ class StorageUtils {
 
             return {
                 success: true,
-                downloadURL: await getDownloadURL(storageRef)
+                downloadURL: await getDownloadURL(storageRef),
+                error: null
             };
         } catch (error) {
             console.error(STORAGE_MESSAGES.FILE_UPLOAD_ERROR, error);
-            return {success: false, error};
+            return {
+                success: false,
+                downloadURL: null,
+                error
+            };
         }
     }
 
