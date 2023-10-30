@@ -11,6 +11,8 @@ const MESSAGES = {
     ARTICLE_EDITOR_NOT_FOUND: "L'éditeur de l'article n'a pas été trouvé.",
 
     SUCCESS_DELETE: "L'article a bien été supprimé.",
+
+    NO_DATA_TO_UPDATE: "Aucune donnée transmise pour mettre à jour l'article.",
 }
 
 const id = z.number({
@@ -95,10 +97,15 @@ const ArticleDeleteSchema = z.object({
 });
 
 const ArticleUpdateSchema = ArticleSchema
-    .omit({tags: true})
+    .partial()
     .extend({
-        tags: z.array(z.string().transform(tagName => tagName.toUpperCase())).optional()
+        id, // Remet l'id comme champ obligatoire
+        tags: z.array(z.string({
+            invalid_type_error: "Le nom d'un tag doit être une chaîne de caractères."
+        }).transform(tagName => tagName.toUpperCase())).optional()
     });
+
+console.log(ArticleUpdateSchema.shape)
 
 // ------------------------------------------
 
@@ -157,7 +164,6 @@ export async function POST(req) {
 
         const tags = requestBody.tags;
         delete requestBody.tags;
-
 
         const article = await prisma.article.create({
             data: {
@@ -233,10 +239,16 @@ export async function PATCH(req) {
 
         const requestBody = ArticleUpdateSchema.parse(JSON.parse(await req.text()));
 
+        const articleId = requestBody.id;
+        delete requestBody.id;
+
+        if (Object.keys(requestBody).length === 0 && (!requestBody.tags || requestBody.tags.length === 0)) {
+            return NextResponse.json({message: MESSAGES.NO_DATA_TO_UPDATE}, {status: 400});
+        }
+
         const tags = requestBody.tags;
         delete requestBody.tags;
 
-        const articleId = requestBody.id;
 
         await prisma.articleTag.deleteMany({
             where: {
@@ -248,11 +260,6 @@ export async function PATCH(req) {
             where: {id: articleId},
             data: {
                 ...requestBody,
-                editor: {
-                    connect: {
-                        id: requestBody.editor
-                    }
-                }
             },
             include: {
                 tags: {
@@ -268,6 +275,20 @@ export async function PATCH(req) {
                 editor: true,
             },
         });
+
+        if (requestBody.editor) {
+            await prisma.article.update({
+                where: {id: articleId},
+                data: {
+                    editor: {
+                        connect: {
+                            id: requestBody.editor
+                        }
+                    }
+                },
+            });
+        }
+
 
         if (tags && tags.length > 0) {
             await Promise.all(tags.map(async tag => {
@@ -297,6 +318,8 @@ export async function PATCH(req) {
                 editor: true,
             },
         });
+
+        articleWithUpdatedTags.tags = articleWithUpdatedTags.tags.map(tag => TagSchema.parse(tag.tag));
 
         const transformedAndValidatedArticle = ArticleSchema.parse(articleWithUpdatedTags);
 
