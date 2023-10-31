@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Ajout du fichier .idea/* dans le gitignore">
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Modification du style du head (admin -&gt; artistes -&gt; new)">
+      <change afterPath="$PROJECT_DIR$/src/app/api/artistes/route.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/users/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/users/route.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/admin/artistes/new/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/artistes/new/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -173,31 +173,7 @@
       <workItem from="1698233192676" duration="16540000" />
       <workItem from="1698401252174" duration="18621000" />
       <workItem from="1698679119328" duration="4203000" />
-      <workItem from="1698743225482" duration="2489000" />
-    </task>
-    <task id="LOCAL-00083" summary="minor update (docker standalone)">
-      <option name="closed" value="true" />
-      <created>1693522356698</created>
-      <option name="number" value="00083" />
-      <option name="presentableId" value="LOCAL-00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1693522356698</updated>
-    </task>
-    <task id="LOCAL-00084" summary="minor update (docker standalone)">
-      <option name="closed" value="true" />
-      <created>1693522584919</created>
-      <option name="number" value="00084" />
-      <option name="presentableId" value="LOCAL-00084" />
-      <option name="project" value="LOCAL" />
-      <updated>1693522584919</updated>
-    </task>
-    <task id="LOCAL-00085" summary="Création de fonctions utilitaires permettant de communiquer avec les services de firebase">
-      <option name="closed" value="true" />
-      <created>1693848559788</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1693848559788</updated>
+      <workItem from="1698743225482" duration="14123000" />
     </task>
     <task id="LOCAL-00086" summary="Edit du drag &amp; drop (bug restant à corriger)">
       <option name="closed" value="true" />
@@ -567,7 +543,31 @@
       <option name="project" value="LOCAL" />
       <updated>1698706131640</updated>
     </task>
-    <option name="localTasksCounter" value="132" />
+    <task id="LOCAL-00132" summary="Modification de la génération du mot de passe + a">
+      <option name="closed" value="true" />
+      <created>1698745862606</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1698745862607</updated>
+    </task>
+    <task id="LOCAL-00133" summary="Ajout de la mention requise pour une section (admin -&gt; artistes -&gt; new)">
+      <option name="closed" value="true" />
+      <created>1698748423231</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1698748423231</updated>
+    </task>
+    <task id="LOCAL-00134" summary="Modification du style du head (admin -&gt; artistes -&gt; new)">
+      <option name="closed" value="true" />
+      <created>1698748446468</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1698748446468</updated>
+    </task>
+    <option name="localTasksCounter" value="135" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -585,9 +585,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Styles admin artiste" />
-    <MESSAGE value="Modification du schéma de base de données" />
-    <MESSAGE value="Oeuvre admin artiste design" />
     <MESSAGE value="Ajout des placeholder sur les séléceteurs multiples" />
     <MESSAGE value="Changement du nombre minimum de numérotation" />
     <MESSAGE value="CHangement des informations juridiques, déplacement dans la bonne section" />
@@ -610,6 +607,9 @@
     <MESSAGE value="Changement du message d'erreur quand l'oeuvre d'une image n'a pas été trouvée" />
     <MESSAGE value="Revu de la route API concernant les articles et notamment l'update" />
     <MESSAGE value="Ajout du fichier .idea/* dans le gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout du fichier .idea/* dans le gitignore" />
+    <MESSAGE value="Modification de la génération du mot de passe + a" />
+    <MESSAGE value="Ajout de la mention requise pour une section (admin -&gt; artistes -&gt; new)" />
+    <MESSAGE value="Modification du style du head (admin -&gt; artistes -&gt; new)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modification du style du head (admin -&gt; artistes -&gt; new)" />
   </component>
 </project>

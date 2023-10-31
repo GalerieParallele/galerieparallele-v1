@@ -10,7 +10,7 @@ import {
     AiOutlineFieldNumber
 } from "react-icons/ai";
 import ROUTES from "@/constants/ROUTES";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 
 import makeAnimated from 'react-select/animated';
@@ -20,7 +20,7 @@ import styles from './Index.module.scss';
 import IconInput from "@/components/items/iconinput/IconInput";
 import {MdEmail, MdPassword} from "react-icons/md";
 import {RxAvatar} from "react-icons/rx";
-import {BsFillFileEarmarkPersonFill, BsHammer, BsTelephoneFill} from "react-icons/bs";
+import {BsBuildingsFill, BsFillFileEarmarkPersonFill, BsHammer, BsTelephoneFill} from "react-icons/bs";
 import ArtisteNewSectionItem from "@/components/admin/artistes/new/ArtisteNewSectionItem";
 import {IoHome, IoTextOutline} from "react-icons/io5";
 import {PiListNumbers, PiStool, PiUserRectangleBold} from "react-icons/pi";
@@ -58,11 +58,34 @@ export default function ArtisteAdminNew() {
             city: undefined,
             postalCode: undefined,
         },
+        artist: {
+            pseudo: undefined,
+            bio: undefined,
+            instagram: undefined,
+            facebook: undefined,
+            linkedin: undefined,
+            website: undefined,
+        },
+        legal: {
+            societe: undefined,
+            adrNumVoie: undefined,
+            adrRue: undefined,
+            adrVille: undefined,
+            adrCodePostal: undefined,
+            siret: undefined,
+            tva: undefined,
+            numMaisonsDesArtistes: undefined,
+            numSecuriteSociale: undefined
+        },
         oeuvreArtist: [],
         oeuvreUnknownArtist: [],
         oeuvreType: [],
         tags: [],
     });
+
+    useEffect(() => {
+        console.log(formData);
+    }, [formData]);
 
     const handleChangeArtist = (item) => {
         setFormData({
@@ -100,7 +123,26 @@ export default function ArtisteAdminNew() {
                 [e.target.name]: e.target.value
             }
         });
-        console.log(formData);
+    };
+
+    const handleArtistChange = (e) => {
+        setFormData({
+            ...formData,
+            artist: {
+                ...formData.artist,
+                [e.target.name]: e.target.value
+            }
+        });
+    };
+
+    const handleLegalChange = (e) => {
+        setFormData({
+            ...formData,
+            legal: {
+                ...formData.legal,
+                [e.target.name]: e.target.value
+            }
+        });
     };
 
     const handleChangeAvatar = (e) => {
@@ -114,50 +156,55 @@ export default function ArtisteAdminNew() {
 
         setLoading(true);
 
-        if (avatarURL) {
+        Toast.fire({icon: 'info', title: 'Création du compte utilisateur...'});
 
-            const {downloadURL, error, success} = await StorageUtils.uploadFile(avatarURL, 'avatar', null);
+        try {
 
-            if (!success) {
-                await Toast.fire({
-                    icon: 'error',
-                    title: error.toString()
-                });
-                return;
+            let avatarURLToUse = formData.user.avatarURL;
+
+            if (avatarURL) {
+
+                const {downloadURL, error, success} = await StorageUtils.uploadFile(avatarURL, 'avatar', null);
+
+                if (!success) throw new Error(error.toString());
+
+                avatarURLToUse = downloadURL;
+
             }
 
-            setFormData({
-                ...formData,
-                user: {
-                    ...formData.user,
-                    avatarURL: downloadURL
-                }
+            const userResponse = await fetch('/api/users', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({...formData.user, avatarURL: avatarURLToUse}),
             });
+
+            if (!userResponse.ok) throw new Error('Erreur lors de la création de l’utilisateur');
+            const {user} = await userResponse.json();
+            const userid = user.id;
+
+            const artistResponse = await fetch('/api/artistes', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({...formData.artist, userid}),
+            });
+
+            if (!artistResponse.ok) throw new Error('Erreur lors de la création de l’artiste');
+
+            await artistResponse.json(); // Si vous avez besoin de traiter la réponse de l'artiste, faites-le ici
+
+            Toast.fire({icon: 'success', title: 'Artiste créé avec succès !'});
+
+        } catch (error) {
+
+            console.error(error);
+
+            Toast.fire({icon: 'error', title: error.message || 'Une erreur est survenue'});
+
+        } finally {
+            setLoading(false);
         }
-
-        Toast.fire({
-            icon: 'info',
-            title: 'Création du compte utilisateur...'
-        });
-
-        const res = await fetch('/api/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData.user),
-        });
-
-        const result = await res.json();
-
-        Toast.fire({
-            icon: res.status === 201 ? 'success' : 'error',
-            title: result.message
-        });
-
-        setLoading(false);
-
     };
+
 
     const handleGeneratePassword = (e) => {
 
@@ -199,7 +246,7 @@ export default function ArtisteAdminNew() {
                         <h1>Artistes</h1>
                         <h3>Création d&apos;un nouvel artiste</h3>
                         <Button
-                            text={"Enregistrer"}
+                            text={"Créer"}
                             onClick={handleSubmit}
                             isLoading={loading}
                             disabled={loading}
@@ -208,6 +255,7 @@ export default function ArtisteAdminNew() {
                     <div className={styles.sectionList}>
                         <ArtisteNewSectionItem
                             sectionName={"Compte utilisateur"}
+                            required
                         >
                             <IconInput
                                 label={"E-mail"}
@@ -329,27 +377,6 @@ export default function ArtisteAdminNew() {
                             />
                         </ArtisteNewSectionItem>
                         <ArtisteNewSectionItem
-                            sectionName={"Informations juridiques"}
-                        >
-                            <IconInput
-                                label={"Numéro de SIRET (non visible sur le site)"}
-                                type={"text"}
-                                IconComponent={AiOutlineFieldNumber}
-                                placeholder={"Ex: 12345678912345"}
-                            />
-                            <IconInput
-                                label={"Numéro de TVA (non visible sur le site)"}
-                                type={"text"}
-                                IconComponent={AiOutlineFieldNumber}
-                                placeholder={"Ex: 12345678912345"}
-                            />
-                        </ArtisteNewSectionItem>
-                        <ArtisteNewSectionItem
-                            sectionName={"Relations contractuelles"}
-                        >
-                            <p>Prochainement...</p>
-                        </ArtisteNewSectionItem>
-                        <ArtisteNewSectionItem
                             sectionName={"Informations artiste"}
                         >
                             <IconInput
@@ -357,30 +384,45 @@ export default function ArtisteAdminNew() {
                                 type={"text"}
                                 IconComponent={BsFillFileEarmarkPersonFill}
                                 placeholder={"Ex: M4TRIX"}
+                                value={formData.artist.pseudo}
+                                name={"pseudo"}
+                                onChange={handleArtistChange}
                             />
                             <IconInput
                                 label={"Facebook"}
                                 type={"text"}
                                 IconComponent={AiFillFacebook}
                                 placeholder={"Ex: https://www.facebook.com/..."}
+                                value={formData.artist.facebook}
+                                name={"facebook"}
+                                onChange={handleArtistChange}
                             />
                             <IconInput
                                 label={"Instagram"}
                                 type={"text"}
                                 IconComponent={AiFillInstagram}
                                 placeholder={"Ex: https://www.instagram.com/..."}
+                                value={formData.artist.instagram}
+                                name={"instagram"}
+                                onChange={handleArtistChange}
                             />
                             <IconInput
                                 label={"LinkedIn"}
                                 type={"text"}
                                 IconComponent={AiFillLinkedin}
                                 placeholder={"Ex: https://www.linkedin.com/..."}
+                                value={formData.artist.linkedin}
+                                name={"linkedin"}
+                                onChange={handleArtistChange}
                             />
                             <IconInput
                                 label={"Site web"}
                                 type={"text"}
                                 IconComponent={FaEarthAfrica}
                                 placeholder={"Ex: https://www.m4trix.com"}
+                                value={formData.artist.website}
+                                name={"website"}
+                                onChange={handleArtistChange}
                             />
                             <div className={styles.specialSection}>
                                 <div className={styles.specialSectionHead}>
@@ -391,65 +433,125 @@ export default function ArtisteAdminNew() {
                                         <p>Biographie</p>
                                     </div>
                                 </div>
-                                <Editor/>
+                                <Editor
+                                    onEditorChange={(content) => {
+                                        setFormData(prevFormData => ({
+                                            ...prevFormData,
+                                            artist: {
+                                                ...prevFormData.artist,
+                                                bio: content
+                                            }
+                                        }));
+                                    }
+                                    }
+                                />
                             </div>
                         </ArtisteNewSectionItem>
                         <ArtisteNewSectionItem
-                            sectionName={"Illustrations"}
+                            sectionName={"Informations juridiques"}
+                            description={"Aucunes de ces informations ne seront visible publiquement sur le site."}
                         >
+                            <IconInput
+                                label={"Nom de société"}
+                                type={"text"}
+                                IconComponent={BsBuildingsFill}
+                                placeholder={"Ex: DP Gallery"}
+                                name={"societe"}
+                                value={formData.legal.societe}
+                                onChange={handleLegalChange}
+                                required
+                            />
+                            <IconInput
+                                label={"Numéro de voie"}
+                                type={"text"}
+                                IconComponent={IoHome}
+                                placeholder={"Ex: 1"}
+                                name={"adrNumVoie"}
+                                value={formData.legal.adrNumVoie}
+                                onChange={handleLegalChange}
+                                required
+                            />
+                            <IconInput
+                                label={"Nom de la voie"}
+                                type={"text"}
+                                IconComponent={IoHome}
+                                placeholder={"Ex: Rue de la paix"}
+                                name={"adrRue"}
+                                value={formData.legal.adrRue}
+                                onChange={handleLegalChange}
+                                required
+                            />
+                            <IconInput
+                                label={"Ville"}
+                                type={"text"}
+                                IconComponent={IoHome}
+                                placeholder={"Ex: Paris"}
+                                name={"adrVille"}
+                                value={formData.legal.adrVille}
+                                onChange={handleLegalChange}
+                                required
+                            />
+                            <IconInput
+                                label={"Code postal"}
+                                type={"text"}
+                                IconComponent={IoHome}
+                                placeholder={"Ex: 75000"}
+                                name={"adrCodePostal"}
+                                value={formData.legal.adrCodePostal}
+                                onChange={handleLegalChange}
+                                required
+                            />
                             <IconInput
                                 label={"Numéro de SIRET (non visible sur le site)"}
                                 type={"text"}
                                 IconComponent={AiOutlineFieldNumber}
                                 placeholder={"Ex: 12345678912345"}
+                                name={"siret"}
+                                value={formData.legal.siret}
+                                onChange={handleLegalChange}
+                                required
                             />
                             <IconInput
                                 label={"Numéro de TVA (non visible sur le site)"}
                                 type={"text"}
                                 IconComponent={AiOutlineFieldNumber}
                                 placeholder={"Ex: 12345678912345"}
+                                name={"tva"}
+                                value={formData.legal.tva}
+                                onChange={handleLegalChange}
+                                required
                             />
                             <IconInput
-                                label={"Nom d'artiste"}
+                                label={"Numéro maison des artistes (non visible sur le site)"}
                                 type={"text"}
-                                IconComponent={BsFillFileEarmarkPersonFill}
-                                placeholder={"Ex: M4TRIX"}
+                                IconComponent={AiOutlineFieldNumber}
+                                placeholder={"Ex: 12345678912345"}
+                                name={"numMaisonsDesArtistes"}
+                                value={formData.legal.numMaisonsDesArtistes}
+                                onChange={handleLegalChange}
+                                required
                             />
                             <IconInput
-                                label={"Facebook"}
+                                label={"Numéro de sécurité sociale (non visible sur le site)"}
                                 type={"text"}
-                                IconComponent={AiFillFacebook}
-                                placeholder={"Ex: https://www.facebook.com/..."}
+                                IconComponent={AiOutlineFieldNumber}
+                                placeholder={"Ex: 12345678912345"}
+                                name={"numSecuriteSociale"}
+                                value={formData.legal.numSecuriteSociale}
+                                onChange={handleLegalChange}
+                                required
                             />
-                            <IconInput
-                                label={"Instagram"}
-                                type={"text"}
-                                IconComponent={AiFillInstagram}
-                                placeholder={"Ex: https://www.instagram.com/..."}
-                            />
-                            <IconInput
-                                label={"LinkedIn"}
-                                type={"text"}
-                                IconComponent={AiFillLinkedin}
-                                placeholder={"Ex: https://www.linkedin.com/..."}
-                            />
-                            <IconInput
-                                label={"Site web"}
-                                type={"text"}
-                                IconComponent={FaEarthAfrica}
-                                placeholder={"Ex: https://www.m4trix.com"}
-                            />
-                            <div className={styles.specialSection}>
-                                <div className={styles.specialSectionHead}>
-                                        <span>
-                                            <GrTextAlignCenter/>
-                                        </span>
-                                    <div>
-                                        <p>Biographie</p>
-                                    </div>
-                                </div>
-                                <Editor/>
-                            </div>
+                        </ArtisteNewSectionItem>
+                        <ArtisteNewSectionItem
+                            sectionName={"Relations contractuelles"}
+                            description={"Aucunes de ces informations ne seront visible publiquement sur le site."}
+                        >
+                            <p>Prochainement...</p>
+                        </ArtisteNewSectionItem>
+                        <ArtisteNewSectionItem
+                            sectionName={"Illustrations"}
+                        >
+                            <p>Prochainement...</p>
                         </ArtisteNewSectionItem>
                         <ArtisteNewSectionItem
                             sectionName={"Save The Date"}
@@ -686,6 +788,7 @@ export default function ArtisteAdminNew() {
                 </div>
             </main>
         </Admin>
-    )
+    );
+
 
 }
