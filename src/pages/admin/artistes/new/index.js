@@ -5,12 +5,10 @@ import {
     AiFillInstagram,
     AiFillLinkedin,
     AiOutlineArrowLeft,
-    AiOutlineColumnHeight,
-    AiOutlineColumnWidth,
     AiOutlineFieldNumber
 } from "react-icons/ai";
 import ROUTES from "@/constants/ROUTES";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useReducer, useState} from "react";
 import {useRouter} from "next/router";
 
 import makeAnimated from 'react-select/animated';
@@ -20,140 +18,105 @@ import styles from './Index.module.scss';
 import IconInput from "@/components/items/iconinput/IconInput";
 import {MdEmail, MdPassword} from "react-icons/md";
 import {RxAvatar} from "react-icons/rx";
-import {BsBuildingsFill, BsFillFileEarmarkPersonFill, BsHammer, BsTelephoneFill} from "react-icons/bs";
+import {BsBuildingsFill, BsFillFileEarmarkPersonFill, BsTelephoneFill} from "react-icons/bs";
 import ArtisteNewSectionItem from "@/components/admin/artistes/new/ArtisteNewSectionItem";
-import {IoHome, IoTextOutline} from "react-icons/io5";
-import {PiListNumbers, PiStool, PiUserRectangleBold} from "react-icons/pi";
+import {IoHome} from "react-icons/io5";
 import Editor from "@/components/items/Editor";
 import {GrTextAlignCenter} from "react-icons/gr";
 import {FaEarthAfrica} from "react-icons/fa6";
-import {BiGroup, BiImageAdd, BiLaugh, BiSolidGroup} from "react-icons/bi";
-import {FiHash} from "react-icons/fi";
-import {IoIosResize} from "react-icons/io";
-import ArtisteNumerotationItem from "@/components/admin/artistes/new/ArtisteNumerotationItem";
-import {FaHandHoldingHeart, FaSignature} from "react-icons/fa";
-import CreatableSelect from "react-select/creatable";
-import Select from 'react-select'
 import {Toast} from "@/constants/ToastConfig";
 import StorageUtils from "@/utils/StorageUtils";
-import MultipleImages from "@/components/admin/artistes/new/MultipleImages";
+
+const initialState = {
+    user: {
+        email: undefined,
+        avatarURL: undefined,
+        password: undefined,
+        firstname: undefined,
+        lastname: undefined,
+        phone: undefined,
+        street: undefined,
+        city: undefined,
+        postalCode: undefined,
+    },
+    artist: {
+        pseudo: undefined,
+        bio: undefined,
+        instagram: undefined,
+        facebook: undefined,
+        linkedin: undefined,
+        website: undefined,
+    },
+    legal: {
+        societe: undefined,
+        adrNumVoie: undefined,
+        adrRue: undefined,
+        adrVille: undefined,
+        adrCodePostal: undefined,
+        siret: undefined,
+        tva: undefined,
+        numMaisonsDesArtistes: undefined,
+        numSecuriteSociale: undefined
+    },
+    oeuvreArtist: [],
+    oeuvreUnknownArtist: [],
+    oeuvreType: [],
+    tags: [],
+};
+
+function reducer(state, action) {
+    switch (action.type) {
+        case 'UPDATE_FORM':
+            const [field, nestedField] = action.payload.field.split('.');
+            return {
+                ...state,
+                [field]: {
+                    ...state[field],
+                    [nestedField]: action.payload.value,
+                },
+            };
+        default:
+            throw new Error();
+    }
+}
 
 export default function ArtisteAdminNew() {
 
-    const router = useRouter();
+    const [state, dispatch] = useReducer(reducer, initialState);
+    const [loading, setLoading] = useState(false);
+    const [avatarURL, setAvatarURL] = useState(undefined);
 
+    const router = useRouter();
     const animatedComponents = makeAnimated();
 
-    const [loading, setLoading] = useState(false);
+    /**
+     * Permet de mettre à jour le state du formulaire
+     * @param e
+     */
+    const handleChange = (e) => {
 
-    const [avatarURL, setAvatarURL] = useState(undefined);
-    const [formData, setFormData] = useState({
-        user: {
-            email: undefined,
-            avatarURL: undefined,
-            password: undefined,
-            firstname: undefined,
-            lastname: undefined,
-            phone: undefined,
-            street: undefined,
-            city: undefined,
-            postalCode: undefined,
-        },
-        artist: {
-            pseudo: undefined,
-            bio: undefined,
-            instagram: undefined,
-            facebook: undefined,
-            linkedin: undefined,
-            website: undefined,
-        },
-        legal: {
-            societe: undefined,
-            adrNumVoie: undefined,
-            adrRue: undefined,
-            adrVille: undefined,
-            adrCodePostal: undefined,
-            siret: undefined,
-            tva: undefined,
-            numMaisonsDesArtistes: undefined,
-            numSecuriteSociale: undefined
-        },
-        oeuvreArtist: [],
-        oeuvreUnknownArtist: [],
-        oeuvreType: [],
-        tags: [],
-    });
+        const {name, value, type, files} = e.target;
 
-    useEffect(() => {
-        console.log(formData);
-    }, [formData]);
-
-    const handleChangeArtist = (item) => {
-        setFormData({
-            ...formData,
-            oeuvreArtist: item
-        });
+        if (type === 'file') {
+            setAvatarURL(files[0]);
+        } else {
+            dispatch({
+                type: 'UPDATE_FORM',
+                payload: {field: name, value},
+            });
+        }
     };
 
-    const handleChangeUnknownArtist = (item) => {
-        setFormData({
-            ...formData,
-            oeuvreUnknownArtist: item
-        });
-    };
-
-    const handleChangeOeurveType = (item) => {
-        setFormData({
-            ...formData,
-            oeuvreType: item
-        });
-    };
-
-    const handleChangeTags = (item) => {
-        setFormData({
-            ...formData,
-            tags: item
-        });
-    };
-
-    const handleUserChange = (e) => {
-        setFormData({
-            ...formData,
-            user: {
-                ...formData.user,
-                [e.target.name]: e.target.value
-            }
-        });
-    };
-
-    const handleArtistChange = (e) => {
-        setFormData({
-            ...formData,
-            artist: {
-                ...formData.artist,
-                [e.target.name]: e.target.value
-            }
-        });
-    };
-
-    const handleLegalChange = (e) => {
-        setFormData({
-            ...formData,
-            legal: {
-                ...formData.legal,
-                [e.target.name]: e.target.value
-            }
-        });
-    };
-
-    const handleChangeAvatar = (e) => {
-        e.preventDefault();
-        setAvatarURL(e.target.files[0]);
-    };
-
+    /**
+     * Permet de gérer la soumission du formulaire
+     * @param e
+     * @returns {Promise<void>}
+     */
     const handleSubmit = async (e) => {
 
-        e.preventDefault();
+        if (e) {
+            e.preventDefault();
+        }
 
         setLoading(true);
 
@@ -161,7 +124,7 @@ export default function ArtisteAdminNew() {
 
         try {
 
-            let avatarURLToUse = formData.user.avatarURL;
+            let avatarURLToUse = state.user.avatarURL;
 
             if (avatarURL) {
 
@@ -176,22 +139,35 @@ export default function ArtisteAdminNew() {
             const userResponse = await fetch('/api/users', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({...formData.user, avatarURL: avatarURLToUse}),
+                body: JSON.stringify({
+                    ...state.user,
+                    avatarURL: avatarURLToUse,
+                }),
             });
 
-            if (!userResponse.ok) throw new Error('Erreur lors de la création de l’utilisateur');
-            const {user} = await userResponse.json();
+            const userResponseJson = await userResponse.json();
+
+            if (!userResponse.ok) throw new Error(userResponseJson.message);
+
+            const user = userResponseJson.user;
             const userid = user.id;
 
             const artistResponse = await fetch('/api/artistes', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({...formData.artist, userid}),
+                body: JSON.stringify({
+                    ...state.artist,
+                    userid,
+                }),
             });
 
             if (!artistResponse.ok) throw new Error('Erreur lors de la création de l’artiste');
 
-            await artistResponse.json(); // Si vous avez besoin de traiter la réponse de l'artiste, faites-le ici
+            const artistsResponseJSON = await artistResponse.json();
+
+            const artistid = artistsResponseJSON.id;
+
+
 
             Toast.fire({icon: 'success', title: 'Artiste créé avec succès !'});
 
@@ -206,10 +182,15 @@ export default function ArtisteAdminNew() {
         }
     };
 
-
+    /**
+     * Permet de générer un mot de passe aléatoire
+     * @param e
+     */
     const handleGeneratePassword = (e) => {
 
-        e.preventDefault();
+        if (e) {
+            e.preventDefault();
+        }
 
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#!*$^:/;.,?&';
         let password = '';
@@ -221,17 +202,18 @@ export default function ArtisteAdminNew() {
         }
 
         if (regex.test(password)) {
-            setFormData({
-                ...formData,
-                user: {
-                    ...formData.user,
-                    password: password
-                }
+            dispatch({
+                type: 'UPDATE_FORM',
+                payload: {field: 'user.password', value: password},
             });
         } else {
             handleGeneratePassword(e);
         }
     };
+
+    useEffect(() => {
+        console.log(state);
+    }, [state]);
 
     return (
         <Admin>
@@ -263,10 +245,11 @@ export default function ArtisteAdminNew() {
                                 type={"email"}
                                 IconComponent={MdEmail}
                                 placeholder={"Ex: example@mail.com"}
-                                onChange={handleUserChange}
-                                name={"email"}
-                                value={formData.user.email}
+                                onChange={handleChange}
+                                name={"user.email"}
+                                value={state.user.email}
                                 disabled={loading}
+                                autoComplete={"email"}
                                 required
                             />
                             <div
@@ -286,10 +269,11 @@ export default function ArtisteAdminNew() {
                                         type={"password"}
                                         IconComponent={MdPassword}
                                         placeholder={"Ex: euI8k%$uYvg"}
-                                        onChange={handleUserChange}
-                                        name={"password"}
-                                        value={formData.user.password}
+                                        onChange={handleChange}
+                                        name={"user.password"}
+                                        value={state.user.password}
                                         disabled={loading}
+                                        autoComplete={"current-password"}
                                         required
                                     />
                                 </div>
@@ -305,8 +289,8 @@ export default function ArtisteAdminNew() {
                                 label={"Avatar"}
                                 type={"file"}
                                 IconComponent={RxAvatar}
-                                onChange={handleChangeAvatar}
-                                name={"avatarURL"}
+                                onChange={handleChange}
+                                name={"user.avatarURL"}
                                 accept={"image/*"}
                                 disabled={loading}
                             />
@@ -315,9 +299,9 @@ export default function ArtisteAdminNew() {
                                 type={"text"}
                                 IconComponent={BsFillFileEarmarkPersonFill}
                                 placeholder={"Ex: Jean"}
-                                onChange={handleUserChange}
-                                name={"firstname"}
-                                value={formData.user.firstname}
+                                onChange={handleChange}
+                                name={"user.firstname"}
+                                value={state.user.firstname}
                                 disabled={loading}
                                 required
                             />
@@ -326,9 +310,9 @@ export default function ArtisteAdminNew() {
                                 type={"text"}
                                 IconComponent={BsFillFileEarmarkPersonFill}
                                 placeholder={"Ex: Dupont"}
-                                onChange={handleUserChange}
-                                name={"lastname"}
-                                value={formData.user.lastname}
+                                onChange={handleChange}
+                                name={"user.lastname"}
+                                value={state.user.lastname}
                                 disabled={loading}
                                 required
                             />
@@ -337,9 +321,9 @@ export default function ArtisteAdminNew() {
                                 type={"tel"}
                                 IconComponent={BsTelephoneFill}
                                 placeholder={"Ex: 0769141995"}
-                                onChange={handleUserChange}
-                                name={"phone"}
-                                value={formData.user.phone}
+                                onChange={handleChange}
+                                name={"user.phone"}
+                                value={state.user.phone}
                                 disabled={loading}
                                 required
                             />
@@ -348,9 +332,9 @@ export default function ArtisteAdminNew() {
                                 type={"text"}
                                 IconComponent={IoHome}
                                 placeholder={"Ex: 1 rue de la paix"}
-                                onChange={handleUserChange}
-                                name={"street"}
-                                value={formData.user.street}
+                                onChange={handleChange}
+                                name={"user.street"}
+                                value={state.user.street}
                                 disabled={loading}
                                 required
                             />
@@ -359,9 +343,9 @@ export default function ArtisteAdminNew() {
                                 type={"text"}
                                 IconComponent={IoHome}
                                 placeholder={"Ex: Paris"}
-                                onChange={handleUserChange}
-                                name={"city"}
-                                value={formData.user.city}
+                                onChange={handleChange}
+                                name={"user.city"}
+                                value={state.user.city}
                                 disabled={loading}
                                 required
                             />
@@ -370,9 +354,9 @@ export default function ArtisteAdminNew() {
                                 type={"text"}
                                 IconComponent={IoHome}
                                 placeholder={"Ex: 75000"}
-                                onChange={handleUserChange}
-                                name={"postalCode"}
-                                value={formData.user.postalCode}
+                                onChange={handleChange}
+                                name={"user.postalCode"}
+                                value={state.user.postalCode}
                                 disabled={loading}
                                 required
                             />
@@ -385,45 +369,45 @@ export default function ArtisteAdminNew() {
                                 type={"text"}
                                 IconComponent={BsFillFileEarmarkPersonFill}
                                 placeholder={"Ex: M4TRIX"}
-                                value={formData.artist.pseudo}
-                                name={"pseudo"}
-                                onChange={handleArtistChange}
+                                value={state.artist.pseudo}
+                                name={"artist.pseudo"}
+                                onChange={handleChange}
                             />
                             <IconInput
                                 label={"Facebook"}
                                 type={"text"}
                                 IconComponent={AiFillFacebook}
                                 placeholder={"Ex: https://www.facebook.com/..."}
-                                value={formData.artist.facebook}
-                                name={"facebook"}
-                                onChange={handleArtistChange}
+                                value={state.artist.facebook}
+                                name={"artist.facebook"}
+                                onChange={handleChange}
                             />
                             <IconInput
                                 label={"Instagram"}
                                 type={"text"}
                                 IconComponent={AiFillInstagram}
                                 placeholder={"Ex: https://www.instagram.com/..."}
-                                value={formData.artist.instagram}
-                                name={"instagram"}
-                                onChange={handleArtistChange}
+                                value={state.artist.instagram}
+                                name={"artist.instagram"}
+                                onChange={handleChange}
                             />
                             <IconInput
                                 label={"LinkedIn"}
                                 type={"text"}
                                 IconComponent={AiFillLinkedin}
                                 placeholder={"Ex: https://www.linkedin.com/..."}
-                                value={formData.artist.linkedin}
-                                name={"linkedin"}
-                                onChange={handleArtistChange}
+                                value={state.artist.linkedin}
+                                name={"artist.linkedin"}
+                                onChange={handleChange}
                             />
                             <IconInput
                                 label={"Site web"}
                                 type={"text"}
                                 IconComponent={FaEarthAfrica}
                                 placeholder={"Ex: https://www.m4trix.com"}
-                                value={formData.artist.website}
-                                name={"website"}
-                                onChange={handleArtistChange}
+                                value={state.artist.website}
+                                name={"artist.website"}
+                                onChange={handleChange}
                             />
                             <div className={styles.specialSection}>
                                 <div className={styles.specialSectionHead}>
@@ -436,13 +420,10 @@ export default function ArtisteAdminNew() {
                                 </div>
                                 <Editor
                                     onEditorChange={(content) => {
-                                        setFormData(prevFormData => ({
-                                            ...prevFormData,
-                                            artist: {
-                                                ...prevFormData.artist,
-                                                bio: content
-                                            }
-                                        }));
+                                        dispatch({
+                                            type: 'UPDATE_FORM',
+                                            payload: {field: 'artist.bio', value: content},
+                                        });
                                     }
                                     }
                                 />
@@ -457,9 +438,9 @@ export default function ArtisteAdminNew() {
                                 type={"text"}
                                 IconComponent={BsBuildingsFill}
                                 placeholder={"Ex: DP Gallery"}
-                                name={"societe"}
-                                value={formData.legal.societe}
-                                onChange={handleLegalChange}
+                                name={"legal.societe"}
+                                value={state.legal.societe}
+                                onChange={handleChange}
                                 required
                             />
                             <IconInput
@@ -467,9 +448,9 @@ export default function ArtisteAdminNew() {
                                 type={"text"}
                                 IconComponent={IoHome}
                                 placeholder={"Ex: 1"}
-                                name={"adrNumVoie"}
-                                value={formData.legal.adrNumVoie}
-                                onChange={handleLegalChange}
+                                name={"legal.adrNumVoie"}
+                                value={state.legal.adrNumVoie}
+                                onChange={handleChange}
                                 required
                             />
                             <IconInput
@@ -477,9 +458,9 @@ export default function ArtisteAdminNew() {
                                 type={"text"}
                                 IconComponent={IoHome}
                                 placeholder={"Ex: Rue de la paix"}
-                                name={"adrRue"}
-                                value={formData.legal.adrRue}
-                                onChange={handleLegalChange}
+                                name={"legal.adrRue"}
+                                value={state.legal.adrRue}
+                                onChange={handleChange}
                                 required
                             />
                             <IconInput
@@ -487,9 +468,9 @@ export default function ArtisteAdminNew() {
                                 type={"text"}
                                 IconComponent={IoHome}
                                 placeholder={"Ex: Paris"}
-                                name={"adrVille"}
-                                value={formData.legal.adrVille}
-                                onChange={handleLegalChange}
+                                name={"legal.adrVille"}
+                                value={state.legal.adrVille}
+                                onChange={handleChange}
                                 required
                             />
                             <IconInput
@@ -497,9 +478,9 @@ export default function ArtisteAdminNew() {
                                 type={"text"}
                                 IconComponent={IoHome}
                                 placeholder={"Ex: 75000"}
-                                name={"adrCodePostal"}
-                                value={formData.legal.adrCodePostal}
-                                onChange={handleLegalChange}
+                                name={"legal.adrCodePostal"}
+                                value={state.legal.adrCodePostal}
+                                onChange={handleChange}
                                 required
                             />
                             <IconInput
@@ -507,9 +488,9 @@ export default function ArtisteAdminNew() {
                                 type={"text"}
                                 IconComponent={AiOutlineFieldNumber}
                                 placeholder={"Ex: 12345678912345"}
-                                name={"siret"}
-                                value={formData.legal.siret}
-                                onChange={handleLegalChange}
+                                name={"legal.siret"}
+                                value={state.legal.siret}
+                                onChange={handleChange}
                                 required
                             />
                             <IconInput
@@ -517,9 +498,9 @@ export default function ArtisteAdminNew() {
                                 type={"text"}
                                 IconComponent={AiOutlineFieldNumber}
                                 placeholder={"Ex: 12345678912345"}
-                                name={"tva"}
-                                value={formData.legal.tva}
-                                onChange={handleLegalChange}
+                                name={"legal.tva"}
+                                value={state.legal.tva}
+                                onChange={handleChange}
                                 required
                             />
                             <IconInput
@@ -527,9 +508,9 @@ export default function ArtisteAdminNew() {
                                 type={"text"}
                                 IconComponent={AiOutlineFieldNumber}
                                 placeholder={"Ex: 12345678912345"}
-                                name={"numMaisonsDesArtistes"}
-                                value={formData.legal.numMaisonsDesArtistes}
-                                onChange={handleLegalChange}
+                                name={"legal.numMaisonsDesArtistes"}
+                                value={state.legal.numMaisonsDesArtistes}
+                                onChange={handleChange}
                                 required
                             />
                             <IconInput
@@ -537,254 +518,254 @@ export default function ArtisteAdminNew() {
                                 type={"text"}
                                 IconComponent={AiOutlineFieldNumber}
                                 placeholder={"Ex: 12345678912345"}
-                                name={"numSecuriteSociale"}
-                                value={formData.legal.numSecuriteSociale}
-                                onChange={handleLegalChange}
+                                name={"legal.numSecuriteSociale"}
+                                value={state.legal.numSecuriteSociale}
+                                onChange={handleChange}
                                 required
                             />
                         </ArtisteNewSectionItem>
-                        <ArtisteNewSectionItem
-                            sectionName={"Relations contractuelles"}
-                            description={"Aucunes de ces informations ne seront visible publiquement sur le site."}
-                        >
-                            <p>Prochainement...</p>
-                        </ArtisteNewSectionItem>
-                        <ArtisteNewSectionItem
-                            sectionName={"Illustrations"}
-                        >
-                            <p>Prochainement...</p>
-                        </ArtisteNewSectionItem>
-                        <ArtisteNewSectionItem
-                            sectionName={"Save The Date"}
-                        >
-                            <p>Prochainement...</p>
-                        </ArtisteNewSectionItem>
-                        <ArtisteNewSectionItem
-                            sectionName={"Oeuvres"}
-                        >
-                            <IconInput
-                                label={"Nom de l'oeuvre"}
-                                type={"text"}
-                                IconComponent={IoTextOutline}
-                                placeholder={"Ex: Sur le chemin de la vie"}
-                            />
-                            <div className={styles.specialSection}>
-                                <div className={styles.specialSectionHead}>
-                                        <span>
-                                            <BiSolidGroup/>
-                                        </span>
-                                    <div>
-                                        <p>Artistes connu</p>
-                                    </div>
-                                </div>
-                                <Select
-                                    placeholder={"Sélectionner un ou plusieurs artistes connu"}
-                                    closeMenuOnSelect={false}
-                                    components={animatedComponents}
-                                    defaultValue={[]}
-                                    isMulti
-                                    options={[
-                                        {value: '1', label: 'Richard Orlinksi'},
-                                        {value: '2', label: 'Jean-Michel Basquiat'},
-                                        {value: '3', label: 'Andy Warhol'},
-                                        {value: '4', label: 'Keith Haring'},
-                                        {value: '5', label: 'Banksy'},
-                                        {value: '6', label: 'JR'},
-                                        {value: '7', label: 'Invader'},
-                                        {value: '8', label: 'Kaws'},
-                                        {value: '9', label: 'Shepard Fairey'},
-                                        {value: '10', label: 'Vhils'},
-                                    ]}
-                                    onChange={handleChangeArtist}
-                                    value={formData.oeuvreArtist}
-                                />
-                            </div>
-                            <div className={styles.specialSection}>
-                                <div className={styles.specialSectionHead}>
-                                        <span>
-                                            <BiGroup/>
-                                        </span>
-                                    <div>
-                                        <p>Artistes non référencé</p>
-                                    </div>
-                                </div>
-                                <CreatableSelect
-                                    placeholder={"Sélectionner un ou plusieurs artistes non référencé"}
-                                    closeMenuOnSelect={false}
-                                    components={animatedComponents}
-                                    defaultValue={[]}
-                                    isMulti
-                                    options={[
-                                        {value: '1', label: 'Mathieu'},
-                                        {value: '2', label: 'Jean'},
-                                        {value: '3', label: 'Pierre'},
-                                        {value: '4', label: 'Paul'},
-                                        {value: '5', label: 'Jacques'},
-                                        {value: '6', label: 'Jean-Pierre'},
-                                        {value: '7', label: 'Jean-Jacques'},
-                                        {value: '8', label: 'Jean-Paul'},
-                                        {value: '9', label: 'Pierre-Paul'},
-                                        {value: '10', label: 'Pierre-Jacques'},
-                                    ]}
-                                    onChange={handleChangeUnknownArtist}
-                                    value={formData.oeuvreUnknownArtist}
-                                />
-                            </div>
-                            <div className={styles.specialSection}>
-                                <div className={styles.specialSectionHead}>
-                                        <span>
-                                            <BiImageAdd/>
-                                        </span>
-                                    <div>
-                                        <p>Image(s)</p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <MultipleImages />
-                                </div>
-                            </div>
-                            <div className={styles.specialSection}>
-                                <div className={styles.specialSectionHead}>
-                                        <span>
-                                            <BsHammer/>
-                                        </span>
-                                    <div>
-                                        <p>Type de l&lsquo;oeuvre</p>
-                                    </div>
-                                </div>
-                                <CreatableSelect
-                                    placeholder={"Sélectionner un ou plusieurs type pour l'oeuvre"}
-                                    closeMenuOnSelect={false}
-                                    components={animatedComponents}
-                                    defaultValue={[]}
-                                    isMulti
-                                    options={[
-                                        {value: '1', label: 'Sculpture'},
-                                        {value: '2', label: 'Peinture'},
-                                        {value: '3', label: 'Photographie'},
-                                        {value: '4', label: 'Dessin'},
-                                        {value: '5', label: 'Graffiti'},
-                                        {value: '6', label: 'Street Art'},
-                                        {value: '7', label: 'Art numérique'},
-                                        {value: '8', label: 'Art vidéo'},
-                                        {value: '9', label: 'Art sonore'},
-                                        {value: '10', label: 'Art performance'},
-                                    ]}
-                                    onChange={handleChangeOeurveType}
-                                    value={formData.oeuvreType}
-                                />
-                            </div>
-                            <div className={styles.specialSection}>
-                                <div className={styles.specialSectionHead}>
-                                        <span>
-                                            <FiHash/>
-                                        </span>
-                                    <div>
-                                        <p>Tags</p>
-                                    </div>
-                                </div>
-                                <CreatableSelect
-                                    placeholder={"Sélectionner un ou plusieurs tags pour l'oeuvre"}
-                                    closeMenuOnSelect={false}
-                                    components={animatedComponents}
-                                    defaultValue={[]}
-                                    isMulti
-                                    options={[
-                                        {value: '1', label: 'Sculpture'},
-                                        {value: '2', label: 'Peinture'},
-                                        {value: '3', label: 'Photographie'},
-                                        {value: '4', label: 'Dessin'},
-                                        {value: '5', label: 'Graffiti'},
-                                        {value: '6', label: 'Street Art'},
-                                        {value: '7', label: 'Art numérique'},
-                                        {value: '8', label: 'Art vidéo'},
-                                        {value: '9', label: 'Art sonore'},
-                                        {value: '10', label: 'Art performance'},
-                                    ]}
-                                    onChange={handleChangeTags}
-                                    value={formData.tags}
-                                />
-                            </div>
-                            <div className={styles.specialSection}>
-                                <div className={styles.specialSectionHead}>
-                                    <span>
-                                        <GrTextAlignCenter/>
-                                    </span>
-                                    <div>
-                                        <p>Description de l&lsquo;oeuvre</p>
-                                    </div>
-                                </div>
-                                <Editor/>
-                            </div>
-                            <div className={styles.specialSection}>
-                                <div className={styles.specialSectionHead}>
-                                    <span>
-                                        <BiLaugh/>
-                                    </span>
-                                    <div>
-                                        <p>Anecdote</p>
-                                    </div>
-                                </div>
-                                <Editor/>
-                            </div>
-                            <IconInput
-                                label={"Hauteur (en cm)"}
-                                type={"number"}
-                                IconComponent={AiOutlineColumnHeight}
-                                placeholder={"Ex: 120"}
-                                required
-                            />
-                            <IconInput
-                                label={"Longueur (en cm)"}
-                                type={"number"}
-                                IconComponent={AiOutlineColumnWidth}
-                                placeholder={"Ex: 80"}
-                                required
-                            />
-                            <IconInput
-                                label={"Largeur (en cm)"}
-                                type={"number"}
-                                IconComponent={IoIosResize}
-                                placeholder={"Ex: 30"}
-                            />
-                            <div className={styles.specialSection}>
-                                <div className={styles.specialSectionHead}>
-                                    <span>
-                                        <PiListNumbers/>
-                                    </span>
-                                    <div>
-                                        <p>Numérotation</p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <ArtisteNumerotationItem/>
-                                </div>
-                            </div>
-                            <IconInput
-                                label={"Support et matériau(x) utilisé(s)"}
-                                type={"text"}
-                                IconComponent={PiStool}
-                                placeholder={"Ex: Papier photo, Toile..."}
-                            />
-                            <IconInput
-                                label={"Technique(s) utilisée(s)"}
-                                type={"text"}
-                                IconComponent={FaHandHoldingHeart}
-                                placeholder={"Ex: Peinture à l'huile, Acrylique..."}
-                            />
-                            <IconInput
-                                label={"Encadrement"}
-                                type={"text"}
-                                IconComponent={PiUserRectangleBold}
-                                placeholder={"Ex: Caisse américaine, Cadre..."}
-                            />
-                            <IconInput
-                                label={"Signature"}
-                                type={"text"}
-                                IconComponent={FaSignature}
-                                placeholder={"Ex: Signé en bas à droite"}
-                            />
-                        </ArtisteNewSectionItem>
+                        {/*<ArtisteNewSectionItem*/}
+                        {/*    sectionName={"Relations contractuelles"}*/}
+                        {/*    description={"Aucunes de ces informations ne seront visible publiquement sur le site."}*/}
+                        {/*>*/}
+                        {/*    <p>Prochainement...</p>*/}
+                        {/*</ArtisteNewSectionItem>*/}
+                        {/*<ArtisteNewSectionItem*/}
+                        {/*    sectionName={"Illustrations"}*/}
+                        {/*>*/}
+                        {/*    <p>Prochainement...</p>*/}
+                        {/*</ArtisteNewSectionItem>*/}
+                        {/*<ArtisteNewSectionItem*/}
+                        {/*    sectionName={"Save The Date"}*/}
+                        {/*>*/}
+                        {/*    <p>Prochainement...</p>*/}
+                        {/*</ArtisteNewSectionItem>*/}
+                        {/*<ArtisteNewSectionItem*/}
+                        {/*    sectionName={"Oeuvres"}*/}
+                        {/*>*/}
+                        {/*    <IconInput*/}
+                        {/*        label={"Nom de l'oeuvre"}*/}
+                        {/*        type={"text"}*/}
+                        {/*        IconComponent={IoTextOutline}*/}
+                        {/*        placeholder={"Ex: Sur le chemin de la vie"}*/}
+                        {/*    />*/}
+                        {/*    <div className={styles.specialSection}>*/}
+                        {/*        <div className={styles.specialSectionHead}>*/}
+                        {/*                <span>*/}
+                        {/*                    <BiSolidGroup/>*/}
+                        {/*                </span>*/}
+                        {/*            <div>*/}
+                        {/*                <p>Artistes connu</p>*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*        <Select*/}
+                        {/*            placeholder={"Sélectionner un ou plusieurs artistes connu"}*/}
+                        {/*            closeMenuOnSelect={false}*/}
+                        {/*            components={animatedComponents}*/}
+                        {/*            defaultValue={[]}*/}
+                        {/*            isMulti*/}
+                        {/*            options={[*/}
+                        {/*                {value: '1', label: 'Richard Orlinksi'},*/}
+                        {/*                {value: '2', label: 'Jean-Michel Basquiat'},*/}
+                        {/*                {value: '3', label: 'Andy Warhol'},*/}
+                        {/*                {value: '4', label: 'Keith Haring'},*/}
+                        {/*                {value: '5', label: 'Banksy'},*/}
+                        {/*                {value: '6', label: 'JR'},*/}
+                        {/*                {value: '7', label: 'Invader'},*/}
+                        {/*                {value: '8', label: 'Kaws'},*/}
+                        {/*                {value: '9', label: 'Shepard Fairey'},*/}
+                        {/*                {value: '10', label: 'Vhils'},*/}
+                        {/*            ]}*/}
+                        {/*            onChange={handleChangeArtist}*/}
+                        {/*            value={formData.oeuvreArtist}*/}
+                        {/*        />*/}
+                        {/*    </div>*/}
+                        {/*    <div className={styles.specialSection}>*/}
+                        {/*        <div className={styles.specialSectionHead}>*/}
+                        {/*                <span>*/}
+                        {/*                    <BiGroup/>*/}
+                        {/*                </span>*/}
+                        {/*            <div>*/}
+                        {/*                <p>Artistes non référencé</p>*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*        <CreatableSelect*/}
+                        {/*            placeholder={"Sélectionner un ou plusieurs artistes non référencé"}*/}
+                        {/*            closeMenuOnSelect={false}*/}
+                        {/*            components={animatedComponents}*/}
+                        {/*            defaultValue={[]}*/}
+                        {/*            isMulti*/}
+                        {/*            options={[*/}
+                        {/*                {value: '1', label: 'Mathieu'},*/}
+                        {/*                {value: '2', label: 'Jean'},*/}
+                        {/*                {value: '3', label: 'Pierre'},*/}
+                        {/*                {value: '4', label: 'Paul'},*/}
+                        {/*                {value: '5', label: 'Jacques'},*/}
+                        {/*                {value: '6', label: 'Jean-Pierre'},*/}
+                        {/*                {value: '7', label: 'Jean-Jacques'},*/}
+                        {/*                {value: '8', label: 'Jean-Paul'},*/}
+                        {/*                {value: '9', label: 'Pierre-Paul'},*/}
+                        {/*                {value: '10', label: 'Pierre-Jacques'},*/}
+                        {/*            ]}*/}
+                        {/*            onChange={handleChangeUnknownArtist}*/}
+                        {/*            value={formData.oeuvreUnknownArtist}*/}
+                        {/*        />*/}
+                        {/*    </div>*/}
+                        {/*    <div className={styles.specialSection}>*/}
+                        {/*        <div className={styles.specialSectionHead}>*/}
+                        {/*                <span>*/}
+                        {/*                    <BiImageAdd/>*/}
+                        {/*                </span>*/}
+                        {/*            <div>*/}
+                        {/*                <p>Image(s)</p>*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*        <div>*/}
+                        {/*            <MultipleImages/>*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+                        {/*    <div className={styles.specialSection}>*/}
+                        {/*        <div className={styles.specialSectionHead}>*/}
+                        {/*                <span>*/}
+                        {/*                    <BsHammer/>*/}
+                        {/*                </span>*/}
+                        {/*            <div>*/}
+                        {/*                <p>Type de l&lsquo;oeuvre</p>*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*        <CreatableSelect*/}
+                        {/*            placeholder={"Sélectionner un ou plusieurs type pour l'oeuvre"}*/}
+                        {/*            closeMenuOnSelect={false}*/}
+                        {/*            components={animatedComponents}*/}
+                        {/*            defaultValue={[]}*/}
+                        {/*            isMulti*/}
+                        {/*            options={[*/}
+                        {/*                {value: '1', label: 'Sculpture'},*/}
+                        {/*                {value: '2', label: 'Peinture'},*/}
+                        {/*                {value: '3', label: 'Photographie'},*/}
+                        {/*                {value: '4', label: 'Dessin'},*/}
+                        {/*                {value: '5', label: 'Graffiti'},*/}
+                        {/*                {value: '6', label: 'Street Art'},*/}
+                        {/*                {value: '7', label: 'Art numérique'},*/}
+                        {/*                {value: '8', label: 'Art vidéo'},*/}
+                        {/*                {value: '9', label: 'Art sonore'},*/}
+                        {/*                {value: '10', label: 'Art performance'},*/}
+                        {/*            ]}*/}
+                        {/*            onChange={handleChangeOeurveType}*/}
+                        {/*            value={formData.oeuvreType}*/}
+                        {/*        />*/}
+                        {/*    </div>*/}
+                        {/*    <div className={styles.specialSection}>*/}
+                        {/*        <div className={styles.specialSectionHead}>*/}
+                        {/*                <span>*/}
+                        {/*                    <FiHash/>*/}
+                        {/*                </span>*/}
+                        {/*            <div>*/}
+                        {/*                <p>Tags</p>*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*        <CreatableSelect*/}
+                        {/*            placeholder={"Sélectionner un ou plusieurs tags pour l'oeuvre"}*/}
+                        {/*            closeMenuOnSelect={false}*/}
+                        {/*            components={animatedComponents}*/}
+                        {/*            defaultValue={[]}*/}
+                        {/*            isMulti*/}
+                        {/*            options={[*/}
+                        {/*                {value: '1', label: 'Sculpture'},*/}
+                        {/*                {value: '2', label: 'Peinture'},*/}
+                        {/*                {value: '3', label: 'Photographie'},*/}
+                        {/*                {value: '4', label: 'Dessin'},*/}
+                        {/*                {value: '5', label: 'Graffiti'},*/}
+                        {/*                {value: '6', label: 'Street Art'},*/}
+                        {/*                {value: '7', label: 'Art numérique'},*/}
+                        {/*                {value: '8', label: 'Art vidéo'},*/}
+                        {/*                {value: '9', label: 'Art sonore'},*/}
+                        {/*                {value: '10', label: 'Art performance'},*/}
+                        {/*            ]}*/}
+                        {/*            onChange={handleChangeTags}*/}
+                        {/*            value={formData.tags}*/}
+                        {/*        />*/}
+                        {/*    </div>*/}
+                        {/*    <div className={styles.specialSection}>*/}
+                        {/*        <div className={styles.specialSectionHead}>*/}
+                        {/*            <span>*/}
+                        {/*                <GrTextAlignCenter/>*/}
+                        {/*            </span>*/}
+                        {/*            <div>*/}
+                        {/*                <p>Description de l&lsquo;oeuvre</p>*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*        <Editor/>*/}
+                        {/*    </div>*/}
+                        {/*    <div className={styles.specialSection}>*/}
+                        {/*        <div className={styles.specialSectionHead}>*/}
+                        {/*            <span>*/}
+                        {/*                <BiLaugh/>*/}
+                        {/*            </span>*/}
+                        {/*            <div>*/}
+                        {/*                <p>Anecdote</p>*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*        <Editor/>*/}
+                        {/*    </div>*/}
+                        {/*    <IconInput*/}
+                        {/*        label={"Hauteur (en cm)"}*/}
+                        {/*        type={"number"}*/}
+                        {/*        IconComponent={AiOutlineColumnHeight}*/}
+                        {/*        placeholder={"Ex: 120"}*/}
+                        {/*        required*/}
+                        {/*    />*/}
+                        {/*    <IconInput*/}
+                        {/*        label={"Longueur (en cm)"}*/}
+                        {/*        type={"number"}*/}
+                        {/*        IconComponent={AiOutlineColumnWidth}*/}
+                        {/*        placeholder={"Ex: 80"}*/}
+                        {/*        required*/}
+                        {/*    />*/}
+                        {/*    <IconInput*/}
+                        {/*        label={"Largeur (en cm)"}*/}
+                        {/*        type={"number"}*/}
+                        {/*        IconComponent={IoIosResize}*/}
+                        {/*        placeholder={"Ex: 30"}*/}
+                        {/*    />*/}
+                        {/*    <div className={styles.specialSection}>*/}
+                        {/*        <div className={styles.specialSectionHead}>*/}
+                        {/*            <span>*/}
+                        {/*                <PiListNumbers/>*/}
+                        {/*            </span>*/}
+                        {/*            <div>*/}
+                        {/*                <p>Numérotation</p>*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*        <div>*/}
+                        {/*            <ArtisteNumerotationItem/>*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+                        {/*    <IconInput*/}
+                        {/*        label={"Support et matériau(x) utilisé(s)"}*/}
+                        {/*        type={"text"}*/}
+                        {/*        IconComponent={PiStool}*/}
+                        {/*        placeholder={"Ex: Papier photo, Toile..."}*/}
+                        {/*    />*/}
+                        {/*    <IconInput*/}
+                        {/*        label={"Technique(s) utilisée(s)"}*/}
+                        {/*        type={"text"}*/}
+                        {/*        IconComponent={FaHandHoldingHeart}*/}
+                        {/*        placeholder={"Ex: Peinture à l'huile, Acrylique..."}*/}
+                        {/*    />*/}
+                        {/*    <IconInput*/}
+                        {/*        label={"Encadrement"}*/}
+                        {/*        type={"text"}*/}
+                        {/*        IconComponent={PiUserRectangleBold}*/}
+                        {/*        placeholder={"Ex: Caisse américaine, Cadre..."}*/}
+                        {/*    />*/}
+                        {/*    <IconInput*/}
+                        {/*        label={"Signature"}*/}
+                        {/*        type={"text"}*/}
+                        {/*        IconComponent={FaSignature}*/}
+                        {/*        placeholder={"Ex: Signé en bas à droite"}*/}
+                        {/*    />*/}
+                        {/*</ArtisteNewSectionItem>*/}
                     </div>
                 </div>
             </main>

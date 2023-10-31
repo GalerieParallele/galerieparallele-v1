@@ -6,7 +6,7 @@ import {Prisma, PrismaClient} from "@prisma/client";
 
 import jwt from 'jsonwebtoken';
 import AUTH from "@/constants/AUTH";
-import {getUserFromToken, hashPassword} from "@/constants/Util";
+import {hashPassword} from "@/constants/Util";
 
 const prisma = new PrismaClient();
 
@@ -40,18 +40,18 @@ const UserSchema = z.object({
         required_error: "L'identifiant utilisateur est requis.",
         invalid_type_error: "L'identifiant doit être un nombre.",
     }),
+    email: z.string({
+        required_error: "L'adresse e-mail est requise.",
+        invalid_type_error: "L'adresse e-mail doit être une chaîne de caractères.",
+    }).email({
+        message: "L'adresse e-mail doit être une adresse e-mail valide.",
+    }),
     avatarURL: z.string({
         invalid_type_error: "L'URL de l'avatar doit être une chaîne de caractères.",
     }).url({
         message: "L'URL de l'avatar doit être une URL valide.",
     }).nullable({
         message: "L'URL de l'avatar peut être nulle.",
-    }),
-    email: z.string({
-        required_error: "L'adresse e-mail est requise.",
-        invalid_type_error: "L'adresse e-mail doit être une chaîne de caractères.",
-    }).email({
-        message: "L'adresse e-mail doit être une adresse e-mail valide.",
     }),
     lastname: z.string({
         required_error: "Le nom de famille est requis.",
@@ -118,6 +118,14 @@ const CreateUserSchema = z.object({
             required_error: "L'adresse e-mail est requise.",
         })
         .email({message: "L'adresse e-mail est invalide."}),
+    password: z
+        .string({
+            invalid_type_error: "Le mot de passe doit être une chaîne de caractères.",
+            required_error: "Le mot de passe est requis.",
+        })
+        .min(8, {message: "Le mot de passe doit contenir au moins 8 caractères."})
+        .max(32, {message: "Le mot de passe ne peut pas contenir plus de 32 caractères."})
+        .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/, {message: "Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial."}),
     lastname: z
         .string({
             invalid_type_error: "Le nom de famille doit être une chaîne de caractères.",
@@ -156,14 +164,6 @@ const CreateUserSchema = z.object({
         .regex(/^(0|\+33)[1-9]([-. ]?[0-9]{2}){4}$/, {message: "Numéro de téléphone invalide."})
         .min(10, {message: "Le numéro de téléphone doit contenir 10 chiffres."})
         .max(10),
-    password: z
-        .string({
-            invalid_type_error: "Le mot de passe doit être une chaîne de caractères.",
-            required_error: "Le mot de passe est requis.",
-        })
-        .min(8, {message: "Le mot de passe doit contenir au moins 8 caractères."})
-        .max(32, {message: "Le mot de passe ne peut pas contenir plus de 32 caractères."})
-        .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/, {message: "Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial."}),
 });
 
 const UpdateUserSchema = z.object({

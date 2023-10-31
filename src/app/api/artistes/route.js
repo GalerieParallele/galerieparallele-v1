@@ -130,7 +130,7 @@ const exposition = z
 const oeuvre = z
     .optional();
 
-const ArtistSchema = z.object({
+export const ArtistSchema = z.object({
     id,
     pseudo,
     bio,

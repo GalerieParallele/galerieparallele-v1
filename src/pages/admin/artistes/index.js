@@ -20,13 +20,13 @@ export default function ArtistesIndex() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchArtistes = async () => {
-            const res = await fetch(ROUTES.API.ARTISTES.GET);
-            const artistes = await res.json();
-            setArtistes(artistes.list);
+        // const fetchArtistes = async () => {
+        //     const res = await fetch(ROUTES.API.ARTISTES.GET);
+        //     const artistes = await res.json();
+        //     setArtistes(artistes.list);
             setLoading(false);
-        }
-        fetchArtistes();
+        // }
+        // fetchArtistes();
     }, []);
 
     return (
