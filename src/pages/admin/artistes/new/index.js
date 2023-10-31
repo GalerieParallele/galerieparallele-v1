@@ -36,6 +36,7 @@ import CreatableSelect from "react-select/creatable";
 import Select from 'react-select'
 import {Toast} from "@/constants/ToastConfig";
 import StorageUtils from "@/utils/StorageUtils";
+import MultipleImages from "@/components/admin/artistes/new/MultipleImages";
 
 export default function ArtisteAdminNew() {
 
@@ -639,7 +640,7 @@ export default function ArtisteAdminNew() {
                                     </div>
                                 </div>
                                 <div>
-                                    {/*TODO : Ajouter un composant pour ajouter une ou plusieurs images*/}
+                                    <MultipleImages />
                                 </div>
                             </div>
                             <div className={styles.specialSection}>
