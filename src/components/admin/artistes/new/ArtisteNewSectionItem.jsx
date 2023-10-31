@@ -2,13 +2,22 @@ import {FaChevronDown, FaChevronRight} from "react-icons/fa";
 import React, {useState} from "react";
 
 import styles from './ArtisteNewSectionItem.module.scss';
+import Swal from "sweetalert2";
 
-export default function ArtisteNewSectionItem({sectionName, children}) {
+export default function ArtisteNewSectionItem({sectionName, description, required, children}) {
 
     const [open, setOpen] = useState(false);
 
     const handleClick = () => {
         setOpen(!open);
+    }
+
+    const handleOpenModalRequired = () => {
+        Swal.fire({
+            icon: 'info',
+            title: "Section requise avant de compléter",
+            text: "Veillez à remplir tous les champs requis dans cette section avant d'enregistrer l'artiste",
+        })
     }
 
     return (<div className={styles.section}>
@@ -18,7 +27,18 @@ export default function ArtisteNewSectionItem({sectionName, children}) {
             <div>
                 {open ? <FaChevronDown/> : <FaChevronRight/>}
             </div>
-            <h3>{sectionName}</h3>
+            <div>
+                <h3>{sectionName}{required ?
+                    <span
+                        onClick={handleOpenModalRequired}
+                        title={"Section requise avant de compléter"}
+                        style={{
+                            color: "red",
+                        }}> *
+                </span> : ""}
+                </h3>
+                {description && <p>{description}</p>}
+            </div>
         </button>
         <form
             onSubmit={(e) => e.preventDefault()}
