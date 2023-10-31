@@ -292,7 +292,8 @@ export async function POST(req) {
                 password: undefined,
             },
         }, {
-            status: 201, headers: {
+            status: 201,
+            headers: {
                 'Set-Cookie': `token=${token};HttpOnly;Max-Age=${AUTH.COOKIE_MAX_AGE}; ${AUTH.sameSiteSetting}${AUTH.secureCookieFlag}Path=/`
             }
         });
@@ -309,7 +310,7 @@ export async function POST(req) {
             return NextResponse.json({message: MESSAGES.EMAIL_EXISTS}, {status: 409});
         }
 
-        return NextResponse.error(MESSAGES.API_SERVER_ERROR, {status: 500});
+        return NextResponse.json(MESSAGES.API_SERVER_ERROR, {status: 500});
 
     }
 }
@@ -357,7 +358,7 @@ export async function PATCH(req) {
             return NextResponse.json({message: MESSAGES.EMAIL_EXISTS}, {status: 409});
         }
 
-        return NextResponse.error(MESSAGES.API_SERVER_ERROR, {status: 500});
+        return NextResponse.json(MESSAGES.API_SERVER_ERROR, {status: 500});
     }
 }
 

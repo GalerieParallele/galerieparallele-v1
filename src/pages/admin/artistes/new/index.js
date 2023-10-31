@@ -43,8 +43,9 @@ export default function ArtisteAdminNew() {
 
     const animatedComponents = makeAnimated();
 
-    const [avatarURL, setAvatarURL] = useState(undefined);
+    const [loading, setLoading] = useState(false);
 
+    const [avatarURL, setAvatarURL] = useState(undefined);
     const [formData, setFormData] = useState({
         user: {
             email: undefined,
@@ -111,7 +112,10 @@ export default function ArtisteAdminNew() {
 
         e.preventDefault();
 
+        setLoading(true);
+
         if (avatarURL) {
+
             const {downloadURL, error, success} = await StorageUtils.uploadFile(avatarURL, 'avatar', null);
 
             if (!success) {
@@ -131,6 +135,11 @@ export default function ArtisteAdminNew() {
             });
         }
 
+        Toast.fire({
+            icon: 'info',
+            title: 'Création du compte utilisateur...'
+        });
+
         const res = await fetch('/api/users', {
             method: 'POST',
             headers: {
@@ -141,17 +150,13 @@ export default function ArtisteAdminNew() {
 
         const result = await res.json();
 
-        if (result.error) {
-            await Toast.fire({
-                icon: 'error',
-                title: result.error
-            });
-        } else {
-            await Toast.fire({
-                icon: 'success',
-                title: result.message
-            });
-        }
+        Toast.fire({
+            icon: res.status === 201 ? 'success' : 'error',
+            title: result.message
+        });
+
+        setLoading(false);
+
     };
 
     const handleGeneratePassword = (e) => {
@@ -161,18 +166,23 @@ export default function ArtisteAdminNew() {
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#!*$^:/;.,?&';
         let password = '';
         const charactersLength = characters.length;
+        const regex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[#!*$^:/;.,?&]).{8,}$');
 
-        for (let i = 0; i < 12; i++) {
+        for (let i = 0; i < 8; i++) {
             password += characters.charAt(Math.floor(Math.random() * charactersLength));
         }
 
-        setFormData({
-            ...formData,
-            user: {
-                ...formData.user,
-                password: password
-            }
-        });
+        if (regex.test(password)) {
+            setFormData({
+                ...formData,
+                user: {
+                    ...formData.user,
+                    password: password
+                }
+            });
+        } else {
+            handleGeneratePassword(e);
+        }
     };
 
     return (
@@ -191,6 +201,8 @@ export default function ArtisteAdminNew() {
                         <Button
                             text={"Enregistrer"}
                             onClick={handleSubmit}
+                            isLoading={loading}
+                            disabled={loading}
                         />
                     </div>
                     <div className={styles.sectionList}>
@@ -205,6 +217,7 @@ export default function ArtisteAdminNew() {
                                 onChange={handleUserChange}
                                 name={"email"}
                                 value={formData.user.email}
+                                disabled={loading}
                                 required
                             />
                             <div
@@ -227,6 +240,7 @@ export default function ArtisteAdminNew() {
                                         onChange={handleUserChange}
                                         name={"password"}
                                         value={formData.user.password}
+                                        disabled={loading}
                                         required
                                     />
                                 </div>
@@ -245,6 +259,7 @@ export default function ArtisteAdminNew() {
                                 onChange={handleChangeAvatar}
                                 name={"avatarURL"}
                                 accept={"image/*"}
+                                disabled={loading}
                             />
                             <IconInput
                                 label={"Prénom"}
@@ -254,6 +269,7 @@ export default function ArtisteAdminNew() {
                                 onChange={handleUserChange}
                                 name={"firstname"}
                                 value={formData.user.firstname}
+                                disabled={loading}
                                 required
                             />
                             <IconInput
@@ -264,6 +280,7 @@ export default function ArtisteAdminNew() {
                                 onChange={handleUserChange}
                                 name={"lastname"}
                                 value={formData.user.lastname}
+                                disabled={loading}
                                 required
                             />
                             <IconInput
@@ -274,6 +291,7 @@ export default function ArtisteAdminNew() {
                                 onChange={handleUserChange}
                                 name={"phone"}
                                 value={formData.user.phone}
+                                disabled={loading}
                                 required
                             />
                             <IconInput
@@ -284,6 +302,7 @@ export default function ArtisteAdminNew() {
                                 onChange={handleUserChange}
                                 name={"street"}
                                 value={formData.user.street}
+                                disabled={loading}
                                 required
                             />
                             <IconInput
@@ -294,6 +313,7 @@ export default function ArtisteAdminNew() {
                                 onChange={handleUserChange}
                                 name={"city"}
                                 value={formData.user.city}
+                                disabled={loading}
                                 required
                             />
                             <IconInput
@@ -304,6 +324,7 @@ export default function ArtisteAdminNew() {
                                 onChange={handleUserChange}
                                 name={"postalCode"}
                                 value={formData.user.postalCode}
+                                disabled={loading}
                                 required
                             />
                         </ArtisteNewSectionItem>

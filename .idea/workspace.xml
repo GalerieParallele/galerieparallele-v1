@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Revu de la route API concernant les articles et notamment l'update">
-      <change afterPath="$PROJECT_DIR$/src/app/api/oeuvres/route.js" afterDir="false" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Ajout du fichier .idea/* dans le gitignore">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/api/users/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/users/route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/artistes/new/ArtisteNewSectionItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/artistes/new/ArtisteNewSectionItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/items/iconinput/IconInput.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/items/iconinput/IconInput.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/artistes/new/Index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/artistes/new/Index.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/admin/artistes/new/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/artistes/new/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/StorageUtils.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/StorageUtils.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,28 +52,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.4.0&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.4.0&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Développement/Web/ALTERNANCE/Web/public/assets/img/artistes&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/snap/webstorm/341/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "ignore.virus.scanning.warn.message": "true",
+    "javascript.nodejs.core.library.configured.version": "18.17.1",
+    "javascript.nodejs.core.library.typings.version": "18.17.1",
+    "last_opened_file_path": "D:/Développement/Web/ALTERNANCE/Web/public/assets/img/artistes",
+    "list.type.of.created.stylesheet": "SCSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "/snap/webstorm/341/plugins/javascript-impl/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -179,14 +173,7 @@
       <workItem from="1698233192676" duration="16540000" />
       <workItem from="1698401252174" duration="18621000" />
       <workItem from="1698679119328" duration="4203000" />
-    </task>
-    <task id="LOCAL-00082" summary="minor update (docker standalone)">
-      <option name="closed" value="true" />
-      <created>1693522282091</created>
-      <option name="number" value="00082" />
-      <option name="presentableId" value="LOCAL-00082" />
-      <option name="project" value="LOCAL" />
-      <updated>1693522282091</updated>
+      <workItem from="1698743225482" duration="2489000" />
     </task>
     <task id="LOCAL-00083" summary="minor update (docker standalone)">
       <option name="closed" value="true" />
@@ -572,7 +559,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698700169141</updated>
     </task>
-    <option name="localTasksCounter" value="131" />
+    <task id="LOCAL-00131" summary="Ajout du fichier .idea/* dans le gitignore">
+      <option name="closed" value="true" />
+      <created>1698706131640</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1698706131640</updated>
+    </task>
+    <option name="localTasksCounter" value="132" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -590,7 +585,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Début du style du back office artiste admin" />
     <MESSAGE value="Styles admin artiste" />
     <MESSAGE value="Modification du schéma de base de données" />
     <MESSAGE value="Oeuvre admin artiste design" />
@@ -615,6 +609,7 @@
     <MESSAGE value="Ajout de la méthode de suppression d'un article" />
     <MESSAGE value="Changement du message d'erreur quand l'oeuvre d'une image n'a pas été trouvée" />
     <MESSAGE value="Revu de la route API concernant les articles et notamment l'update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Revu de la route API concernant les articles et notamment l'update" />
+    <MESSAGE value="Ajout du fichier .idea/* dans le gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajout du fichier .idea/* dans le gitignore" />
   </component>
 </project>
