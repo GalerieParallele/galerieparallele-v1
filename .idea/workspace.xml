@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Création utilisateur + artiste : ok">
-      <change afterPath="$PROJECT_DIR$/src/components/admin/artistes/new/MultipleImages.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/admin/artistes/new/MultipleImages.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/artistes/new/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/artistes/new/index.js" afterDir="false" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Création du composant permettant d'ajouter une ou plusieurs images à une oeuvre">
+      <change beforePath="$PROJECT_DIR$/src/components/admin/artistes/new/ArtisteNewSectionItem.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/artistes/new/ArtisteNewSectionItem.module.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,15 +172,7 @@
       <workItem from="1698401252174" duration="18621000" />
       <workItem from="1698679119328" duration="4203000" />
       <workItem from="1698743225482" duration="14393000" />
-      <workItem from="1698765366805" duration="2457000" />
-    </task>
-    <task id="LOCAL-00087" summary="Système drag &amp; drop fonctionnel">
-      <option name="closed" value="true" />
-      <created>1693920426269</created>
-      <option name="number" value="00087" />
-      <option name="presentableId" value="LOCAL-00087" />
-      <option name="project" value="LOCAL" />
-      <updated>1693920426269</updated>
+      <workItem from="1698765366805" duration="2742000" />
     </task>
     <task id="LOCAL-00088" summary="Espace magazine : ok">
       <option name="closed" value="true" />
@@ -569,7 +558,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698757837181</updated>
     </task>
-    <option name="localTasksCounter" value="136" />
+    <task id="LOCAL-00136" summary="Création du composant permettant d'ajouter une ou plusieurs images à une oeuvre">
+      <option name="closed" value="true" />
+      <created>1698767988708</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1698767988708</updated>
+    </task>
+    <option name="localTasksCounter" value="137" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -587,7 +584,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Changement du nombre minimum de numérotation" />
     <MESSAGE value="CHangement des informations juridiques, déplacement dans la bonne section" />
     <MESSAGE value="Ajout des informations légales concernant les artistes" />
     <MESSAGE value="Revue complète du modèle de base de données afin de préverser l'intégrité des données" />
@@ -612,6 +608,7 @@
     <MESSAGE value="Ajout de la mention requise pour une section (admin -&gt; artistes -&gt; new)" />
     <MESSAGE value="Modification du style du head (admin -&gt; artistes -&gt; new)" />
     <MESSAGE value="Création utilisateur + artiste : ok" />
-    <option name="LAST_COMMIT_MESSAGE" value="Création utilisateur + artiste : ok" />
+    <MESSAGE value="Création du composant permettant d'ajouter une ou plusieurs images à une oeuvre" />
+    <option name="LAST_COMMIT_MESSAGE" value="Création du composant permettant d'ajouter une ou plusieurs images à une oeuvre" />
   </component>
 </project>
