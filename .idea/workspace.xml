@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Mise en majuscule des titre des sections dans admin --&gt; artistes --&gt; new">
-      <change afterPath="$PROJECT_DIR$/src/app/api/legalsinformation/route.js" afterDir="false" />
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Début de la route API permettant de créer les informations légales d'un artiste">
+      <change afterPath="$PROJECT_DIR$/src/app/api/artistes/getbyid/route.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/admin/artistes/edit/[id].js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/api/artistes/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/artistes/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/legalsinformation/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/legalsinformation/route.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/api/users/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/users/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/artistes/ArtisteCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/artistes/ArtisteCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/ROUTES.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/ROUTES.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/admin/artistes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/artistes/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/admin/artistes/new/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/artistes/new/index.js" afterDir="false" />
     </list>
@@ -95,11 +99,11 @@
       <recent name="$PROJECT_DIR$/src/components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/assets/img" />
       <recent name="$PROJECT_DIR$/src/app/api/auth" />
       <recent name="$PROJECT_DIR$/src/components/artist/profile/social" />
       <recent name="$PROJECT_DIR$/src/components/artist/profile/avatar" />
       <recent name="$PROJECT_DIR$/src/pages/auth" />
-      <recent name="$PROJECT_DIR$/src/pages" />
     </key>
   </component>
   <component name="RunManager">
@@ -177,15 +181,11 @@
       <workItem from="1698401252174" duration="18621000" />
       <workItem from="1698679119328" duration="4203000" />
       <workItem from="1698743225482" duration="14393000" />
-      <workItem from="1698765366805" duration="10432000" />
-    </task>
-    <task id="LOCAL-00089" summary="Footer terminé">
-      <option name="closed" value="true" />
-      <created>1695662343336</created>
-      <option name="number" value="00089" />
-      <option name="presentableId" value="LOCAL-00089" />
-      <option name="project" value="LOCAL" />
-      <updated>1695662343337</updated>
+      <workItem from="1698765366805" duration="10668000" />
+      <workItem from="1698924793042" duration="1701000" />
+      <workItem from="1699002257193" duration="5926000" />
+      <workItem from="1699026596732" duration="52000" />
+      <workItem from="1699041678226" duration="7239000" />
     </task>
     <task id="LOCAL-00090" summary="Instagram terminé">
       <option name="closed" value="true" />
@@ -571,7 +571,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698768308404</updated>
     </task>
-    <option name="localTasksCounter" value="138" />
+    <task id="LOCAL-00138" summary="Début de la route API permettant de créer les informations légales d'un artiste">
+      <option name="closed" value="true" />
+      <created>1698776578121</created>
+      <option name="number" value="00138" />
+      <option name="presentableId" value="LOCAL-00138" />
+      <option name="project" value="LOCAL" />
+      <updated>1698776578121</updated>
+    </task>
+    <option name="localTasksCounter" value="139" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -589,7 +597,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Ajout des informations légales concernant les artistes" />
     <MESSAGE value="Revue complète du modèle de base de données afin de préverser l'intégrité des données" />
     <MESSAGE value="Revues du système de route" />
     <MESSAGE value="Route USER terminé" />
@@ -614,6 +621,7 @@
     <MESSAGE value="Création utilisateur + artiste : ok" />
     <MESSAGE value="Création du composant permettant d'ajouter une ou plusieurs images à une oeuvre" />
     <MESSAGE value="Mise en majuscule des titre des sections dans admin --&gt; artistes --&gt; new" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mise en majuscule des titre des sections dans admin --&gt; artistes --&gt; new" />
+    <MESSAGE value="Début de la route API permettant de créer les informations légales d'un artiste" />
+    <option name="LAST_COMMIT_MESSAGE" value="Début de la route API permettant de créer les informations légales d'un artiste" />
   </component>
 </project>

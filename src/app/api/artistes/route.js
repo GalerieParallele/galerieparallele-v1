@@ -1,6 +1,7 @@
 import {z} from 'zod';
 import {Prisma, PrismaClient} from "@prisma/client";
 import {NextResponse} from "next/server";
+import {UserSchema} from "@/app/api/users/route";
 
 const prisma = new PrismaClient();
 
@@ -9,6 +10,10 @@ const MESSAGES = {
     NO_ARTIST_FOUND: "Aucun artiste n'a été trouvé.",
     NO_USER_FOUND: "L'utilisateur appartenant à cet artiste n'existe pas.",
     USER_ALREADY_ARTIST: "L'utilisateur est déjà un artiste.",
+
+    INVALID_ARTIST: "L'id de l'artiste renseigné ne correspond à aucun artiste.",
+
+    SUCCESS_DELETE: "L'artiste a bien été supprimé.",
 
 }
 
@@ -130,6 +135,8 @@ const exposition = z
 const oeuvre = z
     .optional();
 
+const user = UserSchema;
+
 export const ArtistSchema = z.object({
     id,
     pseudo,
@@ -139,6 +146,7 @@ export const ArtistSchema = z.object({
     linkedin,
     website,
     tag,
+    user,
 });
 
 const ArtistResponseSchema = z.object({
@@ -195,6 +203,20 @@ export async function GET() {
                         content: true,
                         date: true,
                         photoURL: true,
+                    }
+                },
+                user: {
+                    select: {
+                        id: true,
+                        email: true,
+                        avatarURL: true,
+                        firstname: true,
+                        lastname: true,
+                        street: true,
+                        city: true,
+                        postalCode: true,
+                        phone: true,
+                        roles: true,
                     }
                 },
                 tag: {
@@ -263,7 +285,6 @@ export async function GET() {
 
         artists.map(artist => {
             artist.tag = artist.tag.map(tag => tag.tag.name);
-            console.log(artist);
         });
 
         const validatedArtist = artists.map(artist => ArtistSchema.parse(artist));
@@ -299,10 +320,26 @@ export async function POST(req) {
             data: {
                 ...requestBody,
                 userid: requestBody.userid
+            },
+            select: {
+                user: {
+                    select: {
+                        id: true,
+                        email: true,
+                        avatarURL: true,
+                        firstname: true,
+                        lastname: true,
+                        street: true,
+                        city: true,
+                        postalCode: true,
+                        phone: true,
+                        roles: true,
+                    }
+                },
             }
         });
 
-        return NextResponse.json(ArtistSchema.parse(artist), {status: 201});
+        return NextResponse.json(ArtistSchema.omit({id: true}).parse(artist), {status: 201});
 
     } catch (error) {
 
@@ -328,6 +365,38 @@ export async function POST(req) {
         }
 
         return NextResponse.json(MESSAGES.API_SERVER_ERROR, {status: 500});
+
+    }
+
+}
+
+export async function DELETE(req) {
+
+    try {
+
+        const requestBody = ArtistSchema.pick({id: true}).parse(JSON.parse(await req.text()));
+
+        await prisma.artist.delete({
+            where: {
+                id: requestBody.id
+            }
+        });
+
+        return NextResponse.json({message: MESSAGES.SUCCESS_DELETE}, {status: 200})
+
+    } catch (error) {
+
+        console.log(error);
+
+        if (error instanceof z.ZodError) {
+            return NextResponse.json({message: error.errors[0].message}, {status: 400});
+        }
+
+        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+            return NextResponse.json({message: MESSAGES.INVALID_ARTIST}, {status: 404});
+        }
+
+        return NextResponse.error(MESSAGES.API_SERVER_ERROR, {status: 500});
 
     }
 

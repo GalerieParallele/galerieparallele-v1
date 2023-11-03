@@ -28,6 +28,9 @@ const PATHS = {
         ARTISTES: {
             HOME: createPath('admin', 'artistes'),
             NEW: createPath('admin', 'artistes', 'new'),
+            EDIT(artisteId) {
+                return createPath('admin', 'artistes', 'edit', artisteId);
+            },
         },
         CLOUD: {
             HOME: createPath('admin', 'cloud'),
@@ -42,6 +45,9 @@ const PATHS = {
             LOGOUT: createPath('auth', 'logout'),
             ME: createPath('auth', 'me'),
             REGISTER: createPath('users'),
+        },
+        ARTISTES: {
+            HOME: createPath('artistes'),
         }
     }
 }
@@ -66,6 +72,9 @@ const ROUTES = {
         ARTISTES: {
             HOME: BASE_URL + PATHS.ADMIN.ARTISTES.HOME,
             NEW: BASE_URL + PATHS.ADMIN.ARTISTES.NEW,
+            EDIT(artisteId) {
+                return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT(artisteId);
+            },
         },
         CLOUD: {
             HOME: BASE_URL + PATHS.ADMIN.CLOUD.HOME,
@@ -80,6 +89,9 @@ const ROUTES = {
             LOGOUT: API_BASE + PATHS.API.AUTH.LOGOUT,
             ME: API_BASE + PATHS.API.AUTH.ME,
             REGISTER: API_BASE + PATHS.API.AUTH.REGISTER,
+        },
+        ARTISTES: {
+            HOME: API_BASE + PATHS.API.ARTISTES.HOME,
         }
     }
 }

@@ -20,12 +20,15 @@ import {MdEmail, MdPassword} from "react-icons/md";
 import {RxAvatar} from "react-icons/rx";
 import {BsBuildingsFill, BsFillFileEarmarkPersonFill, BsTelephoneFill} from "react-icons/bs";
 import ArtisteNewSectionItem from "@/components/admin/artistes/new/ArtisteNewSectionItem";
-import {IoHome} from "react-icons/io5";
+import {IoHome, IoTextOutline} from "react-icons/io5";
 import Editor from "@/components/items/Editor";
 import {GrTextAlignCenter} from "react-icons/gr";
 import {FaEarthAfrica} from "react-icons/fa6";
 import {Toast} from "@/constants/ToastConfig";
 import StorageUtils from "@/utils/StorageUtils";
+import {BiGroup, BiSolidGroup} from "react-icons/bi";
+import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
 
 const initialState = {
     user: {
@@ -57,11 +60,7 @@ const initialState = {
         tva: undefined,
         numMaisonsDesArtistes: undefined,
         numSecuriteSociale: undefined
-    },
-    oeuvreArtist: [],
-    oeuvreUnknownArtist: [],
-    oeuvreType: [],
-    tags: [],
+    }
 };
 
 function reducer(state, action) {
@@ -161,13 +160,33 @@ export default function ArtisteAdminNew() {
                 }),
             });
 
-            if (!artistResponse.ok) throw new Error('Erreur lors de la création de l’artiste');
-
             const artistsResponseJSON = await artistResponse.json();
 
-            const artistid = artistsResponseJSON.id;
+            if (!artistResponse.ok) throw new Error(artistsResponseJSON.message);
+
+            if (Object.keys(state.legal).length > 0) {
 
 
+                const allFieldAreNotEmpty = Object.values(state.legal).every((value) => value !== undefined || value !== '');
+
+                if (!allFieldAreNotEmpty) throw new Error('Veillez à remplir tous les champs de la section légale ou à laisser tous les champs vides.');
+
+                const artistId = artistsResponseJSON.id;
+
+                const legalInformationResponse = await fetch('/api/legalsinformation', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        ...state.legal,
+                        artistId,
+                    }),
+                });
+
+                const legalInformationResponseJSON = await legalInformationResponse.json();
+
+                if (!legalInformationResponse.ok) throw new Error(legalInformationResponseJSON.message);
+
+            }
 
             Toast.fire({icon: 'success', title: 'Artiste créé avec succès !'});
 
@@ -210,10 +229,6 @@ export default function ArtisteAdminNew() {
             handleGeneratePassword(e);
         }
     };
-
-    useEffect(() => {
-        console.log(state);
-    }, [state]);
 
     return (
         <Admin>
@@ -429,101 +444,101 @@ export default function ArtisteAdminNew() {
                                 />
                             </div>
                         </ArtisteNewSectionItem>
-                        <ArtisteNewSectionItem
-                            sectionName={"Informations juridiques"}
-                            description={"Aucunes de ces informations ne seront visible publiquement sur le site."}
-                        >
-                            <IconInput
-                                label={"Nom de société"}
-                                type={"text"}
-                                IconComponent={BsBuildingsFill}
-                                placeholder={"Ex: DP Gallery"}
-                                name={"legal.societe"}
-                                value={state.legal.societe}
-                                onChange={handleChange}
-                                required
-                            />
-                            <IconInput
-                                label={"Numéro de voie"}
-                                type={"text"}
-                                IconComponent={IoHome}
-                                placeholder={"Ex: 1"}
-                                name={"legal.adrNumVoie"}
-                                value={state.legal.adrNumVoie}
-                                onChange={handleChange}
-                                required
-                            />
-                            <IconInput
-                                label={"Nom de la voie"}
-                                type={"text"}
-                                IconComponent={IoHome}
-                                placeholder={"Ex: Rue de la paix"}
-                                name={"legal.adrRue"}
-                                value={state.legal.adrRue}
-                                onChange={handleChange}
-                                required
-                            />
-                            <IconInput
-                                label={"Ville"}
-                                type={"text"}
-                                IconComponent={IoHome}
-                                placeholder={"Ex: Paris"}
-                                name={"legal.adrVille"}
-                                value={state.legal.adrVille}
-                                onChange={handleChange}
-                                required
-                            />
-                            <IconInput
-                                label={"Code postal"}
-                                type={"text"}
-                                IconComponent={IoHome}
-                                placeholder={"Ex: 75000"}
-                                name={"legal.adrCodePostal"}
-                                value={state.legal.adrCodePostal}
-                                onChange={handleChange}
-                                required
-                            />
-                            <IconInput
-                                label={"Numéro de SIRET (non visible sur le site)"}
-                                type={"text"}
-                                IconComponent={AiOutlineFieldNumber}
-                                placeholder={"Ex: 12345678912345"}
-                                name={"legal.siret"}
-                                value={state.legal.siret}
-                                onChange={handleChange}
-                                required
-                            />
-                            <IconInput
-                                label={"Numéro de TVA (non visible sur le site)"}
-                                type={"text"}
-                                IconComponent={AiOutlineFieldNumber}
-                                placeholder={"Ex: 12345678912345"}
-                                name={"legal.tva"}
-                                value={state.legal.tva}
-                                onChange={handleChange}
-                                required
-                            />
-                            <IconInput
-                                label={"Numéro maison des artistes (non visible sur le site)"}
-                                type={"text"}
-                                IconComponent={AiOutlineFieldNumber}
-                                placeholder={"Ex: 12345678912345"}
-                                name={"legal.numMaisonsDesArtistes"}
-                                value={state.legal.numMaisonsDesArtistes}
-                                onChange={handleChange}
-                                required
-                            />
-                            <IconInput
-                                label={"Numéro de sécurité sociale (non visible sur le site)"}
-                                type={"text"}
-                                IconComponent={AiOutlineFieldNumber}
-                                placeholder={"Ex: 12345678912345"}
-                                name={"legal.numSecuriteSociale"}
-                                value={state.legal.numSecuriteSociale}
-                                onChange={handleChange}
-                                required
-                            />
-                        </ArtisteNewSectionItem>
+                        {/*<ArtisteNewSectionItem*/}
+                        {/*    sectionName={"Informations juridiques"}*/}
+                        {/*    description={"Aucunes de ces informations ne seront visible publiquement sur le site."}*/}
+                        {/*>*/}
+                        {/*    <IconInput*/}
+                        {/*        label={"Nom de société"}*/}
+                        {/*        type={"text"}*/}
+                        {/*        IconComponent={BsBuildingsFill}*/}
+                        {/*        placeholder={"Ex: DP Gallery"}*/}
+                        {/*        name={"legal.societe"}*/}
+                        {/*        value={state.legal.societe}*/}
+                        {/*        onChange={handleChange}*/}
+                        {/*        required*/}
+                        {/*    />*/}
+                        {/*    <IconInput*/}
+                        {/*        label={"Numéro de voie"}*/}
+                        {/*        type={"text"}*/}
+                        {/*        IconComponent={IoHome}*/}
+                        {/*        placeholder={"Ex: 1"}*/}
+                        {/*        name={"legal.adrNumVoie"}*/}
+                        {/*        value={state.legal.adrNumVoie}*/}
+                        {/*        onChange={handleChange}*/}
+                        {/*        required*/}
+                        {/*    />*/}
+                        {/*    <IconInput*/}
+                        {/*        label={"Nom de la voie"}*/}
+                        {/*        type={"text"}*/}
+                        {/*        IconComponent={IoHome}*/}
+                        {/*        placeholder={"Ex: Rue de la paix"}*/}
+                        {/*        name={"legal.adrRue"}*/}
+                        {/*        value={state.legal.adrRue}*/}
+                        {/*        onChange={handleChange}*/}
+                        {/*        required*/}
+                        {/*    />*/}
+                        {/*    <IconInput*/}
+                        {/*        label={"Ville"}*/}
+                        {/*        type={"text"}*/}
+                        {/*        IconComponent={IoHome}*/}
+                        {/*        placeholder={"Ex: Paris"}*/}
+                        {/*        name={"legal.adrVille"}*/}
+                        {/*        value={state.legal.adrVille}*/}
+                        {/*        onChange={handleChange}*/}
+                        {/*        required*/}
+                        {/*    />*/}
+                        {/*    <IconInput*/}
+                        {/*        label={"Code postal"}*/}
+                        {/*        type={"text"}*/}
+                        {/*        IconComponent={IoHome}*/}
+                        {/*        placeholder={"Ex: 75000"}*/}
+                        {/*        name={"legal.adrCodePostal"}*/}
+                        {/*        value={state.legal.adrCodePostal}*/}
+                        {/*        onChange={handleChange}*/}
+                        {/*        required*/}
+                        {/*    />*/}
+                        {/*    <IconInput*/}
+                        {/*        label={"Numéro de SIRET (non visible sur le site)"}*/}
+                        {/*        type={"text"}*/}
+                        {/*        IconComponent={AiOutlineFieldNumber}*/}
+                        {/*        placeholder={"Ex: 12345678912345"}*/}
+                        {/*        name={"legal.siret"}*/}
+                        {/*        value={state.legal.siret}*/}
+                        {/*        onChange={handleChange}*/}
+                        {/*        required*/}
+                        {/*    />*/}
+                        {/*    <IconInput*/}
+                        {/*        label={"Numéro de TVA (non visible sur le site)"}*/}
+                        {/*        type={"text"}*/}
+                        {/*        IconComponent={AiOutlineFieldNumber}*/}
+                        {/*        placeholder={"Ex: 12345678912345"}*/}
+                        {/*        name={"legal.tva"}*/}
+                        {/*        value={state.legal.tva}*/}
+                        {/*        onChange={handleChange}*/}
+                        {/*        required*/}
+                        {/*    />*/}
+                        {/*    <IconInput*/}
+                        {/*        label={"Numéro maison des artistes (non visible sur le site)"}*/}
+                        {/*        type={"text"}*/}
+                        {/*        IconComponent={AiOutlineFieldNumber}*/}
+                        {/*        placeholder={"Ex: 12345678912345"}*/}
+                        {/*        name={"legal.numMaisonsDesArtistes"}*/}
+                        {/*        value={state.legal.numMaisonsDesArtistes}*/}
+                        {/*        onChange={handleChange}*/}
+                        {/*        required*/}
+                        {/*    />*/}
+                        {/*    <IconInput*/}
+                        {/*        label={"Numéro de sécurité sociale (non visible sur le site)"}*/}
+                        {/*        type={"text"}*/}
+                        {/*        IconComponent={AiOutlineFieldNumber}*/}
+                        {/*        placeholder={"Ex: 12345678912345"}*/}
+                        {/*        name={"legal.numSecuriteSociale"}*/}
+                        {/*        value={state.legal.numSecuriteSociale}*/}
+                        {/*        onChange={handleChange}*/}
+                        {/*        required*/}
+                        {/*    />*/}
+                        {/*</ArtisteNewSectionItem>*/}
                         {/*<ArtisteNewSectionItem*/}
                         {/*    sectionName={"Relations contractuelles"}*/}
                         {/*    description={"Aucunes de ces informations ne seront visible publiquement sur le site."}*/}

@@ -1,11 +1,16 @@
 import z from 'zod'
 
-import {PrismaClient} from "@prisma/client";
+import {Prisma, PrismaClient} from "@prisma/client";
 import {ArtistSchema} from "@/app/api/artistes/route";
+import {NextResponse} from "next/server";
 
 const prisma = new PrismaClient();
 
-const MESSAGES = {}
+const MESSAGES = {
+
+    LEGAL_INFORMATION_ALREADY_EXISTS: "L'information légale concernant cet artiste existe déjà.",
+    NO_ARTIST_FOUND: "Aucun artiste correspondant à l'id renseigné n'a été trouvé.",
+}
 
 const id = z
     .number({
@@ -118,7 +123,17 @@ const numSecuriteSociale = z
         message: "Le numéro de sécurité sociale doit contenir 15 caractères."
     });
 
-const artistId = ArtistSchema.pick({id: true});
+const artistId = z
+    .number({
+        message: "L'id de l'artiste doit être un nombre.",
+        required_error: "L'id de l'artiste est requis."
+    })
+    .int({
+        message: "L'id de l'artiste doit être un nombre entier."
+    })
+    .positive({
+        message: "L'id de l'artiste doit être un nombre positif."
+    });
 
 const LegalInformationSchema = z.object({
     id,
@@ -136,15 +151,52 @@ const LegalInformationSchema = z.object({
 
 const LegalInformationCreateSchema = LegalInformationSchema.omit({id: true});
 
-export async function POST(req){
+export async function POST(req) {
 
     try {
 
-        const requestBody = LegalInformationSchema.parse(JSON.parse(await req.text()));
+        const requestBody = LegalInformationCreateSchema.parse(JSON.parse(await req.text()));
+
+        const artistId = requestBody.artistId;
+        delete requestBody.artistId;
 
         const legalInformation = await prisma.artistLegalInformation.create({
-            data: requestBody
+            data: {
+                ...requestBody,
+                artist: {
+                    connect: {
+                        id: artistId
+                    }
+                }
+            }
         });
+
+        return NextResponse.json(LegalInformationSchema.parse(legalInformation), {status: 201})
+
+    } catch (error) {
+
+        console.log(error);
+
+        if (error instanceof z.ZodError) {
+            return NextResponse.json({message: error.errors[0].message}, {status: 400});
+        }
+
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+
+            if (error.code === 'P2002') {
+                return NextResponse.json({message: MESSAGES.LEGAL_INFORMATION_ALREADY_EXISTS}, {status: 400});
+            }
+
+            if (error.code === 'P2003') {
+                return NextResponse.json({message: MESSAGES.NO_ARTIST_FOUND}, {status: 400});
+            }
+
+            if (error.code === 'P2025') {
+                return NextResponse.json({message: MESSAGES.NO_ARTIST_FOUND}, {status: 400});
+            }
+        }
+
+        return NextResponse.json(MESSAGES.API_SERVER_ERROR, {status: 500});
 
     }
 

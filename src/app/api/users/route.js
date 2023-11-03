@@ -35,7 +35,7 @@ const MESSAGES = {
     NO_USER_FOUND: 'Aucun utilisateur trouvé.',
 };
 
-const UserSchema = z.object({
+export const UserSchema = z.object({
     id: z.number({
         required_error: "L'identifiant utilisateur est requis.",
         invalid_type_error: "L'identifiant doit être un nombre.",

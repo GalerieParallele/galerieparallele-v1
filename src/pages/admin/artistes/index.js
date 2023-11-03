@@ -20,14 +20,19 @@ export default function ArtistesIndex() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // const fetchArtistes = async () => {
-        //     const res = await fetch(ROUTES.API.ARTISTES.GET);
-        //     const artistes = await res.json();
-        //     setArtistes(artistes.list);
+        const fetchArtistes = async () => {
+            const res = await fetch(ROUTES.API.ARTISTES.HOME);
+            const artistes = await res.json();
+            setArtistes(artistes.list);
             setLoading(false);
-        // }
-        // fetchArtistes();
+        }
+        fetchArtistes();
     }, []);
+
+    const handleDeleteSuccess = (deletedArtisteId) => {
+        const updatedArtistes = artistes.filter(artiste => artiste.id !== deletedArtisteId);
+        setArtistes(updatedArtistes);
+    };
 
     return (
         <Admin>
@@ -54,7 +59,7 @@ export default function ArtistesIndex() {
                     </div>
                     <div className={styles.statCount}>
                         {loading ?
-                            <LittleSpinner/> : artistes.length + ` artiste${artistes.length > 1 ? 's' : ''} trouvé${artistes.length > 1 ? 's' : ''}`}
+                            <LittleSpinner/> : artistes?.length ? (artistes.length + ` artiste${artistes.length > 1 ? 's' : ''} trouvé${artistes.length > 1 ? 's' : ''}`) : "Aucun artiste trouvé"}
                     </div>
                     <div className={styles.listContainer}>
                         {loading ? (
@@ -67,6 +72,7 @@ export default function ArtistesIndex() {
                                     <ArtisteCard
                                         key={index}
                                         artiste={artiste}
+                                        onDeleteSuccess={handleDeleteSuccess}
                                     />
                                 ))}
                             </div>
