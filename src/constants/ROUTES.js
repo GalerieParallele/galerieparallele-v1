@@ -31,6 +31,7 @@ const PATHS = {
             EDIT(artisteId) {
                 return createPath('admin', 'artistes', 'edit', artisteId);
             },
+            LEGAL_INFORMATION: createPath('admin', 'artistes', 'legal-information'),
         },
         CLOUD: {
             HOME: createPath('admin', 'cloud'),
@@ -78,6 +79,7 @@ const ROUTES = {
             EDIT(artisteId) {
                 return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT(artisteId);
             },
+            LEGAL_INFORMATION: BASE_URL + PATHS.ADMIN.ARTISTES.LEGAL_INFORMATION,
         },
         CLOUD: {
             HOME: BASE_URL + PATHS.ADMIN.CLOUD.HOME,

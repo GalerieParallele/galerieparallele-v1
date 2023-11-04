@@ -1,34 +1,23 @@
 import Admin from "@/components/admin/Admin";
 import Button from "@/components/items/button/Button";
-import {
-    AiFillFacebook,
-    AiFillInstagram,
-    AiFillLinkedin,
-    AiOutlineArrowLeft,
-    AiOutlineFieldNumber
-} from "react-icons/ai";
+import {AiFillFacebook, AiFillInstagram, AiFillLinkedin, AiOutlineArrowLeft} from "react-icons/ai";
 import ROUTES from "@/constants/ROUTES";
-import React, {useEffect, useReducer, useState} from "react";
+import React, {useReducer, useState} from "react";
 import {useRouter} from "next/router";
-
-import makeAnimated from 'react-select/animated';
 
 import adminStyles from "@/pages/admin/articles/AdminArticles.module.css";
 import styles from './Index.module.scss';
 import IconInput from "@/components/items/iconinput/IconInput";
 import {MdEmail, MdPassword} from "react-icons/md";
 import {RxAvatar} from "react-icons/rx";
-import {BsBuildingsFill, BsFillFileEarmarkPersonFill, BsTelephoneFill} from "react-icons/bs";
+import {BsFillFileEarmarkPersonFill, BsTelephoneFill} from "react-icons/bs";
 import ArtisteNewSectionItem from "@/components/admin/artistes/new/ArtisteNewSectionItem";
-import {IoHome, IoTextOutline} from "react-icons/io5";
+import {IoHome} from "react-icons/io5";
 import Editor from "@/components/items/Editor";
 import {GrTextAlignCenter} from "react-icons/gr";
 import {FaEarthAfrica} from "react-icons/fa6";
 import {Toast} from "@/constants/ToastConfig";
 import StorageUtils from "@/utils/StorageUtils";
-import {BiGroup, BiSolidGroup} from "react-icons/bi";
-import Select from "react-select";
-import CreatableSelect from "react-select/creatable";
 
 const initialState = {
     user: {
@@ -50,17 +39,6 @@ const initialState = {
         linkedin: undefined,
         website: undefined,
     },
-    legal: {
-        societe: undefined,
-        adrNumVoie: undefined,
-        adrRue: undefined,
-        adrVille: undefined,
-        adrCodePostal: undefined,
-        siret: undefined,
-        tva: undefined,
-        numMaisonsDesArtistes: undefined,
-        numSecuriteSociale: undefined
-    }
 };
 
 function reducer(state, action) {
@@ -81,12 +59,11 @@ function reducer(state, action) {
 
 export default function ArtisteAdminNew() {
 
+    const router = useRouter();
+
     const [state, dispatch] = useReducer(reducer, initialState);
     const [loading, setLoading] = useState(false);
     const [avatarURL, setAvatarURL] = useState(undefined);
-
-    const router = useRouter();
-    const animatedComponents = makeAnimated();
 
     /**
      * Permet de mettre à jour le state du formulaire
@@ -164,31 +141,9 @@ export default function ArtisteAdminNew() {
 
             if (!artistResponse.ok) throw new Error(artistsResponseJSON.message);
 
-            if (Object.keys(state.legal).length > 0) {
-
-
-                const allFieldAreNotEmpty = Object.values(state.legal).every((value) => value !== undefined || value !== '');
-
-                if (!allFieldAreNotEmpty) throw new Error('Veillez à remplir tous les champs de la section légale ou à laisser tous les champs vides.');
-
-                const artistId = artistsResponseJSON.id;
-
-                const legalInformationResponse = await fetch('/api/legalsinformation', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        ...state.legal,
-                        artistId,
-                    }),
-                });
-
-                const legalInformationResponseJSON = await legalInformationResponse.json();
-
-                if (!legalInformationResponse.ok) throw new Error(legalInformationResponseJSON.message);
-
-            }
-
             Toast.fire({icon: 'success', title: 'Artiste créé avec succès !'});
+
+            await router.push(ROUTES.ADMIN.ARTISTES.HOME);
 
         } catch (error) {
 
@@ -786,6 +741,4 @@ export default function ArtisteAdminNew() {
             </main>
         </Admin>
     );
-
-
 }

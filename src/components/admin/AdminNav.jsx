@@ -8,14 +8,15 @@ import Link from "next/link";
 import AdminBottom from "@/components/admin/AdminBottom";
 import AdminLink from "@/components/admin/AdminLink";
 
-import {TfiWrite} from "react-icons/tfi";
-import {BiSolidUser} from "react-icons/bi";
-
 import styles from "./AdminNav.module.css"
-import {AiOutlineCloudUpload} from "react-icons/ai";
-import {FaPaintBrush} from "react-icons/fa";
+import {FaFileContract, FaPaintBrush} from "react-icons/fa";
+import {AiOutlineUnorderedList} from "react-icons/ai";
+import {GoLaw} from "react-icons/go";
+import {BsCalendarDate, BsImages} from "react-icons/bs";
+import {LuFolderHeart} from "react-icons/lu";
 
 export default function AdminNav() {
+
     return <>
         <div>
             <Link href={ROUTES.ADMIN.HOME}>
@@ -30,26 +31,60 @@ export default function AdminNav() {
             </Link>
         </div>
         <div className={styles.center}>
-            {/*<AdminLink*/}
-            {/*    text={"Articles"}*/}
-            {/*    IconComponent={TfiWrite}*/}
-            {/*    to={ROUTES.ADMIN.ARTICLES.HOME}*/}
-            {/*/>*/}
-            {/*<AdminLink*/}
-            {/*    text={"Utilisateurs"}*/}
-            {/*    IconComponent={BiSolidUser}*/}
-            {/*    to={ROUTES.ADMIN.USERS.HOME}*/}
-            {/*/>*/}
+            <div style={{
+                marginTop: "1rem",
+                width: "100%",
+                backgroundColor: "white",
+                height: "1px",
+            }}/>
+            <div style={{
+                fontSize: "0.95rem",
+                width: "100%",
+                padding: "10px 1.5rem",
+            }}>
+                <p style={{}}>Artistes</p>
+            </div>
             <AdminLink
-                text={"Artistes"}
-                IconComponent={FaPaintBrush}
+                text={"Liste"}
+                IconComponent={AiOutlineUnorderedList}
                 to={ROUTES.ADMIN.ARTISTES.HOME}
             />
             <AdminLink
-                text={"Cloud"}
-                IconComponent={AiOutlineCloudUpload}
-                to={ROUTES.ADMIN.CLOUD.HOME}
+                text={"Oeuvres"}
+                IconComponent={FaPaintBrush}
+                to={"#"}
             />
+            <AdminLink
+                text={"Juridique"}
+                IconComponent={GoLaw}
+                to={ROUTES.ADMIN.ARTISTES.LEGAL_INFORMATION}
+            />
+            <AdminLink
+                text={"Relations contractuelles"}
+                IconComponent={FaFileContract}
+                to={"#"}
+            />
+            <AdminLink
+                text={"Illustrations"}
+                IconComponent={BsImages}
+                to={"#"}
+            />
+            <AdminLink
+                text={"SaveTheDate"}
+                IconComponent={BsCalendarDate}
+                to={"#"}
+            />
+            <AdminLink
+                text={"Oeuvres"}
+                IconComponent={LuFolderHeart}
+                to={"#"}
+            />
+            <div style={{
+                marginTop: "1rem",
+                width: "100%",
+                backgroundColor: "white",
+                height: "1px",
+            }}/>
         </div>
         <AdminBottom/>
     </>
