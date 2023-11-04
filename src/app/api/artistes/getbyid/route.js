@@ -1,9 +1,6 @@
-import {ArtistSchema} from "@/app/api/artistes/route";
-import {PrismaClient} from "@prisma/client";
 import {NextResponse} from "next/server";
-import {number, z} from "zod";
-
-const prisma = new PrismaClient();
+import {z} from "zod";
+import {prisma} from "@/utils/PrismaUtil";
 
 const MESSAGES = {
     INVALID_ARTIST: "L'id renseigné ne correspond à aucun artiste",
@@ -78,7 +75,7 @@ export async function POST(req) {
             }
         })
 
-        if(!artist) {
+        if (!artist) {
             return NextResponse.json({message: MESSAGES.INVALID_ARTIST}, {status: 404});
         }
 

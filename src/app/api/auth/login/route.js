@@ -1,4 +1,3 @@
-import {PrismaClient} from "@prisma/client";
 import {NextResponse} from "next/server";
 
 import AUTH from "@/constants/AUTH";
@@ -6,8 +5,7 @@ import AUTH from "@/constants/AUTH";
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 import {cookies} from "next/headers";
-
-const prisma = new PrismaClient();
+import {prisma} from "@/utils/PrismaUtil";
 
 // -----------------------------------------------------------
 

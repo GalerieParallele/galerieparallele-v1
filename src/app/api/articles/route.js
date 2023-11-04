@@ -1,10 +1,9 @@
 import {z} from 'zod';
 
-import {Prisma, PrismaClient} from "@prisma/client";
+import {Prisma} from "@prisma/client";
 import {NextResponse} from "next/server";
 import {TagSchema} from "@/app/api/tags/route";
-
-const prisma = new PrismaClient();
+import {prisma} from "@/utils/PrismaUtil";
 
 const MESSAGES = {
     ARTICLES_NOT_FOUND: "Aucun article n'a été trouvé.",

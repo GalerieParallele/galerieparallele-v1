@@ -1,9 +1,7 @@
 import z from 'zod'
 
-import {PrismaClient} from "@prisma/client";
 import {NextResponse} from "next/server";
-
-const prisma = new PrismaClient();
+import {prisma} from "@/utils/PrismaUtil";
 
 const MESSAGES = {
     NO_TAGS: "Aucun tag n'a été trouvé.",

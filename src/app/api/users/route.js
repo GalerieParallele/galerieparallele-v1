@@ -2,13 +2,12 @@ import {NextResponse} from "next/server";
 
 import {z} from 'zod';
 
-import {Prisma, PrismaClient} from "@prisma/client";
+import {Prisma} from "@prisma/client";
 
 import jwt from 'jsonwebtoken';
 import AUTH from "@/constants/AUTH";
 import {hashPassword} from "@/constants/Util";
-
-const prisma = new PrismaClient();
+import {prisma} from "@/utils/PrismaUtil";
 
 const MESSAGES = {
 

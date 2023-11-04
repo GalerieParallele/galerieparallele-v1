@@ -1,9 +1,7 @@
 import z from 'zod'
 
-import {PrismaClient} from "@prisma/client";
 import {NextResponse} from "next/server";
-
-const prisma = new PrismaClient();
+import {prisma} from "@/utils/PrismaUtil";
 
 const MESSAGES = {
     NO_ARTIST_UNKNOW: "Aucun artiste non référencé n'a été trouvé.",

@@ -1,9 +1,8 @@
 import z from 'zod'
 
-import {PrismaClient} from "@prisma/client";
 import {NextResponse} from "next/server";
 
-const prisma = new PrismaClient();
+import {prisma} from "@/utils/PrismaUtil";
 
 const MESSAGES = {
     NO_TYPES_OEUVRE: "Aucun type d'oeuvre n'a été trouvé.",

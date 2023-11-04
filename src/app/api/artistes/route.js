@@ -1,9 +1,9 @@
 import {z} from 'zod';
-import {Prisma, PrismaClient} from "@prisma/client";
+import {Prisma} from "@prisma/client";
 import {NextResponse} from "next/server";
 import {UserSchema} from "@/app/api/users/route";
+import {prisma} from "@/utils/PrismaUtil";
 
-const prisma = new PrismaClient();
 
 const MESSAGES = {
 
@@ -124,15 +124,6 @@ const tag = z
             .transform(tag => tag.toUpperCase()
             )
     )
-    .optional();
-
-const saveTheDate = z
-    .optional();
-
-const exposition = z
-    .optional();
-
-const oeuvre = z
     .optional();
 
 const user = UserSchema;
@@ -367,6 +358,10 @@ export async function POST(req) {
         return NextResponse.json(MESSAGES.API_SERVER_ERROR, {status: 500});
 
     }
+
+}
+
+export async function PATCH(req) {
 
 }
 

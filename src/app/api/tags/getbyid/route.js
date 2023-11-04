@@ -1,9 +1,7 @@
 import {z} from 'zod';
 
 import {NextResponse} from 'next/server';
-import {PrismaClient} from "@prisma/client";
-
-const prisma = new PrismaClient();
+import {prisma} from "@/utils/PrismaUtil";
 
 const GetTagByIdSchema = z.object({
     id: z

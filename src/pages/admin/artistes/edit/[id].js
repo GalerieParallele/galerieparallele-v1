@@ -17,6 +17,7 @@ import {FaEarthAfrica} from "react-icons/fa6";
 import {GrTextAlignCenter} from "react-icons/gr";
 import Editor from "@/components/items/Editor";
 import LittleSpinner from "@/components/items/LittleSpinner";
+import {Toast} from "@/constants/ToastConfig";
 
 const initialState = {
     user: {
@@ -93,24 +94,11 @@ export default function AdminArtistEdit({artist}) {
                 })
             }).then(res => res.json()).then(data => {
                 setArtistData(data);
-                state.user.email = data.user.email;
-                state.user.firstname = data.user.firstname;
-                state.user.lastname = data.user.lastname;
-                state.user.phone = data.user.phone;
-                state.user.street = data.user.street;
-                state.user.city = data.user.city;
-                state.user.postalCode = data.user.postalCode;
-                state.artist.pseudo = data.pseudo;
-                state.artist.bio = data.bio;
-                state.artist.instagram = data.instagram;
-                state.artist.facebook = data.facebook;
-                state.artist.linkedin = data.linkedin;
-                state.artist.website = data.website;
             }).finally(
                 setLoading(false)
             )
         }
-    }, [artist, artistId, state.artist, state.user])
+    }, [artist, artistId, state, state.artist, state.user])
 
     /**
      * Permet de mettre à jour le state du formulaire
@@ -159,6 +147,46 @@ export default function AdminArtistEdit({artist}) {
         }
     };
 
+    const handleSubmit = async (e) => {
+
+        e.preventDefault();
+
+        try {
+
+            if (Object.values(state.user).every(x => (x === null || x === undefined || x === ""))) {
+                throw new Error("Il n'y a aucune nouvelle information à enregistrer.");
+            }
+
+            const userResponse = await fetch(ROUTES.API.USERS, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body:{
+                    user: state.user
+                }
+            });
+
+            const userJSON = await userResponse.json();
+
+            if (!userResponse.ok) {
+                Toast.fire({
+                    icon: "error",
+                    title: userJSON.message | "Une erreur est survenue lors de la mise à jour du compte utilisateur."
+                })
+            }
+
+        } catch (error){
+
+            Toast.fire({
+                icon: "error",
+                title: error.message | "Une erreur est survenue lors de la mise à jour du compte utilisateur."
+            })
+
+        }
+
+    }
+
     if (loading) {
         return (
             <Admin>
@@ -187,24 +215,22 @@ export default function AdminArtistEdit({artist}) {
                 <div className={styles.main}>
                     <div className={styles.head}>
                         <h1>Artistes</h1>
-                        <br/>
                         <h3>Edition d{artistData ? "e l'artiste:" : "'un artiste"}</h3>
-                        {artistData && artistData.pseudo ? <h4>{artistData.pseudo}</h4> : <LittleSpinner/> }
-                        <br/>
+                        {artistData && artistData.pseudo ? <h4>{artistData.pseudo}</h4> : <LittleSpinner/>}
                         <Button
                             text={"Enregistrer"}
+                            onClick={handleSubmit}
                         />
                     </div>
                     <div className={styles.sectionList}>
                         <ArtisteNewSectionItem
                             sectionName={"Compte utilisateur"}
-                            required
                         >
                             <IconInput
                                 label={"E-mail"}
                                 type={"email"}
                                 IconComponent={MdEmail}
-                                placeholder={"Ex: example@mail.com"}
+                                placeholder={artistData ? artistData.user.email : "Ex: example@mail.com"}
                                 onChange={handleChange}
                                 name={"user.email"}
                                 value={state.user.email}
@@ -258,7 +284,7 @@ export default function AdminArtistEdit({artist}) {
                                 label={"Prénom"}
                                 type={"text"}
                                 IconComponent={BsFillFileEarmarkPersonFill}
-                                placeholder={"Ex: Jean"}
+                                placeholder={artistData ? artistData.user.firstname : "Ex: Jean"}
                                 onChange={handleChange}
                                 name={"user.firstname"}
                                 value={state.user.firstname}
@@ -269,7 +295,7 @@ export default function AdminArtistEdit({artist}) {
                                 label={"Nom"}
                                 type={"text"}
                                 IconComponent={BsFillFileEarmarkPersonFill}
-                                placeholder={"Ex: Dupont"}
+                                placeholder={artistData ? artistData.user.lastname : "Ex: Dupont"}
                                 onChange={handleChange}
                                 name={"user.lastname"}
                                 value={state.user.lastname}
@@ -280,7 +306,7 @@ export default function AdminArtistEdit({artist}) {
                                 label={"Numéro de téléphone"}
                                 type={"tel"}
                                 IconComponent={BsTelephoneFill}
-                                placeholder={"Ex: 0769141995"}
+                                placeholder={artistData ? artistData.user.phone : "Ex: 0769141995"}
                                 onChange={handleChange}
                                 name={"user.phone"}
                                 value={state.user.phone}
@@ -291,7 +317,7 @@ export default function AdminArtistEdit({artist}) {
                                 label={"Adresse"}
                                 type={"text"}
                                 IconComponent={IoHome}
-                                placeholder={"Ex: 1 rue de la paix"}
+                                placeholder={artistData ? artistData.user.street : "Ex: 1 rue de la paix"}
                                 onChange={handleChange}
                                 name={"user.street"}
                                 value={state.user.street}
@@ -302,7 +328,7 @@ export default function AdminArtistEdit({artist}) {
                                 label={"Ville"}
                                 type={"text"}
                                 IconComponent={IoHome}
-                                placeholder={"Ex: Paris"}
+                                placeholder={artistData ? artistData.user.city : "Ex: Paris"}
                                 onChange={handleChange}
                                 name={"user.city"}
                                 value={state.user.city}
@@ -313,7 +339,7 @@ export default function AdminArtistEdit({artist}) {
                                 label={"Code postal"}
                                 type={"text"}
                                 IconComponent={IoHome}
-                                placeholder={"Ex: 75000"}
+                                placeholder={artistData ? artistData.user.postalCode : "Ex: 75000"}
                                 onChange={handleChange}
                                 name={"user.postalCode"}
                                 value={state.user.postalCode}
@@ -328,7 +354,7 @@ export default function AdminArtistEdit({artist}) {
                                 label={"Nom d'artiste"}
                                 type={"text"}
                                 IconComponent={BsFillFileEarmarkPersonFill}
-                                placeholder={"Ex: M4TRIX"}
+                                placeholder={artistData ? artistData.pseudo : "Ex: M4TRIX"}
                                 value={state.artist.pseudo}
                                 name={"artist.pseudo"}
                                 onChange={handleChange}
@@ -337,7 +363,7 @@ export default function AdminArtistEdit({artist}) {
                                 label={"Facebook"}
                                 type={"text"}
                                 IconComponent={AiFillFacebook}
-                                placeholder={"Ex: https://www.facebook.com/..."}
+                                placeholder={artistData ? artistData.facebook : "Ex: https://www.facebook.com/..."}
                                 value={state.artist.facebook}
                                 name={"artist.facebook"}
                                 onChange={handleChange}
@@ -346,7 +372,7 @@ export default function AdminArtistEdit({artist}) {
                                 label={"Instagram"}
                                 type={"text"}
                                 IconComponent={AiFillInstagram}
-                                placeholder={"Ex: https://www.instagram.com/..."}
+                                placeholder={artistData ? artistData.instagram : "Ex: https://www.instagram.com/..."}
                                 value={state.artist.instagram}
                                 name={"artist.instagram"}
                                 onChange={handleChange}
@@ -355,7 +381,7 @@ export default function AdminArtistEdit({artist}) {
                                 label={"LinkedIn"}
                                 type={"text"}
                                 IconComponent={AiFillLinkedin}
-                                placeholder={"Ex: https://www.linkedin.com/..."}
+                                placeholder={artistData ? artistData.linkedin : "Ex: https://www.linkedin.com/..."}
                                 value={state.artist.linkedin}
                                 name={"artist.linkedin"}
                                 onChange={handleChange}
@@ -364,7 +390,7 @@ export default function AdminArtistEdit({artist}) {
                                 label={"Site web"}
                                 type={"text"}
                                 IconComponent={FaEarthAfrica}
-                                placeholder={"Ex: https://www.m4trix.com"}
+                                placeholder={artistData ? artistData.website : "Ex: https://www.m4trix.com"}
                                 value={state.artist.website}
                                 name={"artist.website"}
                                 onChange={handleChange}
@@ -378,15 +404,18 @@ export default function AdminArtistEdit({artist}) {
                                         <p>Biographie</p>
                                     </div>
                                 </div>
-                                <Editor
-                                    onEditorChange={(content) => {
-                                        dispatch({
-                                            type: 'UPDATE_FORM',
-                                            payload: {field: 'artist.bio', value: content},
-                                        });
-                                    }
-                                    }
-                                />
+                                {
+                                    artistData && <Editor
+                                        onEditorChange={(content) => {
+                                            dispatch({
+                                                type: 'UPDATE_FORM',
+                                                payload: {field: 'artist.bio', value: content},
+                                            });
+                                        }
+                                        }
+                                        defaultContent={artistData.bio}
+                                    />
+                                }
                             </div>
                         </ArtisteNewSectionItem>
                     </div>

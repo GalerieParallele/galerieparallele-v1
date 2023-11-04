@@ -1,8 +1,6 @@
 import bcrypt from "bcryptjs";
-import {PrismaClient} from "@prisma/client";
+import {prisma} from "@/utils/PrismaUtil";
 import jwt from "jsonwebtoken";
-
-const prisma = new PrismaClient();
 
 const authErrorMessage = "Vous devez être authentifié pour accéder à cette ressource.";
 

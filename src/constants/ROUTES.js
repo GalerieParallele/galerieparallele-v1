@@ -48,6 +48,9 @@ const PATHS = {
         },
         ARTISTES: {
             HOME: createPath('artistes'),
+        },
+        USERS: {
+            HOME: createPath('users'),
         }
     }
 }
@@ -92,6 +95,9 @@ const ROUTES = {
         },
         ARTISTES: {
             HOME: API_BASE + PATHS.API.ARTISTES.HOME,
+        },
+        USERS: {
+            HOME: API_BASE + PATHS.API.USERS.HOME,
         }
     }
 }
