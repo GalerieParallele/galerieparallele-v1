@@ -42,7 +42,11 @@ export default function AdminNav() {
                 width: "100%",
                 padding: "10px 1.5rem",
             }}>
-                <p style={{}}>Artistes</p>
+                <p style={{
+                    textAlign: "center",
+                    textTransform: "uppercase",
+                    fontWeight: "bold",
+                }}>Artistes</p>
             </div>
             <AdminLink
                 text={"Liste"}

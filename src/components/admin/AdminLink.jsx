@@ -3,23 +3,37 @@ import React from "react";
 import Link from "next/link";
 import PropTypes from "prop-types";
 
-import ROUTES from "@/constants/ROUTES";
-
 import {MdQuestionMark} from "react-icons/md";
 
 import styles from "./AdminLink.module.css"
 
 export default function AdminLink({IconComponent, text, to}) {
-    return <Link
-        href={to}
-        className={styles.adminLink}>
-        <div>
-            {IconComponent && <IconComponent className={styles.icon}/>}
-        </div>
-        <div>
-            <p>  {text}</p>
-        </div>
-    </Link>
+
+    const isActive = to && to !== "#";
+
+    if (!isActive) {
+        return (
+            <div className={`${styles.inactive} ${styles.adminLink}`}>
+                <div>
+                    {IconComponent && <IconComponent className={styles.icon}/>}
+                </div>
+                <div>
+                    <p>{text}</p>
+                </div>
+            </div>
+        )
+    }
+
+    return (
+        <Link href={to} className={styles.adminLink}>
+            <div>
+                {IconComponent && <IconComponent className={styles.icon}/>}
+            </div>
+            <div>
+                <p>{text}</p>
+            </div>
+        </Link>
+    )
 }
 
 AdminLink.propTypes = {
@@ -30,5 +44,5 @@ AdminLink.propTypes = {
 
 AdminLink.defaultProps = {
     IconComponent: MdQuestionMark,
-    to: ROUTES.ADMIN.HOME
+    to: "#"
 }

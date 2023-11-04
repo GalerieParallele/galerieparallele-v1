@@ -133,7 +133,7 @@ const artistId = z
         message: "L'id de l'artiste doit être un nombre positif."
     });
 
-const LegalInformationSchema = z.object({
+export const LegalInformationSchema = z.object({
     id,
     societe,
     adrNumVoie,

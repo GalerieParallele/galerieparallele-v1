@@ -9,14 +9,23 @@
     transition: var(--transition);
 }
 
-.adminLink:hover{
+.active {
+    color: var(--white);
+}
+
+.inactive {
+    color: var(--light-gray);
+    cursor: not-allowed;
+}
+
+.adminLink:hover {
     background-color: var(--white);
     color: var(--black);
 }
 
 .adminLink:hover .icon,
 .adminLink:hover a {
-    color: var(--black); /* change the color to black on hover */
+    color: var(--black);
 }
 
 .icon {

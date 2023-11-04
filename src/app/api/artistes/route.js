@@ -3,6 +3,7 @@ import {Prisma} from "@prisma/client";
 import {NextResponse} from "next/server";
 import {UserSchema} from "@/app/api/users/route";
 import {prisma} from "@/utils/PrismaUtil";
+import {LegalInformationSchema} from "@/app/api/legalsinformation/route";
 
 
 const MESSAGES = {
@@ -127,6 +128,7 @@ const tag = z
     .optional();
 
 const user = UserSchema;
+const legalInformation = LegalInformationSchema.nullable();
 
 export const ArtistSchema = z.object({
     id,
@@ -138,6 +140,7 @@ export const ArtistSchema = z.object({
     website,
     tag,
     user,
+    legalInformation
 });
 
 const ArtistResponseSchema = z.object({
@@ -219,6 +222,21 @@ export async function GET() {
                         }
                     }
                 },
+                legalInformation: {
+                    select: {
+                        id: true,
+                        societe: true,
+                        tva: true,
+                        siret: true,
+                        adrNumVoie: true,
+                        adrRue: true,
+                        adrVille: true,
+                        adrCodePostal: true,
+                        numMaisonsDesArtistes: true,
+                        numSecuriteSociale: true,
+                        artistId: true,
+                    }
+                }
                 // exposition: {
                 //     select: {
                 //         name: true,
@@ -276,6 +294,8 @@ export async function GET() {
 
         artists.map(artist => {
             artist.tag = artist.tag.map(tag => tag.tag.name);
+
+            console.log(artist);
         });
 
         const validatedArtist = artists.map(artist => ArtistSchema.parse(artist));
@@ -327,6 +347,21 @@ export async function POST(req) {
                         roles: true,
                     }
                 },
+                legalInformation: {
+                    select: {
+                        id: true,
+                        societe: true,
+                        tva: true,
+                        siret: true,
+                        adrNumVoie: true,
+                        adrRue: true,
+                        adrVille: true,
+                        adrCodePostal: true,
+                        numMaisonsDesArtistes: true,
+                        numSecuriteSociale: true,
+                        artistId: true,
+                    }
+                }
             }
         });
 
