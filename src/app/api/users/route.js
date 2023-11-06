@@ -166,7 +166,12 @@ const CreateUserSchema = z.object({
 });
 
 const UpdateUserSchema = z.object({
-    id: z.number().positive({message: "L'identifiant doit être un nombre positif."}),
+    id: z
+        .number({
+            message: "L'identifiant doit être un nombre.",
+            required_error: "L'identifiant est requis.",
+        })
+        .positive({message: "L'identifiant doit être un nombre positif."}),
     avatarURL: z.string({message: "L'URL de l'avatar doit être une chaîne de caractères."})
         .url({message: "L'URL de l'avatar doit être une URL valide."})
         .nullable({message: "L'URL de l'avatar peut être nulle."})
@@ -321,6 +326,7 @@ export async function PATCH(req) {
         const requestBody = UpdateUserSchema.parse(JSON.parse(await req.text()));
 
         const userId = requestBody.id;
+
         delete requestBody.id;
 
         if (requestBody.password) {
@@ -343,7 +349,9 @@ export async function PATCH(req) {
 
     } catch (error) {
 
-        console.log(error);
+        if (process.env.NODE_ENV === 'development') {
+            console.log(error);
+        }
 
         if (error instanceof z.ZodError) {
             return NextResponse.json({message: error.errors[0].message}, {status: 400});

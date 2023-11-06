@@ -398,6 +398,44 @@ export async function POST(req) {
 
 export async function PATCH(req) {
 
+    try {
+
+        const ArtistSchemaOmitRelation = ArtistSchema.omit({
+            user: true,
+            legalInformation: true,
+            tag: true
+        });
+
+        const requestBody = ArtistSchemaOmitRelation.parse(JSON.parse(await req.text()));
+
+        const id = requestBody.id;
+
+        const updateArtist = await prisma.artist.update({
+            where: {
+                id
+            },
+        })
+
+        const validatedArtist = ArtistSchemaOmitRelation.parse(updateArtist);
+
+        return NextResponse.json(validatedArtist, {status: 200});
+
+    } catch (error) {
+
+        if (process.env.NODE_ENV === 'development') {
+            console.log(error);
+        }
+
+        if (error instanceof z.ZodError) {
+            return NextResponse.json({message: error.errors[0].message}, {status: 400});
+        }
+
+        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+            return NextResponse.json({message: MESSAGES.INVALID_ARTIST}, {status: 404});
+        }
+
+        return NextResponse.json(MESSAGES.API_SERVER_ERROR, {status: 500});
+    }
 }
 
 export async function DELETE(req) {

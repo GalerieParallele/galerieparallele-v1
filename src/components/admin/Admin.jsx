@@ -1,6 +1,4 @@
-import React, {useEffect} from "react";
-
-import {Toast} from "@/constants/ToastConfig";
+import React from "react";
 
 import AdminNav from "@/components/admin/AdminNav";
 

@@ -100,30 +100,41 @@ export default function ArtisteAdminNew() {
 
         try {
 
-            let avatarURLToUse = state.user.avatarURL;
-
-            if (avatarURL) {
-
-                const {downloadURL, error, success} = await StorageUtils.uploadFile(avatarURL, 'avatar', null);
-
-                if (!success) throw new Error(error.toString());
-
-                avatarURLToUse = downloadURL;
-
-            }
-
-            const userResponse = await fetch('/api/users', {
+            const userResponse = await fetch(ROUTES.API.USERS.HOME, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
                     ...state.user,
-                    avatarURL: avatarURLToUse,
                 }),
             });
 
             const userResponseJson = await userResponse.json();
 
             if (!userResponse.ok) throw new Error(userResponseJson.message);
+
+            if (avatarURL) {
+
+                const {
+                    downloadURL,
+                    error,
+                    success
+                } = await StorageUtils.uploadFile(avatarURL, "users/" + userResponse.user.id + "/avatar", null);
+
+                if (!success) throw new Error(error.toString());
+
+                const updateAvatarResponse = await fetch(ROUTES.API.USERS.HOME, {
+                    method: 'PATCH',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        avatarURL: downloadURL,
+                    }),
+                });
+
+                const updateAvatarResponseJson = await updateAvatarResponse.json();
+
+                if (!updateAvatarResponse.ok) throw new Error(updateAvatarResponseJson.message);
+
+            }
 
             const user = userResponseJson.user;
             const userid = user.id;

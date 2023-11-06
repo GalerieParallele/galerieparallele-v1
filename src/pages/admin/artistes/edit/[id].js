@@ -18,6 +18,7 @@ import {GrTextAlignCenter} from "react-icons/gr";
 import Editor from "@/components/items/Editor";
 import LittleSpinner from "@/components/items/LittleSpinner";
 import {Toast} from "@/constants/ToastConfig";
+import BigSpinner from "@/components/items/BigSpinner";
 
 const initialState = {
     user: {
@@ -39,17 +40,6 @@ const initialState = {
         linkedin: undefined,
         website: undefined,
     },
-    legal: {
-        societe: undefined,
-        adrNumVoie: undefined,
-        adrRue: undefined,
-        adrVille: undefined,
-        adrCodePostal: undefined,
-        siret: undefined,
-        tva: undefined,
-        numMaisonsDesArtistes: undefined,
-        numSecuriteSociale: undefined
-    }
 };
 
 function reducer(state, action) {
@@ -72,10 +62,11 @@ export default function AdminArtistEdit({artist}) {
 
     const router = useRouter();
 
+    const [loading, setLoading] = useState(true);
     const [state, dispatch] = useReducer(reducer, initialState);
     const [artistId, setArtistId] = useState(undefined);
     const [artistData, setArtistData] = useState(undefined);
-    const [loading, setLoading] = useState(true);
+    const [avatarURL, setAvatarURL] = useState(undefined);
 
     useEffect(() => {
         setArtistId(parseInt(router.query.id));
@@ -107,6 +98,8 @@ export default function AdminArtistEdit({artist}) {
     const handleChange = (e) => {
 
         const {name, value, type, files} = e.target;
+
+        console.log(value);
 
         if (type === 'file') {
             setAvatarURL(files[0]);
@@ -153,44 +146,81 @@ export default function AdminArtistEdit({artist}) {
 
         try {
 
-            if (Object.values(state.user).every(x => (x === null || x === undefined || x === ""))) {
-                throw new Error("Il n'y a aucune nouvelle information à enregistrer.");
+            if (
+                Object.values(state.user).every(value => value === undefined)
+                && Object.values(state.artist).every(value => value === undefined)
+            ) {
+                throw new Error("Il n'y a aucune modification à enregistrer.");
             }
 
-            const userResponse = await fetch(ROUTES.API.USERS, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body:{
-                    user: state.user
+            if (Object.values(state.user).some(value => value !== undefined)) {
+
+                const userRequest = await fetch(ROUTES.API.USERS.HOME, {
+                    method: "PATCH",
+                    body: JSON.stringify({
+                        id: artistData.user.id,
+                        ...state.user,
+                    }),
+                });
+
+                const userResponse = await userRequest.json();
+
+                if (userResponse.error) {
+                    throw new Error(userResponse.error);
                 }
-            });
 
-            const userJSON = await userResponse.json();
-
-            if (!userResponse.ok) {
-                Toast.fire({
-                    icon: "error",
-                    title: userJSON.message | "Une erreur est survenue lors de la mise à jour du compte utilisateur."
-                })
             }
 
-        } catch (error){
+            if (Object.values(state.artist).some(value => value !== undefined)) {
+
+                const artistRequest = await fetch(ROUTES.API.ARTISTES.HOME, {
+                    method: "PATCH",
+                    body: JSON.stringify({
+                        id: artistData.id,
+                        ...state.artist,
+                    }),
+                });
+
+                const artistResponse = await artistRequest.json();
+
+                if (artistResponse.error) {
+                    throw new Error(artistResponse.error);
+                }
+
+            }
+
+            Toast.fire({
+                icon: "success",
+                title: "L'utilisateur a bien été modifié."
+            })
+
+            router.push(ROUTES.ADMIN.ARTISTES.HOME);
+
+        } catch (error) {
+
+            console.log(error.message);
 
             Toast.fire({
                 icon: "error",
-                title: error.message | "Une erreur est survenue lors de la mise à jour du compte utilisateur."
+                title: error.message || "Une erreur est survenue lors de l'édition de l'utilisateur."
             })
 
         }
-
     }
 
     if (loading) {
         return (
             <Admin>
-                <p>Chargement en cours...</p>
+                <div style={{
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}>
+                    <BigSpinner/>
+                </div>
             </Admin>
         )
     }
