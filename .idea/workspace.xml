@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Début de la séparation des logiques de remplissage d'un artiste">
+    <list default="true" id="037626e0-2c27-41d2-9e95-7e81adf79c64" name="Changes" comment="Méthode patch artiste non terminée">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/api/artistes/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/artistes/route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/users/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/users/route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/Admin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/Admin.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/ROUTES.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/ROUTES.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/AdminNav.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/AdminNav.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/admin/artistes/edit/[id].js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/artistes/edit/[id].js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/admin/artistes/new/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/artistes/new/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/artistes/legal-information/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/admin/artistes/legal-information/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,15 +182,8 @@
       <workItem from="1699026596732" duration="52000" />
       <workItem from="1699041678226" duration="10781000" />
       <workItem from="1699084376813" duration="11691000" />
-      <workItem from="1699292868272" duration="7490000" />
-    </task>
-    <task id="LOCAL-00094" summary="Ajout de champs supplémentaires dans le formulaire d'inscription">
-      <option name="closed" value="true" />
-      <created>1697114154388</created>
-      <option name="number" value="00094" />
-      <option name="presentableId" value="LOCAL-00094" />
-      <option name="project" value="LOCAL" />
-      <updated>1697114154388</updated>
+      <workItem from="1699292868272" duration="7643000" />
+      <workItem from="1699339825943" duration="3117000" />
     </task>
     <task id="LOCAL-00095" summary="Import du fichier de styles global dans tout le projet">
       <option name="closed" value="true" />
@@ -578,7 +569,15 @@
       <option name="project" value="LOCAL" />
       <updated>1699106632886</updated>
     </task>
-    <option name="localTasksCounter" value="143" />
+    <task id="LOCAL-00143" summary="Méthode patch artiste non terminée">
+      <option name="closed" value="true" />
+      <created>1699307996639</created>
+      <option name="number" value="00143" />
+      <option name="presentableId" value="LOCAL-00143" />
+      <option name="project" value="LOCAL" />
+      <updated>1699307996640</updated>
+    </task>
+    <option name="localTasksCounter" value="144" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -596,7 +595,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Route API permettant de récupérer un tag précis, terminé" />
     <MESSAGE value="Rectification tag display in code" />
     <MESSAGE value="Add route typesOeuvres ✅" />
     <MESSAGE value="Début de la sécurisation API" />
@@ -621,6 +619,7 @@
     <MESSAGE value="Résolution du problème des multiples instances prisma" />
     <MESSAGE value="Découpage en plusieurs sections" />
     <MESSAGE value="Début de la séparation des logiques de remplissage d'un artiste" />
-    <option name="LAST_COMMIT_MESSAGE" value="Début de la séparation des logiques de remplissage d'un artiste" />
+    <MESSAGE value="Méthode patch artiste non terminée" />
+    <option name="LAST_COMMIT_MESSAGE" value="Méthode patch artiste non terminée" />
   </component>
 </project>

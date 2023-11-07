@@ -237,54 +237,6 @@ export async function GET() {
                         artistId: true,
                     }
                 }
-                // exposition: {
-                //     select: {
-                //         name: true,
-                //     }
-                // },
-                // oeuvre: {
-                //     select: {
-                //         oeuvre: {
-                //             select: {
-                //                 name: true,
-                //                 description: true,
-                //                 prix: true,
-                //                 anecdote: true,
-                //                 hauteur: true,
-                //                 longueur: true,
-                //                 largeur: true,
-                //                 signature: true,
-                //                 encadrement: true,
-                //                 support: true,
-                //                 technique: true,
-                //                 numerotation: true,
-                //                 images: {
-                //                     select: {
-                //                         mediaURL: true
-                //                     }
-                //                 },
-                //                 tag: {
-                //                     select: {
-                //                         tag: {
-                //                             select: {
-                //                                 name: true
-                //                             }
-                //                         }
-                //                     }
-                //                 },
-                //                 type: {
-                //                     select: {
-                //                         type: {
-                //                             select: {
-                //                                 name: true,
-                //                             }
-                //                         }
-                //                     }
-                //                 }
-                //             }
-                //         }
-                //     }
-                // }
             }
         });
 
@@ -403,16 +355,22 @@ export async function PATCH(req) {
         const ArtistSchemaOmitRelation = ArtistSchema.omit({
             user: true,
             legalInformation: true,
-            tag: true
+            tag: true,
         });
 
         const requestBody = ArtistSchemaOmitRelation.parse(JSON.parse(await req.text()));
 
+        console.log(requestBody);
+
         const id = requestBody.id;
+        delete requestBody.id;
 
         const updateArtist = await prisma.artist.update({
             where: {
                 id
+            },
+            data: {
+                ...requestBody,
             },
         })
 

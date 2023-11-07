@@ -22,23 +22,23 @@ import BigSpinner from "@/components/items/BigSpinner";
 
 const initialState = {
     user: {
-        email: undefined,
-        avatarURL: undefined,
-        password: undefined,
-        firstname: undefined,
-        lastname: undefined,
-        phone: undefined,
-        street: undefined,
-        city: undefined,
-        postalCode: undefined,
+        email: "",
+        avatarURL: "",
+        password: "",
+        firstname: "",
+        lastname: "",
+        phone: "",
+        street: "",
+        city: "",
+        postalCode: "",
     },
     artist: {
-        pseudo: undefined,
-        bio: undefined,
-        instagram: undefined,
-        facebook: undefined,
-        linkedin: undefined,
-        website: undefined,
+        pseudo: "",
+        bio: "",
+        instagram: "",
+        facebook: "",
+        linkedin: "",
+        website: "",
     },
 };
 
@@ -67,29 +67,6 @@ export default function AdminArtistEdit({artist}) {
     const [artistId, setArtistId] = useState(undefined);
     const [artistData, setArtistData] = useState(undefined);
     const [avatarURL, setAvatarURL] = useState(undefined);
-
-    useEffect(() => {
-        setArtistId(parseInt(router.query.id));
-    }, [router.query.id])
-
-    useEffect(() => {
-        if (artistId) {
-            setLoading(true);
-            fetch("/api/artistes/getbyid", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    id: artistId
-                })
-            }).then(res => res.json()).then(data => {
-                setArtistData(data);
-            }).finally(
-                setLoading(false)
-            )
-        }
-    }, [artist, artistId, state, state.artist, state.user])
 
     /**
      * Permet de mettre à jour le state du formulaire
@@ -144,69 +121,136 @@ export default function AdminArtistEdit({artist}) {
 
         e.preventDefault();
 
+        setLoading(true)
+
         try {
 
-            if (
-                Object.values(state.user).every(value => value === undefined)
-                && Object.values(state.artist).every(value => value === undefined)
-            ) {
-                throw new Error("Il n'y a aucune modification à enregistrer.");
+            for (const [key, value] of Object.entries(state.user)) {
+                if (value === undefined || value === "") {
+                    delete state.user[key];
+                }
             }
 
-            if (Object.values(state.user).some(value => value !== undefined)) {
+            for (const [key, value] of Object.entries(state.artist)) {
+                if (value === undefined || value === "") {
+                    delete state.artist[key];
+                }
+            }
 
-                const userRequest = await fetch(ROUTES.API.USERS.HOME, {
-                    method: "PATCH",
-                    body: JSON.stringify({
-                        id: artistData.user.id,
-                        ...state.user,
-                    }),
-                });
+            try {
 
-                const userResponse = await userRequest.json();
-
-                if (userResponse.error) {
-                    throw new Error(userResponse.error);
+                if (
+                    Object.values(state.user).every(value => value === undefined)
+                    && Object.values(state.artist).every(value => value === undefined)
+                ) {
+                    throw new Error("Il n'y a aucune modification à enregistrer.");
                 }
 
-            }
+                if (Object.values(state.user).some(value => value !== undefined)) {
 
-            if (Object.values(state.artist).some(value => value !== undefined)) {
+                    const userRequest = await fetch(ROUTES.API.USERS.HOME, {
+                        method: "PATCH",
+                        body: JSON.stringify({
+                            id: artistData.user.id,
+                            ...state.user,
+                        }),
+                    });
 
-                const artistRequest = await fetch(ROUTES.API.ARTISTES.HOME, {
-                    method: "PATCH",
-                    body: JSON.stringify({
-                        id: artistData.id,
-                        ...state.artist,
-                    }),
-                });
+                    console.log("userRequest", userRequest);
 
-                const artistResponse = await artistRequest.json();
+                    const userResponse = await userRequest.json();
 
-                if (artistResponse.error) {
-                    throw new Error(artistResponse.error);
+                    console.log("userResponse", userResponse);
+
+                    if (userRequest.status !== 200) {
+                        throw new Error(userResponse.message);
+                    }
+
+                    if (avatarURL) {
+                        // TODO : Upload new avatar and erase old one
+                    }
+
                 }
 
+                if (Object.values(state.artist).some(value => value !== undefined)) {
+
+                    const artistRequest = await fetch(ROUTES.API.ARTISTES.HOME, {
+                        method: "PATCH",
+                        body: JSON.stringify({
+                            id: artistData.id,
+                            ...state.artist,
+                        }),
+                    });
+
+                    console.log("artistRequest", artistRequest);
+
+                    const artistResponse = await artistRequest.json();
+
+                    console.log("artistResponse", artistResponse);
+
+                    if (artistRequest.status !== 200) {
+                        throw new Error(artistResponse.message);
+                    }
+
+                }
+
+                Toast.fire({
+                    icon: "success",
+                    title: "L'utilisateur a bien été modifié."
+                })
+
+                for (const [key] of Object.entries(state.user)) {
+                    dispatch({
+                        type: 'UPDATE_FORM',
+                        payload: {field: `user.${key}`, value: ""},
+                    });
+                }
+
+                for (const [key] of Object.entries(state.artist)) {
+                    dispatch({
+                        type: 'UPDATE_FORM',
+                        payload: {field: `artist.${key}`, value: ""},
+                    });
+                }
+
+            } catch (error) {
+
+                console.log(error.message);
+
+                Toast.fire({
+                    icon: "error",
+                    title: error.message || "Une erreur est survenue lors de l'édition de l'utilisateur."
+                })
+
             }
 
-            Toast.fire({
-                icon: "success",
-                title: "L'utilisateur a bien été modifié."
-            })
-
-            router.push(ROUTES.ADMIN.ARTISTES.HOME);
-
-        } catch (error) {
-
-            console.log(error.message);
-
-            Toast.fire({
-                icon: "error",
-                title: error.message || "Une erreur est survenue lors de l'édition de l'utilisateur."
-            })
-
+        } finally {
+            setLoading(false)
         }
     }
+
+    useEffect(() => {
+        setArtistId(parseInt(router.query.id));
+    }, [router.query.id, handleSubmit])
+
+    useEffect(() => {
+        if (artistId) {
+            setLoading(true);
+            fetch("/api/artistes/getbyid", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    id: artistId
+                })
+            }).then(res => res.json()).then(data => {
+                setArtistData(data);
+            }).finally(
+                setLoading(false)
+            )
+        }
+    }, [artist, artistId, state, state.artist, state.user])
 
     if (loading) {
         return (

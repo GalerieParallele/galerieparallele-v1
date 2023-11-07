@@ -108,19 +108,6 @@ export default function AdminArtistLegalInfoIndex() {
 
         Toast.fire({icon: 'info', title: 'Création des informations juridiques en cours...'});
 
-        console.log(JSON.stringify({
-            artistId: selectedArtistId.value,
-            societe: state.legal.societe,
-            adrNumVoie: state.legal.adrNumVoie,
-            adrRue: state.legal.adrRue,
-            adrVille: state.legal.adrVille,
-            adrCodePostal: state.legal.adrCodePostal,
-            siret: state.legal.siret,
-            tva: state.legal.tva,
-            numMaisonsDesArtistes: state.legal.numMaisonsDesArtistes,
-            numSecuriteSociale: state.legal.numSecuriteSociale,
-        }))
-
         try {
 
             const res = await fetch(ROUTES.API.ARTISTES.LEGAL_INFORMATION, {
@@ -130,7 +117,7 @@ export default function AdminArtistLegalInfoIndex() {
                 },
                 body: {
                     artistId: selectedArtistId.value,
-
+                    ...state.legal,
                 },
             })
 

@@ -61,7 +61,8 @@ export default function AdminNav() {
             <AdminLink
                 text={"Juridique"}
                 IconComponent={GoLaw}
-                to={ROUTES.ADMIN.ARTISTES.LEGAL_INFORMATION}
+                // to={ROUTES.ADMIN.ARTISTES.LEGAL_INFORMATION}
+                to={"#"}
             />
             <AdminLink
                 text={"Relations contractuelles"}
