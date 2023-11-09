@@ -43,7 +43,7 @@
 FROM node:alpine AS dependencies
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm install --production
+RUN npm install --omit=dev
 
 # Étape 2 : Construction
 FROM node:alpine AS build
