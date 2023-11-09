@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE `Oeuvre` ADD COLUMN `prix` INTEGER NOT NULL DEFAULT 0;
