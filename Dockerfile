@@ -48,25 +48,20 @@ RUN npm install --production
 # Étape 2 : Construction
 FROM node:alpine AS build
 WORKDIR /app
-COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
+COPY . .
+RUN npm install -g prisma
+COPY prisma ./prisma
 RUN npx prisma generate
 RUN npm run build
-RUN rm -rf node_modules
 
 # Étape 3 : Déploiement
 FROM node:alpine AS deploy
 WORKDIR /app
 ENV NODE_ENV production
-COPY --from=build /app/next.config.js ./
-COPY --from=build /app/public ./public
-COPY --from=build /app/.next ./.next
-COPY --from=build /app/node_modules ./node_modules
-
-USER node  # Exécutez l'application en tant qu'utilisateur non root
-
+COPY --from=build /app ./
 EXPOSE 3000
 ENV PORT 3000
-
 CMD ["npm", "start"]
+
 
