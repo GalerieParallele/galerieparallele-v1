@@ -43,7 +43,7 @@ services:
       - "traefik.http.routers.myapp-http.entrypoints=web"
       - "traefik.http.routers.myapp-http.middlewares=redirect-https"
     environment:
-      - DATABASE_URL=postgres://user:password@db:5432/gp_database
+      - DATABASE_URL=postgres://user:${POSTGRES_PASSWORD}@db:5432/gp_database
     depends_on:
       - db
     networks:
