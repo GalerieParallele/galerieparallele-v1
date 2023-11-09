@@ -34,6 +34,7 @@ services:
       context: .
       dockerfile: Dockerfile
       target: deploy
+    command: sh -c "npx prisma migrate deploy && npm start"
     labels:
       - "traefik.http.routers.myapp.rule=Host(`galerieparallele.com`)"
       - "traefik.http.routers.myapp.entrypoints=websecure"
