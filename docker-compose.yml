@@ -34,7 +34,7 @@ services:
       context: .
       dockerfile: Dockerfile
       target: deploy
-    command: sh -c "npx prisma migrate deploy && npm start"
+    command: [ "/bin/sh", "-c", "./wait-for-db.sh" ]
     labels:
       - "traefik.http.routers.myapp.rule=Host(`galerieparallele.com`)"
       - "traefik.http.routers.myapp.entrypoints=websecure"
