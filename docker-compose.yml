@@ -34,7 +34,7 @@ services:
       context: .
       dockerfile: Dockerfile
       target: deploy
-#    command: sh -c "npx prisma migrate deploy && npm start"
+    command: sh -c "npx prisma migrate deploy && npm start"
     labels:
       - "traefik.http.routers.myapp.rule=Host(`galerieparallele.com`)"
       - "traefik.http.routers.myapp.entrypoints=websecure"
@@ -59,6 +59,8 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
     restart: always
     networks:
       - internal
