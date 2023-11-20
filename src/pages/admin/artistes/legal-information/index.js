@@ -13,6 +13,7 @@ import React, {useEffect, useReducer, useState} from "react";
 import {useRouter} from "next/router";
 import {Toast} from "@/constants/ToastConfig";
 import Select from "react-select";
+import {revalidatePath} from "next/cache";
 
 const initialState = {
     legal: {
@@ -110,21 +111,31 @@ export default function AdminArtistLegalInfoIndex() {
 
         try {
 
+            console.log(
+                JSON.stringify({
+                    artistId: selectedArtistId.value,
+                    ...state.legal,
+                }),
+            );
+
             const res = await fetch(ROUTES.API.ARTISTES.LEGAL_INFORMATION, {
-                method: 'POST',
+                method: (getArtistById(selectedArtistId.value).legalInformation ? 'PATCH' : 'POST'),
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: {
-                    artistId: selectedArtistId.value,
-                    ...state.legal,
-                },
+                body:
+                    JSON.stringify({
+                        artistId: selectedArtistId.value,
+                        ...state.legal,
+                    }),
             })
 
             const resJSON = await res.json();
 
-            if (!res.ok) {
-                console.error(resJSON);
+            console.log(res.status);
+
+            if (res.status !== 200 && res.status !== 201) {
+                throw new Error(resJSON.message || 'Une erreur est survenue');
             }
 
             Toast.fire({icon: 'success', title: 'Information juridique créée avec succès'});
@@ -140,12 +151,8 @@ export default function AdminArtistLegalInfoIndex() {
         } finally {
             setLoading(false);
         }
-    };
 
-    useEffect(() => {
-        console.log(selectedArtistId);
-        console.log(state);
-    }, [selectedArtistId, state]);
+    };
 
     return (
         <Admin>

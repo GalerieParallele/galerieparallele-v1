@@ -49,7 +49,7 @@ const PATHS = {
         },
         ARTISTES: {
             HOME: createPath('artistes'),
-            LEGAL_INFORMATION: createPath('artistes', 'legalsinformation'),
+            LEGAL_INFORMATION: createPath('legalsinformation'),
         },
         USERS: {
             HOME: 'users',

@@ -19,6 +19,7 @@ import Editor from "@/components/items/Editor";
 import LittleSpinner from "@/components/items/LittleSpinner";
 import {Toast} from "@/constants/ToastConfig";
 import BigSpinner from "@/components/items/BigSpinner";
+import StorageUtils from "@/utils/StorageUtils";
 
 const initialState = {
     user: {
@@ -142,11 +143,31 @@ export default function AdminArtistEdit({artist}) {
                 if (
                     Object.values(state.user).every(value => value === undefined)
                     && Object.values(state.artist).every(value => value === undefined)
+                    && !avatarURL
                 ) {
                     throw new Error("Il n'y a aucune modification à enregistrer.");
                 }
 
-                if (Object.values(state.user).some(value => value !== undefined)) {
+                if (Object.values(state.user).some(value => value !== undefined) || avatarURL) {
+
+                    if (avatarURL) {
+
+                        const {
+                            downloadURL,
+                            error,
+                            success
+                        } = await StorageUtils.uploadFile(avatarURL, "users/" + artistData.user.id + "/avatar", null);
+
+                        console.log("downloadURL", downloadURL);
+
+                        if (!success) throw new Error(error.toString());
+
+                        dispatch({
+                            type: 'UPDATE_FORM',
+                            payload: {field: 'user.avatarURL', value: downloadURL},
+                        });
+
+                    }
 
                     const userRequest = await fetch(ROUTES.API.USERS.HOME, {
                         method: "PATCH",

@@ -246,8 +246,6 @@ export async function GET() {
 
         artists.map(artist => {
             artist.tag = artist.tag.map(tag => tag.tag.name);
-
-            console.log(artist);
         });
 
         const validatedArtist = artists.map(artist => ArtistSchema.parse(artist));
@@ -359,8 +357,6 @@ export async function PATCH(req) {
         });
 
         const requestBody = ArtistSchemaOmitRelation.parse(JSON.parse(await req.text()));
-
-        console.log(requestBody);
 
         const id = requestBody.id;
         delete requestBody.id;
