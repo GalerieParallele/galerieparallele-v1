@@ -331,7 +331,6 @@ export default function AdminArtistEdit({artist}) {
                                 value={state.user.email}
                                 disabled={loading}
                                 autoComplete={"email"}
-                                required
                             />
                             <div
                                 style={{
@@ -355,7 +354,6 @@ export default function AdminArtistEdit({artist}) {
                                         value={state.user.password}
                                         disabled={loading}
                                         autoComplete={"current-password"}
-                                        required
                                     />
                                 </div>
                                 <div>
@@ -367,7 +365,7 @@ export default function AdminArtistEdit({artist}) {
                                 </div>
                             </div>
                             <IconInput
-                                label={"Avatar"}
+                                label={"Avatar (la modification peut prendre quelques minutes)"}
                                 type={"file"}
                                 IconComponent={RxAvatar}
                                 onChange={handleChange}
@@ -384,7 +382,6 @@ export default function AdminArtistEdit({artist}) {
                                 name={"user.firstname"}
                                 value={state.user.firstname}
                                 disabled={loading}
-                                required
                             />
                             <IconInput
                                 label={"Nom"}
@@ -395,7 +392,6 @@ export default function AdminArtistEdit({artist}) {
                                 name={"user.lastname"}
                                 value={state.user.lastname}
                                 disabled={loading}
-                                required
                             />
                             <IconInput
                                 label={"Numéro de téléphone"}
@@ -406,7 +402,6 @@ export default function AdminArtistEdit({artist}) {
                                 name={"user.phone"}
                                 value={state.user.phone}
                                 disabled={loading}
-                                required
                             />
                             <IconInput
                                 label={"Adresse"}
@@ -417,7 +412,6 @@ export default function AdminArtistEdit({artist}) {
                                 name={"user.street"}
                                 value={state.user.street}
                                 disabled={loading}
-                                required
                             />
                             <IconInput
                                 label={"Ville"}
@@ -428,7 +422,6 @@ export default function AdminArtistEdit({artist}) {
                                 name={"user.city"}
                                 value={state.user.city}
                                 disabled={loading}
-                                required
                             />
                             <IconInput
                                 label={"Code postal"}
@@ -439,7 +432,6 @@ export default function AdminArtistEdit({artist}) {
                                 name={"user.postalCode"}
                                 value={state.user.postalCode}
                                 disabled={loading}
-                                required
                             />
                         </ArtisteNewSectionItem>
                         <ArtisteNewSectionItem

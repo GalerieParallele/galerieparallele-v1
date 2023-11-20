@@ -7,6 +7,8 @@ export default function PageLoader() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: "var(--black)",
+        color: "var(--white)"
     }}>
         <BigSpinner/>
     </div>;

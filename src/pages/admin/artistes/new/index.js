@@ -112,13 +112,15 @@ export default function ArtisteAdminNew() {
 
             if (!userResponse.ok) throw new Error(userResponseJson.message);
 
+            const userId = userResponseJson.user.id;
+
             if (avatarURL) {
 
                 const {
                     downloadURL,
                     error,
                     success
-                } = await StorageUtils.uploadFile(avatarURL, "users/" + userResponse.user.id + "/avatar", null);
+                } = await StorageUtils.uploadFile(avatarURL, "users/" + userId + "/avatar", null);
 
                 if (!success) throw new Error(error.toString());
 
@@ -126,6 +128,7 @@ export default function ArtisteAdminNew() {
                     method: 'PATCH',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
+                        id: userId,
                         avatarURL: downloadURL,
                     }),
                 });
