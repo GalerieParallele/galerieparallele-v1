@@ -8,6 +8,7 @@ const MESSAGES = {
 
     LEGAL_INFORMATION_ALREADY_EXISTS: "L'information légale concernant cet artiste existe déjà.",
     NO_ARTIST_FOUND: "Aucun artiste correspondant à l'id renseigné n'a été trouvé.",
+    SUCCESS_EDIT: "Les informations légales concernant cet artiste ont bien été modifiées.",
 }
 
 const id = z
@@ -147,7 +148,19 @@ export const LegalInformationSchema = z.object({
     artistId
 });
 
-const LegalInformationCreateSchema = LegalInformationSchema.omit({id: true});
+const LegalInformationCreateSchema =
+    LegalInformationSchema
+        .omit({id: true});
+
+const LegalInformationUpdateSchema =
+    LegalInformationSchema
+        .partial()
+        .extend({
+            artistId
+        })
+        .omit({
+            id: true
+        });
 
 export async function POST(req) {
 
@@ -192,6 +205,52 @@ export async function POST(req) {
             if (error.code === 'P2025') {
                 return NextResponse.json({message: MESSAGES.NO_ARTIST_FOUND}, {status: 400});
             }
+        }
+
+        return NextResponse.json(MESSAGES.API_SERVER_ERROR, {status: 500});
+
+    }
+
+}
+
+export async function PATCH(req) {
+
+    try {
+
+        const requestBody = LegalInformationUpdateSchema.parse(JSON.parse(await req.text()));
+
+        const artistId = requestBody.artistId;
+
+        delete requestBody.artistId;
+
+        const legalInformationUpdate = await prisma.artistLegalInformation.update({
+            where: {
+                artistId
+            },
+            data: {
+                ...requestBody,
+            }
+        });
+
+        const validatedLegalInformationUpdate = LegalInformationSchema.parse(legalInformationUpdate);
+
+        return NextResponse.json({
+            message: MESSAGES.SUCCESS_EDIT,
+            legalInformation: validatedLegalInformationUpdate
+        }, {status: 200});
+
+    } catch (error) {
+
+        if (process.env.NODE_ENV === 'development') {
+            console.log(error);
+        }
+
+        if (error instanceof z.ZodError) {
+            return NextResponse.json({message: error.errors[0].message}, {status: 400});
+        }
+
+        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+            return NextResponse.json({message: MESSAGES.NO_ARTIST_FOUND}, {status: 404});
         }
 
         return NextResponse.json(MESSAGES.API_SERVER_ERROR, {status: 500});

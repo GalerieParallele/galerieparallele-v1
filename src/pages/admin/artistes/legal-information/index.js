@@ -95,6 +95,14 @@ export default function AdminArtistLegalInfoIndex() {
     };
 
     /**
+     * Permet de savoir si l'artiste a déjà des informations juridiques
+     * @returns {*}
+     */
+    const hasAlreadyLegalInformation = () => {
+        return getArtistById(selectedArtistId.value).legalInformation;
+    }
+
+    /**
      * Permet de gérer la soumission du formulaire
      * @param e
      * @returns {Promise<void>}
@@ -107,7 +115,10 @@ export default function AdminArtistLegalInfoIndex() {
 
         setLoading(true);
 
-        Toast.fire({icon: 'info', title: 'Création des informations juridiques en cours...'});
+        Toast.fire({
+            icon: 'info',
+            title: hasAlreadyLegalInformation() ? 'Modification des informations juridiques en cours' : 'Création des informations juridiques en cours'
+        });
 
         try {
 
@@ -119,7 +130,7 @@ export default function AdminArtistLegalInfoIndex() {
             );
 
             const res = await fetch(ROUTES.API.ARTISTES.LEGAL_INFORMATION, {
-                method: (getArtistById(selectedArtistId.value).legalInformation ? 'PATCH' : 'POST'),
+                method: (hasAlreadyLegalInformation() ? 'PATCH' : 'POST'),
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -138,7 +149,10 @@ export default function AdminArtistLegalInfoIndex() {
                 throw new Error(resJSON.message || 'Une erreur est survenue');
             }
 
-            Toast.fire({icon: 'success', title: 'Information juridique créée avec succès'});
+            Toast.fire({
+                icon: 'success',
+                title: hasAlreadyLegalInformation() ? 'Informations juridiques modifiées' : 'Informations juridiques créées'
+            });
 
             await router.push(ROUTES.ADMIN.ARTISTES.HOME);
 
@@ -164,7 +178,7 @@ export default function AdminArtistLegalInfoIndex() {
                         {
                             selectedArtistId && (
                                 <Button
-                                    text={getArtistById(selectedArtistId.value).legalInformation ? "Modifier" : "Créer"}
+                                    text={hasAlreadyLegalInformation() ? "Modifier" : "Créer"}
                                     onClick={handleSubmit}
                                 />
                             )
@@ -195,105 +209,120 @@ export default function AdminArtistLegalInfoIndex() {
                         </div>
                     </div>
                     {
-                        selectedArtistId && (
-                            <div className={styles.sectionList}>
-                                <ArtisteNewSectionItem
-                                    sectionName={"Informations juridiques"}
-                                    description={"Aucunes de ces informations ne seront visible publiquement sur le site."}
-                                >
-                                    <IconInput
-                                        label={"Nom de société"}
-                                        type={"text"}
-                                        IconComponent={BsBuildingsFill}
-                                        placeholder={getArtistById(selectedArtistId.value).legalInformation ? getArtistById(selectedArtistId.value).legalInformation.societe : "Ex: DP Gallery"}
-                                        name={"legal.societe"}
-                                        value={state.legal.societe}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                    <IconInput
-                                        label={"Numéro de voie"}
-                                        type={"text"}
-                                        IconComponent={IoHome}
-                                        placeholder={getArtistById(selectedArtistId.value).legalInformation ? getArtistById(selectedArtistId.value).legalInformation.adrNumVoie : "Ex: 1"}
-                                        name={"legal.adrNumVoie"}
-                                        value={state.legal.adrNumVoie}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                    <IconInput
-                                        label={"Nom de la voie"}
-                                        type={"text"}
-                                        IconComponent={IoHome}
-                                        placeholder={getArtistById(selectedArtistId.value).legalInformation ? getArtistById(selectedArtistId.value).legalInformation.adrRue : "Ex: Rue de Paris"}
-                                        name={"legal.adrRue"}
-                                        value={state.legal.adrRue}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                    <IconInput
-                                        label={"Ville"}
-                                        type={"text"}
-                                        IconComponent={IoHome}
-                                        placeholder={getArtistById(selectedArtistId.value).legalInformation ? getArtistById(selectedArtistId.value).legalInformation.adrVille : "Ex: Paris"}
-                                        name={"legal.adrVille"}
-                                        value={state.legal.adrVille}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                    <IconInput
-                                        label={"Code postal"}
-                                        type={"text"}
-                                        IconComponent={IoHome}
-                                        placeholder={getArtistById(selectedArtistId.value).legalInformation ? getArtistById(selectedArtistId.value).legalInformation.adrCodePostal : "Ex: 75000"}
-                                        name={"legal.adrCodePostal"}
-                                        value={state.legal.adrCodePostal}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                    <IconInput
-                                        label={"Numéro de SIRET (non visible sur le site)"}
-                                        type={"text"}
-                                        IconComponent={AiOutlineFieldNumber}
-                                        placeholder={getArtistById(selectedArtistId.value).legalInformation ? getArtistById(selectedArtistId.value).legalInformation.siret : "Ex: 12345678912345"}
-                                        name={"legal.siret"}
-                                        value={state.legal.siret}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                    <IconInput
-                                        label={"Numéro de TVA (non visible sur le site)"}
-                                        type={"text"}
-                                        IconComponent={AiOutlineFieldNumber}
-                                        placeholder={getArtistById(selectedArtistId.value).legalInformation ? getArtistById(selectedArtistId.value).legalInformation.tva : "Ex: 12345678912345"}
-                                        name={"legal.tva"}
-                                        value={state.legal.tva}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                    <IconInput
-                                        label={"Numéro maison des artistes (non visible sur le site)"}
-                                        type={"text"}
-                                        IconComponent={AiOutlineFieldNumber}
-                                        placeholder={getArtistById(selectedArtistId.value).legalInformation ? getArtistById(selectedArtistId.value).legalInformation.numMaisonsDesArtistes : "Ex: 12345678912345"}
-                                        name={"legal.numMaisonsDesArtistes"}
-                                        value={state.legal.numMaisonsDesArtistes}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                    <IconInput
-                                        label={"Numéro de sécurité sociale (non visible sur le site)"}
-                                        type={"text"}
-                                        IconComponent={AiOutlineFieldNumber}
-                                        placeholder={getArtistById(selectedArtistId.value).legalInformation ? getArtistById(selectedArtistId.value).legalInformation.numSecuriteSociale : "Ex: 12345678912345"}
-                                        name={"legal.numSecuriteSociale"}
-                                        value={state.legal.numSecuriteSociale}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </ArtisteNewSectionItem>
-                            </div>
-                        )
+
+                        selectedArtistId ? (
+                                <div className={styles.sectionList}>
+                                    <ArtisteNewSectionItem
+                                        sectionName={"Informations juridiques"}
+                                        description={"Aucunes de ces informations ne seront visible publiquement sur le site."}
+                                    >
+                                        <IconInput
+                                            label={"Nom de société"}
+                                            type={"text"}
+                                            IconComponent={BsBuildingsFill}
+                                            placeholder={hasAlreadyLegalInformation() ? getArtistById(selectedArtistId.value).legalInformation.societe : "Ex: DP Gallery"}
+                                            name={"legal.societe"}
+                                            value={state.legal.societe}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                        <IconInput
+                                            label={"Numéro de voie"}
+                                            type={"text"}
+                                            IconComponent={IoHome}
+                                            placeholder={hasAlreadyLegalInformation() ? getArtistById(selectedArtistId.value).legalInformation.adrNumVoie : "Ex: 1"}
+                                            name={"legal.adrNumVoie"}
+                                            value={state.legal.adrNumVoie}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                        <IconInput
+                                            label={"Nom de la voie"}
+                                            type={"text"}
+                                            IconComponent={IoHome}
+                                            placeholder={hasAlreadyLegalInformation() ? getArtistById(selectedArtistId.value).legalInformation.adrRue : "Ex: Rue de Paris"}
+                                            name={"legal.adrRue"}
+                                            value={state.legal.adrRue}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                        <IconInput
+                                            label={"Ville"}
+                                            type={"text"}
+                                            IconComponent={IoHome}
+                                            placeholder={hasAlreadyLegalInformation() ? getArtistById(selectedArtistId.value).legalInformation.adrVille : "Ex: Paris"}
+                                            name={"legal.adrVille"}
+                                            value={state.legal.adrVille}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                        <IconInput
+                                            label={"Code postal"}
+                                            type={"text"}
+                                            IconComponent={IoHome}
+                                            placeholder={hasAlreadyLegalInformation() ? getArtistById(selectedArtistId.value).legalInformation.adrCodePostal : "Ex: 75000"}
+                                            name={"legal.adrCodePostal"}
+                                            value={state.legal.adrCodePostal}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                        <IconInput
+                                            label={"Numéro de SIRET (non visible sur le site)"}
+                                            type={"text"}
+                                            IconComponent={AiOutlineFieldNumber}
+                                            placeholder={hasAlreadyLegalInformation() ? getArtistById(selectedArtistId.value).legalInformation.siret : "Ex: 12345678912345"}
+                                            name={"legal.siret"}
+                                            value={state.legal.siret}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                        <IconInput
+                                            label={"Numéro de TVA (non visible sur le site)"}
+                                            type={"text"}
+                                            IconComponent={AiOutlineFieldNumber}
+                                            placeholder={hasAlreadyLegalInformation() ? getArtistById(selectedArtistId.value).legalInformation.tva : "Ex: 12345678912345"}
+                                            name={"legal.tva"}
+                                            value={state.legal.tva}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                        <IconInput
+                                            label={"Numéro maison des artistes (non visible sur le site)"}
+                                            type={"text"}
+                                            IconComponent={AiOutlineFieldNumber}
+                                            placeholder={hasAlreadyLegalInformation() ? getArtistById(selectedArtistId.value).legalInformation.numMaisonsDesArtistes : "Ex: 12345678912345"}
+                                            name={"legal.numMaisonsDesArtistes"}
+                                            value={state.legal.numMaisonsDesArtistes}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                        <IconInput
+                                            label={"Numéro de sécurité sociale (non visible sur le site)"}
+                                            type={"text"}
+                                            IconComponent={AiOutlineFieldNumber}
+                                            placeholder={hasAlreadyLegalInformation() ? getArtistById(selectedArtistId.value).legalInformation.numSecuriteSociale : "Ex: 12345678912345"}
+                                            name={"legal.numSecuriteSociale"}
+                                            value={state.legal.numSecuriteSociale}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                    </ArtisteNewSectionItem>
+                                </div>
+                            ) :
+                            (
+                                <div style={{
+                                    height: '100%',
+                                    width: '100%',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}>
+                                    <p>
+                                        Veuillez sélectionner un artiste pour pouvoir créer ou éditer ses informations
+                                        légales.
+                                    </p>
+                                </div>
+                            )
                     }
                 </div>
             </main>
