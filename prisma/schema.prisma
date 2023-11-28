@@ -36,7 +36,7 @@ model ArtistSaveTheDate {
 
   title    String   @db.VarChar(255)
   content  String   @db.Text
-  date     DateTime
+  date     DateTime @default(now())
   photoURL String   @db.Text
 
   artistId Int
