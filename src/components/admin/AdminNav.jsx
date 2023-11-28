@@ -56,7 +56,7 @@ export default function AdminNav() {
             <AdminLink
                 text={"Oeuvres"}
                 IconComponent={FaPaintBrush}
-                to={"#"}
+                to={ROUTES.ADMIN.ARTISTES.OEUVRES}
             />
             <AdminLink
                 text={"Juridique"}
