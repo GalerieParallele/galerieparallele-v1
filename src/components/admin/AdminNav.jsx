@@ -78,11 +78,6 @@ export default function AdminNav() {
                 IconComponent={BsCalendarDate}
                 to={"#"}
             />
-            <AdminLink
-                text={"Oeuvres"}
-                IconComponent={LuFolderHeart}
-                to={"#"}
-            />
             <div style={{
                 marginTop: "1rem",
                 width: "100%",
