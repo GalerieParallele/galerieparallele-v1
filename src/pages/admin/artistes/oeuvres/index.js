@@ -6,6 +6,7 @@ import {AiOutlineArrowLeft} from "react-icons/ai";
 import React from "react";
 import ROUTES from "@/constants/ROUTES";
 import {useRouter} from "next/router";
+import OeuvresList from "@/components/admin/oeuvres/OeuvresList";
 
 export default function OeuvresIndex() {
 
@@ -24,6 +25,9 @@ export default function OeuvresIndex() {
                     <div className={styles.head}>
                         <h1>Oeuvres</h1>
                         <h3>Listes des oeuvres</h3>
+                    </div>
+                    <div className={styles.content}>
+                        <OeuvresList/>
                     </div>
                 </div>
             </main>
