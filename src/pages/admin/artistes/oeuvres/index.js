@@ -12,6 +12,40 @@ export default function OeuvresIndex() {
 
     const router = useRouter();
 
+    const oeuvresTest = [
+        {
+            "id": 1,
+            "name": "Mona Lisa",
+            "description": "Description de l'oeuvre 1",
+            "images": [
+                "https://picsum.photos/200/300",
+                "https://picsum.photos/200/300",
+                "https://picsum.photos/200/300",
+            ]
+        },
+        {
+            "id": 2,
+            "name": "École d'Athènes",
+            "description": "Description de l'oeuvre 2",
+            "images": [
+                "https://picsum.photos/200/300",
+                "https://picsum.photos/200/300",
+                "https://picsum.photos/200/300",
+            ]
+        },
+        {
+            "id": 3,
+            "name": "La Jeune Fille à la perle",
+            "description": "Description de l'oeuvre 3",
+            "images": [
+                "https://picsum.photos/200/300",
+                "https://picsum.photos/200/300",
+                "https://picsum.photos/200/300",
+            ]
+        }
+    ]
+
+
     return (
         <Admin>
             <main className={adminStyles.main}>
@@ -27,7 +61,7 @@ export default function OeuvresIndex() {
                         <h3>Listes des oeuvres</h3>
                     </div>
                     <div className={styles.content}>
-                        <OeuvresList/>
+                        <OeuvresList oeuvres={oeuvresTest}/>
                     </div>
                 </div>
             </main>
