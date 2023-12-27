@@ -23,7 +23,7 @@ export default function OeuvresIndex() {
                 <div className={styles.main}>
                     <div className={styles.head}>
                         <h1>Oeuvres</h1>
-                        <h3>Création/Édition des oeuvres</h3>
+                        <h3>Listes des oeuvres</h3>
                     </div>
                 </div>
             </main>
