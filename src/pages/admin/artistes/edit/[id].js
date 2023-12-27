@@ -7,7 +7,7 @@ import ROUTES from "@/constants/ROUTES";
 import React, {useEffect, useReducer, useState} from "react";
 import {useRouter} from "next/router";
 import styles from "@/pages/admin/artistes/new/Index.module.scss";
-import ArtisteNewSectionItem from "@/components/admin/artistes/new/ArtisteNewSectionItem";
+import ArtisteNewSectionItem from "@/components/admin/artistes/users/new/ArtisteNewSectionItem";
 import IconInput from "@/components/items/iconinput/IconInput";
 import {MdEmail, MdPassword} from "react-icons/md";
 import {RxAvatar} from "react-icons/rx";

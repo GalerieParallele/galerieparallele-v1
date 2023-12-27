@@ -11,7 +11,7 @@ import IconInput from "@/components/items/iconinput/IconInput";
 import {MdEmail, MdPassword} from "react-icons/md";
 import {RxAvatar} from "react-icons/rx";
 import {BsFillFileEarmarkPersonFill, BsTelephoneFill} from "react-icons/bs";
-import ArtisteNewSectionItem from "@/components/admin/artistes/new/ArtisteNewSectionItem";
+import ArtisteNewSectionItem from "@/components/admin/artistes/users/new/ArtisteNewSectionItem";
 import {IoHome} from "react-icons/io5";
 import Editor from "@/components/items/Editor";
 import {GrTextAlignCenter} from "react-icons/gr";

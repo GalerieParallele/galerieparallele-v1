@@ -6,7 +6,7 @@ import {AiOutlineArrowLeft} from "react-icons/ai";
 import React from "react";
 import ROUTES from "@/constants/ROUTES";
 import {useRouter} from "next/router";
-import OeuvresList from "@/components/admin/oeuvres/OeuvresList";
+import OeuvresList from "@/components/admin/artistes/oeuvres/OeuvresList";
 
 export default function OeuvresIndex() {
 
