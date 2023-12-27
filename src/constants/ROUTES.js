@@ -33,6 +33,7 @@ const PATHS = {
             },
             LEGAL_INFORMATION: createPath('admin', 'artistes', 'legal-information'),
             OEUVRES: createPath('admin', 'artistes', 'oeuvres'),
+            OEUVRES_NEW: createPath('admin', 'artistes', 'oeuvres', 'new'),
         },
         CLOUD: {
             HOME: createPath('admin', 'cloud'),
@@ -83,6 +84,7 @@ const ROUTES = {
             },
             LEGAL_INFORMATION: BASE_URL + PATHS.ADMIN.ARTISTES.LEGAL_INFORMATION,
             OEUVRES: BASE_URL + PATHS.ADMIN.ARTISTES.OEUVRES,
+            OEUVRES_NEW: BASE_URL + PATHS.ADMIN.ARTISTES.OEUVRES_NEW,
         },
         CLOUD: {
             HOME: BASE_URL + PATHS.ADMIN.CLOUD.HOME,
