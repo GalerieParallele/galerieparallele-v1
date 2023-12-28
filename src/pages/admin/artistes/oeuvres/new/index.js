@@ -20,12 +20,19 @@ import {
     FaEuroSign,
     FaExclamation,
     FaHandSparkles,
+    FaHashtag,
+    FaRegImages,
     FaRulerCombined,
     FaRulerHorizontal,
     FaRulerVertical,
     FaSignature
 } from "react-icons/fa";
 import {PiFrameCornersDuotone} from "react-icons/pi";
+import {BiGroup, BiSolidImageAdd} from "react-icons/bi";
+import CreatableSelect from "react-select/creatable";
+import {CiCircleList} from "react-icons/ci";
+import Image from "next/image";
+import {ImCross} from "react-icons/im";
 
 const initialState = {
     oeuvre: {
@@ -227,6 +234,91 @@ export default function OeuvreNew() {
                             />
                         </ArtisteNewSectionItem>
                         <ArtisteNewSectionItem
+                            sectionName={"Images"}
+                            required
+                        >
+                            <div className={styles.specialSection}>
+                                <div className={styles.specialSectionHead}>
+                                    <span>
+                                        <FaRegImages/>
+                                    </span>
+                                    <div>
+                                        <p>Images</p>
+                                    </div>
+                                </div>
+                                <div className={styles.imgOeuvreContainer}>
+                                    <div className={styles.addSpace}>
+                                        <p className={styles.icon}><BiSolidImageAdd/></p>
+                                        <p className={styles.text}>Glisser ou Cliquer pour ajouter une image</p>
+                                    </div>
+                                    <div className={styles.imgContainer}>
+                                        <Image
+                                            src={'/assets/img/magazine/cathedrale-reims.png'}
+                                            alt={'Image de test'}
+                                            layout={'fill'}
+                                        />
+                                        <button>
+                                            <ImCross/>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </ArtisteNewSectionItem>
+                        <ArtisteNewSectionItem
+                            sectionName={"Artistes"}
+                            required>
+                            <div className={styles.specialSection}>
+                                <div className={styles.specialSectionHead}>
+                                        <span>
+                                            <BiGroup/>
+                                        </span>
+                                    <div>
+                                        <p>Artiste(s) connu(s)</p>
+                                    </div>
+                                </div>
+                                <CreatableSelect
+                                    placeholder={"Sélectionner un ou plusieurs artistes connus"}
+                                    closeMenuOnSelect={false}
+                                    defaultValue={[]}
+                                    isMulti
+                                    options={[
+                                        {value: '1', label: 'Mathieu'},
+                                        {value: '2', label: 'Jean'},
+                                        {value: '3', label: 'Pierre'},
+                                        {value: '4', label: 'Paul'},
+                                        {value: '5', label: 'Jacques'},
+                                    ]}
+                                    onChange={() => console.log("change")}
+                                    // value={formData.oeuvreUnknownArtist}
+                                />
+                            </div>
+                            <div className={styles.specialSection}>
+                                <div className={styles.specialSectionHead}>
+                                        <span>
+                                            <BiGroup/>
+                                        </span>
+                                    <div>
+                                        <p>Artiste(s) inconnu(s)</p>
+                                    </div>
+                                </div>
+                                <CreatableSelect
+                                    placeholder={"Sélectionner un ou plusieurs artistes inconnus"}
+                                    closeMenuOnSelect={false}
+                                    defaultValue={[]}
+                                    isMulti
+                                    options={[
+                                        {value: '1', label: 'Mathieu'},
+                                        {value: '2', label: 'Jean'},
+                                        {value: '3', label: 'Pierre'},
+                                        {value: '4', label: 'Paul'},
+                                        {value: '5', label: 'Jacques'},
+                                    ]}
+                                    onChange={() => console.log("change")}
+                                    // value={formData.oeuvreUnknownArtist}
+                                />
+                            </div>
+                        </ArtisteNewSectionItem>
+                        <ArtisteNewSectionItem
                             sectionName={"Dimensions"}
                             required
                         >
@@ -265,6 +357,61 @@ export default function OeuvreNew() {
                                 value={state.oeuvre.dimension.depth}
                                 disabled={loading}
                             />
+                        </ArtisteNewSectionItem>
+                        <ArtisteNewSectionItem
+                            sectionName={"Autres"}
+                            required
+                        >
+                            <div className={styles.specialSection}>
+                                <div className={styles.specialSectionHead}>
+                                    <span>
+                                        <FaHashtag/>
+                                    </span>
+                                    <div>
+                                        <p>Tags</p>
+                                    </div>
+                                </div>
+                                <CreatableSelect
+                                    placeholder={"Sélectionner un ou plusieurs tags"}
+                                    closeMenuOnSelect={false}
+                                    defaultValue={[]}
+                                    isMulti
+                                    options={[
+                                        {value: '1', label: 'Mathieu'},
+                                        {value: '2', label: 'Jean'},
+                                        {value: '3', label: 'Pierre'},
+                                        {value: '4', label: 'Paul'},
+                                        {value: '5', label: 'Jacques'},
+                                    ]}
+                                    onChange={() => console.log("change")}
+                                    // value={formData.oeuvreUnknownArtist}
+                                />
+                            </div>
+                            <div className={styles.specialSection}>
+                                <div className={styles.specialSectionHead}>
+                                    <span>
+                                        <CiCircleList/>
+                                    </span>
+                                    <div>
+                                        <p>Type(s) d&apos;oeuvre</p>
+                                    </div>
+                                </div>
+                                <CreatableSelect
+                                    placeholder={"Sélectionner un ou plusieurs types d'oeuvre"}
+                                    closeMenuOnSelect={false}
+                                    defaultValue={[]}
+                                    isMulti
+                                    options={[
+                                        {value: '1', label: 'Type 1'},
+                                        {value: '2', label: 'Type 2'},
+                                        {value: '3', label: 'Type 3'},
+                                        {value: '4', label: 'Type 4'},
+                                        {value: '5', label: 'Type 5'},
+                                    ]}
+                                    onChange={() => console.log("change")}
+                                    // value={formData.oeuvreUnknownArtist}
+                                />
+                            </div>
                         </ArtisteNewSectionItem>
                     </div>
                 </div>
