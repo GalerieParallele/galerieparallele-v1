@@ -68,7 +68,7 @@ export default function OeuvresIndex() {
                             onClick={() => router.push(ROUTES.ADMIN.ARTISTES.OEUVRES_NEW)}
                             className={styles.addButton}>
                             <div className={styles.tooltip}>
-                                Ajouter un artiste
+                                Ajouter une oeuvre
                             </div>
                             <FaPaintBrush/>
                         </button>
