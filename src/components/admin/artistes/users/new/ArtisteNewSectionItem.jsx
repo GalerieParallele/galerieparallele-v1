@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 
 export default function ArtisteNewSectionItem({sectionName, description, required, children}) {
 
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
 
     const handleClick = () => {
         setOpen(!open);
