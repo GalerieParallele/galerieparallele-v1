@@ -235,7 +235,6 @@ export default function OeuvreNew() {
                         </ArtisteNewSectionItem>
                         <ArtisteNewSectionItem
                             sectionName={"Images"}
-                            required
                         >
                             <div className={styles.specialSection}>
                                 <div className={styles.specialSectionHead}>
@@ -266,7 +265,7 @@ export default function OeuvreNew() {
                         </ArtisteNewSectionItem>
                         <ArtisteNewSectionItem
                             sectionName={"Artistes"}
-                            required>
+                        >
                             <div className={styles.specialSection}>
                                 <div className={styles.specialSectionHead}>
                                         <span>
@@ -360,7 +359,6 @@ export default function OeuvreNew() {
                         </ArtisteNewSectionItem>
                         <ArtisteNewSectionItem
                             sectionName={"Autres"}
-                            required
                         >
                             <div className={styles.specialSection}>
                                 <div className={styles.specialSectionHead}>
