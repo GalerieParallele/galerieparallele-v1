@@ -1,12 +1,16 @@
 import Admin from "@/components/admin/Admin";
+
 import adminStyles from "@/pages/admin/articles/AdminArticles.module.css";
-import styles from "@/pages/admin/artistes/new/Index.module.scss";
+import styles from './Index.module.scss';
 import Button from "@/components/items/button/Button";
 import {AiOutlineArrowLeft} from "react-icons/ai";
 import React from "react";
 import ROUTES from "@/constants/ROUTES";
 import {useRouter} from "next/router";
 import OeuvresList from "@/components/admin/artistes/oeuvres/OeuvresList";
+import SearchBar from "@/components/items/searchbar/SearchBar";
+import {BsPersonAdd} from "react-icons/bs";
+import {FaPaintBrush} from "react-icons/fa";
 
 export default function OeuvresIndex() {
 
@@ -56,9 +60,18 @@ export default function OeuvresIndex() {
                     />
                 </div>
                 <div className={styles.main}>
-                    <div className={styles.head}>
-                        <h1>Oeuvres</h1>
-                        <h3>Listes des oeuvres</h3>
+                    <div className={styles.topContainer}>
+                        <SearchBar
+                            placeholder={"Rechercher une oeuvre"}
+                        />
+                        <button
+                            onClick={() => router.push(ROUTES.ADMIN.ARTISTES.OEUVRES_NEW)}
+                            className={styles.addButton}>
+                            <div className={styles.tooltip}>
+                                Ajouter un artiste
+                            </div>
+                            <FaPaintBrush/>
+                        </button>
                     </div>
                     <div className={styles.content}>
                         <OeuvresList oeuvres={oeuvresTest}/>
