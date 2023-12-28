@@ -1,0 +1,43 @@
+.main {
+
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+
+  .head {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .sectionList {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .specialSection {
+
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      border-radius: var(--border-radius);
+
+      padding: 15px;
+
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+
+      .specialSectionHead {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+  }
+}
