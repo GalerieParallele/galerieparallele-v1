@@ -41,6 +41,9 @@ const PATHS = {
                 NEW: createPath('admin', 'artistes', 'save-the-date', 'new'),
                 EDIT: createPath('admin', 'artistes', 'save-the-date', 'edit'),
             },
+            ILLUSTRATIONS: {
+                HOME: createPath('admin', 'artistes', 'illustrations'),
+            }
         },
         CLOUD: {
             HOME: createPath('admin', 'cloud'),
@@ -99,6 +102,9 @@ const ROUTES = {
                 NEW: BASE_URL + PATHS.ADMIN.ARTISTES.SAVE_THE_DATE.NEW,
                 EDIT: BASE_URL + PATHS.ADMIN.ARTISTES.SAVE_THE_DATE.EDIT,
             },
+            ILLUSTRATIONS: {
+                HOME: BASE_URL + PATHS.ADMIN.ARTISTES.ILLUSTRATIONS.HOME,
+            }
         },
         CLOUD: {
             HOME: BASE_URL + PATHS.ADMIN.CLOUD.HOME,
