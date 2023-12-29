@@ -4,7 +4,6 @@ import React, {useReducer, useState} from "react";
 import Admin from "@/components/admin/Admin";
 import adminStyles from "@/pages/admin/articles/AdminArticles.module.css";
 import styles from "@/pages/admin/artistes/new/Index.module.scss";
-import Button from "@/components/items/button/Button";
 import Select from "react-select";
 
 const initialState = {
@@ -58,7 +57,7 @@ export default function AdminIllustrationsIndex() {
     };
 
     /**
-     * Permet de savoir si l'artiste à déjà des informations importantes
+     * Permet de savoir si l'artiste à déjà des illustrations
      * @returns {*}
      */
     const hasAlreadyIllustrations = () => {
