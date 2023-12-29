@@ -6,6 +6,9 @@ import Admin from "@/components/admin/Admin";
 
 import adminStyles from "@/pages/admin/articles/AdminArticles.module.css";
 import {useArtists} from "@/hooks/useArtists";
+import styles from "@/pages/admin/artistes/new/Index.module.scss";
+import Button from "@/components/items/button/Button";
+import Select from "react-select";
 
 const initialState = {
     saveTheDate: {
@@ -61,11 +64,77 @@ export default function AdminSaveTheDateIndex() {
 
     };
 
+    /**
+     * Permet de savoir si l'artiste à déjà des informations importantes
+     * @returns {*}
+     */
+    const hasAlreadySaveTheDate = () => {
+        return getArtistById(selectedArtistId.value).legalInformation;
+    }
+
     return (
         <Admin>
             <main className={adminStyles.main}>
+                <div className={styles.main}>
+                    <div className={styles.head}>
+                        <h1>Save The Date</h1>
+                        {
+                            selectedArtistId && (
+                                <Button
+                                    text={hasAlreadySaveTheDate() ? "Modifier" : "Créer"}
+                                    onClick={() => console.log('submit')}
+                                />
+                            )
+                        }
+                        <div style={{
+                            width: '100%',
+                            maxWidth: '400px',
+                            margin: 'auto',
+                            marginTop: '20px',
+                        }}>
+                            <Select
+                                placeholder={"Sélectionner un artiste"}
+                                options={
+                                    artists && artists.map((artist) => {
+                                        return {
+                                            value: artist.id,
+                                            label: `${artist.user.firstname} ${artist.user.lastname}${artist.pseudo ? ` (${artist.pseudo})` : ''}`,
+                                        }
+                                    })
+                                }
+                                onChange={(e) => setSelectedArtistId(e)}
+                                isSearchable
+                                isClearable
+                                isLoading={loading}
+                                isDisabled={loading}
+                            />
+                        </div>
+                    </div>
+                    {
 
+                        selectedArtistId ? (
+                                <div>
+                                    <p>L&apos;artiste choisit est
+                                        : {getArtistById(selectedArtistId.value).user.firstname} {getArtistById(selectedArtistId.value).user.lastname}</p>
+                                </div>
+                            ) :
+                            (
+                                <div style={{
+                                    height: '100%',
+                                    width: '100%',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}>
+                                    <p>
+                                        Veuillez sélectionner un artiste pour pouvoir visualiser, éditer et créer des
+                                        nouvelles dates de importantes.
+                                    </p>
+                                </div>
+                            )
+                    }
+                </div>
             </main>
         </Admin>
-    )
+    );
 }
