@@ -81,7 +81,7 @@ export default function AdminSaveTheDateIndex() {
                         {
                             selectedArtistId && (
                                 <Button
-                                    text={hasAlreadySaveTheDate() ? "Modifier" : "Créer"}
+                                    text={"Ajouter une date"}
                                     onClick={() => console.log('submit')}
                                 />
                             )
