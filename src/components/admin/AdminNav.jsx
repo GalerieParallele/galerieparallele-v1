@@ -49,14 +49,14 @@ export default function AdminNav() {
                 }}>Artistes</p>
             </div>
             <AdminLink
-                text={"Liste"}
+                text={"Artistes"}
                 IconComponent={AiOutlineUnorderedList}
                 to={ROUTES.ADMIN.ARTISTES.HOME}
             />
             <AdminLink
                 text={"Oeuvres"}
                 IconComponent={FaPaintBrush}
-                to={ROUTES.ADMIN.ARTISTES.OEUVRES}
+                to={ROUTES.ADMIN.ARTISTES.OEUVRES.HOME}
             />
             <AdminLink
                 text={"Juridique"}
@@ -76,7 +76,7 @@ export default function AdminNav() {
             <AdminLink
                 text={"SaveTheDate"}
                 IconComponent={BsCalendarDate}
-                to={"#"}
+                to={ROUTES.ADMIN.ARTISTES.SAVE_THE_DATE.HOME}
             />
             <div style={{
                 marginTop: "1rem",
