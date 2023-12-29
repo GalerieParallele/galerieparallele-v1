@@ -33,6 +33,7 @@ import CreatableSelect from "react-select/creatable";
 import {CiCircleList} from "react-icons/ci";
 import Image from "next/image";
 import {ImCross} from "react-icons/im";
+import {useArtists} from "@/hooks/useArtists";
 
 const initialState = {
     oeuvre: {
@@ -79,6 +80,8 @@ function reducer(state, action) {
 export default function OeuvreNew() {
 
     const router = useRouter();
+
+    const {artists, artistLoading, error} = useArtists();
 
     const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -280,15 +283,16 @@ export default function OeuvreNew() {
                                     closeMenuOnSelect={false}
                                     defaultValue={[]}
                                     isMulti
-                                    options={[
-                                        {value: '1', label: 'Mathieu'},
-                                        {value: '2', label: 'Jean'},
-                                        {value: '3', label: 'Pierre'},
-                                        {value: '4', label: 'Paul'},
-                                        {value: '5', label: 'Jacques'},
-                                    ]}
+                                    isLoading={artistLoading}
+                                    options={
+                                        artists && artists.map((artist) => {
+                                            return {
+                                                value: artist.id,
+                                                label: `${artist.user.firstname} ${artist.user.lastname}${artist.pseudo ? ` (${artist.pseudo})` : ''}`,
+                                            }
+                                        })
+                                    }
                                     onChange={() => console.log("change")}
-                                    // value={formData.oeuvreUnknownArtist}
                                 />
                             </div>
                             <div className={styles.specialSection}>
