@@ -71,7 +71,7 @@ export default function AdminNav() {
             <AdminLink
                 text={"Illustrations"}
                 IconComponent={BsImages}
-                to={"#"}
+                to={ROUTES.ADMIN.ARTISTES.ILLUSTRATIONS.HOME}
             />
             <AdminLink
                 text={"SaveTheDate"}
