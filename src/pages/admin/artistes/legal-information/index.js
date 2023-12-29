@@ -13,7 +13,6 @@ import React, {useEffect, useReducer, useState} from "react";
 import {useRouter} from "next/router";
 import {Toast} from "@/constants/ToastConfig";
 import Select from "react-select";
-import {revalidatePath} from "next/cache";
 
 const initialState = {
     legal: {
