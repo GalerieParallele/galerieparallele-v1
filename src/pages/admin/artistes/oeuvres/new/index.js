@@ -90,7 +90,7 @@ export default function OeuvreNew() {
                 <div>
                     <Button
                         text={<AiOutlineArrowLeft/>}
-                        onClick={() => router.push(ROUTES.ADMIN.ARTISTES.OEUVRES)}
+                        onClick={() => router.push(ROUTES.ADMIN.ARTISTES.OEUVRES.HOME)}
                     />
                 </div>
                 <div className={styles.main}>

@@ -65,7 +65,7 @@ export default function OeuvresIndex() {
                             placeholder={"Rechercher une oeuvre"}
                         />
                         <button
-                            onClick={() => router.push(ROUTES.ADMIN.ARTISTES.OEUVRES_NEW)}
+                            onClick={() => router.push(ROUTES.ADMIN.ARTISTES.OEUVRES.NEW)}
                             className={styles.addButton}>
                             <div className={styles.tooltip}>
                                 Ajouter une oeuvre

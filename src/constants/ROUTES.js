@@ -32,8 +32,15 @@ const PATHS = {
                 return createPath('admin', 'artistes', 'edit', artisteId);
             },
             LEGAL_INFORMATION: createPath('admin', 'artistes', 'legal-information'),
-            OEUVRES: createPath('admin', 'artistes', 'oeuvres'),
-            OEUVRES_NEW: createPath('admin', 'artistes', 'oeuvres', 'new'),
+            OEUVRES: {
+                HOME: createPath('admin', 'artistes', 'oeuvres'),
+                NEW: createPath('admin', 'artistes', 'oeuvres', 'new'),
+            },
+            SAVE_THE_DATE: {
+                HOME: createPath('admin', 'artistes', 'save-the-date'),
+                NEW: createPath('admin', 'artistes', 'save-the-date', 'new'),
+                EDIT: createPath('admin', 'artistes', 'save-the-date', 'edit'),
+            },
         },
         CLOUD: {
             HOME: createPath('admin', 'cloud'),
@@ -83,8 +90,15 @@ const ROUTES = {
                 return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT(artisteId);
             },
             LEGAL_INFORMATION: BASE_URL + PATHS.ADMIN.ARTISTES.LEGAL_INFORMATION,
-            OEUVRES: BASE_URL + PATHS.ADMIN.ARTISTES.OEUVRES,
-            OEUVRES_NEW: BASE_URL + PATHS.ADMIN.ARTISTES.OEUVRES_NEW,
+            OEUVRES: {
+                HOME: BASE_URL + PATHS.ADMIN.ARTISTES.OEUVRES.HOME,
+                NEW: BASE_URL + PATHS.ADMIN.ARTISTES.OEUVRES.NEW,
+            },
+            SAVE_THE_DATE: {
+                HOME: BASE_URL + PATHS.ADMIN.ARTISTES.SAVE_THE_DATE.HOME,
+                NEW: BASE_URL + PATHS.ADMIN.ARTISTES.SAVE_THE_DATE.NEW,
+                EDIT: BASE_URL + PATHS.ADMIN.ARTISTES.SAVE_THE_DATE.EDIT,
+            },
         },
         CLOUD: {
             HOME: BASE_URL + PATHS.ADMIN.CLOUD.HOME,
