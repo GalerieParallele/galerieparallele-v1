@@ -9,6 +9,11 @@ import {useArtists} from "@/hooks/useArtists";
 import styles from "@/pages/admin/artistes/new/Index.module.scss";
 import Button from "@/components/items/button/Button";
 import Select from "react-select";
+import ArtisteNewSectionItem from "@/components/admin/artistes/users/new/ArtisteNewSectionItem";
+import IconInput from "@/components/items/iconinput/IconInput";
+import {MdTitle} from "react-icons/md";
+import Editor from "@/components/items/Editor";
+import {CiTextAlignJustify} from "react-icons/ci";
 
 const initialState = {
     saveTheDate: {
@@ -40,10 +45,11 @@ export default function AdminSaveTheDateIndex() {
 
     const router = useRouter();
 
-    const {artists, loading, error} = useArtists();
+    const {artists, artistLoading, error} = useArtists();
 
     const [state, dispatch] = useReducer(reducer, initialState);
     const [selectedArtistId, setSelectedArtistId] = useState(undefined);
+    const [loading, setLoading] = useState(false);
 
     const getArtistById = (id) => {
         return artists.find((artist) => artist.id === id);
@@ -105,34 +111,71 @@ export default function AdminSaveTheDateIndex() {
                                 onChange={(e) => setSelectedArtistId(e)}
                                 isSearchable
                                 isClearable
-                                isLoading={loading}
-                                isDisabled={loading}
+                                isLoading={artistLoading}
+                                isDisabled={artistLoading}
                             />
                         </div>
                     </div>
-                    {
+                    {/*{*/}
 
-                        selectedArtistId ? (
+                    {/*    selectedArtistId ? (*/}
+                    {/*            <div>*/}
+                    {/*                <p>L&apos;artiste choisit est*/}
+                    {/*                    : {getArtistById(selectedArtistId.value).user.firstname} {getArtistById(selectedArtistId.value).user.lastname}</p>*/}
+                    {/*            </div>*/}
+                    {/*        ) :*/}
+                    {/*        (*/}
+                    {/*            <div style={{*/}
+                    {/*                height: '100%',*/}
+                    {/*                width: '100%',*/}
+                    {/*                display: 'flex',*/}
+                    {/*                justifyContent: 'center',*/}
+                    {/*                alignItems: 'center',*/}
+                    {/*            }}>*/}
+                    {/*                <p>*/}
+                    {/*                    Veuillez sélectionner un artiste pour pouvoir visualiser, éditer et créer des*/}
+                    {/*                    nouvelles dates de importantes.*/}
+                    {/*                </p>*/}
+                    {/*            </div>*/}
+                    {/*        )*/}
+                    {/*}*/}
+                    <ArtisteNewSectionItem
+                        sectionName={"Save The Date"}
+                        required>
+                        <IconInput
+                            label={"Titre"}
+                            type={"text"}
+                            IconComponent={MdTitle}
+                            placeholder={"ex : Exposition de Mr.X"}
+                            onChange={() => console.log("change")}
+                            name={"saveTheDate.title"}
+                            value={state.saveTheDate.title}
+                            disabled={loading}
+                            required
+                        />
+                        <div className={styles.specialSection}>
+                            <div className={styles.specialSectionHead}>
+                                    <span>
+                                        <CiTextAlignJustify/>
+                                    </span>
                                 <div>
-                                    <p>L&apos;artiste choisit est
-                                        : {getArtistById(selectedArtistId.value).user.firstname} {getArtistById(selectedArtistId.value).user.lastname}</p>
+                                    <p>Contenu</p>
                                 </div>
-                            ) :
-                            (
-                                <div style={{
-                                    height: '100%',
-                                    width: '100%',
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                }}>
-                                    <p>
-                                        Veuillez sélectionner un artiste pour pouvoir visualiser, éditer et créer des
-                                        nouvelles dates de importantes.
-                                    </p>
-                                </div>
-                            )
-                    }
+                            </div>
+                            <Editor
+                                onEditorChange={(content) => {
+                                    dispatch({
+                                        type: 'UPDATE_FORM',
+                                        payload: {field: 'saveTheDate.content', value: content},
+                                    });
+                                }
+                                }
+                            />
+                        </div>
+                    </ArtisteNewSectionItem>
+                    <div>
+                        {/*TODO : Ajouter la liste des dates importantes de l'artiste sélectionné*/}
+                    </div>
                 </div>
             </main>
         </Admin>
