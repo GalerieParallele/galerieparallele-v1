@@ -1,0 +1,74 @@
+.main {
+  .content {
+    padding: 50px;
+
+    .left {
+
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      flex-direction: column;
+      gap: 40px;
+
+      .filter {
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+
+        width: 250px;
+
+        background-color: var(--white);
+
+        border-radius: var(--border-radius);
+
+        box-shadow: var(--shadow);
+
+        padding: 40px 20px;
+
+        .separator {
+          width: 50%;
+          height: 3px;
+          border-radius: var(--border-radius);
+          background-color: #000;
+        }
+
+        .filterRow {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          flex-direction: row;
+          gap: 10px;
+        }
+
+        .tendancesSpace {
+
+          margin-top: 15px;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 12px;
+
+          .tendanceItem {
+            background-color: var(--white);
+
+            border-radius: 25px;
+
+            box-shadow: var(--shadow);
+
+            padding: 6px 15px;
+          }
+        }
+      }
+    }
+
+    .right {
+
+    }
+  }
+}
