@@ -188,7 +188,7 @@ export default function AdminArtistEdit({artist}) {
                     }
 
                     if (avatarURL) {
-                        // TODO : Upload new avatar and erase old one
+                        // TODO : Upload edit avatar and erase old one
                     }
 
                 }

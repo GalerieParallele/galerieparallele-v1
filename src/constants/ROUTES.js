@@ -27,9 +27,9 @@ const PATHS = {
         },
         ARTISTES: {
             HOME: createPath('dashboard', 'artistes'),
-            NEW: createPath('admin', 'artistes', 'new'),
+            NEW: createPath('dashboard', 'artistes', 'new'),
             EDIT(artisteId) {
-                return createPath('admin', 'artistes', 'edit', artisteId);
+                return createPath('dashboard', 'artistes', 'edit', artisteId);
             },
             LEGAL_INFORMATION: createPath('admin', 'artistes', 'legal-information'),
             OEUVRES: {

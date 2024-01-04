@@ -4,13 +4,15 @@
   .searchSpace {
 
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
+    gap: 15px;
 
     padding-top: 35px;
 
     .searchBar {
-      width: 30%;
+      width: 400px;
     }
 
   }
