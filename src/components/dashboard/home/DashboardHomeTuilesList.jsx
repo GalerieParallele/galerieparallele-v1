@@ -3,7 +3,7 @@ import DashboardTuiles from "../items/DashboardTuiles";
 import {IoIosMan} from "react-icons/io";
 import {FaPaintBrush} from "react-icons/fa";
 
-export default function DashboardTuilesList() {
+export default function DashboardHomeTuilesList() {
     return (
         <>
             <DashboardTuiles
