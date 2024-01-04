@@ -1,0 +1,29 @@
+.main {
+
+
+  .searchSpace {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding-top: 35px;
+
+    .searchBar {
+      width: 30%;
+    }
+
+  }
+
+  .content {
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+
+    padding: 50px;
+  }
+}

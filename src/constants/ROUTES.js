@@ -18,7 +18,7 @@ const PATHS = {
         TEST: createPath('artistes', 'profil', 'artisteTest'),
     },
     ADMIN: {
-        HOME: createPath('admin'),
+        HOME: createPath('dashboard'),
         ARTICLES: {
             HOME: createPath('admin', 'articles'),
             EDIT: createPath('admin', 'articles', 'edit'),
@@ -26,7 +26,7 @@ const PATHS = {
             PREVIEW: createPath('admin', 'articles', 'preview'),
         },
         ARTISTES: {
-            HOME: createPath('admin', 'artistes'),
+            HOME: createPath('dashboard', 'artistes'),
             NEW: createPath('admin', 'artistes', 'new'),
             EDIT(artisteId) {
                 return createPath('admin', 'artistes', 'edit', artisteId);

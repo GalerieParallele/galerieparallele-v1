@@ -1,0 +1,103 @@
+.main {
+
+  width: 350px;
+
+  box-shadow: var(--shadow);
+
+
+  border-radius: var(--border-radius);
+
+  overflow: hidden;
+
+  background-color: var(--white);
+
+  .top, .content {
+    padding: 30px;
+  }
+
+  .top {
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 200px;
+    position: relative;
+
+    border-radius: 0 0 0 25px;
+    background-color: var(--black);
+
+    .imgContainer {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+
+      border: 5px solid var(--white);
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .buttonsSpace {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .buttonEdit, .buttonDelete {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      color: var(--white);
+
+      padding: 10px;
+
+      font-size: 1.3rem;
+
+      border-radius: 50%;
+
+      transition: var(--transition);
+
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+      }
+    }
+
+    .buttonEdit {
+      background-color: var(--blue);
+    }
+
+    .buttonDelete {
+      background-color: var(--red);
+    }
+  }
+
+  .bottom {
+
+    background-color: var(--black);
+
+    .content {
+      height: 100%;
+      width: 100%;
+      border-radius: 0 25px 0 0;
+      background-color: var(--white);
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+    }
+  }
+}
