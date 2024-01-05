@@ -19,6 +19,8 @@ import {FaEarthAfrica} from "react-icons/fa6";
 import {GrTextAlignCenter} from "react-icons/gr";
 import Editor from "@/components/items/Editor";
 import ROUTES from "@/constants/ROUTES";
+import Swal from "sweetalert2";
+import {Toast} from "@/constants/ToastConfig";
 
 
 const initialState = {
@@ -79,28 +81,6 @@ export default function DashboardArtistesNewIndex() {
     const [countries, setCountries] = useState([]);
 
     /**
-     * Permet de mettre à jour le state du formulaire
-     * @param e
-     */
-    const handleChange = (e) => {
-
-        const {name, value, type, files} = e.target;
-
-        dispatch({
-            type: 'UPDATE_FORM',
-            payload: {field: name, value},
-        });
-    }
-    /**
-     * Permet de lancer une procédure une fois le formulaire soumis
-     * @param e
-     * @returns {Promise<void>}
-     */
-    const handleSubmit = async (e) => {
-        console.log(state);
-    }
-
-    /**
      * Permet de générer un mot de passe aléatoire suivant les critères de sécurité
      * @param e
      */
@@ -129,6 +109,127 @@ export default function DashboardArtistesNewIndex() {
         }
     };
 
+    const handleCheckAllLegalAreNotFilledOrEmpty = () => {
+        const legalValues = Object.values(state.legal);
+        const allFilled = legalValues.every(value => value !== undefined && value !== null && value.trim() !== '');
+        const allEmpty = legalValues.every(value => !value || value.trim() === '');
+        return allFilled || allEmpty;
+    }
+
+    const checkLegalInformationStatus = () => {
+        const legalValues = Object.values(state.legal);
+        const allFilled = legalValues.every(value => value && value.trim() !== '');
+        const allEmpty = legalValues.every(value => !value || value.trim() === '');
+
+        if (allFilled) return 'allFilled';
+        if (allEmpty) return 'allEmpty';
+        return 'partiallyFilled';
+    }
+
+    const handleCheckAllUserFieldsFilledExceptAvatar = () => {
+        const {avatarURL, ...userFields} = state.user;
+        return Object.values(userFields).every(value => value !== undefined && value !== null && value.trim() !== '');
+    }
+
+    const handleCheckOneOfArtistFieldsFilled = () => {
+        return Object.values(state.artist).some(value => value !== undefined && value !== null && value.trim() !== '');
+    }
+
+    /**
+     * Permet de mettre à jour le state du formulaire
+     * @param e
+     */
+    const handleChange = (e) => {
+
+        const {name, value, type, files} = e.target;
+
+        dispatch({
+            type: 'UPDATE_FORM',
+            payload: {field: name, value},
+        });
+    }
+    /**
+     * Permet de lancer une procédure une fois le formulaire soumis
+     * @param e
+     * @returns {Promise<void>}
+     */
+    const handleSubmit = async (e) => {
+
+        e.preventDefault();
+
+        try {
+            if (!handleCheckAllUserFieldsFilledExceptAvatar()) {
+                throw new Error("Veuillez remplir toutes les informations utilisateur sauf l\'avatar qui n\'est pas obligatoire");
+            }
+
+            const legalStatus = checkLegalInformationStatus();
+
+            if (legalStatus === 'partiallyFilled') {
+                throw new Error("Veuillez remplir toutes les informations juridiques ou laisser tous les champs vides");
+            }
+
+            let userResponse;
+
+            try {
+
+                userResponse = await fetch(ROUTES.API.USERS.HOME, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        ...state.user,
+                    }),
+                });
+
+                const userResponseJson = await userResponse.json();
+
+                if (!userResponse.ok) throw new Error(userResponseJson.message);
+
+                const user = userResponseJson.user;
+                const userid = user.id;
+
+                let artistResponse;
+
+                if (handleCheckOneOfArtistFieldsFilled()) {
+                    artistResponse = await fetch(ROUTES.API.ARTISTES.HOME, {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            ...state.artist,
+                            userid,
+                        }),
+                    });
+                }
+
+                const artistsResponseJSON = await artistResponse.json();
+
+                if (!artistResponse.ok) throw new Error(artistsResponseJSON.message);
+
+                const artist = artistsResponseJSON.artist;
+                const artistid = artist.id;
+
+            } catch (error) {
+
+                Toast.fire({icon: 'error', title: error.message || 'Une erreur est survenue'});
+
+                return false;
+
+            }
+
+            if (legalStatus === 'allFilled') {
+                console.log("Création de l'artiste avec informations juridiques :", state);
+            }
+
+        } catch (error) {
+            await Swal.fire({
+                icon: 'error',
+                title: 'Oups...',
+                text: error,
+            });
+            return false;
+        }
+    }
+
+
     useEffect(() => {
         setCountriesLoading(true);
         fetch('https://restcountries.com/v3.1/all', {
@@ -141,10 +242,8 @@ export default function DashboardArtistesNewIndex() {
             .then((data) => setCountries(data))
             .finally(() => {
                 setCountriesLoading(false)
-                console.log(countries);
             });
     }, []);
-
 
     return (
         <div className={styles.main}>
@@ -155,6 +254,8 @@ export default function DashboardArtistesNewIndex() {
                 <div className={styles.topSpace}>
                     <Button
                         text={"Créer l'artiste"}
+                        type={"submit"}
+                        onClick={handleSubmit}
                     />
                 </div>
                 <DashboardSectionItem
@@ -306,12 +407,13 @@ export default function DashboardArtistesNewIndex() {
                         </div>
                         <Select
                             placeholder={"Sélectionner la nationalité de l'artiste"}
-                            closeMenuOnSelect={false}
+                            closeMenuOnSelect={true}
                             defaultValue={[]}
-                            isMulti
+                            isMulti={false}
+                            name={"artist.nationality"}
+                            value={state.artist.nationality}
                             options={
                                 countries.map((country) => {
-                                    console.log(country);
                                     return {
                                         value: country.translations.fra.common,
                                         label: country.translations.fra.common
@@ -320,7 +422,12 @@ export default function DashboardArtistesNewIndex() {
                             animate={true}
                             isLoading={countriesLoading}
                             isDisabled={countriesLoading}
-                            onChange={() => console.log("change")}
+                            onChange={(selectedOption) => {
+                                dispatch({
+                                    type: 'UPDATE_FORM',
+                                    payload: {field: 'artist.nationality', value: selectedOption},
+                                });
+                            }}
                         />
                     </div>
                     <IconInput
@@ -474,21 +581,6 @@ export default function DashboardArtistesNewIndex() {
                         required
                     />
                 </DashboardSectionItem>
-                {/*<DashboardSectionItem*/}
-                {/*    sectionName={"Relations contractuelles"}*/}
-                {/*>*/}
-
-                {/*</DashboardSectionItem>*/}
-                {/*<DashboardSectionItem*/}
-                {/*    sectionName={"Save The Date"}*/}
-                {/*>*/}
-
-                {/*</DashboardSectionItem>*/}
-                {/*<DashboardSectionItem*/}
-                {/*    sectionName={"Illustration(s)"}*/}
-                {/*    >*/}
-
-                {/*</DashboardSectionItem>*/}
             </div>
         </div>
     )
