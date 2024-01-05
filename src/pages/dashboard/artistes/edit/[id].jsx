@@ -7,7 +7,7 @@ import styles from './Index.module.scss';
 import PageLoader from "@/components/items/PageLoader";
 import Error from "@/components/error/Error";
 
-export default function DashboardArtisteNewIndex() {
+export default function DashboardArtisteEditIndex() {
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const [param, setParam] = useState(null);

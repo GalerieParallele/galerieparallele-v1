@@ -722,7 +722,7 @@ export default function ArtisteAdminNew() {
                         {/*            </div>*/}
                         {/*        </div>*/}
                         {/*        <div>*/}
-                        {/*            <ArtisteNumerotationItem/>*/}
+                        {/*            <DashboardArtisteNumerotationItem/>*/}
                         {/*        </div>*/}
                         {/*    </div>*/}
                         {/*    <IconInput*/}
