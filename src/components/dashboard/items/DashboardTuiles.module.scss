@@ -21,10 +21,7 @@
   &:hover {
     cursor: pointer;
     box-shadow: var(--hover-shadow);
-
-    .icon svg {
-      transform: rotate(360deg);
-    }
+    transform: translateY(-3px);
   }
 
   h2 {

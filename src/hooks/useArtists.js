@@ -7,6 +7,14 @@ export const useArtists = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
+    function reloadArtists() {
+        setLoading(true);
+        fetchArtists()
+            .then(data => setArtists(data.list))
+            .catch(err => setError(err))
+            .finally(() => setLoading(false));
+    }
+
     useEffect(() => {
         setLoading(true);
         fetchArtists()
@@ -15,5 +23,5 @@ export const useArtists = () => {
             .finally(() => setLoading(false));
     }, []);
 
-    return {artists, loading, error};
+    return {artists, loading, error, reloadArtists};
 };

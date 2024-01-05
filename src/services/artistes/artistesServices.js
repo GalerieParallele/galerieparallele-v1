@@ -8,10 +8,17 @@ export const fetchArtists = async () => {
                 'Content-Type': 'application/json',
             },
         });
-        if (!response.ok) {
-            throw new Error('Une erreur est survenue lors de la récupération des artistes');
+
+        if (response.status === 404) {
+            return []; // Aucun artiste n'est disponible
         }
-        return response.json();
+
+        if (!response.ok) {
+            throw new Error(`Erreur HTTP: statut ${response.status}`);
+        }
+
+        let data = await response.json();
+        return data.list || [];
     } catch (error) {
         console.error(error);
         throw error;
