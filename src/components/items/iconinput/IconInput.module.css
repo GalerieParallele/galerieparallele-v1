@@ -17,9 +17,35 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+
     box-shadow: var(--shadow);
+
     height: 40px;
-    padding: 15px;
-    border-radius: var(--border-radius);
     width: 200px;
+
+    padding: 15px;
+
+    border-radius: var(--border-radius);
 }
+
+.passwordInput {
+    position: relative;
+    .input {
+        padding-right: 40px;
+    }
+    .passwordVisibility button {
+
+        font-size: 20px;
+
+        position: absolute;
+        right: 20px;
+        top: 55%;
+        background: none;
+        transform: translate(50%, -50%);
+        border: none;
+        outline: none;
+        cursor: pointer;
+
+    }
+}
+
