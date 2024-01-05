@@ -1,19 +1,18 @@
-import {useEffect, useState} from "react";
-import {useRouter} from "next/router";
-import DashboardNavbar from "@/components/dashboard/items/DashboardNavbar";
-import DashboardArtistesEditTuilesList from "@/components/dashboard/artistes/edit/DashboardArtistesEditTuilesList";
-import ROUTES from "@/constants/ROUTES";
 import styles from './Index.module.scss';
+import DashboardNavbar from "@/components/dashboard/items/DashboardNavbar";
+import {useRouter} from "next/router";
+import {useEffect, useState} from "react";
 import PageLoader from "@/components/items/PageLoader";
 import Error from "@/components/error/Error";
+import ROUTES from "@/constants/ROUTES";
 
-export default function DashboardArtisteEditIndex() {
+export default function DashboardArtisteEditIllustrations() {
 
     const router = useRouter();
-
-    const [loading, setLoading] = useState(true);
-    const [artisteId, setArtisteId] = useState(null);
     const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    const [artisteId, setArtisteId] = useState(null);
 
     useEffect(() => {
         if (router.query.id && /^\d+$/.test(router.query.id)) {
@@ -39,12 +38,9 @@ export default function DashboardArtisteEditIndex() {
 
     return (
         <div className={styles.main}>
-            <DashboardNavbar returnURL={ROUTES.ADMIN.ARTISTES.HOME}/>
-            <div className={styles.content}>
-                <DashboardArtistesEditTuilesList
-                    artisteId={artisteId}
-                />
-            </div>
+            <DashboardNavbar
+            returnURL={ROUTES.ADMIN.ARTISTES.EDIT.HOME(artisteId)}
+            />
         </div>
-    );
+    )
 }

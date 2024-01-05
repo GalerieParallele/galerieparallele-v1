@@ -28,8 +28,28 @@ const PATHS = {
         ARTISTES: {
             HOME: createPath('dashboard', 'artistes'),
             NEW: createPath('dashboard', 'artistes', 'new'),
-            EDIT(artisteId) {
-                return createPath('dashboard', 'artistes', 'edit', artisteId);
+            EDIT: {
+                HOME(artisteId) {
+                    return createPath('dashboard', 'artistes', 'edit', artisteId);
+                },
+                CONTRATS(artisteId) {
+                    return createPath('dashboard', 'artistes', 'edit', artisteId, 'contrats')
+                },
+                ILLUSTRATIONS(artisteId) {
+                    return createPath('dashboard', 'artistes', 'edit', artisteId, 'illustrations')
+                },
+                INFORMATIONS(artisteId) {
+                    return createPath('dashboard', 'artistes', 'edit', artisteId, 'informations')
+                },
+                LEGAL(artisteId) {
+                    return createPath('dashboard', 'artistes', 'edit', artisteId, 'legal')
+                },
+                OEUVRES(artisteId) {
+                    return createPath('dashboard', 'artistes', 'edit', artisteId, 'oeuvres')
+                },
+                SAVETHEDATE(artisteId) {
+                    return createPath('dashboard', 'artistes', 'edit', artisteId, 'save-the-date')
+                }
             },
             LEGAL_INFORMATION: createPath('admin', 'artistes', 'legal-information'),
             OEUVRES: {
@@ -89,8 +109,28 @@ const ROUTES = {
         ARTISTES: {
             HOME: BASE_URL + PATHS.ADMIN.ARTISTES.HOME,
             NEW: BASE_URL + PATHS.ADMIN.ARTISTES.NEW,
-            EDIT(artisteId) {
-                return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT(artisteId);
+            EDIT: {
+                HOME(artisteId) {
+                    return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.HOME(artisteId)
+                },
+                CONTRATS(artisteId) {
+                    return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.CONTRATS(artisteId)
+                },
+                ILLUSTRATIONS(artisteId) {
+                    return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.ILLUSTRATIONS(artisteId)
+                },
+                INFORMATIONS(artisteId) {
+                    return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.INFORMATIONS(artisteId)
+                },
+                LEGAL(artisteId) {
+                    return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.LEGAL(artisteId)
+                },
+                OEUVRES(artisteId) {
+                    return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.OEUVRES(artisteId)
+                },
+                SAVETHEDATE(artisteId) {
+                    return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.SAVETHEDATE(artisteId)
+                }
             },
             LEGAL_INFORMATION: BASE_URL + PATHS.ADMIN.ARTISTES.LEGAL_INFORMATION,
             OEUVRES: {

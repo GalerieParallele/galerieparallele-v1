@@ -23,7 +23,7 @@ export default function DashboardArtisteCard({artiste}) {
                 </div>
                 <div className={styles.buttonsSpace}>
                     <button
-                        onClick={() => router.push(ROUTES.ADMIN.ARTISTES.EDIT(artiste.id))}
+                        onClick={() => router.push(ROUTES.ADMIN.ARTISTES.EDIT.HOME(artiste.id))}
                         className={styles.buttonEdit}>
                         <MdEdit/>
                     </button>

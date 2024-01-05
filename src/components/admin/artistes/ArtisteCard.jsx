@@ -51,7 +51,7 @@ export default function ArtisteCard({artiste, onDeleteSuccess}) {
     }
 
     const handleEdit = () => {
-        const path = ROUTES.ADMIN.ARTISTES.EDIT(artiste.id);
+        const path = ROUTES.ADMIN.ARTISTES.EDIT.HOME(artiste.id);
         return router.push(path);
     }
 
