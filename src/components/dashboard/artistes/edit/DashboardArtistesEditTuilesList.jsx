@@ -8,7 +8,7 @@ export default function DashboardArtistesEditTuilesList() {
         <>
             <DashboardTuiles
                 IconComponent={FaUser}
-                name={"Informations utilisateur"}
+                name={"Informations utilisateur & artiste"}
                 to={"#"}
             />
             <DashboardTuiles

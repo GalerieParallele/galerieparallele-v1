@@ -3,8 +3,13 @@ import Image from "next/image";
 import styles from './DashboardArtisteCard.module.scss';
 import Button from "@/components/items/button/Button";
 import {MdDelete, MdEdit} from "react-icons/md";
+import {useRouter} from "next/router";
+import ROUTES from "@/constants/ROUTES";
 
 export default function DashboardArtisteCard({artiste}) {
+
+    const router = useRouter();
+
     return (
         <div className={styles.main}>
             <div className={styles.top}>
@@ -17,7 +22,9 @@ export default function DashboardArtisteCard({artiste}) {
                     />
                 </div>
                 <div className={styles.buttonsSpace}>
-                    <button className={styles.buttonEdit}>
+                    <button
+                        onClick={() => router.push(ROUTES.ADMIN.ARTISTES.EDIT(artiste.id))}
+                        className={styles.buttonEdit}>
                         <MdEdit/>
                     </button>
                     <button className={styles.buttonDelete}>

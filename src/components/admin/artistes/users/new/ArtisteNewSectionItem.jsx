@@ -28,14 +28,14 @@ export default function ArtisteNewSectionItem({sectionName, description, require
                 {open ? <FaChevronDown/> : <FaChevronRight/>}
             </div>
             <div>
-                <h3>{sectionName}{required ?
+                <h3>{sectionName}{required &&
                     <span
                         onClick={handleOpenModalRequired}
                         title={"Section requise avant de compléter"}
                         style={{
                             color: "red",
                         }}> *
-                </span> : ""}
+                </span>}
                 </h3>
                 {description && <p>{description}</p>}
             </div>

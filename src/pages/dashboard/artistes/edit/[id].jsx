@@ -38,7 +38,6 @@ export default function DashboardArtisteEditIndex() {
     return (
         <div className={styles.main}>
             <DashboardNavbar returnURL={ROUTES.ADMIN.ARTISTES.HOME}/>
-            <p>{param}</p>
             <div className={styles.content}>
                 <DashboardArtistesEditTuilesList/>
             </div>

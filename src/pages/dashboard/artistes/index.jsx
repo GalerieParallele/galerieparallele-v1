@@ -56,6 +56,7 @@ export default function DashboardArtistesIndex() {
                 {/*}*/}
                 <DashboardArtisteCard
                     artiste={{
+                        id: 1,
                         firstname: "Jean",
                         lastname: "Dupont",
                         pseudo: "Levaleeeeet"

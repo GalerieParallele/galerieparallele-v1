@@ -4,9 +4,9 @@ import React, {useState} from "react";
 import styles from './DashboardSectionItem.module.scss';
 import Swal from "sweetalert2";
 
-export default function DashboardSectionItem({sectionName, description, required, children}) {
+export default function DashboardSectionItem({sectionName, description, required, children, defaultOpen}) {
 
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(defaultOpen ? defaultOpen : false);
 
     const handleClick = () => {
         setOpen(!open);
