@@ -35,7 +35,7 @@ export default function DashboardArtistesEditTuilesList({artisteId}) {
             <DashboardTuiles
                 IconComponent={BsCalendarDate}
                 name={"SaveTheDate"}
-                to={"#"}
+                to={ROUTES.ADMIN.ARTISTES.EDIT.SAVETHEDATE(artisteId)}
             />
         </>
     )
