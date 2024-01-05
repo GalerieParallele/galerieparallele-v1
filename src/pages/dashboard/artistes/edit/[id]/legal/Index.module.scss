@@ -1,3 +1,14 @@
 .main {
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 50px;
 
+    .topSpace {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }
