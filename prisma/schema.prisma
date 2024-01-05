@@ -92,6 +92,8 @@ model Artist {
 
   pseudo String?
 
+  nationality String?
+
   bio String? @db.Text
 
   instagram String?

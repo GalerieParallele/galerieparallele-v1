@@ -41,6 +41,17 @@ const pseudo = z
     .nullable()
     .optional();
 
+const nationality = z
+    .string({
+        message: "La nationalité de l'artiste doit être une chaîne de caractères.",
+        required_error: "La nationalité de l'artiste est requise."
+    })
+    .max(255, {
+        message: "La nationalité de l'artiste ne doit pas dépasser 255 caractères."
+    })
+    .nullable()
+    .optional();
+
 const bio = z
     .string({
         message: "La biographie de l'artiste doit être une chaîne de caractères.",
@@ -133,6 +144,7 @@ const legalInformation = LegalInformationSchema.nullable();
 export const ArtistSchema = z.object({
     id,
     pseudo,
+    nationality,
     bio,
     instagram,
     facebook,
@@ -186,6 +198,7 @@ export async function GET() {
             select: {
                 id: true,
                 pseudo: true,
+                nationality: true,
                 bio: true,
                 instagram: true,
                 facebook: true,
