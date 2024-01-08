@@ -25,6 +25,7 @@ import {GrTextAlignCenter} from "react-icons/gr";
 import styles from './Index.module.scss';
 import sectionStyles from '@/components/dashboard/items/sections/DashboardSectionItem.module.scss'
 import {useArtists} from "@/hooks/useArtists";
+import {useRouter} from "next/router";
 
 const initialState = {
     user: {
@@ -37,10 +38,10 @@ const initialState = {
         street: undefined,
         city: undefined,
         postalCode: undefined,
-        // TODO : Ajouter nationalité
     },
     artist: {
         pseudo: undefined,
+        nationality: undefined,
         bio: undefined,
         instagram: undefined,
         facebook: undefined,
@@ -77,6 +78,8 @@ function reducer(state, action) {
 }
 
 export default function DashboardArtistesNewIndex() {
+
+    const router = useRouter();
 
     const [state, dispatch] = useReducer(reducer, initialState);
     const [loading, setLoading] = useState(false);
@@ -194,23 +197,49 @@ export default function DashboardArtistesNewIndex() {
 
                 let artistResponse;
 
-                if (handleCheckOneOfArtistFieldsFilled()) {
-                    artistResponse = await fetch(ROUTES.API.ARTISTES.HOME, {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({
-                            ...state.artist,
-                            userid,
-                        }),
-                    });
+                if (state.artist.nationality !== undefined) {
+                    state.artist.nationality = state.artist.nationality.value;
                 }
+
+                artistResponse = await fetch(ROUTES.API.ARTISTES.HOME, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        ...state.artist,
+                        userid,
+                    }),
+                });
 
                 const artistsResponseJSON = await artistResponse.json();
 
                 if (!artistResponse.ok) throw new Error(artistsResponseJSON.message);
 
-                const artist = artistsResponseJSON.artist;
-                const artistid = artist.id;
+                const artistId = artistsResponseJSON.id;
+
+                if (legalStatus === 'allFilled') {
+
+                    let legalResponse;
+
+                    legalResponse = await fetch(ROUTES.API.ARTISTES.LEGAL_INFORMATION, {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            ...state.legal,
+                            artistId
+                        }),
+                    });
+
+                    const legalResponseJSON = await legalResponse.json();
+
+                    console.log(legalResponseJSON);
+
+                    if (!legalResponse.ok) throw new Error(legalResponseJSON.message);
+
+                }
+
+                Toast.fire({icon: 'success', title: 'Artiste créé avec succès'});
+
+                router.push(ROUTES.ADMIN.ARTISTES.EDIT.HOME(userid));
 
             } catch (error) {
 
@@ -218,10 +247,6 @@ export default function DashboardArtistesNewIndex() {
 
                 return false;
 
-            }
-
-            if (legalStatus === 'allFilled') {
-                console.log("Création de l'artiste avec informations juridiques :", state);
             }
 
         } catch (error) {
@@ -236,6 +261,7 @@ export default function DashboardArtistesNewIndex() {
 
 
     useEffect(() => {
+        setLoading(true);
         setCountriesLoading(true);
         fetch('https://restcountries.com/v3.1/all', {
             method: 'GET',
@@ -247,6 +273,7 @@ export default function DashboardArtistesNewIndex() {
             .then((data) => setCountries(data))
             .finally(() => {
                 setCountriesLoading(false)
+                setLoading(false);
             });
     }, []);
 

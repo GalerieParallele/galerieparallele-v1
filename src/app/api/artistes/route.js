@@ -296,6 +296,14 @@ export async function POST(req) {
                 userid: requestBody.userid
             },
             select: {
+                id: true,
+                pseudo: true,
+                nationality: true,
+                facebook: true,
+                linkedin: true,
+                instagram: true,
+                website: true,
+                bio: true,
                 user: {
                     select: {
                         id: true,
@@ -328,7 +336,7 @@ export async function POST(req) {
             }
         });
 
-        return NextResponse.json(ArtistSchema.omit({id: true}).parse(artist), {status: 201});
+        return NextResponse.json(ArtistSchema.parse(artist), {status: 201});
 
     } catch (error) {
 
