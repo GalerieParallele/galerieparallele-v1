@@ -1,27 +1,29 @@
 import React, {useEffect, useReducer, useState} from "react";
 
+import ROUTES from "@/constants/ROUTES";
+import {Toast} from "@/constants/ToastConfig";
+
+import Swal from "sweetalert2";
+
 import DashboardNavbar from "@/components/dashboard/items/DashboardNavbar";
 import DashboardSectionItem from "@/components/dashboard/items/sections/DashboardSectionItem";
 import IconInput from "@/components/items/iconinput/IconInput";
 import Button from "@/components/items/button/Button";
+import Select from "react-select";
+import Editor from "@/components/items/Editor";
 
 import {MdEmail, MdPassword} from "react-icons/md";
 import {RxAvatar} from "react-icons/rx";
 import {BsBuildingsFill, BsFillFileEarmarkPersonFill, BsTelephoneFill} from "react-icons/bs";
 import {IoHome} from "react-icons/io5";
 
-import styles from './Index.module.scss';
-import sectionStyles from '@/components/dashboard/items/sections/DashboardSectionItem.module.scss'
-import Select from "react-select";
 import {FaFlag} from "react-icons/fa";
 import {AiFillFacebook, AiFillInstagram, AiFillLinkedin, AiOutlineFieldNumber} from "react-icons/ai";
 import {FaEarthAfrica} from "react-icons/fa6";
 import {GrTextAlignCenter} from "react-icons/gr";
-import Editor from "@/components/items/Editor";
-import ROUTES from "@/constants/ROUTES";
-import Swal from "sweetalert2";
-import {Toast} from "@/constants/ToastConfig";
 
+import styles from './Index.module.scss';
+import sectionStyles from '@/components/dashboard/items/sections/DashboardSectionItem.module.scss'
 
 const initialState = {
     user: {
