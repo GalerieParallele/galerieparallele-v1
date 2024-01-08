@@ -22,8 +22,6 @@ export default function DashboardArtistesIndex() {
         return currentArtistSearch ? artists.filter(artist => artist.id === currentArtistSearch.value) : artists;
     }, [artists, currentArtistSearch]);
 
-    console.log(artists);
-
     const selectOptions = artists.map(artist =>{
         const displayName = artist.user.lastname + " " + artist.user.firstname + (artist.pseudo ? " (" + artist.pseudo + ")" : "");
         return {

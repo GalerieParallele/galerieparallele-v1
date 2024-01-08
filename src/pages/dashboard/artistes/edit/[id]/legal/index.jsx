@@ -52,7 +52,13 @@ export default function DashboardArtisteEditLegal() {
     const [artisteId, setArtisteId] = useState(null);
 
     const handleChange = (e) => {
-        console.log(state);
+        dispatch({
+            type: 'UPDATE_FORM',
+            payload: {
+                field: e.target.name,
+                value: e.target.value,
+            },
+        });
     }
 
     useEffect(() => {

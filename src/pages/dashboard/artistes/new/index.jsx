@@ -231,8 +231,6 @@ export default function DashboardArtistesNewIndex() {
 
                     const legalResponseJSON = await legalResponse.json();
 
-                    console.log(legalResponseJSON);
-
                     if (!legalResponse.ok) throw new Error(legalResponseJSON.message);
 
                 }
