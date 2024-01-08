@@ -24,6 +24,7 @@ import {GrTextAlignCenter} from "react-icons/gr";
 
 import styles from './Index.module.scss';
 import sectionStyles from '@/components/dashboard/items/sections/DashboardSectionItem.module.scss'
+import {useArtists} from "@/hooks/useArtists";
 
 const initialState = {
     user: {
@@ -81,6 +82,8 @@ export default function DashboardArtistesNewIndex() {
     const [loading, setLoading] = useState(false);
     const [countriesLoading, setCountriesLoading] = useState(false);
     const [countries, setCountries] = useState([]);
+
+    const {artists, artistLoading, error, reloadArtists} = useArtists();
 
     /**
      * Permet de générer un mot de passe aléatoire suivant les critères de sécurité

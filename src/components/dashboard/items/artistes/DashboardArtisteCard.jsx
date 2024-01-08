@@ -34,7 +34,7 @@ export default function DashboardArtisteCard({artiste}) {
             </div>
             <div className={styles.bottom}>
                 <div className={styles.content}>
-                    <h2>{artiste.pseudo ? artiste.pseudo : (artiste.lastname + " " + artiste.firstname)}</h2>
+                    <h2>{artiste.pseudo ? artiste.pseudo : (artiste.user.lastname + " " + artiste.user.firstname)}</h2>
                     <Button
                         text={"Afficher"}
                         onClick={() => {}}

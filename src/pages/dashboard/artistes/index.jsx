@@ -1,31 +1,49 @@
-import DashboardNavbar from "@/components/dashboard/items/DashboardNavbar";
-
 import styles from './Index.module.scss';
-import Select from "react-select";
 import {useArtists} from "@/hooks/useArtists";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import DashboardArtisteCard from "@/components/dashboard/items/artistes/DashboardArtisteCard";
-import ROUTES from "@/constants/ROUTES";
-import Button from "@/components/items/button/Button";
-import {useRouter} from "next/router";
 import LittleSpinner from "@/components/items/LittleSpinner";
 import Error from "@/components/error/Error";
+import Button from "@/components/items/button/Button";
+import DashboardNavbar from "@/components/dashboard/items/DashboardNavbar";
+import ROUTES from "@/constants/ROUTES";
+import Select from "react-select";
+import {useRouter} from "next/router";
+import {IoIosRefresh} from "react-icons/io";
 
 export default function DashboardArtistesIndex() {
 
     const router = useRouter();
 
     const {artists, artistLoading, error, reloadArtists} = useArtists();
-
-
     const [currentArtistSearch, setCurrentArtistSearch] = useState(null);
 
-    if (error) {
-        return <Error
-            code={404}
-            title={"Une erreur est survenue"}
-            message={"Il semblerez qu'une erreur soit survenue lors de la récupération des artistes."}
-        />
+    const filteredArtists = useMemo(() => {
+        return currentArtistSearch ? artists.filter(artist => artist.id === currentArtistSearch.value) : artists;
+    }, [artists, currentArtistSearch]);
+
+    console.log(artists);
+
+    const selectOptions = artists.map(artist =>{
+        const displayName = artist.user.lastname + " " + artist.user.firstname + (artist.pseudo ? " (" + artist.pseudo + ")" : "");
+        return {
+            value: artist.id,
+            label: displayName
+        }
+        }
+    );
+
+    const displayError = error && error.code !== 404;
+    const noArtistsFound = !artistLoading && !filteredArtists.length;
+
+    if (displayError) {
+        return (
+            <Error
+                code={error.code}
+                title={"Une erreur est survenue"}
+                message={"Il semble qu'une erreur soit survenue lors de la récupération des artistes."}
+            />
+        );
     }
 
     return (
@@ -40,10 +58,9 @@ export default function DashboardArtistesIndex() {
                         closeMenuOnSelect={true}
                         defaultValue={[]}
                         isMulti={false}
-                        options={artists ? artists.map(artist => ({value: artist.id, label: artist.name})) : []}
-                        onChange={(newValue) => {
-                            setCurrentArtistSearch(newValue);
-                        }}
+                        isClearable
+                        options={selectOptions}
+                        onChange={setCurrentArtistSearch}
                         value={currentArtistSearch}
                         isLoading={artistLoading}
                         isDisabled={artistLoading}
@@ -54,34 +71,21 @@ export default function DashboardArtistesIndex() {
                     onClick={() => router.push(ROUTES.ADMIN.ARTISTES.NEW)}
                 />
                 <Button
-                    text={"Actualiser"}
-                    onClick={() => reloadArtists()}
+                    text={<IoIosRefresh/>}
+                    onClick={reloadArtists}
                 />
             </div>
             <div className={styles.content}>
-                {
-                    artistLoading ? (
-                        <LittleSpinner/>
-                    ) : (
-                        artists && artists.length > 0 ?
-                            (
-                                <DashboardArtisteCard
-                                    artiste={artists[0]}
-                                />
-                            ) : (
-                                <div style={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    gap: "0.5rem",
-                                }}>
-                                    <h3>Aucun artiste trouvé</h3>
-                                </div>
-                            )
-                    )
-                }
+                {artistLoading ? (
+                    <LittleSpinner/>
+                ) : noArtistsFound ? (
+                    <h3>Aucun artiste trouvé</h3>
+                ) : (
+                    filteredArtists.map(artist => (
+                        <DashboardArtisteCard artiste={artist} key={artist.id}/>
+                    ))
+                )}
             </div>
         </div>
-    )
+    );
 }

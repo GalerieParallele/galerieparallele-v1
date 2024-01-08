@@ -2,6 +2,7 @@ import ROUTES from "@/constants/ROUTES";
 
 export const fetchArtists = async () => {
     try {
+
         const response = await fetch(ROUTES.API.ARTISTES.HOME, {
             method: 'GET',
             headers: {
@@ -9,18 +10,31 @@ export const fetchArtists = async () => {
             },
         });
 
-        if (response.status === 404) {
-            return []; // Aucun artiste n'est disponible
-        }
-
         if (!response.ok) {
-            throw new Error(`Erreur HTTP: statut ${response.status}`);
+
+            const errorDetails = await response.text();
+
+            throw {
+                message: `Erreur HTTP: statut ${response.status}, détails: ${errorDetails}`,
+                code: response.status
+            };
+
         }
 
         let data = await response.json();
-        return data.list || [];
+
+        if (!data || !Array.isArray(data.list)) {
+            throw {message: "Format de réponse invalide", code: 'InvalidFormat'};
+        }
+
+        return {success: true, artists: data.list};
+
     } catch (error) {
-        console.error(error);
-        throw error;
+
+        if (process.env.NODE_ENV === 'development') {
+            console.error("Erreur lors de la récupération des artistes:", error);
+        }
+
+        return {success: false, error: {message: error.message, code: error.code}};
     }
 };
