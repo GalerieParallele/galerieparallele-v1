@@ -8,7 +8,7 @@ export default function DashboardArtisteEditOeuvresList() {
     const fakeOeuvres = [
             {
                 id: 1,
-                name: "Oeuvre 1"
+                name: "Oeuvre 1 avec un nom très long qui prend beaucoup de place"
             },
             {
                 id: 2,

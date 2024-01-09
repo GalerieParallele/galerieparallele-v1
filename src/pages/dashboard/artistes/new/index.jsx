@@ -23,8 +23,7 @@ import {FaEarthAfrica} from "react-icons/fa6";
 import {GrTextAlignCenter} from "react-icons/gr";
 
 import styles from './Index.module.scss';
-import sectionStyles from '@/components/dashboard/items/sections/DashboardSectionItem.module.scss'
-import {useArtists} from "@/hooks/useArtists";
+import sectionStyles from '@/components/dashboard/items/sections/DashboardSectionItem.module.scss';
 import {useRouter} from "next/router";
 
 const initialState = {
