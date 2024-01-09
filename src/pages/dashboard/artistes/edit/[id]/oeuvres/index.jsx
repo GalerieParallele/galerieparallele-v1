@@ -49,7 +49,7 @@ export default function DashboardArtisteEditOeuvres() {
     return (
         <div className={styles.main}>
             <DashboardNavbar
-                returnURL={ROUTES.ADMIN.HOME}
+                returnURL={ROUTES.ADMIN.ARTISTES.EDIT.HOME(artisteId)}
             />
             <div className={styles.searchSpace}>
                 <div className={styles.searchBar}>
