@@ -16,6 +16,7 @@ import {FaQuestion} from "react-icons/fa";
 import {RiQuestionAnswerLine} from "react-icons/ri";
 
 import styles from './Index.module.scss';
+import Button from "@/components/items/button/Button";
 
 const initialState = {
     pc: {
@@ -81,7 +82,7 @@ export default function DashboardArtisteEditPortraitChinoisIndex() {
             />
             <div className={styles.content}>
                 <DashboardSectionItem
-                    sectionName={"Création d'une question"}
+                    sectionName={"Ajouter une question"}
                 >
                     <IconInput
                         label={"Question"}
@@ -109,22 +110,31 @@ export default function DashboardArtisteEditPortraitChinoisIndex() {
                         disabled={loading}
                         required
                     />
-                    <label>Privé</label>
-                    <Switch
-                        checked={state.pc.private}
-                        onChange={(e) => {
-                            dispatch({
-                                type: 'UPDATE_FORM',
-                                payload: {
-                                    field: 'pc.private',
-                                    value: e
-                                }
-                            })
-                        }}/>
-                    <div>
-                        <button>
-                            Ajouter
-                        </button>
+                    <div className={styles.bottomForm}>
+                        <div className={styles.switchStatus}>
+                            <p className={state.pc.private ? styles.inactiveState : styles.activeState}>Public</p>
+                            <Switch
+                                checked={state.pc.private}
+                                offColor={"#ff0000"}
+                                onChange={(e) => {
+                                    dispatch({
+                                        type: 'UPDATE_FORM',
+                                        payload: {
+                                            field: 'pc.private',
+                                            value: e
+                                        }
+                                    })
+                                }}/>
+                            <p className={state.pc.private ? styles.activeState : styles.inactiveState}>Privé</p>
+                        </div>
+                        <Button
+                            text={"Ajouter"}
+                            onClick={() => {
+                                // TODO : Ajouter la question
+                            }}
+                            disabled={loading}
+                            isLoading={loading}
+                            />
                     </div>
                 </DashboardSectionItem>
             </div>

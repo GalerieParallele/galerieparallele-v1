@@ -5,5 +5,34 @@
     gap: 50px;
 
     padding: 50px;
+
+    .bottomForm {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+
+      text-transform: uppercase;
+
+      font-size: 1.1rem;
+      font-weight: 600;
+
+      .switchStatus {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+
+        .activeState {
+          color: var(--black);
+        }
+
+        .inactiveState {
+          color: var(--light-gray);
+        }
+      }
+    }
   }
 }
