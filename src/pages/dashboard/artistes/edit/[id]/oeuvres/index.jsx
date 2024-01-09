@@ -12,6 +12,8 @@ import {useEffect, useState} from "react";
 import {IoIosRefresh} from "react-icons/io";
 
 import styles from './Index.module.scss';
+import DashboardArtisteEditOeuvresList
+    from "@/components/dashboard/artistes/edit/oeuvres/DashboardArtisteEditOeuvresList";
 
 export default function DashboardArtisteEditOeuvres() {
 
@@ -76,7 +78,8 @@ export default function DashboardArtisteEditOeuvres() {
                 />
             </div>
             <div className={styles.content}>
-                <p>test</p>
+                <DashboardArtisteEditOeuvresList
+                    />
             </div>
         </div>
     );
