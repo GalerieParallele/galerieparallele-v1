@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer, useState} from "react";
+import React, {useCallback, useEffect, useReducer, useRef, useState} from "react";
 
 import {useRouter} from "next/router";
 
@@ -83,12 +83,51 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
 
     const [state, dispatch] = useReducer(reducer, initialState);
 
+    const fileInputRef = useRef(null);
+
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
 
     const [artisteId, setArtisteId] = useState(null);
 
+    const [selectedFiles, setSelectedFiles] = useState([]); // Permet de stocker les fichiers sélectionnés
+    const [customFileName, setCustomFileName] = useState({}); // Permet de stocker le nom personnalisé du fichier
+
     const {artists, artistLoading, artistError, reloadArtists} = useArtists();
+
+    /**
+     * Permet d'ajouter des fichiers à la liste des fichiers sélectionnés (sans doublons)
+     * @param files
+     */
+    const addFiles = (files) => {
+        setSelectedFiles(prev => {
+            const newFiles = files.filter(f => !prev.map(pf => pf.name).includes(f.name));
+            return [...prev, ...newFiles];
+        });
+        setCustomFileName(prev => {
+            const newCustomFileName = {...prev};
+            files.forEach(file => {
+                if (!newCustomFileName[file.name]) {
+                    newCustomFileName[file.name] = file.name;
+                }
+            });
+            return newCustomFileName;
+        });
+    }
+
+    const handleFileSelect = useCallback((e) => {
+        let files = [...e.target.files];
+        addFiles(files);
+        e.target.value = '';
+    }, []);
+
+    /**
+     * Permet d'ouvrir la fenêtre de sélection de fichier
+     * @type {(function(*): void)|*}
+     */
+    const handleOpenMultipleFilesModal = useCallback(() => {
+        fileInputRef.current.click();
+    }, []);
 
     useEffect(() => {
         if (router.query.id && /^\d+$/.test(router.query.id)) {
@@ -259,20 +298,50 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                             </div>
                         </div>
                         <div className={styles.imgOeuvreContainer}>
-                            <div className={styles.addSpace}>
+                            <div
+                                className={styles.addSpace}
+                                onClick={handleOpenMultipleFilesModal}
+                            >
                                 <p className={styles.icon}><BiSolidImageAdd/></p>
                                 <p className={styles.text}>Glisser ou Cliquer pour ajouter une image</p>
                             </div>
-                            <div className={styles.imgContainer}>
-                                <Image
-                                    src={'/assets/img/magazine/cathedrale-reims.png'}
-                                    alt={'Image de test'}
-                                    layout={'fill'}
-                                />
-                                <button>
-                                    <ImCross/>
-                                </button>
-                            </div>
+                            <input
+                                type="file"
+                                multiple
+                                style={{display: 'none'}}
+                                onChange={handleFileSelect}
+                                accept={"image/*"}
+                                ref={fileInputRef}
+                            />
+                            {/* TODO: Ici la liste des image importées */}
+                            {
+                                selectedFiles.length > 0 && (
+                                    selectedFiles.map((file, index) => {
+                                            return (
+                                                <div key={index} className={styles.imgContainer}>
+                                                    <Image
+                                                        src={URL.createObjectURL(file)}
+                                                        alt={file.name}
+                                                        layout={'fill'}
+                                                    />
+                                                    <button
+                                                        onClick={() => {
+                                                            setSelectedFiles(prev => {
+                                                                const newFiles = [...prev];
+                                                                newFiles.splice(index, 1);
+                                                                return newFiles;
+                                                            });
+                                                        }}
+                                                    >
+                                                        <ImCross/>
+                                                    </button>
+                                                </div>
+                                            )
+                                        }
+                                    )
+                                )
+                            }
+                            {/* fin de la liste */}
                         </div>
                     </div>
                 </ArtisteNewSectionItem>
