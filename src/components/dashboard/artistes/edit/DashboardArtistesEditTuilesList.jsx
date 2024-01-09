@@ -1,5 +1,5 @@
 import DashboardTuiles from "@/components/dashboard/items/DashboardTuiles";
-import {FaFileContract, FaImage, FaPaintBrush, FaUser} from "react-icons/fa";
+import {FaFileContract, FaImage, FaPaintBrush, FaQuestion, FaUser} from "react-icons/fa";
 import {GoLaw} from "react-icons/go";
 import {BsCalendarDate} from "react-icons/bs";
 import ROUTES from "@/constants/ROUTES";
@@ -18,11 +18,6 @@ export default function DashboardArtistesEditTuilesList({artisteId}) {
                 to={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES(artisteId)}
             />
             <DashboardTuiles
-                IconComponent={GoLaw}
-                name={"Juridique"}
-                to={ROUTES.ADMIN.ARTISTES.EDIT.LEGAL(artisteId)}
-            />
-            <DashboardTuiles
                 IconComponent={FaFileContract}
                 name={"Relations contractuelles"}
                 to={ROUTES.ADMIN.ARTISTES.EDIT.CONTRATS(artisteId)}
@@ -31,6 +26,11 @@ export default function DashboardArtistesEditTuilesList({artisteId}) {
                 IconComponent={FaImage}
                 name={"Illustrations"}
                 to={ROUTES.ADMIN.ARTISTES.EDIT.ILLUSTRATIONS(artisteId)}
+            />
+            <DashboardTuiles
+                IconComponent={FaQuestion}
+                name={"Portrait chinois"}
+                to={"#"}
             />
             <DashboardTuiles
                 IconComponent={BsCalendarDate}
