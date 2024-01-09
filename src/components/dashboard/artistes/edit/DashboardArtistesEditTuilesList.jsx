@@ -30,7 +30,7 @@ export default function DashboardArtistesEditTuilesList({artisteId}) {
             <DashboardTuiles
                 IconComponent={FaQuestion}
                 name={"Portrait chinois"}
-                to={"#"}
+                to={ROUTES.ADMIN.ARTISTES.EDIT.PORTRAIT_CHINOIS(artisteId)}
             />
             <DashboardTuiles
                 IconComponent={BsCalendarDate}
