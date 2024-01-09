@@ -86,8 +86,6 @@ export default function DashboardArtistesNewIndex() {
     const [countriesLoading, setCountriesLoading] = useState(false);
     const [countries, setCountries] = useState([]);
 
-    const {artists, artistLoading, error, reloadArtists} = useArtists();
-
     /**
      * Permet de générer un mot de passe aléatoire suivant les critères de sécurité
      * @param e
@@ -156,6 +154,7 @@ export default function DashboardArtistesNewIndex() {
             payload: {field: name, value},
         });
     }
+
     /**
      * Permet de lancer une procédure une fois le formulaire soumis
      * @param e
@@ -290,6 +289,7 @@ export default function DashboardArtistesNewIndex() {
                 </div>
                 <DashboardSectionItem
                     sectionName={"Informations Utilisateur"}
+                    description={"Ces informations ne seront pas visibles du grand public"}
                     required
                 >
                     <IconInput
