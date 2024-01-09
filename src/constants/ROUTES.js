@@ -49,6 +49,9 @@ const PATHS = {
                 },
                 SAVETHEDATE(artisteId) {
                     return createPath('dashboard', 'artistes', 'edit', artisteId, 'save-the-date')
+                },
+                PORTRAIT_CHINOIS(artisteId) {
+                    return createPath('dashboard', 'artistes', 'edit', artisteId, 'portrait-chinois')
                 }
             },
             LEGAL_INFORMATION: createPath('admin', 'artistes', 'legal-information'),
@@ -130,6 +133,9 @@ const ROUTES = {
                 },
                 SAVETHEDATE(artisteId) {
                     return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.SAVETHEDATE(artisteId)
+                },
+                PORTRAIT_CHINOIS(artisteId) {
+                    return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.PORTRAIT_CHINOIS(artisteId)
                 }
             },
             LEGAL_INFORMATION: BASE_URL + PATHS.ADMIN.ARTISTES.LEGAL_INFORMATION,
