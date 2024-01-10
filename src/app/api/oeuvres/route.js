@@ -15,8 +15,6 @@ const MESSAGES = {
     SUCCESS_DELETE: "L'oeuvre a bien été supprimée",
 
     INVALID_OEUVRE: "L'oeuvre est invalide",
-
-
 }
 
 const id = z

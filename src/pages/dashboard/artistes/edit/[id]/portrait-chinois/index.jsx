@@ -17,6 +17,8 @@ import {RiQuestionAnswerLine} from "react-icons/ri";
 
 import styles from './Index.module.scss';
 import Button from "@/components/items/button/Button";
+import DashboardEditPotraitChinoisCard
+    from "@/components/dashboard/artistes/edit/potrait-chinois/DashboardEditPotraitChinoisCard";
 
 const initialState = {
     pc: {
@@ -137,6 +139,18 @@ export default function DashboardArtisteEditPortraitChinoisIndex() {
                             />
                     </div>
                 </DashboardSectionItem>
+                <div className={styles.questionList}>
+                    <DashboardEditPotraitChinoisCard
+                        question={"Si j'étais un animal, je serais"}
+                        response={"Un chat"}
+                        visibility={true}
+                    />
+                    <DashboardEditPotraitChinoisCard
+                        question={"Si j'étais une fleur, je serais"}
+                        response={"Une rose"}
+                        visibility={true}
+                    />
+                </div>
             </div>
         </div>
     )
