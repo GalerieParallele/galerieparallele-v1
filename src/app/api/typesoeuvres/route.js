@@ -15,7 +15,7 @@ const MESSAGES = {
     SUCCESS_DELETE: "Le type d'oeuvre a été supprimé avec succès.",
 }
 
-const TypeOeuvreSchema = z.object({
+export const TypeOeuvreSchema = z.object({
     id: z
         .number({
             required_error: "L'id du type d'oeuvre est requis.",

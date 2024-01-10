@@ -32,7 +32,7 @@ const nameArtistUnknow = z
         invalid_type_error: "Le nom de l'artiste non référencé doit être une chaîne de caractères.",
     })
 
-const ArtistUnknowSchema = z.object({
+export const ArtistUnknowSchema = z.object({
     id: idArtistUnknow,
     name: nameArtistUnknow,
 })

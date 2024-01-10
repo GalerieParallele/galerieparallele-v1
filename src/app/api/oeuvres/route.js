@@ -1,10 +1,23 @@
 import {NextResponse} from "next/server";
 
+import {prisma} from "@/utils/PrismaUtil";
+import {Prisma} from "@prisma/client";
+
 import {z} from 'zod';
 
-import {Prisma, PrismaClient} from "@prisma/client";
+import {ArtistSchema} from "@/app/api/artistes/route";
+import {ArtistUnknowSchema} from "@/app/api/artistsunknow/route";
+import {TagSchema} from "@/app/api/tags/route";
+import {TypeOeuvreSchema} from "@/app/api/typesoeuvres/route";
+import {OeuvreImageSchema} from "@/app/api/oeuvreimages/route";
 
-const MESSAGES = {}
+const MESSAGES = {
+    SUCCESS_DELETE: "L'oeuvre a bien été supprimée",
+
+    INVALID_OEUVRE: "L'oeuvre est invalide",
+
+
+}
 
 const id = z
     .number({
@@ -102,7 +115,21 @@ const numerotation = z
     })
     .int({
         message: "La numérotation de l'oeuvre doit être un nombre entier",
-    });
+    })
+    .optional();
+
+const limitation = z
+    .number({
+        required_error: "La limitation de l'oeuvre est requise",
+        invalid_type_error: "La limitation de l'oeuvre doit être un nombre",
+    })
+    .positive({
+        message: "La limitation de l'oeuvre doit être positive",
+    })
+    .int({
+        message: "La limitation de l'oeuvre doit être un nombre entier",
+    })
+    .optional()
 
 const support = z
     .string({
@@ -138,7 +165,8 @@ const encadrement = z
     })
     .max(255, {
         message: "L'encadrement de l'oeuvre doit contenir au plus 255 caractères",
-    });
+    })
+    .optional();
 
 const signature = z
     .string({
@@ -150,7 +178,8 @@ const signature = z
     })
     .max(255, {
         message: "La signature de l'oeuvre doit contenir au plus 255 caractères",
-    });
+    })
+    .optional();
 
 const prix = z
     .number({
@@ -164,6 +193,13 @@ const prix = z
         message: "Le prix de l'oeuvre doit être un nombre entier",
     });
 
+// Relations
+const Artists = z.array(ArtistSchema).optional();
+const UnknowArtists = z.array(ArtistUnknowSchema).optional();
+const Tags = z.array(TagSchema).optional();
+const Types = z.array(TypeOeuvreSchema).optional();
+const images = z.array(OeuvreImageSchema).optional();
+
 const OeuvreSchema = z.object({
     id,
     name,
@@ -173,6 +209,7 @@ const OeuvreSchema = z.object({
     longueur,
     largeur,
     numerotation,
+    limitation,
     support,
     technique,
     encadrement,
@@ -190,3 +227,94 @@ const OeuvreUpdateDeleteSchema = OeuvreSchema
     .extend({
         id,
     });
+
+const OeuvreResponseSchema = z.object({
+    total: z
+        .number({
+            required_error: "Le nombre total d'oeuvres est requis",
+            invalid_type_error: "Le nombre total d'oeuvres doit être un nombre",
+        })
+        .int({
+            message: "Le nombre total d'oeuvres doit être un nombre entier",
+        })
+        .positive({
+            message: "Le nombre total d'oeuvres doit être positif",
+        }),
+    list: z.array(OeuvreSchema),
+})
+
+export async function POST(req) {
+
+    try {
+
+        const requestBody = OeuvreCreateSchema.parse(JSON.parse(await req.text()));
+
+        const oeuvre = await prisma.oeuvre.create({
+            data: requestBody,
+            select: {
+                id: true,
+                name: true,
+                description: true,
+                anecdote: true,
+                prix: true,
+                hauteur: true,
+                largeur: true,
+                longueur: true,
+                numerotation: true,
+                technique: true,
+                signature: true,
+                encadrement: true,
+                support: true,
+            }
+        })
+
+        return NextResponse.json(OeuvreSchema.parse(oeuvre), {status: 201});
+
+    } catch (error) {
+
+        if (process.env.NODE_ENV === "development") {
+            console.log(error);
+        }
+
+        if (error instanceof z.ZodError) {
+            return NextResponse.json({message: error.errors[0].message}, {status: 400});
+        }
+
+        return NextResponse.json(MESSAGES.API_SERVER_ERROR, {status: 500});
+
+    }
+}
+
+export async function DELETE(req) {
+
+    try {
+
+        const requestBody = OeuvreSchema.pick({id: true}).parse(JSON.parse(await req.text()));
+
+        await prisma.oeuvre.delete({
+            where: {
+                id: requestBody.id,
+            },
+        });
+
+        return NextResponse.json({message: MESSAGES.SUCCESS_DELETE}, {status: 200});
+
+    } catch (error) {
+
+        if (process.env.NODE_ENV === "development") {
+            console.log(error);
+        }
+
+        if (error instanceof z.ZodError) {
+            return NextResponse.json({message: error.errors[0].message}, {status: 400});
+        }
+
+        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+            return NextResponse.json({message: MESSAGES.INVALID_OEUVRE}, {status: 404});
+        }
+
+        return NextResponse.error(MESSAGES.API_SERVER_ERROR, {status: 500});
+
+    }
+
+}

@@ -40,7 +40,7 @@ const oeuvreId = z
         message: "L'id de l'oeuvre à laquelle correspond le média doit être un nombre positif"
     });
 
-const OeuvreImageSchema = z.object({
+export const OeuvreImageSchema = z.object({
     id,
     mediaURL,
     oeuvreId
