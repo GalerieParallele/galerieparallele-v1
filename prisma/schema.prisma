@@ -168,11 +168,12 @@ model Oeuvre {
 
   prix Int @default(0) // Prix de l'oeuvre
 
-  numerotation Int // Numérotation de l'oeuvre
+  numerotation Int?    @default(1) // Numérotation de l'oeuvre
+  limitation   Int?    @default(1) // Limitation de l'oeuvre
   support      String // Support de l'oeuvre
   technique    String // Technique de l'oeuvre
-  encadrement  String // Encadrement de l'oeuvre
-  signature    String // Signature de l'oeuvre
+  encadrement  String? // Encadrement de l'oeuvre
+  signature    String? // Signature de l'oeuvre
 
   Artists            ArtistOeuvre[] // Artistes de l'oeuvre
   UnknowArtistOeuvre ArtistUnknowOeuvre[] // Artistes inconnus de l'oeuvre
