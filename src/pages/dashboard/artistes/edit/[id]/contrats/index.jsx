@@ -5,6 +5,12 @@ import {useEffect, useState} from "react";
 import PageLoader from "@/components/items/PageLoader";
 import Error from "@/components/error/Error";
 import {useRouter} from "next/router";
+import DashboardArtisteEditContratsDropzone
+    from "@/components/dashboard/artistes/edit/contrats/DashboardArtisteEditContratsDropzone";
+import DashboardArtisteEditContratItem
+    from "@/components/dashboard/artistes/edit/contrats/DashboardArtisteEditContratItem";
+import {FcFolder} from "react-icons/fc";
+import {FaFolderPlus} from "react-icons/fa";
 
 export default function DashboardArtisteEditContrats() {
 
@@ -39,8 +45,42 @@ export default function DashboardArtisteEditContrats() {
     return (
         <div className={styles.main}>
             <DashboardNavbar
-             returnURL={ROUTES.ADMIN.ARTISTES.EDIT.HOME(artisteId)}
+                returnURL={ROUTES.ADMIN.ARTISTES.EDIT.HOME(artisteId)}
             />
+            <div className={styles.content}>
+                <DashboardArtisteEditContratsDropzone/>
+                <div className={styles.buttonFolder}>
+                    <FaFolderPlus/>
+                    <p>Ajouter un dossier</p>
+                </div>
+                <div className={styles.filesFoldersList}>
+                    <DashboardArtisteEditContratItem
+                        name={"Dossier 1"}
+                        folder
+                    />
+                    <DashboardArtisteEditContratItem
+                        name={"Dossier 2"}
+                        folder
+                    />
+                    <DashboardArtisteEditContratItem
+                        name={"Dossier 3"}
+                        folder
+                    />
+                    <DashboardArtisteEditContratItem
+                        name={"Dossier 4"}
+                        folder
+                    />
+                    <DashboardArtisteEditContratItem
+                        name={"Fichier 1"}
+                    />
+                    <DashboardArtisteEditContratItem
+                        name={"Fichier 2"}
+                    />
+                    <DashboardArtisteEditContratItem
+                        name={"Fichier 3"}
+                    />
+                </div>
+            </div>
         </div>
     )
 }

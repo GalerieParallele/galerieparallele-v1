@@ -1,0 +1,35 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  min-height: 250px;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 25px;
+
+  transition: var(--transition);
+
+  text-transform: uppercase;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--hover-shadow);
+    & div:nth-child(1) {
+     transform: rotate(5deg);
+    }
+  }
+
+  div:nth-child(1) {
+    font-size: 5rem;
+    transition: var(--transition);
+  }
+
+  div:nth-child(2) {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--black);
+  }
+}
