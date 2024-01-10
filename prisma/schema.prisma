@@ -140,11 +140,12 @@ model ArtistLegalInformation {
   adrVille      String
   adrCodePostal String
 
-  siret String @unique
-  tva   String @unique
+  siret   String? @unique
+  tva     String? @unique
+  tauxTva String?
 
-  numMaisonsDesArtistes String
-  numSecuriteSociale    String @unique
+  numMaisonsDesArtistes String?
+  numSecuriteSociale    String? @unique
 
   artistId Int    @unique
   artist   Artist @relation(fields: [artistId], references: [id], onDelete: Cascade)
