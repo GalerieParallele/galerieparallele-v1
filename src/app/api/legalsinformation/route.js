@@ -33,7 +33,9 @@ const societe = z
     })
     .max(255, {
         message: "Le nom de la société doit contenir au maximum 255 caractères."
-    });
+    })
+    .optional()
+    .nullable();
 
 const adrNumVoie = z
     .string({
@@ -45,7 +47,9 @@ const adrNumVoie = z
     })
     .max(255, {
         message: "Le numéro de voie doit contenir au maximum 255 caractères."
-    });
+    })
+    .optional()
+    .nullable();
 
 const adrRue = z
     .string({
@@ -57,7 +61,9 @@ const adrRue = z
     })
     .max(255, {
         message: "Le nom de la rue doit contenir au maximum 255 caractères."
-    });
+    })
+    .optional()
+    .nullable();
 
 const adrVille = z
     .string({
@@ -69,7 +75,9 @@ const adrVille = z
     })
     .max(255, {
         message: "Le nom de la ville doit contenir au maximum 255 caractères."
-    });
+    })
+    .optional()
+    .nullable();
 
 const adrCodePostal = z
     .string({
@@ -81,7 +89,9 @@ const adrCodePostal = z
     })
     .max(255, {
         message: "Le code postal doit contenir au maximum 255 caractères."
-    });
+    })
+    .optional()
+    .nullable();
 
 const siret = z
     .string({
@@ -90,7 +100,9 @@ const siret = z
     })
     .length(14, {
         message: "Le numéro de SIRET doit contenir 14 caractères."
-    });
+    })
+    .optional()
+    .nullable();
 
 const tva = z
     .string({
@@ -99,7 +111,17 @@ const tva = z
     })
     .length(13, {
         message: "Le numéro de TVA doit contenir 13 caractères."
-    });
+    })
+    .optional()
+    .nullable();
+
+const tauxTva = z
+    .string({
+        message: "Le numéro de TVA applicable doit être une chaîne de caractères.",
+        required_error: "Le numéro de TVA applicable est requis."
+    })
+    .optional()
+    .nullable();
 
 const numMaisonsDesArtistes = z
     .string({
@@ -111,7 +133,9 @@ const numMaisonsDesArtistes = z
     })
     .max(255, {
         message: "Le numéro de la Maison des Artistes doit contenir au maximum 255 caractères."
-    });
+    })
+    .optional()
+    .nullable();
 
 const numSecuriteSociale = z
     .string({
@@ -120,7 +144,9 @@ const numSecuriteSociale = z
     })
     .length(15, {
         message: "Le numéro de sécurité sociale doit contenir 15 caractères."
-    });
+    })
+    .optional()
+    .nullable();
 
 const artistId = z
     .number({
@@ -132,7 +158,9 @@ const artistId = z
     })
     .positive({
         message: "L'id de l'artiste doit être un nombre positif."
-    });
+    })
+    .optional()
+    .nullable();
 
 export const LegalInformationSchema = z.object({
     id,
@@ -143,6 +171,7 @@ export const LegalInformationSchema = z.object({
     adrCodePostal,
     siret,
     tva,
+    tauxTva,
     numMaisonsDesArtistes,
     numSecuriteSociale,
     artistId

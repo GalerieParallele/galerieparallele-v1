@@ -1,0 +1,18 @@
+-- AlterTable
+ALTER TABLE "ArtistLegalInformation" ADD COLUMN     "tauxTva" TEXT,
+ALTER COLUMN "societe" DROP NOT NULL,
+ALTER COLUMN "adrNumVoie" DROP NOT NULL,
+ALTER COLUMN "adrRue" DROP NOT NULL,
+ALTER COLUMN "adrVille" DROP NOT NULL,
+ALTER COLUMN "adrCodePostal" DROP NOT NULL,
+ALTER COLUMN "siret" DROP NOT NULL,
+ALTER COLUMN "tva" DROP NOT NULL,
+ALTER COLUMN "numMaisonsDesArtistes" DROP NOT NULL,
+ALTER COLUMN "numSecuriteSociale" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "Oeuvre" ADD COLUMN     "limitation" INTEGER DEFAULT 1,
+ALTER COLUMN "numerotation" DROP NOT NULL,
+ALTER COLUMN "numerotation" SET DEFAULT 1,
+ALTER COLUMN "encadrement" DROP NOT NULL,
+ALTER COLUMN "signature" DROP NOT NULL;

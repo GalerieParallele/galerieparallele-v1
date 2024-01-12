@@ -133,12 +133,12 @@ model ArtistTag {
 model ArtistLegalInformation {
   id Int @id @default(autoincrement())
 
-  societe String
+  societe String?
 
-  adrNumVoie    String
-  adrRue        String
-  adrVille      String
-  adrCodePostal String
+  adrNumVoie    String?
+  adrRue        String?
+  adrVille      String?
+  adrCodePostal String?
 
   siret   String? @unique
   tva     String? @unique

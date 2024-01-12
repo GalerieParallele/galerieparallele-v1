@@ -25,6 +25,7 @@ import {GrTextAlignCenter} from "react-icons/gr";
 import styles from './Index.module.scss';
 import sectionStyles from '@/components/dashboard/items/sections/DashboardSectionItem.module.scss';
 import {useRouter} from "next/router";
+import StorageUtils from "@/utils/StorageUtils";
 
 const initialState = {
     user: {
@@ -55,7 +56,7 @@ const initialState = {
         adrCodePostal: undefined,
         siret: undefined,
         tva: undefined,
-        tva_applicable: undefined,
+        tauxTva: undefined,
         numMaisonsDesArtistes: undefined,
         numSecuriteSociale: undefined,
     }
@@ -83,8 +84,11 @@ export default function DashboardArtistesNewIndex() {
 
     const [state, dispatch] = useReducer(reducer, initialState);
     const [loading, setLoading] = useState(false);
+
     const [countriesLoading, setCountriesLoading] = useState(false);
     const [countries, setCountries] = useState([]);
+
+    const [avatarURL, setAvatarURL] = useState(undefined);
 
     /**
      * Permet de générer un mot de passe aléatoire suivant les critères de sécurité
@@ -115,30 +119,13 @@ export default function DashboardArtistesNewIndex() {
         }
     };
 
-    const handleCheckAllLegalAreNotFilledOrEmpty = () => {
-        const legalValues = Object.values(state.legal);
-        const allFilled = legalValues.every(value => value !== undefined && value !== null && value.trim() !== '');
-        const allEmpty = legalValues.every(value => !value || value.trim() === '');
-        return allFilled || allEmpty;
-    }
-
-    const checkLegalInformationStatus = () => {
-        const legalValues = Object.values(state.legal);
-        const allFilled = legalValues.every(value => value && value.trim() !== '');
-        const allEmpty = legalValues.every(value => !value || value.trim() === '');
-
-        if (allFilled) return 'allFilled';
-        if (allEmpty) return 'allEmpty';
-        return 'partiallyFilled';
-    }
-
+    /**
+     * Permet de vérifier que tous les champs concernant le compte utilisateur sont remplis
+     * @returns {this is any[]}
+     */
     const handleCheckAllUserFieldsFilledExceptAvatar = () => {
         const {avatarURL, ...userFields} = state.user;
         return Object.values(userFields).every(value => value !== undefined && value !== null && value.trim() !== '');
-    }
-
-    const handleCheckOneOfArtistFieldsFilled = () => {
-        return Object.values(state.artist).some(value => value !== undefined && value !== null && value.trim() !== '');
     }
 
     /**
@@ -149,11 +136,15 @@ export default function DashboardArtistesNewIndex() {
 
         const {name, value, type, files} = e.target;
 
-        dispatch({
-            type: 'UPDATE_FORM',
-            payload: {field: name, value},
-        });
-    }
+        if (type === 'file') {
+            setAvatarURL(files[0]);
+        } else {
+            dispatch({
+                type: 'UPDATE_FORM',
+                payload: {field: name, value},
+            });
+        }
+    };
 
     /**
      * Permet de lancer une procédure une fois le formulaire soumis
@@ -165,14 +156,9 @@ export default function DashboardArtistesNewIndex() {
         e.preventDefault();
 
         try {
+
             if (!handleCheckAllUserFieldsFilledExceptAvatar()) {
                 throw new Error("Veuillez remplir toutes les informations utilisateur sauf l\'avatar qui n\'est pas obligatoire");
-            }
-
-            const legalStatus = checkLegalInformationStatus();
-
-            if (legalStatus === 'partiallyFilled') {
-                throw new Error("Veuillez remplir toutes les informations juridiques ou laisser tous les champs vides");
             }
 
             let userResponse;
@@ -193,6 +179,30 @@ export default function DashboardArtistesNewIndex() {
 
                 const user = userResponseJson.user;
                 const userid = user.id;
+
+                if (avatarURL) {
+
+                    const {
+                        downloadURL,
+                        success
+                    } = await StorageUtils.uploadFile(avatarURL, "users/" + userid + "/avatar", null);
+
+                    if (!success) throw new Error("Erreur lors de l'upload de l'avatar sur le cloud");
+
+                    const updateAvatarResponse = await fetch(ROUTES.API.USERS.HOME, {
+                        method: 'PATCH',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            id: userid,
+                            avatarURL: downloadURL,
+                        }),
+                    });
+
+                    const updateAvatarResponseJson = await updateAvatarResponse.json();
+
+                    if (!updateAvatarResponse.ok) throw new Error(updateAvatarResponseJson.message);
+
+                }
 
                 let artistResponse;
 
@@ -215,28 +225,26 @@ export default function DashboardArtistesNewIndex() {
 
                 const artistId = artistsResponseJSON.id;
 
-                if (legalStatus === 'allFilled') {
 
-                    let legalResponse;
+                let legalResponse;
 
-                    legalResponse = await fetch(ROUTES.API.ARTISTES.LEGAL_INFORMATION, {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({
-                            ...state.legal,
-                            artistId
-                        }),
-                    });
+                legalResponse = await fetch(ROUTES.API.ARTISTES.LEGAL_INFORMATION, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        ...state.legal,
+                        artistId
+                    }),
+                });
 
-                    const legalResponseJSON = await legalResponse.json();
+                const legalResponseJSON = await legalResponse.json();
 
-                    if (!legalResponse.ok) throw new Error(legalResponseJSON.message);
+                if (!legalResponse.ok) throw new Error(legalResponseJSON.message);
 
-                }
 
                 Toast.fire({icon: 'success', title: 'Artiste créé avec succès'});
 
-                router.push(ROUTES.ADMIN.ARTISTES.EDIT.HOME(userid));
+                await router.push(ROUTES.ADMIN.ARTISTES.EDIT.HOME(userid));
 
             } catch (error) {
 
@@ -415,7 +423,6 @@ export default function DashboardArtistesNewIndex() {
                 </DashboardSectionItem>
                 <DashboardSectionItem
                     sectionName={"Informations Artiste"}
-                    required
                 >
                     <IconInput
                         label={"Nom d'artiste"}
@@ -528,7 +535,6 @@ export default function DashboardArtistesNewIndex() {
                         name={"legal.societe"}
                         value={state.legal.societe}
                         onChange={handleChange}
-                        required
                     />
                     <IconInput
                         label={"Numéro de voie"}
@@ -538,7 +544,6 @@ export default function DashboardArtistesNewIndex() {
                         name={"legal.adrNumVoie"}
                         value={state.legal.adrNumVoie}
                         onChange={handleChange}
-                        required
                     />
                     <IconInput
                         label={"Nom de la voie"}
@@ -548,7 +553,6 @@ export default function DashboardArtistesNewIndex() {
                         name={"legal.adrRue"}
                         value={state.legal.adrRue}
                         onChange={handleChange}
-                        required
                     />
                     <IconInput
                         label={"Ville"}
@@ -558,7 +562,6 @@ export default function DashboardArtistesNewIndex() {
                         name={"legal.adrVille"}
                         value={state.legal.adrVille}
                         onChange={handleChange}
-                        required
                     />
                     <IconInput
                         label={"Code postal"}
@@ -568,7 +571,6 @@ export default function DashboardArtistesNewIndex() {
                         name={"legal.adrCodePostal"}
                         value={state.legal.adrCodePostal}
                         onChange={handleChange}
-                        required
                     />
                     <IconInput
                         label={"Numéro de SIRET (non visible sur le site)"}
@@ -578,7 +580,6 @@ export default function DashboardArtistesNewIndex() {
                         name={"legal.siret"}
                         value={state.legal.siret}
                         onChange={handleChange}
-                        required
                     />
                     <IconInput
                         label={"Numéro de TVA (non visible sur le site)"}
@@ -588,17 +589,15 @@ export default function DashboardArtistesNewIndex() {
                         name={"legal.tva"}
                         value={state.legal.tva}
                         onChange={handleChange}
-                        required
                     />
                     <IconInput
                         label={"Taux de TVA applicable (non visible sur le site)"}
                         type={"text"}
                         IconComponent={FaPercentage}
                         placeholder={"Ex: 5.5%"}
-                        name={"legal.tva_applicable"}
-                        value={state.legal.tva_applicable}
+                        name={"legal.tauxTva"}
+                        value={state.legal.tauxTva}
                         onChange={handleChange}
-                        required
                     />
                     <IconInput
                         label={"Numéro maison des artistes (non visible sur le site)"}
@@ -608,7 +607,6 @@ export default function DashboardArtistesNewIndex() {
                         name={"legal.numMaisonsDesArtistes"}
                         value={state.legal.numMaisonsDesArtistes}
                         onChange={handleChange}
-                        required
                     />
                     <IconInput
                         label={"Numéro de sécurité sociale (non visible sur le site)"}
@@ -618,7 +616,6 @@ export default function DashboardArtistesNewIndex() {
                         name={"legal.numSecuriteSociale"}
                         value={state.legal.numSecuriteSociale}
                         onChange={handleChange}
-                        required
                     />
                 </DashboardSectionItem>
             </div>

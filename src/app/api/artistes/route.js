@@ -240,6 +240,7 @@ export async function GET() {
                         id: true,
                         societe: true,
                         tva: true,
+                        tauxTva: true,
                         siret: true,
                         adrNumVoie: true,
                         adrRue: true,
@@ -323,6 +324,7 @@ export async function POST(req) {
                         id: true,
                         societe: true,
                         tva: true,
+                        tauxTva: true,
                         siret: true,
                         adrNumVoie: true,
                         adrRue: true,
@@ -330,7 +332,6 @@ export async function POST(req) {
                         adrCodePostal: true,
                         numMaisonsDesArtistes: true,
                         numSecuriteSociale: true,
-                        artistId: true,
                     }
                 }
             }
