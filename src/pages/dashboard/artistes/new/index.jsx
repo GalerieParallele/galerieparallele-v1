@@ -17,7 +17,7 @@ import {RxAvatar} from "react-icons/rx";
 import {BsBuildingsFill, BsFillFileEarmarkPersonFill, BsTelephoneFill} from "react-icons/bs";
 import {IoHome} from "react-icons/io5";
 
-import {FaFlag} from "react-icons/fa";
+import {FaFlag, FaPercentage} from "react-icons/fa";
 import {AiFillFacebook, AiFillInstagram, AiFillLinkedin, AiOutlineFieldNumber} from "react-icons/ai";
 import {FaEarthAfrica} from "react-icons/fa6";
 import {GrTextAlignCenter} from "react-icons/gr";
@@ -55,6 +55,7 @@ const initialState = {
         adrCodePostal: undefined,
         siret: undefined,
         tva: undefined,
+        tva_applicable: undefined,
         numMaisonsDesArtistes: undefined,
         numSecuriteSociale: undefined,
     }
@@ -586,6 +587,16 @@ export default function DashboardArtistesNewIndex() {
                         placeholder={"Ex: 12345678912345"}
                         name={"legal.tva"}
                         value={state.legal.tva}
+                        onChange={handleChange}
+                        required
+                    />
+                    <IconInput
+                        label={"Taux de TVA applicable (non visible sur le site)"}
+                        type={"text"}
+                        IconComponent={FaPercentage}
+                        placeholder={"Ex: 5.5%"}
+                        name={"legal.tva_applicable"}
+                        value={state.legal.tva_applicable}
                         onChange={handleChange}
                         required
                     />
