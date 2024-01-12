@@ -52,6 +52,7 @@ const description = z
     .max(65535, {
         message: "La description de l'oeuvre doit contenir au plus 65535 caractères",
     })
+    .nullable()
     .optional();
 
 const anecdote = z
@@ -64,7 +65,9 @@ const anecdote = z
     })
     .max(65535, {
         message: "L'anecdote de l'oeuvre doit contenir au plus 65535 caractères",
-    });
+    })
+    .nullable()
+    .optional();
 
 const hauteur = z
     .number({
@@ -101,6 +104,7 @@ const largeur = z
     .int({
         message: "La largeur de l'oeuvre doit être un nombre entier",
     })
+    .nullable()
     .optional();
 
 const numerotation = z
@@ -164,6 +168,7 @@ const encadrement = z
     .max(255, {
         message: "L'encadrement de l'oeuvre doit contenir au plus 255 caractères",
     })
+    .nullable()
     .optional();
 
 const signature = z
@@ -177,6 +182,7 @@ const signature = z
     .max(255, {
         message: "La signature de l'oeuvre doit contenir au plus 255 caractères",
     })
+    .nullable()
     .optional();
 
 const prix = z
@@ -186,17 +192,33 @@ const prix = z
     })
     .positive({
         message: "Le prix de l'oeuvre doit être positif",
-    })
-    .int({
-        message: "Le prix de l'oeuvre doit être un nombre entier",
     });
 
 // Relations
-const Artists = z.array(ArtistSchema).optional();
-const UnknowArtists = z.array(ArtistUnknowSchema).optional();
-const Tags = z.array(TagSchema).optional();
-const Types = z.array(TypeOeuvreSchema).optional();
-const images = z.array(OeuvreImageSchema).optional();
+const Artists = z
+    .array(ArtistSchema.pick({id: true}))
+    .default([])
+    .optional();
+
+const UnknowArtists = z
+    .array(ArtistUnknowSchema.pick({id: true}))
+    .default([])
+    .optional();
+
+const Tags = z
+    .array(TagSchema.pick({id: true}))
+    .default([])
+    .optional();
+
+const Types = z
+    .array(TypeOeuvreSchema.pick({id: true}))
+    .default([])
+    .optional();
+
+const Images = z
+    .array(OeuvreImageSchema.pick({mediaURL: true}))
+    .default([])
+    .optional();
 
 const OeuvreSchema = z.object({
     id,
@@ -213,6 +235,11 @@ const OeuvreSchema = z.object({
     encadrement,
     signature,
     prix,
+    Artists: z.array(z.number()).optional(),
+    UnknowArtists: z.array(z.number()).optional(),
+    Tags: z.array(z.number()).optional(),
+    Types: z.array(z.number()).optional(),
+    Images: z.array(z.string()).optional(),
 });
 
 const OeuvreCreateSchema = OeuvreSchema
@@ -248,7 +275,9 @@ export async function POST(req) {
         const requestBody = OeuvreCreateSchema.parse(JSON.parse(await req.text()));
 
         const oeuvre = await prisma.oeuvre.create({
-            data: requestBody,
+            data: {
+                ...requestBody,
+            },
             select: {
                 id: true,
                 name: true,
@@ -258,11 +287,59 @@ export async function POST(req) {
                 hauteur: true,
                 largeur: true,
                 longueur: true,
+                limitation: true,
                 numerotation: true,
                 technique: true,
                 signature: true,
                 encadrement: true,
                 support: true,
+                images: {
+                    select: {
+                        mediaURL: true,
+                    }
+                },
+                Artists: {
+                    select: {
+                        artist: {
+                            select: {
+                                pseudo: true,
+                                user: {
+                                    select: {
+                                        firstname: true,
+                                        lastname: true,
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                UnknowArtistOeuvre: {
+                    select: {
+                        artist: {
+                            select: {
+                                name: true,
+                            }
+                        }
+                    }
+                },
+                tag: {
+                    select: {
+                        tag: {
+                            select: {
+                                name: true,
+                            }
+                        }
+                    }
+                },
+                type: {
+                    select: {
+                        type: {
+                            select: {
+                                name: true,
+                            }
+                        }
+                    }
+                }
             }
         })
 
