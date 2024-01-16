@@ -34,6 +34,7 @@ import Image from "next/image";
 import {ImCross} from "react-icons/im";
 import CreatableSelect from "react-select/creatable";
 import {CiCircleList} from "react-icons/ci";
+import Button from "@/components/items/button/Button";
 
 const initialState = {
     oeuvre: {
@@ -157,6 +158,13 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                 returnURL={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES(artisteId)}
             />
             <div className={styles.content}>
+                <div className={styles.topSpace}>
+                    <Button
+                        text={"Créer l'oeuvre"}
+                        type={"submit"}
+                        onClick={() => console.log("submit")}
+                    />
+                </div>
                 <ArtisteNewSectionItem
                     sectionName={"Informations générales"}
                     required
