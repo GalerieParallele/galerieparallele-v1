@@ -45,6 +45,7 @@
       }
 
       .imgContainer {
+
         width: 200px;
         height: 200px;
         position: relative;
@@ -66,7 +67,32 @@
           }
         }
 
-        button {
+        .controlButtons {
+          padding: 8px;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 5px;
+
+          position: absolute;
+          z-index: 10;
+          top: 0;
+          left: 0;
+
+          button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            background-color: var(--blue);
+            padding: 10px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+          }
+        }
+
+        .deleteButton {
           cursor: pointer;
 
           display: flex;

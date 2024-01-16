@@ -16,6 +16,7 @@ import IconInput from "@/components/items/iconinput/IconInput";
 import {MdDriveFileRenameOutline, MdOutlineDescription} from "react-icons/md";
 import Editor from "@/components/items/Editor";
 import {
+    FaArrowAltCircleLeft, FaArrowAltCircleRight,
     FaChair,
     FaEuroSign,
     FaExclamation,
@@ -129,6 +130,14 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
     const handleOpenMultipleFilesModal = useCallback(() => {
         fileInputRef.current.click();
     }, []);
+
+    const moveImage = (dragIndex, hoverIndex) => {
+        const dragItem = selectedFiles[dragIndex];
+        const newSelectedFiles = [...selectedFiles];
+        newSelectedFiles.splice(dragIndex, 1);
+        newSelectedFiles.splice(hoverIndex, 0, dragItem);
+        setSelectedFiles(newSelectedFiles);
+    };
 
     useEffect(() => {
         if (router.query.id && /^\d+$/.test(router.query.id)) {
@@ -315,33 +324,35 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                                 ref={fileInputRef}
                             />
                             {/* TODO: Ici la liste des image importées */}
-                            {
-                                selectedFiles.length > 0 && (
-                                    selectedFiles.map((file, index) => {
-                                            return (
-                                                <div key={index} className={styles.imgContainer}>
-                                                    <Image
-                                                        src={URL.createObjectURL(file)}
-                                                        alt={file.name}
-                                                        layout={'fill'}
-                                                    />
-                                                    <button
-                                                        onClick={() => {
-                                                            setSelectedFiles(prev => {
-                                                                const newFiles = [...prev];
-                                                                newFiles.splice(index, 1);
-                                                                return newFiles;
-                                                            });
-                                                        }}
-                                                    >
-                                                        <ImCross/>
-                                                    </button>
-                                                </div>
-                                            )
-                                        }
-                                    )
-                                )
-                            }
+                            {selectedFiles.length > 0 && selectedFiles.map((file, index) => (
+                                <div key={file.name} className={styles.imgContainer}>
+                                    <Image
+                                        src={URL.createObjectURL(file)}
+                                        alt={file.name}
+                                        layout={'fill'}
+                                    />
+                                    <div className={styles.controlButtons}>
+                                        {index > 0 && (
+                                            <button onClick={() => moveImage(index, index - 1)}><FaArrowAltCircleLeft/>
+                                            </button>
+                                        )}
+                                        {index < selectedFiles.length - 1 && (
+                                            <button onClick={() => moveImage(index, index + 1)}><FaArrowAltCircleRight /></button>
+                                        )}
+                                    </div>
+                                    <button
+                                        className={styles.deleteButton}
+                                        onClick={() => {
+                                            setSelectedFiles(prev => {
+                                                const newFiles = [...prev];
+                                                newFiles.splice(index, 1);
+                                                return newFiles;
+                                            });
+                                        }}>
+                                        <ImCross/>
+                                    </button>
+                                </div>
+                            ))}
                             {/* fin de la liste */}
                         </div>
                     </div>
