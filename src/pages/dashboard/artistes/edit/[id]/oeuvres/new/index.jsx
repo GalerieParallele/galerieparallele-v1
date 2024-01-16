@@ -158,13 +158,6 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                 returnURL={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES(artisteId)}
             />
             <div className={styles.content}>
-                <div className={styles.topSpace}>
-                    <Button
-                        text={"Créer l'oeuvre"}
-                        type={"submit"}
-                        onClick={() => console.log("submit")}
-                    />
-                </div>
                 <ArtisteNewSectionItem
                     sectionName={"Informations générales"}
                     required
@@ -502,6 +495,13 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         />
                     </div>
                 </ArtisteNewSectionItem>
+                <div className={styles.topSpace}>
+                    <Button
+                        text={"Créer l'oeuvre"}
+                        type={"submit"}
+                        onClick={() => console.log("submit")}
+                    />
+                </div>
             </div>
         </div>
     )

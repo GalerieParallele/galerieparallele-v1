@@ -288,13 +288,6 @@ export default function DashboardArtistesNewIndex() {
                 returnURL={ROUTES.ADMIN.ARTISTES.HOME}
             />
             <div className={styles.content}>
-                <div className={styles.topSpace}>
-                    <Button
-                        text={"Créer l'artiste"}
-                        type={"submit"}
-                        onClick={handleSubmit}
-                    />
-                </div>
                 <DashboardSectionItem
                     sectionName={"Informations Utilisateur"}
                     description={"Ces informations ne seront pas visibles du grand public"}
@@ -618,6 +611,13 @@ export default function DashboardArtistesNewIndex() {
                         onChange={handleChange}
                     />
                 </DashboardSectionItem>
+                <div className={styles.topSpace}>
+                    <Button
+                        text={"Créer l'artiste"}
+                        type={"submit"}
+                        onClick={handleSubmit}
+                    />
+                </div>
             </div>
         </div>
     )
