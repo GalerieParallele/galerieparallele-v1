@@ -38,28 +38,6 @@ export default function artisteTest() {
                 "On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte.",
             date: "2021-05-06",
         },
-        // {
-        //     title: "Titre de test 3",
-        //     photoURL: "https://firebasestorage.googleapis.com/v0/b/dp-gallery-37d61.appspot.com/o/10%2Forlinski-banner.jpg?alt=media&token=2a7e788e-bc33-4b3f-94d2-2a7196a6b2f6",
-        //     photoDescription: "Photo de richard orlinski",
-        //     description: "Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.\n" +
-        //         "\n" +
-        //         "Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.\n" +
-        //         "\n" +
-        //         "On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte.",
-        //     date: "2021-05-07",
-        // },
-        // {
-        //     title: "Titre de test 4",
-        //     photoURL: "https://firebasestorage.googleapis.com/v0/b/dp-gallery-37d61.appspot.com/o/10%2Forlinski-banner.jpg?alt=media&token=2a7e788e-bc33-4b3f-94d2-2a7196a6b2f6",
-        //     photoDescription: "Photo de richard orlinski",
-        //     description: "Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.\n" +
-        //         "\n" +
-        //         "Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.\n" +
-        //         "\n" +
-        //         "On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte.",
-        //     date: "2021-05-07",
-        // }
     ]
 
     const fakeTags = [

@@ -38,3 +38,43 @@ export const fetchArtists = async () => {
         return {success: false, error: {message: error.message, code: error.code}};
     }
 };
+
+export const festArtistsById = async (id) => {
+    try {
+
+        const response = await fetch(ROUTES.API.ARTISTES.GETBYID, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({id})
+        });
+
+        if (!response.ok) {
+
+            const errorDetails = await response.text();
+
+            throw {
+                message: `Erreur HTTP: statut ${response.status}, détails: ${errorDetails}`,
+                code: response.status
+            };
+
+        }
+
+        let data = await response.json();
+
+        if (!data) {
+            throw {message: "Format de réponse invalide", code: 'InvalidFormat'};
+        }
+
+        return {success: true, artist: data};
+
+    } catch (error) {
+
+        if (process.env.NODE_ENV === 'development') {
+            console.error("Erreur lors de la récupération des artistes:", error);
+        }
+
+        return {success: false, error: {message: error.message, code: error.code}};
+    }
+}
