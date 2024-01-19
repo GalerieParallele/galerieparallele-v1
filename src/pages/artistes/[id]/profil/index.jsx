@@ -40,28 +40,40 @@ export default function ArtisteProfilIndex() {
         }
     }, [artisteId]);
 
-    useEffect(() => {
-        console.log(artist);
-    }, [artist]);
+    if (loading || artistLoading) {
+        return <PageLoader/>;
+    }
 
 
     if (error) {
-        console.log(error);
         return <Error
-            code={error.code === 404 ? 404 : 400}
-            title={error.code === 404 ? "Artiste introuvable" : "Erreur de requête"}
-            message={error.code === 404 ? "L'artiste que vous recherchez n'existe pas." : "L'identifiant de l'artiste est incorrect, invalide ou inexistant."}
+            code={400}
+            title={"Oops..."}
+            message={"Une erreur est survenue, il semble que l'identifiant de l'artiste soit incorrect."}
         />;
     }
 
-    if (loading || artistLoading) {
-        return <PageLoader/>;
+    if (artistError) {
+        switch (artistError.error.code) {
+            case 404:
+                return <Error
+                    code={404}
+                    title={"Artiste introuvable"}
+                    message={"L'artiste que vous recherchez n'existe pas ou a été supprimé."}
+                />;
+            default:
+                return <Error
+                    code={400}
+                    title={"Oops..."}
+                    message={"Une erreur est survenue lors de la requête de récupération de l'artiste."}
+                />;
+        }
     }
 
     return (
         <div className={styles.main}>
             {
-                artist && (
+                artist ? (
                     <>
                         <p>{artist.user && artist.user.id}</p>
                         <p>{artist.user.email}</p>
@@ -69,9 +81,11 @@ export default function ArtisteProfilIndex() {
                             src={artist.user.avatarURL}
                             alt={"Avatar de " + artist.user.firstname}
                             width={100}
-                               height={100}
+                            height={100}
                         />
                     </>
+                ) : (
+                    <p>Chargement...</p>
                 )
             }
         </div>

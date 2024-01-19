@@ -78,7 +78,3 @@ export const festArtistsById = async (id) => {
         return {success: false, error: {message: error.message, code: error.code}};
     }
 }
-
-const isNumber = (value) => {
-    return !isNaN(value);
-}

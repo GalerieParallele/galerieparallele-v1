@@ -35,16 +35,16 @@ export const useArtists = () => {
 
         try {
             const response = await festArtistsById(id);
+            const resString = response;
             if (response.success) {
                 setArtist(response.artist);
-                return true;
+                return resString;
             } else {
-                setError(response.error);
-                return false;
+                setError(resString);
+                return resString;
             }
         } catch (err) {
             setError(err.message);
-            return false;
         } finally {
             setLoading(false);
         }
