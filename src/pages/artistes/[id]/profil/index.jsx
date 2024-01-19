@@ -5,6 +5,7 @@ import styles from './Index.module.scss';
 import PageLoader from "@/components/items/PageLoader";
 import Error from "@/components/error/Error";
 import {useArtists} from "@/hooks/useArtists";
+import Image from "next/image";
 
 export default function ArtisteProfilIndex() {
 
@@ -14,16 +15,16 @@ export default function ArtisteProfilIndex() {
     const [artisteId, setArtisteId] = useState(null);
     const [error, setError] = useState(false);
 
-    const {loading: artistLoading, getArtistById, artist} = useArtists();
+    const {loading: artistLoading, getArtistById, artist, error: artistError} = useArtists();
 
     useEffect(() => {
-        if (router.query.id && /^\d+$/.test(router.query.id)) {
-            setArtisteId(router.query.id);
+
+        const routerId = router.query.id;
+
+        if (routerId && /^\d+$/.test(routerId)) {
+            const artisteId = parseInt(routerId);
+            setArtisteId(artisteId);
             setError(false);
-            if (artisteId) {
-                getArtistById(artisteId);
-                console.log(artist);
-            }
         } else {
             setError(true);
         }
@@ -32,26 +33,47 @@ export default function ArtisteProfilIndex() {
 
     useEffect(() => {
         if (artisteId) {
-            getArtistById(artisteId);
-            console.log(artist);
+            const fetchArtistById = getArtistById(artisteId)
+            if (!fetchArtistById) {
+                setError(true);
+            }
         }
-    }, [artisteId, artist]);
+    }, [artisteId]);
+
+    useEffect(() => {
+        console.log(artist);
+    }, [artist]);
+
 
     if (error) {
+        console.log(error);
         return <Error
-            code={404}
-            title={"Artiste introuvable"}
-            message={"L'artiste avec l'identifiant \"" + router.query.id + "\" n'existe pas ou est invalide."}
+            code={error.code === 404 ? 404 : 400}
+            title={error.code === 404 ? "Artiste introuvable" : "Erreur de requête"}
+            message={error.code === 404 ? "L'artiste que vous recherchez n'existe pas." : "L'identifiant de l'artiste est incorrect, invalide ou inexistant."}
         />;
     }
 
-    if (loading) {
+    if (loading || artistLoading) {
         return <PageLoader/>;
     }
 
     return (
         <div className={styles.main}>
-            <p>{artist && artist.user && artist.user.id}</p>
+            {
+                artist && (
+                    <>
+                        <p>{artist.user && artist.user.id}</p>
+                        <p>{artist.user.email}</p>
+                        <Image
+                            src={artist.user.avatarURL}
+                            alt={"Avatar de " + artist.user.firstname}
+                            width={100}
+                               height={100}
+                        />
+                    </>
+                )
+            }
         </div>
     )
 

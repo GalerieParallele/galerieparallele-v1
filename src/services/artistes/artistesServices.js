@@ -40,14 +40,12 @@ export const fetchArtists = async () => {
 };
 
 export const festArtistsById = async (id) => {
+
     try {
 
         const response = await fetch(ROUTES.API.ARTISTES.GETBYID, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({id})
+            body: JSON.stringify({id}),
         });
 
         if (!response.ok) {
@@ -71,10 +69,16 @@ export const festArtistsById = async (id) => {
 
     } catch (error) {
 
+        console.log(error)
+
         if (process.env.NODE_ENV === 'development') {
             console.error("Erreur lors de la récupération des artistes:", error);
         }
 
         return {success: false, error: {message: error.message, code: error.code}};
     }
+}
+
+const isNumber = (value) => {
+    return !isNaN(value);
 }

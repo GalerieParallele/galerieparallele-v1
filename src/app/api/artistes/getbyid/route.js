@@ -1,6 +1,7 @@
 import {NextResponse} from "next/server";
 import {z} from "zod";
 import {prisma} from "@/utils/PrismaUtil";
+import {ArtistSchema} from "@/app/api/artistes/route";
 
 const MESSAGES = {
     INVALID_ARTIST: "L'id renseigné ne correspond à aucun artiste",
@@ -25,9 +26,9 @@ export async function POST(req) {
 
     try {
 
-        const requestBody = ArtistSchemaById.parse(JSON.parse(await req.text()))
+        const requestBody = ArtistSchema.pick({id: true}).parse(JSON.parse(await req.text()));
 
-        const id = requestBody.id;
+        const id = Number(requestBody.id);
 
         const artist = await prisma.artist.findUnique({
             where: {

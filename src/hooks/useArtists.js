@@ -2,8 +2,9 @@ import {useEffect, useState} from "react";
 import {festArtistsById, fetchArtists} from "@/services/artistes/artistesServices";
 
 export const useArtists = () => {
+
     const [artists, setArtists] = useState([]);
-    const [artist, setArtist] = useState({});
+    const [artist, setArtist] = useState();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -26,18 +27,24 @@ export const useArtists = () => {
     };
 
     const getArtistById = async (id) => {
+
         setLoading(true);
         setError(null);
+
+        id = parseInt(id);
 
         try {
             const response = await festArtistsById(id);
             if (response.success) {
-                setArtist(response.artists);
+                setArtist(response.artist);
+                return true;
             } else {
                 setError(response.error);
+                return false;
             }
         } catch (err) {
             setError(err.message);
+            return false;
         } finally {
             setLoading(false);
         }
