@@ -5,8 +5,11 @@ import Button from "@/components/items/button/Button";
 
 import styles from "./Artiste.module.css";
 import ROUTES from "@/constants/ROUTES";
+import {useRouter} from "next/router";
 
 export default function Artiste() {
+
+    const router = useRouter();
 
     const [artists, setArtists] = useState([]);
 
@@ -35,7 +38,11 @@ export default function Artiste() {
                 }
             </div>
             <div className={styles.bottom}>
-                <Button text={"Nos artist"} isWhite/>
+                <Button
+                    text={"Nos artist"}
+                    isWhite
+                onClick={() => router.push("/artistes")}
+                />
             </div>
         </div>
     );
