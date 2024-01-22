@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 
-import ArtisteCard from "@/components/home/artistes/ArtisteCard";
 import Button from "@/components/items/button/Button";
 
 import styles from "./Artiste.module.css";

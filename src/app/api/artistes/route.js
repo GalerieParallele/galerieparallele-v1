@@ -250,6 +250,15 @@ export async function GET() {
                         numSecuriteSociale: true,
                         artistId: true,
                     }
+                },
+                oeuvre: {
+                    select: {
+                        oeuvre: {
+                            select: {
+                                name: true,
+                            }
+                        }
+                    }
                 }
             }
         });
@@ -260,6 +269,10 @@ export async function GET() {
 
         artists.map(artist => {
             artist.tag = artist.tag.map(tag => tag.tag.name);
+        });
+
+        artists.map(artist => {
+            artist.oeuvre = artist.oeuvre.map(oeuvre => oeuvre.oeuvre.name);
         });
 
         const validatedArtist = artists.map(artist => ArtistSchema.parse(artist));

@@ -188,6 +188,7 @@ model OeuvreImage {
   mediaURL String @db.Text // URL de l'image
   oeuvreId Int // ID de l'oeuvre
   oeuvre   Oeuvre @relation(fields: [oeuvreId], references: [id], onDelete: Cascade) // Oeuvre de l'image
+  position Int // Position de l'image
 }
 
 model TypesOeuvre {

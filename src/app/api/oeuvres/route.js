@@ -5,12 +5,6 @@ import {Prisma} from "@prisma/client";
 
 import {z} from 'zod';
 
-import {ArtistSchema} from "@/app/api/artistes/route";
-import {ArtistUnknowSchema} from "@/app/api/artistsunknow/route";
-import {TagSchema} from "@/app/api/tags/route";
-import {TypeOeuvreSchema} from "@/app/api/typesoeuvres/route";
-import {OeuvreImageSchema} from "@/app/api/oeuvreimages/route";
-
 const MESSAGES = {
     SUCCESS_DELETE: "L'oeuvre a bien été supprimée",
 
@@ -76,9 +70,6 @@ const hauteur = z
     })
     .positive({
         message: "La hauteur de l'oeuvre doit être positive",
-    })
-    .int({
-        message: "La hauteur de l'oeuvre doit être un nombre entier",
     });
 
 const longueur = z
@@ -88,9 +79,6 @@ const longueur = z
     })
     .positive({
         message: "La longueur de l'oeuvre doit être positive",
-    })
-    .int({
-        message: "La longueur de l'oeuvre doit être un nombre entier",
     });
 
 const largeur = z
@@ -100,9 +88,6 @@ const largeur = z
     })
     .positive({
         message: "La largeur de l'oeuvre doit être positive",
-    })
-    .int({
-        message: "La largeur de l'oeuvre doit être un nombre entier",
     })
     .nullable()
     .optional();
@@ -194,32 +179,6 @@ const prix = z
         message: "Le prix de l'oeuvre doit être positif",
     });
 
-// Relations
-const Artists = z
-    .array(ArtistSchema.pick({id: true}))
-    .default([])
-    .optional();
-
-const UnknowArtists = z
-    .array(ArtistUnknowSchema.pick({id: true}))
-    .default([])
-    .optional();
-
-const Tags = z
-    .array(TagSchema.pick({id: true}))
-    .default([])
-    .optional();
-
-const Types = z
-    .array(TypeOeuvreSchema.pick({id: true}))
-    .default([])
-    .optional();
-
-const Images = z
-    .array(OeuvreImageSchema.pick({mediaURL: true}))
-    .default([])
-    .optional();
-
 const OeuvreSchema = z.object({
     id,
     name,
@@ -247,11 +206,6 @@ const OeuvreCreateSchema = OeuvreSchema
         id: true,
     });
 
-const OeuvreUpdateDeleteSchema = OeuvreSchema
-    .partial()
-    .extend({
-        id,
-    });
 
 const OeuvreResponseSchema = z.object({
     total: z
@@ -274,6 +228,20 @@ export async function POST(req) {
 
         const requestBody = OeuvreCreateSchema.parse(JSON.parse(await req.text()));
 
+        let images = requestBody.images;
+        let Artists = requestBody.Artists;
+        let UnknowArtistOeuvre = requestBody.UnknowArtistOeuvre;
+        let tag = requestBody.tag;
+        let type = requestBody.type;
+
+        delete requestBody.images;
+        delete requestBody.Artists;
+        delete requestBody.UnknowArtistOeuvre;
+        delete requestBody.tag;
+        delete requestBody.type;
+
+        console.log(requestBody);
+
         const oeuvre = await prisma.oeuvre.create({
             data: {
                 ...requestBody,
@@ -282,66 +250,50 @@ export async function POST(req) {
                 id: true,
                 name: true,
                 description: true,
-                anecdote: true,
-                prix: true,
-                hauteur: true,
-                largeur: true,
-                longueur: true,
                 limitation: true,
-                numerotation: true,
-                technique: true,
-                signature: true,
+                anecdote: true,
+                hauteur: true,
+                longueur: true,
+                largeur: true,
                 encadrement: true,
+                numerotation: true,
+                prix: true,
+                signature: true,
                 support: true,
-                images: {
-                    select: {
-                        mediaURL: true,
-                    }
-                },
-                Artists: {
-                    select: {
-                        artist: {
-                            select: {
-                                pseudo: true,
-                                user: {
-                                    select: {
-                                        firstname: true,
-                                        lastname: true,
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                UnknowArtistOeuvre: {
-                    select: {
-                        artist: {
-                            select: {
-                                name: true,
-                            }
-                        }
-                    }
-                },
-                tag: {
-                    select: {
-                        tag: {
-                            select: {
-                                name: true,
-                            }
-                        }
-                    }
-                },
-                type: {
-                    select: {
-                        type: {
-                            select: {
-                                name: true,
-                            }
-                        }
-                    }
-                }
+                technique: true,
             }
         })
+
+        if (Artists) {
+            await prisma.artistOeuvre.createMany({
+                data: Artists.map((artist) => {
+                    return {
+                        artistId: artist,
+                        oeuvreId: oeuvre.id,
+                    }
+                }),
+            });
+        }
+
+        if (UnknowArtistOeuvre) {
+            console.log(UnknowArtistOeuvre);
+            for (const artistName of UnknowArtistOeuvre) {
+
+                const artist = await prisma.artistUnknow.upsert({
+                    where: {name: artistName},
+                    update: {},
+                    create: {name: artistName}
+                });
+
+                await prisma.artistUnknowOeuvre.create({
+                    data: {
+                        artistId: artist.id,
+                        oeuvreId: oeuvre.id
+                    }
+                });
+            }
+        }
+
 
         return NextResponse.json(OeuvreSchema.parse(oeuvre), {status: 201});
 
