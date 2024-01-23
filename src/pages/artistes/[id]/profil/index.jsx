@@ -98,7 +98,7 @@ export default function ArtisteProfilIndex() {
                             {
                                 artistLoading ? <LittleSpinner/> : (
                                     <ArtistProfilAvatar
-                                        imgSrc={artist && artist.user.avatarURL}
+                                        imgSrc={artist && artist.user.avatarURL || "/assets/img/avatar.png"}
                                         descImg={"Avatar de " + artistDisplay}
                                     />
                                 )
