@@ -1,0 +1,285 @@
+@import url('https://fonts.googleapis.com/css2?family=Birthstone&family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+
+.navbar {
+
+  z-index: 9999;
+
+  background-color: var(--white);
+
+  padding: 12px 30px;
+  width: 100vw;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  box-shadow: var(--shadow);
+
+  position: sticky;
+  top: 40px;
+  left: 0;
+}
+
+.left button {
+  font-size: 17px;
+}
+
+.center a {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  width: 100%;
+  gap: 0;
+}
+
+.center {
+  font-size: 100px;
+}
+
+.center img {
+  height: 50px;
+}
+
+.right {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+}
+
+.right a {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
+  gap: 5px;
+  color: var(--black);
+}
+
+.right a p {
+  display: flex;
+}
+
+.adminIcon {
+  animation: spin 3s linear infinite;
+}
+
+.verticalSeparator {
+  height: 15px;
+  width: 2px;
+  border-radius: 20px;
+  background-color: var(--light-gray);
+}
+
+.littleLogoName {
+  display: none;
+}
+
+.menu {
+
+  .filter {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 98999;
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: all 0.8s ease-in-out;
+  }
+
+  .content {
+    z-index: 999999999;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 480px;
+
+    height: 100vh;
+
+    background-color: var(--black);
+
+    padding: 50px 30px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+
+    transition: all 0.5s ease-in-out;
+
+    .top {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 40px;
+
+      .homeIcon {
+        background-color: var(--white);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: fit-content;
+        padding: 10px;
+        font-size: 20px;
+        border-radius: 50%;
+
+        transition: var(--transition);
+
+        &:hover {
+          cursor: pointer;
+          box-shadow: #fff 0 0 7px 0;
+        }
+      }
+
+      .searchSpace {
+        color: var(--white);
+
+        input {
+          padding: 10px 10px 10px 0;
+          color: var(--white);
+          font-size: 15px;
+
+          &::placeholder {
+            color: var(--light-gray);
+            font-size: 15px;
+          }
+        }
+
+        .searchBar {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+
+          position: relative;
+
+          label {
+            position: absolute;
+            top: 5px;
+            left: 0;
+          }
+        }
+      }
+    }
+
+    .links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      a {
+        color: var(--light-gray);
+        text-transform: uppercase;
+        font-size: 19px;
+        font-weight: 600;
+        transition: var(--transition);
+
+        &:hover {
+          transform: translateX(4px);
+          color: var(--white);
+        }
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 25px;
+
+        .specialLinks {
+
+          display: flex;
+            flex-direction: column;
+          gap: 15px;
+
+          .magazine {
+            font-family: 'Birthstone', cursive;
+            font-size: 25px;
+          }
+
+          a {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 12px;
+          }
+        }
+
+      }
+    }
+
+    .bottom {
+      button {
+        color: var(--black);
+        background-color: var(--white);
+        padding: 15px 30px;
+        border-radius: var(--border-radius);
+        font-size: 15px;
+        text-transform: uppercase;
+        font-weight: 600;
+        transition: var(--transition);
+
+        &:hover {
+          cursor: pointer;
+          box-shadow: #fff 0 0 7px 0;
+        }
+      }
+    }
+  }
+}
+
+.horizontalLine {
+  height: 2px;
+  width: 100%;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+}
+
+@media screen and (max-width: 650px) {
+  .right a p {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .littleLogoName {
+    display: block;
+  }
+
+  .bigLogoName {
+    display: none;
+  }
+
+  .menu {
+    .content {
+      width: 100vw;
+      .top {
+        flex-direction: column;
+        gap: 1px;
+        .homeIcon {
+          margin-bottom: 20px;
+        }
+
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

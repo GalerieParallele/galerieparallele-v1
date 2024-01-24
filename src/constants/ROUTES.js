@@ -15,6 +15,7 @@ const PATHS = {
     HOME: '',
     AUTH: 'auth',
     ARTISTES: {
+        HOME: createPath('artistes'),
         TEST: createPath('artistes', 'profil', 'artisteTest'),
     },
     ADMIN: {
@@ -103,6 +104,7 @@ const ROUTES = {
     HOME: BASE_URL + PATHS.HOME,
     AUTH: BASE_URL + PATHS.AUTH,
     ARTISTES: {
+        HOME: BASE_URL + PATHS.ARTISTES.HOME,
         TEST: BASE_URL + PATHS.ARTISTES.TEST,
     },
     ADMIN: {
