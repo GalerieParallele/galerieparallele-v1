@@ -9,6 +9,8 @@ const MESSAGES = {
     SUCCESS_DELETE: "L'oeuvre a bien été supprimée",
 
     INVALID_OEUVRE: "L'oeuvre est invalide",
+
+    NO_ARTIST_FOUND: "Aucun artiste n'a été trouvé",
 }
 
 const id = z
@@ -179,7 +181,7 @@ const prix = z
         message: "Le prix de l'oeuvre doit être positif",
     });
 
-const OeuvreSchema = z.object({
+export const OeuvreSchema = z.object({
     id,
     name,
     description,
@@ -196,8 +198,8 @@ const OeuvreSchema = z.object({
     prix,
     Artists: z.array(z.number()).optional(),
     UnknowArtists: z.array(z.number()).optional(),
-    Tags: z.array(z.number()).optional(),
-    Types: z.array(z.number()).optional(),
+    tag: z.array(z.string()).optional().transform((value) => value ? value.map((tag) => tag.toUpperCase()) : value),
+    Types: z.array(z.string()).optional().transform((value) => value ? value.map((type) => type.toUpperCase()) : value),
     Images: z.array(z.string()).optional(),
 });
 
@@ -228,23 +230,11 @@ export async function POST(req) {
 
         const requestBody = OeuvreCreateSchema.parse(JSON.parse(await req.text()));
 
-        let images = requestBody.images;
-        let Artists = requestBody.Artists;
-        let UnknowArtistOeuvre = requestBody.UnknowArtistOeuvre;
-        let tag = requestBody.tag;
-        let type = requestBody.type;
-
-        delete requestBody.images;
-        delete requestBody.Artists;
-        delete requestBody.UnknowArtistOeuvre;
-        delete requestBody.tag;
-        delete requestBody.type;
-
-        console.log(requestBody);
+        let {Artists, tag, Types, Images, ...oeuvreData} = requestBody;
 
         const oeuvre = await prisma.oeuvre.create({
             data: {
-                ...requestBody,
+                ...oeuvreData,
             },
             select: {
                 id: true,
@@ -261,39 +251,60 @@ export async function POST(req) {
                 signature: true,
                 support: true,
                 technique: true,
+                Artists: {
+                    select: {
+                        artist: {
+                            select: {
+                                id: true,
+                                pseudo: true,
+                                user: {
+                                    select: {
+                                        email: true,
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         })
 
-        if (Artists) {
-            await prisma.artistOeuvre.createMany({
-                data: Artists.map((artist) => {
-                    return {
-                        artistId: artist,
+        if (Artists && Artists.length > 0) {
+            Artists.map(async (artistId) => {
+                await prisma.artistOeuvre.create({
+                    data: {
+                        artistId,
                         oeuvreId: oeuvre.id,
                     }
-                }),
+                });
             });
         }
 
-        if (UnknowArtistOeuvre) {
-            console.log(UnknowArtistOeuvre);
-            for (const artistName of UnknowArtistOeuvre) {
-
-                const artist = await prisma.artistUnknow.upsert({
-                    where: {name: artistName},
-                    update: {},
-                    create: {name: artistName}
+        if (tag && tag.length > 0) {
+            for (const tagValue of tag) {
+                let tag = undefined;
+                tag = await prisma.tag.findUnique({
+                    where: {
+                        name: tagValue
+                    }
                 });
 
-                await prisma.artistUnknowOeuvre.create({
+                if (!tag) {
+                    tag = await prisma.tag.create({
+                        data: {
+                            name: tagValue,
+                        }
+                    });
+                }
+
+                await prisma.oeuvreTag.create({
                     data: {
-                        artistId: artist.id,
-                        oeuvreId: oeuvre.id
+                        tagId: tag.id,
+                        oeuvreId: oeuvre.id,
                     }
                 });
             }
         }
-
 
         return NextResponse.json(OeuvreSchema.parse(oeuvre), {status: 201});
 
@@ -305,6 +316,17 @@ export async function POST(req) {
 
         if (error instanceof z.ZodError) {
             return NextResponse.json({message: error.errors[0].message}, {status: 400});
+        }
+
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+
+            if (error.code === 'P2003') {
+                return NextResponse.json({message: MESSAGES.NO_ARTIST_FOUND}, {status: 400});
+            }
+
+            if (error.code === 'P2025') {
+                return NextResponse.json({message: MESSAGES.NO_ARTIST_FOUND}, {status: 400});
+            }
         }
 
         return NextResponse.json(MESSAGES.API_SERVER_ERROR, {status: 500});

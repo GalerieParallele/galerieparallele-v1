@@ -4,6 +4,7 @@ import {NextResponse} from "next/server";
 import {UserSchema} from "@/app/api/users/route";
 import {prisma} from "@/utils/PrismaUtil";
 import {LegalInformationSchema} from "@/app/api/legalsinformation/route";
+import {OeuvreSchema} from "@/app/api/oeuvres/route";
 
 
 const MESSAGES = {
@@ -152,7 +153,8 @@ export const ArtistSchema = z.object({
     website,
     tag,
     user,
-    legalInformation
+    legalInformation,
+    oeuvre: z.array(OeuvreSchema).optional().nullable(),
 });
 
 const ArtistResponseSchema = z.object({
@@ -252,16 +254,17 @@ export async function GET() {
                     }
                 },
                 oeuvre: {
-                    select: {
-                        oeuvre: {
-                            select: {
-                                name: true,
-                            }
-                        }
+                    include: {
+                        oeuvre: true
                     }
                 }
+            },
+            orderBy: {
+                id: 'asc'
             }
         });
+
+        artists.map(artist => console.log(artist));
 
         if (!artists.length) {
             return NextResponse.json({message: MESSAGES.NO_ARTIST_FOUND}, {status: 404});
@@ -272,7 +275,7 @@ export async function GET() {
         });
 
         artists.map(artist => {
-            artist.oeuvre = artist.oeuvre.map(oeuvre => oeuvre.oeuvre.name);
+            artist.oeuvre = artist.oeuvre.map(oeuvre => oeuvre.oeuvre);
         });
 
         const validatedArtist = artists.map(artist => ArtistSchema.parse(artist));
