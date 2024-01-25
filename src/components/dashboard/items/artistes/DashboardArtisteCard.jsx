@@ -5,7 +5,7 @@ import Button from "@/components/items/button/Button";
 import {MdDelete, MdEdit} from "react-icons/md";
 import {useRouter} from "next/router";
 import ROUTES from "@/constants/ROUTES";
-import {useEffect} from "react";
+import Link from "next/link";
 
 export default function DashboardArtisteCard({artiste}) {
 
@@ -36,10 +36,15 @@ export default function DashboardArtisteCard({artiste}) {
             <div className={styles.bottom}>
                 <div className={styles.content}>
                     <h2>{artiste.pseudo ? artiste.pseudo : (artiste.user.lastname + " " + artiste.user.firstname)}</h2>
-                    <Button
-                        text={"Afficher"}
-                        onClick={() => {}}
+                    <Link
+                        href={ROUTES.ARTISTES.PROFIL(artiste.id)}
+                        target={"_blank"}
+                    >
+                        <Button
+                            type={"button"}
+                            text={"Afficher"}
                         />
+                    </Link>
                 </div>
             </div>
         </div>
