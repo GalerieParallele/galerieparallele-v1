@@ -162,9 +162,9 @@ model Oeuvre {
   description String? @db.Text // Description de l'oeuvre
   anecdote    String? @db.Text // Anecdote de l'oeuvre
 
-  hauteur  Int // Hauteur de l'oeuvre
-  longueur Int // Longueur de l'oeuvre
-  largeur  Int? // Largeur de l'oeuvre
+  hauteur    Int // Hauteur de l'oeuvre
+  longueur   Int // Longueur de l'oeuvre
+  profondeur Int? // Largeur de l'oeuvre
 
   prix Int @default(0) // Prix de l'oeuvre
 

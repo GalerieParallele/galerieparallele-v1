@@ -94,6 +94,9 @@ const PATHS = {
             GETBYID: createPath('artistes', 'getbyid'),
             LEGAL_INFORMATION: createPath('legalsinformation'),
         },
+        OEUVRES: {
+            HOME: createPath('oeuvres'),
+        },
         USERS: {
             HOME: 'users',
         }
@@ -180,6 +183,9 @@ const ROUTES = {
             LOGOUT: API_BASE + PATHS.API.AUTH.LOGOUT,
             ME: API_BASE + PATHS.API.AUTH.ME,
             REGISTER: API_BASE + PATHS.API.AUTH.REGISTER,
+        },
+        OEUVRES: {
+            HOME: API_BASE + PATHS.API.OEUVRES.HOME,
         },
         ARTISTES: {
             HOME: API_BASE + PATHS.API.ARTISTES.HOME,

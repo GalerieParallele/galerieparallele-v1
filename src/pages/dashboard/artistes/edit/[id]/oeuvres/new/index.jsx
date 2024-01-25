@@ -1,22 +1,26 @@
-import React, {useCallback, useEffect, useReducer, useRef, useState} from "react";
+import {useCallback, useEffect, useReducer, useRef, useState} from "react";
 
 import {useRouter} from "next/router";
+import Image from "next/image";
 
 import ROUTES from "@/constants/ROUTES";
+
+import {useArtists} from "@/hooks/useArtists";
+
+import CreatableSelect from "react-select/creatable";
+import Editor from "@/components/items/Editor";
 
 import PageLoader from "@/components/items/PageLoader";
 import Error from "@/components/error/Error";
 import DashboardNavbar from "@/components/dashboard/items/DashboardNavbar";
-
-import styles from './Index.module.scss';
-import sectionStyles from '@/components/dashboard/items/sections/DashboardSectionItem.module.scss';
-import {useArtists} from "@/hooks/useArtists";
 import ArtisteNewSectionItem from "@/components/admin/artistes/users/new/ArtisteNewSectionItem";
 import IconInput from "@/components/items/iconinput/IconInput";
+import Button from "@/components/items/button/Button";
+
 import {MdDriveFileRenameOutline, MdOutlineDescription} from "react-icons/md";
-import Editor from "@/components/items/Editor";
 import {
-    FaArrowAltCircleLeft, FaArrowAltCircleRight,
+    FaArrowAltCircleLeft,
+    FaArrowAltCircleRight,
     FaChair,
     FaEuroSign,
     FaExclamation,
@@ -31,35 +35,32 @@ import {
 import {AiOutlineFieldNumber} from "react-icons/ai";
 import {PiFrameCornersDuotone} from "react-icons/pi";
 import {BiGroup, BiSolidImageAdd} from "react-icons/bi";
-import Image from "next/image";
 import {ImCross} from "react-icons/im";
-import CreatableSelect from "react-select/creatable";
 import {CiCircleList} from "react-icons/ci";
-import Button from "@/components/items/button/Button";
+
+import styles from './Index.module.scss';
+import sectionStyles from '@/components/dashboard/items/sections/DashboardSectionItem.module.scss';
 
 const initialState = {
     oeuvre: {
         name: undefined,
         description: undefined,
         anecdote: undefined,
-        price: undefined,
-        dimension: {
-            height: undefined,
-            width: undefined,
-            depth: undefined,
-        },
-        more_info: {
-            numerotation: undefined,
-            support: undefined,
-            technique: undefined,
-            encadrement: undefined,
-            signature: undefined,
-        },
-        artists: [],
-        unknown_artist: [],
-        tags: [],
-        type: [],
-        images: [],
+        hauteur: undefined,
+        longueur: undefined,
+        profondeur: undefined,
+        prix: undefined,
+        numerotation: undefined,
+        limitation: undefined,
+        support: undefined,
+        technique: undefined,
+        encadrement: undefined,
+        signature: undefined,
+        Artists: undefined,
+        UnknowArtistOeuvre: undefined,
+        tag: undefined,
+        type: undefined,
+        images: undefined,
     }
 };
 
@@ -79,6 +80,7 @@ function reducer(state, action) {
     }
 }
 
+
 export default function DashboardArtisteEditOeuvresNewIndex() {
 
     const router = useRouter();
@@ -95,7 +97,7 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
     const [selectedFiles, setSelectedFiles] = useState([]); // Permet de stocker les fichiers sélectionnés
     const [customFileName, setCustomFileName] = useState({}); // Permet de stocker le nom personnalisé du fichier
 
-    const {artists, artistLoading, artistError, reloadArtists} = useArtists();
+    const {artists, loading: artistLoading} = useArtists();
 
     /**
      * Permet d'ajouter des fichiers à la liste des fichiers sélectionnés (sans doublons)
@@ -139,6 +141,83 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
         setSelectedFiles(newSelectedFiles);
     };
 
+    /**
+     * Permet de mettre à jour le state du formulaire
+     * @param e
+     */
+    const handleChange = (e) => {
+        const {name, value} = e.target;
+        dispatch({
+            type: 'UPDATE_FORM',
+            payload: {field: name, value},
+        });
+    };
+
+    const handleSubmit = async (e) => {
+
+        if (e) e.preventDefault();
+
+        if (state.oeuvre.tag) {
+            state.oeuvre.tag = state.oeuvre.tag.map(tag => tag.value);
+        }
+        if (state.oeuvre.type) {
+            state.oeuvre.type = state.oeuvre.type.map(type => type.value);
+        }
+        if (state.oeuvre.Artists) {
+            state.oeuvre.Artists = state.oeuvre.Artists.map(artist => artist.value);
+        }
+        if (state.oeuvre.UnknowArtistOeuvre) {
+            state.oeuvre.UnknowArtistOeuvre = state.oeuvre.UnknowArtistOeuvre.map(unknowArtist => unknowArtist.value);
+        }
+
+        if (state.hauteur) {
+            state.hauteur = parseFloat(state.hauteur);
+        }
+        if (state.longueur) {
+            state.longueur = parseFloat(state.longueur);
+        }
+        if (state.profondeur) {
+            state.profondeur = parseFloat(state.profondeur);
+        }
+
+        if (state.prix) {
+            state.prix = parseFloat(state.prix);
+        }
+
+        if (state.numerotation) {
+            state.numerotation = parseInt(state.numerotation);
+        }
+        if (state.limitation) {
+            state.limitation = parseInt(state.limitation);
+        }
+
+        const response = await fetch(ROUTES.API.OEUVRES.HOME, {
+            method: 'POST',
+            body: JSON.stringify(
+                state.oeuvre
+            ),
+        });
+
+
+        try {
+
+            const response = await fetch(ROUTES.API.OEUVRES.HOME, {
+                method: 'POST',
+                body: JSON.stringify(
+                    state.oeuvre
+                ),
+            });
+
+            const responseJSON = await response.json();
+
+            if (!responseJSON.ok) throw new Error(responseJSON.message);
+
+        } catch (error) {
+            alert(error.message || 'Une erreur est survenue')
+            return false;
+        }
+    }
+
     useEffect(() => {
         if (router.query.id && /^\d+$/.test(router.query.id)) {
             setArtisteId(router.query.id);
@@ -178,7 +257,7 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         placeholder={"Ex: Mona lisa"}
                         value={state.oeuvre.name}
                         name={"oeuvre.name"}
-                        onChange={() => console.log("change")}
+                        onChange={handleChange}
                         disabled={loading}
                         required
                     />
@@ -226,9 +305,9 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         type={"number"}
                         IconComponent={FaEuroSign}
                         placeholder={"Ex: 159,99"}
-                        onChange={() => console.log("change")}
-                        name={"oeuvre.price"}
-                        value={state.oeuvre.price}
+                        onChange={handleChange}
+                        name={"oeuvre.prix"}
+                        value={state.oeuvre.prix}
                         disabled={loading}
                         required
                     />
@@ -244,9 +323,22 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         min={"1"}
                         IconComponent={AiOutlineFieldNumber}
                         placeholder={"Ex: 5"}
-                        onChange={() => console.log("change")}
-                        name={"oeuvre.more_info.numerotation"}
-                        value={state.oeuvre.more_info.numerotation}
+                        onChange={handleChange}
+                        name={"oeuvre.numerotation"}
+                        value={state.oeuvre.numerotation}
+                        disabled={loading}
+                        required
+                    />
+                    <IconInput
+                        label={"Limitation"}
+                        type={"number"}
+                        step={"1"}
+                        min={"1"}
+                        IconComponent={AiOutlineFieldNumber}
+                        placeholder={"Ex: 10"}
+                        onChange={handleChange}
+                        name={"oeuvre.limitation"}
+                        value={state.oeuvre.limitation}
                         disabled={loading}
                         required
                     />
@@ -255,9 +347,9 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         type={"text"}
                         IconComponent={FaChair}
                         placeholder={"Ex: Toile"}
-                        onChange={() => console.log("change")}
-                        name={"oeuvre.more_info.support"}
-                        value={state.oeuvre.more_info.support}
+                        onChange={handleChange}
+                        name={"oeuvre.support"}
+                        value={state.oeuvre.support}
                         disabled={loading}
                         required
                     />
@@ -266,9 +358,9 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         type={"text"}
                         IconComponent={FaHandSparkles}
                         placeholder={"Ex: Peinture à l'huile"}
-                        onChange={() => console.log("change")}
-                        name={"oeuvre.more_info.technique"}
-                        value={state.oeuvre.more_info.technique}
+                        onChange={handleChange}
+                        name={"oeuvre.technique"}
+                        value={state.oeuvre.technique}
                         disabled={loading}
                         required
                     />
@@ -277,9 +369,9 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         type={"text"}
                         IconComponent={PiFrameCornersDuotone}
                         placeholder={"Ex: Bois"}
-                        onChange={() => console.log("change")}
-                        name={"oeuvre.more_info.encadrement"}
-                        value={state.oeuvre.more_info.encadrement}
+                        onChange={handleChange}
+                        name={"oeuvre.encadrement"}
+                        value={state.oeuvre.encadrement}
                         disabled={loading}
                         required
                     />
@@ -288,9 +380,9 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         type={"text"}
                         IconComponent={FaSignature}
                         placeholder={"Ex: En bas à droite"}
-                        onChange={() => console.log("change")}
-                        name={"oeuvre.more_info.signature"}
-                        value={state.oeuvre.more_info.signature}
+                        onChange={handleChange}
+                        name={"oeuvre.signature"}
+                        value={state.oeuvre.signature}
                         disabled={loading}
                         required
                     />
@@ -323,7 +415,6 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                                 accept={"image/*"}
                                 ref={fileInputRef}
                             />
-                            {/* TODO: Ici la liste des image importées */}
                             {selectedFiles.length > 0 && selectedFiles.map((file, index) => (
                                 <div key={file.name} className={styles.imgContainer}>
                                     <Image
@@ -337,7 +428,8 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                                             </button>
                                         )}
                                         {index < selectedFiles.length - 1 && (
-                                            <button onClick={() => moveImage(index, index + 1)}><FaArrowAltCircleRight /></button>
+                                            <button onClick={() => moveImage(index, index + 1)}><FaArrowAltCircleRight/>
+                                            </button>
                                         )}
                                     </div>
                                     <button
@@ -383,7 +475,14 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                                     }
                                 })
                             }
-                            onChange={() => console.log("change")}
+                            name={"oeuvre.Artists"}
+                            onChange={(value) => {
+                                dispatch({
+                                    type: 'UPDATE_FORM',
+                                    payload: {field: 'oeuvre.Artists', value},
+                                });
+                            }}
+                            value={state.oeuvre.Artists}
                         />
                     </div>
                     <div className={sectionStyles.specialSection}>
@@ -401,14 +500,20 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                             defaultValue={[]}
                             isMulti
                             options={[
-                                {value: '1', label: 'Mathieu'},
-                                {value: '2', label: 'Jean'},
-                                {value: '3', label: 'Pierre'},
-                                {value: '4', label: 'Paul'},
-                                {value: '5', label: 'Jacques'},
+                                {value: 'Mathieu', label: 'Mathieu'},
+                                {value: 'Jean', label: 'Jean'},
+                                {value: 'Pierre', label: 'Pierre'},
+                                {value: 'Paul', label: 'Paul'},
+                                {value: 'Jacques', label: 'Jacques'},
                             ]}
-                            onChange={() => console.log("change")}
-                            // value={formData.oeuvreUnknownArtist}
+                            name={"oeuvre.UnknowArtistOeuvre"}
+                            onChange={(value) => {
+                                dispatch({
+                                    type: 'UPDATE_FORM',
+                                    payload: {field: 'oeuvre.UnknowArtistOeuvre', value},
+                                });
+                            }}
+                            value={state.oeuvre.UnknowArtistOeuvre}
                         />
                     </div>
                 </ArtisteNewSectionItem>
@@ -422,9 +527,9 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         step={"0.01"}
                         IconComponent={FaRulerVertical}
                         placeholder={"Ex: 153"}
-                        onChange={() => console.log("change")}
-                        name={"oeuvre.dimension.height"}
-                        value={state.oeuvre.dimension.height}
+                        onChange={handleChange}
+                        name={"oeuvre.hauteur"}
+                        value={state.oeuvre.hauteur}
                         disabled={loading}
                         required
                     />
@@ -434,21 +539,21 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         step={"0.01"}
                         IconComponent={FaRulerHorizontal}
                         placeholder={"Ex: 203"}
-                        onChange={() => console.log("change")}
-                        name={"oeuvre.dimension.width"}
-                        value={state.oeuvre.dimension.width}
+                        onChange={handleChange}
+                        name={"oeuvre.longueur"}
+                        value={state.oeuvre.longueur}
                         disabled={loading}
                         required
                     />
                     <IconInput
-                        label={"Largeur (cm)"}
+                        label={"Profondeur (cm)"}
                         type={"number"}
                         step={"0.01"}
                         IconComponent={FaRulerCombined}
                         placeholder={"Ex: 58"}
-                        onChange={() => console.log("change")}
-                        name={"oeuvre.dimension.depth"}
-                        value={state.oeuvre.dimension.depth}
+                        onChange={handleChange}
+                        name={"oeuvre.profondeur"}
+                        value={state.oeuvre.profondeur}
                         disabled={loading}
                     />
                 </ArtisteNewSectionItem>
@@ -470,14 +575,19 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                             defaultValue={[]}
                             isMulti
                             options={[
-                                {value: '1', label: 'Mathieu'},
-                                {value: '2', label: 'Jean'},
-                                {value: '3', label: 'Pierre'},
-                                {value: '4', label: 'Paul'},
-                                {value: '5', label: 'Jacques'},
+                                {value: 'Tag1', label: 'Tag1'},
+                                {value: 'Tag2', label: 'Tag2'},
+                                {value: 'Tag3', label: 'Tag3'},
+                                {value: 'Tag4', label: 'Tag4'},
+                                {value: 'Tag5', label: 'Tag5'},
                             ]}
-                            onChange={() => console.log("change")}
-                            // value={formData.oeuvreUnknownArtist}
+                            onChange={(value) => {
+                                dispatch({
+                                    type: 'UPDATE_FORM',
+                                    payload: {field: 'oeuvre.tag', value},
+                                });
+                            }}
+                            value={state.oeuvre.tag}
                         />
                     </div>
                     <div className={sectionStyles.specialSection}>
@@ -495,14 +605,19 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                             defaultValue={[]}
                             isMulti
                             options={[
-                                {value: '1', label: 'Type 1'},
-                                {value: '2', label: 'Type 2'},
-                                {value: '3', label: 'Type 3'},
-                                {value: '4', label: 'Type 4'},
-                                {value: '5', label: 'Type 5'},
+                                {value: 'Type1', label: 'Type1'},
+                                {value: 'Type2', label: 'Type2'},
+                                {value: 'Type3', label: 'Type3'},
+                                {value: 'Type4', label: 'Type4'},
+                                {value: 'Type5', label: 'Type5'},
                             ]}
-                            onChange={() => console.log("change")}
-                            // value={formData.oeuvreUnknownArtist}
+                            onChange={(value) => {
+                                dispatch({
+                                    type: 'UPDATE_FORM',
+                                    payload: {field: 'oeuvre.type', value},
+                                });
+                            }}
+                            value={state.oeuvre.type}
                         />
                     </div>
                 </ArtisteNewSectionItem>
@@ -510,7 +625,7 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                     <Button
                         text={"Créer l'oeuvre"}
                         type={"submit"}
-                        onClick={() => console.log("submit")}
+                        onClick={handleSubmit}
                     />
                 </div>
             </div>
