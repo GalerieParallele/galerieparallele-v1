@@ -15,10 +15,12 @@ import {useAuth} from "@/hooks/useAuth";
 
 import ROLES from "@/constants/ROLES";
 import ROUTES from "@/constants/ROUTES";
-import {FaHome, FaSearch} from "react-icons/fa";
+import {FaArrowLeft, FaHome, FaSearch} from "react-icons/fa";
 import {IoBook, IoClose} from "react-icons/io5";
 import {AiFillStar} from "react-icons/ai";
 import {useRouter} from "next/router";
+import {FaArrowLeftLong} from "react-icons/fa6";
+import {ImArrowLeft2} from "react-icons/im";
 
 export default function Navbar() {
 
@@ -115,7 +117,7 @@ export default function Navbar() {
                         <button
                             onClick={handleCloseSideMenu}
                         >
-                            <IoClose/>
+                            <ImArrowLeft2/>
                         </button>
                     </div>
                     <div className={styles.top}>
