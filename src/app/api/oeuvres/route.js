@@ -199,9 +199,34 @@ export const OeuvreSchema = z.object({
     Artists: z.array(z.number()).optional(),
     UnknowArtists: z.array(z.number()).optional(),
     tag: z.array(z.string()).optional().transform((value) => value ? value.map((tag) => tag.toUpperCase()) : value),
-    Types: z.array(z.string()).optional().transform((value) => value ? value.map((type) => type.toUpperCase()) : value),
-    Images: z.array(z.string()).optional(),
-});
+    type: z.array(z.string()).optional().transform((value) => value ? value.map((type) => type.toUpperCase()) : value),
+    images: z.array(z.object(
+            {
+                url: z.string({
+                    required_error: "L'url de l'image est requise",
+                    invalid_type_error: "L'url de l'image doit être une chaîne de caractères",
+                })
+                    .min(
+                        1,
+                        {
+                            message: "L'url de l'image doit contenir au moins 1 caractère",
+                        }
+                    ),
+                position: z.number({
+                    required_error: "La position de l'image est requise",
+                    invalid_type_error: "La position de l'image doit être un nombre",
+                })
+                    .positive({
+                        message: "La position de l'image doit être positive",
+                    })
+                    .int({
+                        message: "La position de l'image doit être un nombre entier",
+                    }),
+            }
+        )
+    ).optional(),
+})
+
 
 const OeuvreCreateSchema = OeuvreSchema
     .omit({
@@ -227,86 +252,122 @@ const OeuvreResponseSchema = z.object({
 export async function POST(req) {
 
     try {
-
         const requestBody = OeuvreCreateSchema.parse(JSON.parse(await req.text()));
+        let {Artists, tag, type, images, ...oeuvreData} = requestBody;
 
-        let {Artists, tag, Types, Images, ...oeuvreData} = requestBody;
+        const oeuvre = await prisma.$transaction(async (tx) => {
 
-        const oeuvre = await prisma.oeuvre.create({
-            data: {
-                ...oeuvreData,
-            },
-            select: {
-                id: true,
-                name: true,
-                description: true,
-                limitation: true,
-                anecdote: true,
-                hauteur: true,
-                longueur: true,
-                largeur: true,
-                encadrement: true,
-                numerotation: true,
-                prix: true,
-                signature: true,
-                support: true,
-                technique: true,
-                Artists: {
-                    select: {
-                        artist: {
-                            select: {
-                                id: true,
-                                pseudo: true,
-                                user: {
-                                    select: {
-                                        email: true,
-                                    }
+            let createdOeuvre;
+
+            try {
+
+                createdOeuvre = await tx.oeuvre.create({
+                    data: oeuvreData,
+                });
+
+            } catch (error) {
+                throw new Error("Une erreur est survenue lors de la création de l'oeuvre");
+            }
+
+            if (Artists && Artists.length > 0) {
+                await Promise.all(
+                    Artists.map(async (artistId) => {
+                        try {
+                            await tx.artistOeuvre.create({
+                                data: {
+                                    artistId,
+                                    oeuvreId: createdOeuvre.id,
                                 }
-                            }
+                            });
+                        } catch (error) {
+                            throw new Error("Une erreur est survenue lors de la tentative d'ajout d'un artiste à l'oeuvre");
                         }
-                    }
-                }
+                    })
+                );
             }
-        })
 
-        if (Artists && Artists.length > 0) {
-            Artists.map(async (artistId) => {
-                await prisma.artistOeuvre.create({
-                    data: {
-                        artistId,
-                        oeuvreId: oeuvre.id,
+            if (tag && tag.length > 0) {
+                await Promise.all(tag.map(async (tagValue) => {
+
+                    let tag;
+
+                    try {
+                        tag = await tx.tag.upsert({
+                            where: {name: tagValue},
+                            update: {},
+                            create: {name: tagValue},
+                        });
+                    } catch (error) {
+                        throw new Error("Une erreur est survenue lors de la tentative de récupération ou de création d'un tag pour l'oeuvre");
                     }
-                });
-            });
-        }
 
-        if (tag && tag.length > 0) {
-            for (const tagValue of tag) {
-                let tag = undefined;
-                tag = await prisma.tag.findUnique({
-                    where: {
-                        name: tagValue
+                    try {
+                        await tx.oeuvreTag.create({
+                            data: {
+                                tagId: tag.id,
+                                oeuvreId: createdOeuvre.id,
+                            },
+                        });
+                    } catch (error) {
+                        throw new Error("Une erreur est survenue lors de la tentative d'ajout d'un tag à l'oeuvre");
                     }
-                });
-
-                if (!tag) {
-                    tag = await prisma.tag.create({
-                        data: {
-                            name: tagValue,
-                        }
-                    });
-                }
-
-                await prisma.oeuvreTag.create({
-                    data: {
-                        tagId: tag.id,
-                        oeuvreId: oeuvre.id,
-                    }
-                });
+                }));
             }
-        }
 
-        return NextResponse.json(OeuvreSchema.parse(oeuvre), {status: 201});
+            if (type && type.length > 0) {
+                await Promise.all(type.map(async (typeValue) => {
+
+                    let type;
+
+                    try {
+                        type = await tx.typesOeuvre.upsert({
+                            where: {name: typeValue},
+                            update: {},
+                            create: {name: typeValue},
+                        });
+                    } catch (error) {
+                        throw new Error("Une erreur est survenue lors de la tentative de récupération ou de création d'un type pour l'oeuvre");
+                    }
+
+                    try {
+                        await tx.oeuvreTypes.create({
+                            data: {
+                                typeOeuvreId: type.id,
+                                oeuvreId: createdOeuvre.id,
+                            },
+                        });
+                    } catch (error) {
+                        throw new Error("Une erreur est survenue lors de la tentative d'ajout d'un type à l'oeuvre");
+                    }
+                }));
+            }
+
+            if (images && images.length > 0) {
+                await Promise.all(images.map(async (image) => {
+                    try {
+                        await tx.oeuvreImage.create({
+                            data: {
+                                mediaURL: image.url,
+                                position: image.position,
+                                oeuvreId: createdOeuvre.id,
+                            },
+                        });
+                    } catch (error) {
+                        throw new Error("Une erreur est survenue lors de la tentative d'ajout d'une image à l'oeuvre");
+                    }
+                }));
+            }
+
+            return createdOeuvre;
+        });
+
+        const updatedOeuvre = await prisma.oeuvre.findUnique({
+            where: {
+                id: oeuvre.id,
+            },
+        });
+
+        return NextResponse.json(OeuvreSchema.parse(updatedOeuvre), {status: 201});
 
     } catch (error) {
 
@@ -327,6 +388,14 @@ export async function POST(req) {
             if (error.code === 'P2025') {
                 return NextResponse.json({message: MESSAGES.NO_ARTIST_FOUND}, {status: 400});
             }
+
+            if (error.code === 'P2002') {
+                return NextResponse.json({message: MESSAGES.INVALID_OEUVRE}, {status: 400});
+            }
+        }
+
+        if (error.message) {
+            return NextResponse.json({message: error.message}, {status: 400});
         }
 
         return NextResponse.json(MESSAGES.API_SERVER_ERROR, {status: 500});
