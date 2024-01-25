@@ -16,7 +16,7 @@ import {useAuth} from "@/hooks/useAuth";
 import ROLES from "@/constants/ROLES";
 import ROUTES from "@/constants/ROUTES";
 import {FaHome, FaSearch} from "react-icons/fa";
-import {IoBook} from "react-icons/io5";
+import {IoBook, IoClose} from "react-icons/io5";
 import {AiFillStar} from "react-icons/ai";
 import {useRouter} from "next/router";
 
@@ -108,13 +108,23 @@ export default function Navbar() {
                 }
                 <div
                     className={styles.content}
-                    style={{left: isMenuOpen ? "0" : "-480px"}}
+                    style={{left: isMenuOpen ? "0" : "-500px"}}
                     ref={menuRef}
                 >
+                    <div className={styles.closeSpace}>
+                        <button
+                            onClick={handleCloseSideMenu}
+                        >
+                            <IoClose/>
+                        </button>
+                    </div>
                     <div className={styles.top}>
                         <div
                             className={styles.homeIcon}
-                        onClick={() => router.push(ROUTES.HOME)}
+                            onClick={() => {
+                                router.push(ROUTES.HOME)
+                                handleCloseSideMenu()
+                            }}
                         >
                             <FaHome/>
                         </div>
@@ -136,36 +146,43 @@ export default function Navbar() {
                     <div className={styles.links}>
                         <div className={styles.container}>
                             <Link
+                                onClick={handleCloseSideMenu}
                                 href={ROUTES.ARTISTES.HOME}
                             >
                                 Artistes
                             </Link>
                             <Link
+                                onClick={handleCloseSideMenu}
                                 href={"#"}
                             >
                                 Expositions
                             </Link>
                             <Link
+                                onClick={handleCloseSideMenu}
                                 href={"#"}
                             >
                                 La galerie
                             </Link>
                             <Link
+                                onClick={handleCloseSideMenu}
                                 href={"#"}
                             >
                                 Shop
                             </Link>
                             <Link
+                                onClick={handleCloseSideMenu}
                                 href={"#"}
                             >
                                 Espace entreprises
                             </Link>
                             <Link
+                                onClick={handleCloseSideMenu}
                                 href={"#"}
                             >
                                 Événements privés
                             </Link>
                             <Link
+                                onClick={handleCloseSideMenu}
                                 href={"#"}
                             >
                                 Contact
@@ -177,11 +194,17 @@ export default function Navbar() {
                                 }}
                             />
                             <div className={styles.specialLinks}>
-                                <Link href={"#"}>
+                                <Link
+                                    onClick={handleCloseSideMenu}
+                                    href={"#"}
+                                >
                                     <IoBook/>
                                     <p className={styles.magazine}>Magazine</p>
                                 </Link>
-                                <Link href={"#"}>
+                                <Link
+                                    onClick={handleCloseSideMenu}
+                                    href={"#"}
+                                >
                                     <AiFillStar/>
                                     <p>Arts Member Only</p>
                                 </Link>

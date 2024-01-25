@@ -116,6 +116,37 @@
 
     transition: all 0.5s ease-in-out;
 
+    .closeSpace {
+      position: absolute;
+      transform: translate(100%, -50%);
+      top: 50%;
+      right: 20px;
+
+      button {
+        cursor: pointer;
+
+        color: var(--black);
+
+        font-size: 30px;
+
+        background-color: var(--white);
+
+        border-radius: 50%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 5px;
+
+        transition: var(--transition);
+
+        &:hover {
+          box-shadow: #fff 0 0 7px 0;
+        }
+      }
+    }
+
     .top {
       display: flex;
       flex-direction: row;
@@ -179,15 +210,31 @@
       align-items: center;
 
       a {
-        color: var(--light-gray);
+        position: relative;
+        color: var(--light-gray); // Couleur initiale du texte
         text-transform: uppercase;
         font-size: 19px;
         font-weight: 600;
         transition: var(--transition);
+        background: linear-gradient(to right, var(--white) 50%, var(--light-gray) 50%);
+        background-size: 200% 100%;
+        background-position: right bottom;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        svg {
+            transition: var(--transition);
+          color: var(--light-gray);
+        }
+
 
         &:hover {
-          transform: translateX(4px);
-          color: var(--white);
+          background-position: left bottom;
+          svg {
+            color: var(--white);
+
+          }
         }
       }
 
@@ -199,9 +246,8 @@
         gap: 25px;
 
         .specialLinks {
-
           display: flex;
-            flex-direction: column;
+          flex-direction: column;
           gap: 15px;
 
           .magazine {
@@ -217,9 +263,9 @@
             gap: 12px;
           }
         }
-
       }
     }
+
 
     .bottom {
       button {
@@ -254,6 +300,28 @@
   }
 }
 
+@media screen and (max-width: 520px) {
+  .menu {
+    .content {
+      width: 100vw;
+
+      .closeSpace {
+        right: 60px;
+      }
+
+      .top {
+        flex-direction: column;
+        gap: 1px;
+
+        .homeIcon {
+          margin-bottom: 20px;
+        }
+
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 450px) {
   .littleLogoName {
     display: block;
@@ -265,17 +333,28 @@
 
   .menu {
     .content {
-      width: 100vw;
+      .closeSpace {
+        right: 50px;
+        top: 30px;
+
+        button {
+          font-size: 25px;
+        }
+      }
+
       .top {
         flex-direction: column;
         gap: 1px;
+
         .homeIcon {
           margin-bottom: 20px;
+          margin-top: 10px;
         }
 
       }
     }
   }
+
 }
 
 @keyframes spin {
