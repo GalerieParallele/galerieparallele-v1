@@ -16,6 +16,9 @@ const PATHS = {
     AUTH: 'auth',
     ARTISTES: {
         HOME: createPath('artistes'),
+        PROFIL(artisteId) {
+            return createPath('artistes', artisteId, 'profil');
+        },
         TEST: createPath('artistes', 'profil', 'artisteTest'),
     },
     ADMIN: {
@@ -105,6 +108,9 @@ const ROUTES = {
     AUTH: BASE_URL + PATHS.AUTH,
     ARTISTES: {
         HOME: BASE_URL + PATHS.ARTISTES.HOME,
+        PROFIL(artisteId) {
+            return BASE_URL + PATHS.ARTISTES.PROFIL(artisteId);
+        },
         TEST: BASE_URL + PATHS.ARTISTES.TEST,
     },
     ADMIN: {
