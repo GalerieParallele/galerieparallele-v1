@@ -239,7 +239,7 @@ model ArtistUnknowOeuvre {
 
 model ArtistUnknow {
   id     Int                  @id @default(autoincrement())
-  name   String
+  name   String               @unique
   oeuvre ArtistUnknowOeuvre[]
 }
 

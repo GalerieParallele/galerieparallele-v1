@@ -197,7 +197,7 @@ export const OeuvreSchema = z.object({
     signature,
     prix,
     Artists: z.array(z.number()).optional(),
-    UnknowArtists: z.array(z.number()).optional(),
+    UnknowArtistOeuvre: z.array(z.string()).optional(),
     tag: z.array(z.string()).optional().transform((value) => value ? value.map((tag) => tag.toUpperCase()) : value),
     type: z.array(z.string()).optional().transform((value) => value ? value.map((type) => type.toUpperCase()) : value),
     images: z.array(z.object(
@@ -253,7 +253,9 @@ export async function POST(req) {
 
     try {
         const requestBody = OeuvreCreateSchema.parse(JSON.parse(await req.text()));
-        let {Artists, tag, type, images, ...oeuvreData} = requestBody;
+        let {Artists, UnknowArtistOeuvre, tag, type, images, ...oeuvreData} = requestBody;
+
+        console.log(requestBody);
 
         const oeuvre = await prisma.$transaction(async (tx) => {
 
@@ -281,6 +283,37 @@ export async function POST(req) {
                             });
                         } catch (error) {
                             throw new Error("Une erreur est survenue lors de la tentative d'ajout d'un artiste à l'oeuvre");
+                        }
+                    })
+                );
+            }
+
+            if (UnknowArtistOeuvre && UnknowArtistOeuvre.length > 0) {
+                await Promise.all(
+                    UnknowArtistOeuvre.map(async (unknowArtistValue) => {
+
+                        let unknowArtist;
+
+                        try {
+                            unknowArtist = await tx.artistUnknow.upsert({
+                                where: {name: unknowArtistValue},
+                                update: {},
+                                create: {name: unknowArtistValue},
+                            })
+                        } catch (error) {
+                            console.log(error);
+                            throw new Error("Une erreur est survenue lors de la tentative de récupération ou de création d'un artiste inconnu pour l'oeuvre");
+                        }
+
+                        try {
+                            await tx.artistUnknowOeuvre.create({
+                                data: {
+                                    artistId: unknowArtist.id,
+                                    oeuvreId: createdOeuvre.id,
+                                }
+                            });
+                        } catch (error) {
+                            throw new Error("Une erreur est survenue lors de la tentative d'ajout d'un artiste inconnu à l'oeuvre");
                         }
                     })
                 );
