@@ -6,6 +6,7 @@ import {useArtists} from "@/hooks/useArtists";
 import LittleSpinner from "@/components/items/LittleSpinner";
 import Image from "next/image";
 import {useEffect} from "react";
+import ROUTES from "@/constants/ROUTES";
 
 export default function ArtistesHomeIndex() {
 
@@ -39,7 +40,7 @@ export default function ArtistesHomeIndex() {
                                         boxShadow: "var(--shadow)",
                                         padding: "20px",
                                     }}
-                                    onClick={() => router.push(`/artistes/${artist.id}/profil`)}
+                                    onClick={() => router.push(ROUTES.ARTISTES.PROFIL(artist.id))}
                                 >
                                     <Image src={artist.user.avatarURL || "/assets/img/avatar.png"} width={200} height={200} alt={"Photo test"}/>
                                     <div className={styles.artistName}>
