@@ -70,26 +70,26 @@ const hauteur = z
         required_error: "La hauteur de l'oeuvre est requise",
         invalid_type_error: "La hauteur de l'oeuvre doit être un nombre",
     })
-    .positive({
-        message: "La hauteur de l'oeuvre doit être positive",
-    });
+    .min(0, {
+        message: "La hauteur de l'oeuvre doit être supérieure ou égale à 0",
+    })
 
 const longueur = z
     .number({
         required_error: "La longueur de l'oeuvre est requise",
         invalid_type_error: "La longueur de l'oeuvre doit être un nombre",
     })
-    .positive({
-        message: "La longueur de l'oeuvre doit être positive",
-    });
+    .min(0, {
+        message: "La longueur de l'oeuvre doit être supérieure ou égale à 0",
+    })
 
 const largeur = z
     .number({
         required_error: "La largeur de l'oeuvre est requise",
         invalid_type_error: "La largeur de l'oeuvre doit être un nombre",
     })
-    .positive({
-        message: "La largeur de l'oeuvre doit être positive",
+    .min(0, {
+        message: "La largeur de l'oeuvre doit être supérieure ou égale à 0",
     })
     .nullable()
     .optional();
@@ -99,8 +99,8 @@ const numerotation = z
         required_error: "La numérotation de l'oeuvre est requise",
         invalid_type_error: "La numérotation de l'oeuvre doit être un nombre",
     })
-    .positive({
-        message: "La numérotation de l'oeuvre doit être positive",
+    .min(1, {
+        message: "La numérotation de l'oeuvre doit être supérieure à 0",
     })
     .int({
         message: "La numérotation de l'oeuvre doit être un nombre entier",
@@ -112,8 +112,8 @@ const limitation = z
         required_error: "La limitation de l'oeuvre est requise",
         invalid_type_error: "La limitation de l'oeuvre doit être un nombre",
     })
-    .positive({
-        message: "La limitation de l'oeuvre doit être positive",
+    .min(1, {
+        message: "La limitation de l'oeuvre doit être supérieure à 0",
     })
     .int({
         message: "La limitation de l'oeuvre doit être un nombre entier",
@@ -177,8 +177,8 @@ const prix = z
         required_error: "Le prix de l'oeuvre est requis",
         invalid_type_error: "Le prix de l'oeuvre doit être un nombre",
     })
-    .positive({
-        message: "Le prix de l'oeuvre doit être positif",
+    .min(0, {
+        message: "Le prix de l'oeuvre doit être supérieur ou égal à 0",
     });
 
 export const OeuvreSchema = z.object({
@@ -252,10 +252,20 @@ const OeuvreResponseSchema = z.object({
 export async function POST(req) {
 
     try {
-        const requestBody = OeuvreCreateSchema.parse(JSON.parse(await req.text()));
+        const requestBody = JSON.parse(await req.text());
         let {Artists, UnknowArtistOeuvre, tag, type, images, ...oeuvreData} = requestBody;
 
-        console.log(requestBody);
+        try {
+            parseFloat(oeuvreData.prix);
+        } catch (error) {
+            throw new Error("Le prix de l'oeuvre doit être un nombre");
+        }
+
+        try {
+            parseFloat(oeuvreData.hauteur);
+        } catch (error) {
+            throw new Error("La hauteur de l'oeuvre doit être un nombre");
+        }
 
         const oeuvre = await prisma.$transaction(async (tx) => {
 
@@ -268,6 +278,7 @@ export async function POST(req) {
                 });
 
             } catch (error) {
+                console.log(error);
                 throw new Error("Une erreur est survenue lors de la création de l'oeuvre");
             }
 

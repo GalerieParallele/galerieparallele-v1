@@ -40,6 +40,7 @@ import {CiCircleList} from "react-icons/ci";
 
 import styles from './Index.module.scss';
 import sectionStyles from '@/components/dashboard/items/sections/DashboardSectionItem.module.scss';
+import {Toast} from "@/constants/ToastConfig";
 
 const initialState = {
     oeuvre: {
@@ -76,7 +77,7 @@ function reducer(state, action) {
                 },
             };
         default:
-            throw new Error();
+            throw new Error("Action inconnue");
     }
 }
 
@@ -141,6 +142,19 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
         setSelectedFiles(newSelectedFiles);
     };
 
+    const getImagePositionByFileName = (fileName) => {
+        return selectedFiles.findIndex(file => file.name === fileName);
+    }
+
+    const getSchemaImage = () => {
+        return selectedFiles.map(file => {
+            return {
+                name: customFileName[file.name],
+                position: getImagePositionByFileName(file.name),
+            }
+        });
+    }
+
     /**
      * Permet de mettre à jour le state du formulaire
      * @param e
@@ -157,6 +171,8 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
 
         if (e) e.preventDefault();
 
+        console.log(getSchemaImage());
+
         if (state.oeuvre.tag) {
             state.oeuvre.tag = state.oeuvre.tag.map(tag => tag.value);
         }
@@ -170,50 +186,41 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
             state.oeuvre.UnknowArtistOeuvre = state.oeuvre.UnknowArtistOeuvre.map(unknowArtist => unknowArtist.value);
         }
 
-        if (state.hauteur) {
-            state.hauteur = parseFloat(state.hauteur);
-        }
-        if (state.longueur) {
-            state.longueur = parseFloat(state.longueur);
-        }
-        if (state.profondeur) {
-            state.profondeur = parseFloat(state.profondeur);
-        }
-
-        if (state.prix) {
-            state.prix = parseFloat(state.prix);
-        }
-
-        if (state.numerotation) {
-            state.numerotation = parseInt(state.numerotation);
-        }
-        if (state.limitation) {
-            state.limitation = parseInt(state.limitation);
-        }
-
-        const response = await fetch(ROUTES.API.OEUVRES.HOME, {
-            method: 'POST',
-            body: JSON.stringify(
-                state.oeuvre
-            ),
-        });
-
 
         try {
 
-            const response = await fetch(ROUTES.API.OEUVRES.HOME, {
+            const response = await fetch("http://localhost:3000/api/oeuvres", {
                 method: 'POST',
-                body: JSON.stringify(
-                    state.oeuvre
-                ),
+                body: JSON.stringify({
+                    ...state.oeuvre,
+                    hauteur: parseFloat(state.oeuvre.hauteur),
+                    longueur: parseFloat(state.oeuvre.longueur),
+                    profondeur: parseFloat(state.oeuvre.profondeur),
+                    prix: parseFloat(state.oeuvre.prix),
+                    numerotation: parseInt(state.oeuvre.numerotation),
+                    limitation: parseInt(state.oeuvre.limitation),
+                })
             });
 
             const responseJSON = await response.json();
 
-            if (!responseJSON.ok) throw new Error(responseJSON.message);
+            console.log(responseJSON);
+
+            if (!responseJSON.ok) Toast.fire({
+                icon: 'error',
+                title: responseJSON.message || "Une erreur est survenue lors de la création de l'oeuvre. Si le problème persiste, veuillez contacter l'administrateur."
+            });
 
         } catch (error) {
-            alert(error.message || 'Une erreur est survenue')
+
+            console.log(error)
+
+            if (process.env.NODE_ENV === 'development') console.error(error);
+
+            Toast.fire({
+                icon: 'error',
+                title: error.message || "Une erreur est survenue lors de la création de l'oeuvre. Si le problème persiste, veuillez contacter l'administrateur."
+            });
             return false;
         }
     }
@@ -445,7 +452,6 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                                     </button>
                                 </div>
                             ))}
-                            {/* fin de la liste */}
                         </div>
                     </div>
                 </ArtisteNewSectionItem>

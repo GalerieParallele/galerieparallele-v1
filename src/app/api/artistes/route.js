@@ -264,8 +264,6 @@ export async function GET() {
             }
         });
 
-        artists.map(artist => console.log(artist));
-
         if (!artists.length) {
             return NextResponse.json({message: MESSAGES.NO_ARTIST_FOUND}, {status: 404});
         }

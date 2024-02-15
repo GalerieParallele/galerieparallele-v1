@@ -95,7 +95,7 @@ const PATHS = {
             LEGAL_INFORMATION: createPath('legalsinformation'),
         },
         OEUVRES: {
-            HOME: createPath('oeuvres'),
+            HOME: 'oeuvres',
         },
         USERS: {
             HOME: 'users',

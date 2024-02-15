@@ -104,8 +104,6 @@ const ArticleUpdateSchema = ArticleSchema
         }).transform(tagName => tagName.toUpperCase())).optional()
     });
 
-console.log(ArticleUpdateSchema.shape)
-
 // ------------------------------------------
 
 export async function GET() {
@@ -200,8 +198,6 @@ export async function POST(req) {
         });
 
         articleWithTags.tags = articleWithTags.tags.map(tag => TagSchema.parse(tag.tag));
-
-        console.log(articleWithTags);
 
         const transformedAndValidatedArticle = ArticleSchema.parse(articleWithTags);
 
