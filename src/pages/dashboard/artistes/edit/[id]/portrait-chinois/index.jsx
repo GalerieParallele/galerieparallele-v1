@@ -12,7 +12,7 @@ import IconInput from "@/components/items/iconinput/IconInput";
 import PageLoader from "@/components/items/PageLoader";
 import Error from "@/components/error/Error";
 
-import {FaQuestion} from "react-icons/fa";
+import {FaEye, FaEyeSlash, FaQuestion} from "react-icons/fa";
 import {RiQuestionAnswerLine} from "react-icons/ri";
 
 import styles from './Index.module.scss';
@@ -85,6 +85,7 @@ export default function DashboardArtisteEditPortraitChinoisIndex() {
             <div className={styles.content}>
                 <DashboardSectionItem
                     sectionName={"Ajouter une question"}
+                    defaultOpen
                 >
                     <IconInput
                         label={"Question"}
@@ -117,7 +118,6 @@ export default function DashboardArtisteEditPortraitChinoisIndex() {
                             <p className={state.pc.private ? styles.inactiveState : styles.activeState}>Public</p>
                             <Switch
                                 checked={state.pc.private}
-                                offColor={"#ff0000"}
                                 onChange={(e) => {
                                     dispatch({
                                         type: 'UPDATE_FORM',
@@ -126,7 +126,22 @@ export default function DashboardArtisteEditPortraitChinoisIndex() {
                                             value: e
                                         }
                                     })
-                                }}/>
+                                }}
+                                uncheckedIcon={<div style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    height: '100%',
+                                    color: 'white',
+                                }}><FaEye/></div>}
+                                checkedIcon={<div style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    height: '100%',
+                                    color: 'white',
+                                }}><FaEyeSlash/></div>}
+                            />
                             <p className={state.pc.private ? styles.activeState : styles.inactiveState}>Privé</p>
                         </div>
                         <Button
