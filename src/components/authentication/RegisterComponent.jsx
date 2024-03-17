@@ -12,6 +12,7 @@ import {AiOutlineFieldNumber, AiOutlinePercentage} from "react-icons/ai";
 import styles from "./RegisterComponent.module.scss";
 import {BsFillPersonFill, BsTelephoneFill} from "react-icons/bs";
 import {FaLocationDot} from "react-icons/fa6";
+import {FaBuilding, FaCity, FaPercent} from "react-icons/fa";
 
 const MESSAGES = {
     DIFFERENT_PASSWORDS: "Les mots de passe ne correspondent pas",
@@ -30,10 +31,20 @@ export default function RegisterComponent() {
         postalCode: "",
         email: "",
         phone: "",
-        siret: "",
-        tva: "",
         password: "",
         confirmPassword: "",
+        pro: {
+            societyName: "",
+            streetNumber: "",
+            streetName: "",
+            city: "",
+            postalCode: "",
+            siret: "",
+            tva: "",
+            tauxTva: "",
+            numMda: "",
+            numSecu: "",
+        }
     });
     const [isPro, setIsPro] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -124,6 +135,7 @@ export default function RegisterComponent() {
                     value={formData.lastname}
                     onChange={handleChange}
                     disabled={loading}
+                    required
                 />
                 <IconInput
                     label="Prénom"
@@ -134,6 +146,7 @@ export default function RegisterComponent() {
                     value={formData.firstname}
                     onChange={handleChange}
                     disabled={loading}
+                    required
                 />
                 <IconInput
                     label="Rue"
@@ -144,6 +157,7 @@ export default function RegisterComponent() {
                     value={formData.street}
                     onChange={handleChange}
                     disabled={loading}
+                    required
                 />
                 <IconInput
                     label={"Ville"}
@@ -154,6 +168,7 @@ export default function RegisterComponent() {
                     value={formData.city}
                     onChange={handleChange}
                     disabled={loading}
+                    required
                 />
                 <IconInput
                     label={"Code postal"}
@@ -164,6 +179,7 @@ export default function RegisterComponent() {
                     value={formData.postalCode}
                     onChange={handleChange}
                     disabled={loading}
+                    required
                 />
                 <IconInput
                     label={"Email"}
@@ -174,6 +190,7 @@ export default function RegisterComponent() {
                     value={formData.email}
                     onChange={handleChange}
                     disabled={loading}
+                    required
                 />
                 <IconInput
                     label={"Téléphone"}
@@ -184,24 +201,128 @@ export default function RegisterComponent() {
                     value={formData.phone}
                     onChange={handleChange}
                     disabled={loading}
+                    required
+                />
+                <IconInput
+                    label={"Mot de passe"}
+                    name={"password"}
+                    IconComponent={FiLock}
+                    type={"password"}
+                    autoComplete={"new-password"}
+                    value={formData.password}
+                    onChange={handleChange}
+                    disabled={loading}
+                    required
+                />
+                <IconInput
+                    label={"Confirmer mot de passe"}
+                    name={"confirmPassword"}
+                    IconComponent={FiLock}
+                    type={"password"}
+                    autoComplete={"new-password"}
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    disabled={loading}
+                    required
                 />
                 {isPro && (
                     <>
+                        <div className={styles.proHead}>
+                            <span className={styles.line}/>
+                            <p>Section professionnelle</p>
+                            <span className={styles.line}/>
+                        </div>
                         <IconInput
-                            label={"SIRET"}
-                            name={"siret"}
-                            IconComponent={AiOutlineFieldNumber}
+                            label={"Nom de société"}
+                            name={"pro.societyName"}
+                            IconComponent={FaBuilding}
                             type={"text"}
-                            value={formData.siret}
+                            value={formData.pro.societyName}
                             onChange={handleChange}
                             disabled={loading}
                         />
                         <IconInput
-                            label={"Numéro TVA"}
-                            name={"tva"}
-                            IconComponent={AiOutlinePercentage}
+                            label={"Numéro de voie"}
+                            name={"pro.streetNumber"}
+                            IconComponent={AiOutlineFieldNumber}
+                            type={"number"}
+                            value={formData.pro.streetNumber}
+                            onChange={handleChange}
+                            disabled={loading}
+                        />
+                        <IconInput
+                            label={"Rue"}
+                            name={"pro.streetName"}
+                            IconComponent={AiOutlineFieldNumber}
                             type={"text"}
-                            value={formData.tva}
+                            value={formData.pro.streetName}
+                            onChange={handleChange}
+                            disabled={loading}
+                        />
+                        <IconInput
+                            label={"Ville"}
+                            name={"pro.city"}
+                            IconComponent={FaCity}
+                            type={"text"}
+                            value={formData.pro.city}
+                            onChange={handleChange}
+                            disabled={loading}
+                        />
+                        <IconInput
+                            label={"Code postal"}
+                            name={"pro.postalCode"}
+                            IconComponent={AiOutlineFieldNumber}
+                            type={"number"}
+                            value={formData.pro.postalCode}
+                            onChange={handleChange}
+                            disabled={loading}
+                        />
+                        <IconInput
+                            label={"SIRET"}
+                            name={"pro.siret"}
+                            IconComponent={AiOutlineFieldNumber}
+                            type={"text"}
+                            value={formData.pro.siret}
+                            onChange={handleChange}
+                            disabled={loading}
+                            minLength={14}
+                            maxLength={14}
+                        />
+                        <IconInput
+                            label={"TVA"}
+                            name={"pro.tva"}
+                            IconComponent={AiOutlineFieldNumber}
+                            type={"text"}
+                            value={formData.pro.tva}
+                            onChange={handleChange}
+                            disabled={loading}
+                            minLength={13}
+                            maxLength={13}
+                        />
+                        <IconInput
+                            label={"Taux de TVA"}
+                            name={"pro.tauxTva"}
+                            IconComponent={FaPercent}
+                            type={"text"}
+                            value={formData.pro.tauxTva}
+                            onChange={handleChange}
+                            disabled={loading}
+                        />
+                        <IconInput
+                            label={"Numéro maison des artistes"}
+                            name={"pro.numMda"}
+                            IconComponent={AiOutlineFieldNumber}
+                            type={"text"}
+                            value={formData.pro.numMda}
+                            onChange={handleChange}
+                            disabled={loading}
+                        />
+                        <IconInput
+                            label={"Numéro de sécurité sociale"}
+                            name={"pro.numSecu"}
+                            IconComponent={AiOutlineFieldNumber}
+                            type={"text"}
+                            value={formData.pro.numSecu}
                             onChange={handleChange}
                             disabled={loading}
                         />
