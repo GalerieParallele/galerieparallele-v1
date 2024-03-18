@@ -6,7 +6,7 @@ import {Prisma} from "@prisma/client";
 
 import jwt from 'jsonwebtoken';
 import AUTH from "@/constants/AUTH";
-import {hashPassword} from "@/constants/Util";
+import {getTokenFromRequest, getUserFromToken, hashPassword} from "@/constants/Util";
 import {prisma} from "@/utils/PrismaUtil";
 
 const MESSAGES = {
@@ -26,6 +26,9 @@ const MESSAGES = {
     SUCCESS_DELETE: 'Utilisateur supprimé avec succès.',
 
     NO_USER_FOUND: 'Aucun utilisateur trouvé.',
+
+    TOKEN_NOT_FOUND: 'Vous devez être connecté pour intéragir avec cette ressource. Le jeton d\'\authentification a expiré ou est invalide.',
+    NO_USER_FOUND_BY_TOKEN: 'Vous devez être connecté pour intéragir avec cette ressource. Aucun utilisateur n\'\a été trouvé avec ce jeton d\'authentification.',
 
 };
 
@@ -65,173 +68,116 @@ const firstname = z
         message: "Le prénom ne peut pas être vide.",
     })
 
+const street = z
+    .string({
+        required_error: "La rue est requise.",
+        invalid_type_error: "La rue doit être une chaîne de caractères.",
+    })
+    .min(1, {
+        message: "La rue ne peut pas être vide.",
+    })
+
+const city = z
+    .string({
+        required_error: "La ville est requise.",
+        invalid_type_error: "La ville doit être une chaîne de caractères.",
+    })
+    .min(1, {
+        message: "La ville ne peut pas être vide.",
+    })
+
+const postalCode = z
+    .string({
+        required_error: "Le code postal est requis.",
+        invalid_type_error: "Le code postal doit être une chaîne de caractères.",
+    })
+    .min(1, {
+        message: "Le code postal ne peut pas être vide.",
+    })
+
+const phone = z
+    .string({
+        required_error: "Le numéro de téléphone est requis.",
+        invalid_type_error: "Le numéro de téléphone doit être une chaîne de caractères.",
+    })
+    .min(10, {
+        message: "Le numéro de téléphone doit contenir 10 chiffres.",
+    })
+    .max(10, {
+        message: "Le numéro de téléphone doit contenir 10 chiffres.",
+    })
+
+const roles = z
+    .array(z.string({
+        invalid_type_error: "Les rôles doivent être des chaînes de caractères.",
+    }))
+    .min(1, {
+        message: "L'utilisateur doit avoir au moins un rôle.",
+    })
+
+const avatarURL = z
+    .string({
+        invalid_type_error: "L'URL de l'avatar doit être une chaîne de caractères.",
+    })
+    .url({
+        message: "L'URL de l'avatar doit être une URL valide.",
+    })
+    .optional()
+    .nullable()
+
+const password = z
+    .string({
+        invalid_type_error: "Le mot de passe doit être une chaîne de caractères.",
+        required_error: "Le mot de passe est requis.",
+    })
+    .min(8, {message: "Le mot de passe doit contenir au moins 8 caractères."})
+    .max(32, {message: "Le mot de passe ne peut pas contenir plus de 32 caractères."})
+    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/, {message: "Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial."})
+
 export const UserSchema = z.object({
     id,
     email,
-    avatarURL: z.string({
-        invalid_type_error: "L'URL de l'avatar doit être une chaîne de caractères.",
-    }).url({
-        message: "L'URL de l'avatar doit être une URL valide.",
-    }).nullable({
-        message: "L'URL de l'avatar peut être nulle.",
-    }),
     lastname,
     firstname,
-    street: z.string({
-        required_error: "La rue est requise.",
-        invalid_type_error: "La rue doit être une chaîne de caractères.",
-    }).min(1, {
-        message: "La rue ne peut pas être vide.",
-    }),
-    city: z.string({
-        required_error: "La ville est requise.",
-        invalid_type_error: "La ville doit être une chaîne de caractères.",
-    }).min(1, {
-        message: "La ville ne peut pas être vide.",
-    }),
-    postalCode: z.string({
-        required_error: "Le code postal est requis.",
-        invalid_type_error: "Le code postal doit être une chaîne de caractères.",
-    }).min(1, {
-        message: "Le code postal ne peut pas être vide.",
-    }),
-    phone: z.string({
-        required_error: "Le numéro de téléphone est requis.",
-        invalid_type_error: "Le numéro de téléphone doit être une chaîne de caractères.",
-    }).min(10, {
-        message: "Le numéro de téléphone doit contenir 10 chiffres.",
-    }).max(10, {
-        message: "Le numéro de téléphone doit contenir 10 chiffres.",
-    }),
-    roles: z.array(z.string({
-        invalid_type_error: "Les rôles doivent être des chaînes de caractères.",
-    })).min(1, {
-        message: "L'utilisateur doit avoir au moins un rôle.",
-    }),
+    street,
+    city,
+    postalCode,
+    phone,
+    roles,
+    avatarURL,
 });
 
 const UsersResponseSchema = z.object({
-    total: z.number({
-        description: "Nombre total d'utilisateurs.",
-    }),
-    list: z.array(UserSchema),
+    total: z
+        .number(),
+    list: z
+        .array(UserSchema),
 });
 
-const CreateUserSchema = z.object({
-    avatarURL: z
-        .string({
-            invalid_type_error: "L'URL de l'avatar doit être une chaîne de caractères.",
-        })
-        .url({message: "L'URL de l'avatar est invalide."})
-        .optional(),
-    email: z
-        .string({
-            invalid_type_error: "L'adresse e-mail doit être une chaîne de caractères.",
-            required_error: "L'adresse e-mail est requise.",
-        })
-        .email({message: "L'adresse e-mail est invalide."}),
-    password: z
-        .string({
-            invalid_type_error: "Le mot de passe doit être une chaîne de caractères.",
-            required_error: "Le mot de passe est requis.",
-        })
-        .min(8, {message: "Le mot de passe doit contenir au moins 8 caractères."})
-        .max(32, {message: "Le mot de passe ne peut pas contenir plus de 32 caractères."})
-        .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/, {message: "Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial."}),
-    lastname: z
-        .string({
-            invalid_type_error: "Le nom de famille doit être une chaîne de caractères.",
-            required_error: "Le nom de famille est requis.",
-        })
-        .min(1, {message: "Le nom de famille ne peut pas être vide.",}),
-    firstname: z
-        .string({
-            invalid_type_error: "Le prénom doit être une chaîne de caractères.",
-            required_error: "Le prénom est requis.",
-        })
-        .min(1, {message: "Le prénom ne peut pas être vide."}),
-    street: z
-        .string({
-            invalid_type_error: "La rue doit être une chaîne de caractères.",
-            required_error: "La rue est requise.",
-        })
-        .min(1, {message: "La rue ne peut pas être vide."}),
-    city: z
-        .string({
-            invalid_type_error: "La ville doit être une chaîne de caractères.",
-            required_error: "La ville est requise.",
-        })
-        .min(1, {message: "La ville ne peut pas être vide."}),
-    postalCode: z
-        .string({
-            invalid_type_error: "Le code postal doit être une chaîne de caractères.",
-            required_error: "Le code postal est requis.",
-        })
-        .min(1, {message: "Le code postal ne peut pas être vide."}),
-    phone: z
-        .string({
-            invalid_type_error: "Le numéro de téléphone doit être une chaîne de caractères.",
-            required_error: "Le numéro de téléphone est requis.",
-        })
-        .regex(/^(0|\+33)[1-9]([-. ]?[0-9]{2}){4}$/, {message: "Numéro de téléphone invalide."})
-        .min(10, {message: "Le numéro de téléphone doit contenir 10 chiffres."})
-        .max(10),
-});
+const CreateUserSchema = UserSchema.extend({
+    password,
+}).omit({id: true, roles: true})
 
-const UpdateUserSchema = z.object({
-    id: z
-        .number({
-            message: "L'identifiant doit être un nombre.",
-            required_error: "L'identifiant est requis.",
-        })
-        .positive({message: "L'identifiant doit être un nombre positif."}),
-    avatarURL: z.string({message: "L'URL de l'avatar doit être une chaîne de caractères."})
-        .url({message: "L'URL de l'avatar doit être une URL valide."})
-        .nullable({message: "L'URL de l'avatar peut être nulle."})
-        .optional(),
-    email: z.string({message: "L'adresse e-mail doit être une chaîne de caractères."})
-        .email({message: "L'adresse e-mail doit être valide."})
-        .optional(),
-    lastname: z.string({message: "Le nom de famille doit être une chaîne de caractères."})
-        .min(1, {message: "Le nom de famille ne peut pas être vide."})
-        .optional(),
-    firstname: z.string({message: "Le prénom doit être une chaîne de caractères."})
-        .min(1, {message: "Le prénom ne peut pas être vide."})
-        .optional(),
-    street: z.string({message: "La rue doit être une chaîne de caractères."})
-        .min(1, {message: "La rue ne peut pas être vide."})
-        .optional(),
-    city: z.string({message: "La ville doit être une chaîne de caractères."})
-        .min(1, {message: "La ville ne peut pas être vide."})
-        .optional(),
-    postalCode: z.string({message: "Le code postal doit être une chaîne de caractères."})
-        .min(1, {message: "Le code postal ne peut pas être vide."})
-        .optional(),
-    phone: z.string({message: "Le numéro de téléphone doit être une chaîne de caractères."})
-        .length(10, {message: "Le numéro de téléphone doit contenir 10 chiffres."})
-        .optional(),
-    password: z.string({message: "Le mot de passe doit être une chaîne de caractères."})
-        .min(8, {message: "Le mot de passe doit contenir au moins 8 caractères."})
-        .max(32, {message: "Le mot de passe ne peut pas contenir plus de 32 caractères."})
-        .optional(),
-    roles: z.array(z.string({message: "Les rôles doivent être des chaînes de caractères."}))
-        .min(1, {message: "L'utilisateur doit avoir au moins un rôle."})
-        .optional(),
-});
+const passwordForUpdate = password.optional();
+
+const UpdateUserSchema = UserSchema.partial().extend({
+    id,
+    password: passwordForUpdate,
+})
 
 export async function GET(req) {
 
-    // const token = getTokenFromRequest(req);
-    //
-    // if (!token) {
-    //     return NextResponse.json({message: MESSAGES.INVALID_TOKEN}, {status: 401});
-    // }
-    //
-    // const user = await getUserFromToken(token);
-    //
-    // if (!user) {
-    //     return NextResponse.json({message: MESSAGES.INVALID_TOKEN}, {status: 401});
-    // }
+    const token = getTokenFromRequest(req);
+
+    if (!token) {
+        return NextResponse.json({message: MESSAGES.TOKEN_NOT_FOUND}, {status: 401});
+    }
+
+    const user = getUserFromToken(token);
+
+    if (!user) {
+        return NextResponse.json({message: MESSAGES.NO_USER_FOUND_BY_TOKEN}, {status: 401});
+    }
 
     try {
 
