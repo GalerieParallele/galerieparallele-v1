@@ -13,12 +13,13 @@ import styles from './Navbar.module.scss';
 import {useAuth} from "@/hooks/useAuth";
 
 import ROUTES from "@/constants/ROUTES";
-import {FaHome, FaSearch} from "react-icons/fa";
+import {FaHome, FaRegHeart, FaSearch, FaShoppingCart} from "react-icons/fa";
 import {IoBook} from "react-icons/io5";
 import {AiFillStar} from "react-icons/ai";
 import {useRouter} from "next/router";
 import {ImArrowLeft2} from "react-icons/im";
 import {IoIosSettings} from "react-icons/io";
+import {FiHelpCircle} from "react-icons/fi";
 
 export default function Navbar() {
 
@@ -90,8 +91,19 @@ export default function Navbar() {
                 </div>
                 <div className={styles.right}>
                     <Link href={ROUTES.AUTH}>
-                        <BiSolidUser/>
-                        <p>{user ? "Mon compte" : "S'identifier"}</p>
+                        <p>{user ? <BiSolidUser/> : "S'identifier"}</p>
+                    </Link>
+                    <span className={styles.verticalSeparator}/>
+                    <Link href={"#"}>
+                        <FaRegHeart/>
+                    </Link>
+                    <span className={styles.verticalSeparator}/>
+                    <Link href={"#"}>
+                        <FaShoppingCart/>
+                    </Link>
+                    <span className={styles.verticalSeparator}/>
+                    <Link href={"#"}>
+                        <FiHelpCircle/>
                     </Link>
                     {user && user.roles && user.roles.includes("ROLE_ADMIN") && (
                         <>
@@ -116,7 +128,7 @@ export default function Navbar() {
                         <button
                             onClick={handleCloseSideMenu}
                         >
-                            <ImArrowLeft2/>
+                        <ImArrowLeft2/>
                         </button>
                     </div>
                     <div className={styles.top}>

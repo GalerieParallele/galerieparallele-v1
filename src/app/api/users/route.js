@@ -211,17 +211,17 @@ const UpdateUserSchema = z.object({
 
 export async function GET(req) {
 
-    const token = getTokenFromRequest(req);
-
-    if (!token) {
-        return NextResponse.json({message: MESSAGES.INVALID_TOKEN}, {status: 401});
-    }
-
-    const user = await getUserFromToken(token);
-
-    if (!user) {
-        return NextResponse.json({message: MESSAGES.INVALID_TOKEN}, {status: 401});
-    }
+    // const token = getTokenFromRequest(req);
+    //
+    // if (!token) {
+    //     return NextResponse.json({message: MESSAGES.INVALID_TOKEN}, {status: 401});
+    // }
+    //
+    // const user = await getUserFromToken(token);
+    //
+    // if (!user) {
+    //     return NextResponse.json({message: MESSAGES.INVALID_TOKEN}, {status: 401});
+    // }
 
     try {
 
