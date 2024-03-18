@@ -16,7 +16,7 @@ const ERROR_MESSAGES = {
 
 // -----------------------------------------------------------
 
-export async function POST(req, res) {
+export async function POST(req) {
 
     const requestBodyText = await req.text();
 
@@ -54,7 +54,7 @@ export async function POST(req, res) {
             return NextResponse.json({message: ERROR_MESSAGES.INCORRECT_INFORMATIONS}, {status: 401});
         }
 
-        const match = bcrypt.compare(password, user.password);
+        const match = bcrypt.compareSync(password, user.password);
 
         if (!match) {
             return NextResponse.json({message: ERROR_MESSAGES.INCORRECT_INFORMATIONS}, {status: 401});
