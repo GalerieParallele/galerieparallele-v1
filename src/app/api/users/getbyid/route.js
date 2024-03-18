@@ -2,20 +2,9 @@ import {z} from 'zod';
 
 import {NextResponse} from 'next/server';
 import {prisma} from "@/utils/PrismaUtil";
+import {UserSchema} from "@/app/api/users/route";
 
-const GetUserByIdSchema = z.object({
-    id: z
-        .number({
-            required_error: 'L\'id utilisateur est requis',
-            invalid_type_error: 'L\'id utilisateur doit être un nombre entier positif',
-        })
-        .int({
-            message: 'L\'id utilisateur doit être un nombre entier positif',
-        })
-        .positive({
-            message: 'L\'id utilisateur doit être un nombre entier positif',
-        }),
-});
+const GetUserByIdSchema = UserSchema.pick({id: true});
 
 const MESSAGES = {
     INVALID_USER: 'Utilisateur non trouvé',
