@@ -24,7 +24,8 @@ model User {
 
   artist Artist?
 
-  articles Article[]
+  articles             Article[]
+  UserLegalInformation UserLegalInformation?
 }
 
 // --------------------------------------------------------------
@@ -101,6 +102,8 @@ model Artist {
   linkedin  String?
   website   String?
 
+  atTheTop Boolean @default(false) // Artiste à la une
+
   userid Int  @unique
   user   User @relation(fields: [userid], references: [id], onDelete: Cascade)
 
@@ -142,27 +145,54 @@ model ArtistPortrait {
 model ArtistLegalInformation {
   id Int @id @default(autoincrement())
 
-  societe String?
-
-  adrNumVoie    String?
-  adrRue        String?
-  adrVille      String?
-  adrCodePostal String?
-
-  siret   String? @unique
-  tva     String? @unique
-  tauxTva String?
-
   numMaisonsDesArtistes String?
   numSecuriteSociale    String? @unique
+  tauxTva               String?
+
+  legalInformationId Int
+  legalInformation   LegalInformation @relation(fields: [legalInformationId], references: [id], onDelete: Cascade)
 
   artistId Int    @unique
   artist   Artist @relation(fields: [artistId], references: [id], onDelete: Cascade)
 }
 
+model UserLegalInformation {
+  id Int @id @default(autoincrement())
+
+  legalInformationId Int
+  legalInformation   LegalInformation @relation(fields: [legalInformationId], references: [id], onDelete: Cascade)
+
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model LegalInformation {
+  id Int @id @default(autoincrement())
+
+  societe       String?
+  adrNumVoie    String?
+  adrRue        String?
+  adrVille      String?
+  adrCodePostal String?
+
+  siret String? @unique
+  tva   String? @unique
+
+  ArtistLegalInformation ArtistLegalInformation[]
+  UserLegalInformation   UserLegalInformation[]
+}
+
 // --------------------------------------------------------------
 
+// Couleur model -------------------------------------------------
+
 // Oeuvre model --------------------------------------------------
+
+enum OrientationType {
+  PORTRAIT
+  PAYSAGE
+  CARRE
+}
 
 model Oeuvre {
   id   Int    @id @default(autoincrement()) // ID Unique de l'oeuvre
@@ -175,6 +205,8 @@ model Oeuvre {
   longueur   Float // Longueur de l'oeuvre
   profondeur Float? // Largeur de l'oeuvre
 
+  orientation OrientationType // Orientation de l'oeuvre
+
   prix Float @default(0) // Prix de l'oeuvre
 
   numerotation Int?    @default(1) // Numérotation de l'oeuvre
@@ -184,12 +216,30 @@ model Oeuvre {
   encadrement  String? // Encadrement de l'oeuvre
   signature    String? // Signature de l'oeuvre
 
+  atTheTop Boolean @default(false) // Oeuvre à la une
+
   Artists            ArtistOeuvre[] // Artistes de l'oeuvre
   UnknowArtistOeuvre ArtistUnknowOeuvre[] // Artistes inconnus de l'oeuvre
 
-  tag    OeuvreTag[] // Tags de l'oeuvre
-  type   OeuvreTypes[] // Types de l'oeuvre
-  images OeuvreImage[] // Images de l'oeuvre
+  tag      OeuvreTag[] // Tags de l'oeuvre
+  type     OeuvreTypes[] // Types de l'oeuvre
+  images   OeuvreImage[] // Images de l'oeuvre
+  couleurs OeuvreCouleur[] // Couleurs de l'oeuvre
+}
+
+model Couleur {
+  id      Int             @id @default(autoincrement())
+  name    String          @unique
+  oeuvres OeuvreCouleur[]
+}
+
+model OeuvreCouleur {
+  oeuvreId  Int
+  couleurId Int
+  oeuvre    Oeuvre  @relation(fields: [oeuvreId], references: [id], onDelete: Cascade)
+  couleur   Couleur @relation(fields: [couleurId], references: [id], onDelete: Cascade)
+
+  @@id([oeuvreId, couleurId])
 }
 
 model OeuvreImage {
@@ -265,3 +315,14 @@ model Portrait {
 }
 
 // --------------------------------------------------------------
+
+// Actuality model ------------------------------------------------
+
+model Actuality {
+  id Int @id @default(autoincrement())
+
+  title    String  @db.VarChar(255)
+  content  String  @db.Text
+  photoURL String  @db.Text
+  private  Boolean @default(false)
+}
