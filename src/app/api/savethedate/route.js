@@ -1,4 +1,4 @@
-import z, {Schema} from 'zod'
+import z from 'zod'
 import {ArtistSchema} from "@/app/api/artistes/route";
 import {prisma} from "@/utils/PrismaUtil";
 import {NextResponse} from "next/server";
@@ -27,12 +27,18 @@ const title = z
     .string({
         required_error: 'Le titre de la date importante est requis.',
         invalid_type_error: 'Le titre de la date importante doit être une chaîne de caractères.',
+    })
+    .min(1, {
+        message: 'Le titre de la date importante doit contenir au moins 1 caractère.',
     });
 
 const content = z
     .string({
         required_error: 'Le contenu de la date importante est requis.',
         invalid_type_error: 'Le contenu de la date importante doit être une chaîne de caractères.',
+    })
+    .min(1, {
+        message: 'Le contenu de la date importante doit contenir au moins 1 caractère.',
     });
 
 const date = z
@@ -69,25 +75,15 @@ const SaveTheDateResponseSchema = z.object({
         })
         .min(0, {
             message: 'Le nombre total de date importante doit être un nombre entier positif.',
-        })
-        .positive({
-            message: 'Le nombre total de date importante doit être un nombre entier positif.',
         }),
     saveTheDates: z.array(SaveTheDateSchema),
 })
 
-const CreateSaveTheDateSchema = z.object({
-    title,
-    content,
-    photoURL,
-    artistId,
-})
+const CreateSaveTheDateSchema = SaveTheDateSchema.omit({id: true, date: true})
 
-const UpdateSaveTheDateSchema = SaveTheDateSchema
-    .partial()
-    .extend({
-        id
-    })
+const UpdateSaveTheDateSchema = SaveTheDateSchema.partial().extend({
+    id
+})
 
 
 export async function GET() {
@@ -139,23 +135,8 @@ export async function POST(req) {
 
         const requestBody = CreateSaveTheDateSchema.parse(JSON.parse(await req.text()))
 
-        const data = {
-            title: requestBody.title,
-            content: requestBody.content,
-            photoURL: requestBody.photoURL,
-            artistId: requestBody.artistId,
-        }
-
         const saveTheDate = await prisma.artistSaveTheDate.create({
-            data,
-            select: {
-                id: true,
-                title: true,
-                content: true,
-                date: true,
-                photoURL: true,
-                artistId: true,
-            }
+            ...requestBody,
         })
 
         const validateSaveTheDate = SaveTheDateSchema.parse(saveTheDate)
