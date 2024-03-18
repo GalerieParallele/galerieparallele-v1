@@ -113,11 +113,11 @@ model Artist {
   userid Int  @unique
   user   User @relation(fields: [userid], references: [id], onDelete: Cascade)
 
-  tag            ArtistTag[]
-  saveTheDate    ArtistSaveTheDate[]
-  exposition     ArtistExposition[]
-  oeuvre         ArtistOeuvre[]
-  ArtistPortrait ArtistPortrait[]
+  tag         ArtistTag[]
+  saveTheDate ArtistSaveTheDate[]
+  exposition  ArtistExposition[]
+  oeuvre      ArtistOeuvre[]
+  portrait    ArtistPortrait[]
 
   legalInformation ArtistLegalInformation?
 }

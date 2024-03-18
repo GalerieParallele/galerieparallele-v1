@@ -53,7 +53,17 @@ const photoURL = z
         invalid_type_error: 'Le lien de la photo de la date importante doit être une chaîne de caractères.',
     });
 
-const artistId = ArtistSchema.pick({id: true})
+const artistId = z
+    .number({
+        message: "L'id de l'artiste doit être un nombre.",
+        required_error: "L'id de l'artiste est requis."
+    })
+    .int({
+        message: "L'id de l'artiste doit être un nombre entier.",
+    })
+    .positive({
+        message: "L'id de l'artiste doit être un nombre positif."
+    });
 
 const SaveTheDateSchema = z.object({
     id,
@@ -84,7 +94,6 @@ const CreateSaveTheDateSchema = SaveTheDateSchema.omit({id: true, date: true})
 const UpdateSaveTheDateSchema = SaveTheDateSchema.partial().extend({
     id
 })
-
 
 export async function GET() {
 
@@ -136,7 +145,7 @@ export async function POST(req) {
         const requestBody = CreateSaveTheDateSchema.parse(JSON.parse(await req.text()))
 
         const saveTheDate = await prisma.artistSaveTheDate.create({
-            ...requestBody,
+            data: requestBody,
         })
 
         const validateSaveTheDate = SaveTheDateSchema.parse(saveTheDate)
