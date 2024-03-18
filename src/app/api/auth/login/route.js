@@ -54,7 +54,7 @@ export async function POST(req, res) {
             return NextResponse.json({message: ERROR_MESSAGES.INCORRECT_INFORMATIONS}, {status: 401});
         }
 
-        const match = bcrypt.compareSync(password, user.password);
+        const match = bcrypt.compare(password, user.password);
 
         if (!match) {
             return NextResponse.json({message: ERROR_MESSAGES.INCORRECT_INFORMATIONS}, {status: 401});
@@ -89,7 +89,7 @@ export async function POST(req, res) {
 
     } catch (error) {
 
-        return NextResponse.error(error, {status: 500});
+        return NextResponse.json(error, {status: 500});
 
     } finally {
 

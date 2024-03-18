@@ -1,8 +1,11 @@
 import bcrypt from "bcryptjs";
 import {prisma} from "@/utils/PrismaUtil";
 import jwt from "jsonwebtoken";
+import {NextResponse} from "next/server";
 
-const authErrorMessage = "Vous devez être authentifié pour accéder à cette ressource.";
+const MESSAGES = {
+    TOKEN_VERIFICATION_ERROR: "Une erreur est survenue lors de la vérification du jeton d'authentification.",
+}
 
 /**
  * Permet de vérifier si un mot de passe est valide
@@ -34,33 +37,47 @@ export function hashPassword(password) {
 }
 
 /**
- * Permet de vérifier si un utilisateur est authentifié et de récupérer ses informations pour l'api
+ * Permet de récupérer le token à partir d'une requête
+ * @param req La requête
+ * @returns {string|null} Le token s'il est présent dans le cookie, null sinon
  */
-export async function getUserFromToken(req) {
+export function getTokenFromRequest(req) {
 
-    /**
-     * Permet de vérifier si un token est valide et de récupérer l'utilisateur associé
-     * @param {string} token
-     * @returns {Promise<{user: object, message: null} | null>}
-     */
-    async function verifyAndFindUser(token) {
-        try {
-            const {user: {id}} = jwt.verify(token, process.env.JWT);
-            const user = await prisma.user.findUnique({where: {id}});
-            if (user) {
-                const {password, articles, artist, ...safeUser} = user;
-                return {user: safeUser, message: null};
-            }
-        } catch (error) {
-            console.error("Token verification error:", error);
+    const cookieHeader = req.headers.get('cookie');
+
+    if (!cookieHeader) return null;
+
+    const match = cookieHeader.match(/(^|;) ?token=([^;]*)(;|$)/);
+
+    return match ? decodeURIComponent(match[2]) : null;
+
+}
+
+/**
+ * Permet de récupérer l'utilisateur à partir d'un token
+ * @param token Le token
+ * @returns {Omit<*, "password">|null} L'utilisateur s'il est présent dans la base de données (sans le mot de passe), null sinon
+ */
+export async function getUserFromToken(token) {
+
+    try {
+
+        const {user: {id}} = jwt.verify(token, process.env.JWT);
+
+        const user = await prisma.user.findUnique({where: {id}});
+
+        if (user) {
+            const {password, ...safeUser} = user;
+            console.log("safeUser" + JSON.stringify(safeUser));
+            return NextResponse.json(safeUser, {status: 200});
         }
-        return null;
+
+    } catch (error) {
+
+        if (process.env.ENV === 'development') console.error(MESSAGES.TOKEN_VERIFICATION_ERROR, error);
+
     }
 
-    const token = req.headers.get('authorization')?.split(' ')[1] || req.headers.get('Authorization')?.split(' ')[1]
-
-    const user = token ? await verifyAndFindUser(token) : null;
-
-    return user || {user: null, message: authErrorMessage};
+    return null;
 }
 

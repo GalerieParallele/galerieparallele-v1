@@ -14,7 +14,7 @@ export default function Artiste() {
 
     useEffect(() => {
 
-        fetch(ROUTES.API.ARTISTES.GET)
+        fetch(ROUTES.API.ARTISTES.HOME)
             .then(response => response.json())
             .then(data => {
                 if (data.list) {

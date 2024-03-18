@@ -3,7 +3,6 @@ import React, {useEffect, useRef, useState} from 'react';
 import Link from "next/link";
 import Image from "next/image";
 
-import {IoIosSettings} from "react-icons/io";
 import {BiSolidUser} from "react-icons/bi";
 import {SlMenu} from "react-icons/sl";
 
@@ -13,20 +12,20 @@ import styles from './Navbar.module.scss';
 
 import {useAuth} from "@/hooks/useAuth";
 
-import ROLES from "@/constants/ROLES";
 import ROUTES from "@/constants/ROUTES";
-import {FaArrowLeft, FaHome, FaSearch} from "react-icons/fa";
-import {IoBook, IoClose} from "react-icons/io5";
+import {FaHome, FaSearch} from "react-icons/fa";
+import {IoBook} from "react-icons/io5";
 import {AiFillStar} from "react-icons/ai";
 import {useRouter} from "next/router";
-import {FaArrowLeftLong} from "react-icons/fa6";
 import {ImArrowLeft2} from "react-icons/im";
+import Button from "@/components/items/button/Button";
+import {IoIosSettings} from "react-icons/io";
 
 export default function Navbar() {
 
     const router = useRouter();
 
-    const {user, hasRole} = useAuth();
+    const {user} = useAuth();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef();
@@ -40,6 +39,7 @@ export default function Navbar() {
     };
 
     useEffect(() => {
+
         function handleClickOutside(event) {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
                 handleCloseSideMenu();
@@ -55,7 +55,7 @@ export default function Navbar() {
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [isMenuOpen]);
+    }, [isMenuOpen, user]);
 
 
     return (
@@ -93,8 +93,13 @@ export default function Navbar() {
                     <Link href={ROUTES.AUTH}>
                         <BiSolidUser/>
                         <p>{user ? "Mon compte" : "S'identifier"}</p>
+                        <Button
+                            onClick={() => {
+                                console.log(user)
+                            }}
+                        />
                     </Link>
-                    {hasRole(ROLES.ADMIN) && (
+                    {user && (
                         <>
                             <span className={styles.verticalSeparator}/>
                             <Link href={ROUTES.ADMIN.HOME}>
