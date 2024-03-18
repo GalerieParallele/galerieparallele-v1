@@ -6,23 +6,17 @@ import {Prisma} from "@prisma/client";
 
 import jwt from 'jsonwebtoken';
 import AUTH from "@/constants/AUTH";
-import {getTokenFromRequest, getUserFromToken, hashPassword} from "@/constants/Util";
+import {hashPassword} from "@/constants/Util";
 import {prisma} from "@/utils/PrismaUtil";
 
 const MESSAGES = {
 
-    MISSING_ID: 'Veuillez renseigner un identifiant utilisateur.',
-    MISSING_EMAIL: 'Veuillez renseigner une adresse e-mail.',
-    MISSING_LASTNAME: 'Veuillez renseigner un nom.',
-    MISSING_FIRSTNAME: 'Veuillez renseigner un prénom.',
-    MISSING_STREET: 'Veuillez renseigner une rue.',
-    MISSING_CITY: 'Veuillez renseigner une ville.',
-    MISSING_POSTAL_CODE: 'Veuillez renseigner un code postal.',
-    MISSING_PHONE: 'Veuillez renseigner un numéro de téléphone.',
-    MISSING_PASSWORD: 'Veuillez renseigner un mot de passe.',
+    REQUIRED_ID: 'L\'identifiant utilisateur est requis.',
+    REQUIRED_EMAIL: 'L\'adresse e-mail est requise.',
 
-    INVALID_EMAIL: 'Veuillez fournir une adresse e-mail valide.',
-    INVALID_PASSWORD: 'Veuillez fournir un mot de passe valide.',
+    ID_MUST_BE_NUMBER: 'L\'identifiant doit être un nombre.',
+    ID_MUST_BE_POSITIVE: 'L\'identifiant doit être un nombre positif.',
+
     INVALID_USER: "L'utilisateur n'existe pas.",
 
     EMAIL_EXISTS: 'Un compte avec cet e-mail existe déjà.',
@@ -33,21 +27,47 @@ const MESSAGES = {
 
     NO_USER_FOUND: 'Aucun utilisateur trouvé.',
 
-    INVALID_TOKEN: 'Le jeton d\'\authentification est invalide ou expiré.',
-    UNAUTHORIZED: 'Vous devez être connecté ou avoir la permission nécessaire pour exécuter ou voir cette ressource.',
 };
 
-export const UserSchema = z.object({
-    id: z.number({
-        required_error: "L'identifiant utilisateur est requis.",
-        invalid_type_error: "L'identifiant doit être un nombre.",
-    }),
-    email: z.string({
-        required_error: "L'adresse e-mail est requise.",
+const id = z
+    .number({
+        required_error: MESSAGES.REQUIRED_ID,
+        invalid_type_error: MESSAGES.ID_MUST_BE_NUMBER,
+    })
+    .int({
+        message: MESSAGES.ID_MUST_BE_POSITIVE,
+    })
+
+const email = z
+    .string({
+        required_error: MESSAGES.REQUIRED_EMAIL,
         invalid_type_error: "L'adresse e-mail doit être une chaîne de caractères.",
-    }).email({
+    })
+    .email({
         message: "L'adresse e-mail doit être une adresse e-mail valide.",
-    }),
+    })
+
+const lastname = z
+    .string({
+        required_error: "Le nom de famille est requis.",
+        invalid_type_error: "Le nom de famille doit être une chaîne de caractères.",
+    })
+    .min(1, {
+        message: "Le nom de famille ne peut pas être vide.",
+    })
+
+const firstname = z
+    .string({
+        required_error: "Le prénom est requis.",
+        invalid_type_error: "Le prénom doit être une chaîne de caractères.",
+    })
+    .min(1, {
+        message: "Le prénom ne peut pas être vide.",
+    })
+
+export const UserSchema = z.object({
+    id,
+    email,
     avatarURL: z.string({
         invalid_type_error: "L'URL de l'avatar doit être une chaîne de caractères.",
     }).url({
@@ -55,18 +75,8 @@ export const UserSchema = z.object({
     }).nullable({
         message: "L'URL de l'avatar peut être nulle.",
     }),
-    lastname: z.string({
-        required_error: "Le nom de famille est requis.",
-        invalid_type_error: "Le nom de famille doit être une chaîne de caractères.",
-    }).min(1, {
-        message: "Le nom de famille ne peut pas être vide.",
-    }),
-    firstname: z.string({
-        required_error: "Le prénom est requis.",
-        invalid_type_error: "Le prénom doit être une chaîne de caractères.",
-    }).min(1, {
-        message: "Le prénom ne peut pas être vide.",
-    }),
+    lastname,
+    firstname,
     street: z.string({
         required_error: "La rue est requise.",
         invalid_type_error: "La rue doit être une chaîne de caractères.",
