@@ -10,17 +10,23 @@ datasource db {
 // User model ----------------------------------------------------
 
 model User {
-  id         Int     @id @default(autoincrement())
-  avatarURL  String? @db.Text
-  email      String  @unique
-  lastname   String  @db.VarChar(255)
-  firstname  String  @db.VarChar(255)
-  street     String  @db.VarChar(255)
-  city       String  @db.VarChar(255)
-  postalCode String  @db.VarChar(255)
-  phone      String  @db.VarChar(255)
-  password   String  @db.VarChar(255)
-  roles      Json    @default("[\"ROLE_USER\"]")
+  id Int @id @default(autoincrement())
+
+  email    String @unique
+  password String @db.VarChar(255)
+
+  lastname  String @db.VarChar(255)
+  firstname String @db.VarChar(255)
+
+  street     String @db.VarChar(255)
+  city       String @db.VarChar(255)
+  postalCode String @db.VarChar(255)
+
+  phone String @db.VarChar(255)
+
+  roles Json @default("[\"ROLE_USER\"]")
+
+  avatarURL String? @db.Text
 
   artist Artist?
 
