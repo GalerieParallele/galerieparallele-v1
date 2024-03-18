@@ -79,8 +79,7 @@ export async function POST(req, res) {
         user.password = undefined;
 
         return NextResponse.json({
-                user: user,
-                token: token,
+                user,
             },
             {
                 status: 200,

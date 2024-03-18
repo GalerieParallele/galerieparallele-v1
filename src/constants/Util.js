@@ -1,7 +1,6 @@
 import bcrypt from "bcryptjs";
 import {prisma} from "@/utils/PrismaUtil";
 import jwt from "jsonwebtoken";
-import {NextResponse} from "next/server";
 
 const MESSAGES = {
     TOKEN_VERIFICATION_ERROR: "Une erreur est survenue lors de la vérification du jeton d'authentification.",
@@ -68,8 +67,7 @@ export async function getUserFromToken(token) {
 
         if (user) {
             const {password, ...safeUser} = user;
-            console.log("safeUser" + JSON.stringify(safeUser));
-            return NextResponse.json(safeUser, {status: 200});
+            return safeUser;
         }
 
     } catch (error) {

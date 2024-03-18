@@ -18,7 +18,6 @@ import {IoBook} from "react-icons/io5";
 import {AiFillStar} from "react-icons/ai";
 import {useRouter} from "next/router";
 import {ImArrowLeft2} from "react-icons/im";
-import Button from "@/components/items/button/Button";
 import {IoIosSettings} from "react-icons/io";
 
 export default function Navbar() {
@@ -93,13 +92,8 @@ export default function Navbar() {
                     <Link href={ROUTES.AUTH}>
                         <BiSolidUser/>
                         <p>{user ? "Mon compte" : "S'identifier"}</p>
-                        <Button
-                            onClick={() => {
-                                console.log(user)
-                            }}
-                        />
                     </Link>
-                    {user && (
+                    {user && user.roles && user.roles.includes("ROLE_ADMIN") && (
                         <>
                             <span className={styles.verticalSeparator}/>
                             <Link href={ROUTES.ADMIN.HOME}>

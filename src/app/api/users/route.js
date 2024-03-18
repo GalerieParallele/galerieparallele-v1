@@ -6,7 +6,7 @@ import {Prisma} from "@prisma/client";
 
 import jwt from 'jsonwebtoken';
 import AUTH from "@/constants/AUTH";
-import {hashPassword} from "@/constants/Util";
+import {getTokenFromRequest, getUserFromToken, hashPassword} from "@/constants/Util";
 import {prisma} from "@/utils/PrismaUtil";
 
 const MESSAGES = {
@@ -32,6 +32,9 @@ const MESSAGES = {
     SUCCESS_DELETE: 'Utilisateur supprimé avec succès.',
 
     NO_USER_FOUND: 'Aucun utilisateur trouvé.',
+
+    INVALID_TOKEN: 'Le jeton d\'\authentification est invalide ou expiré.',
+    UNAUTHORIZED: 'Vous devez être connecté ou avoir la permission nécessaire pour exécuter ou voir cette ressource.',
 };
 
 export const UserSchema = z.object({
@@ -206,7 +209,19 @@ const UpdateUserSchema = z.object({
         .optional(),
 });
 
-export async function GET() {
+export async function GET(req) {
+
+    const token = getTokenFromRequest(req);
+
+    if (!token) {
+        return NextResponse.json({message: MESSAGES.INVALID_TOKEN}, {status: 401});
+    }
+
+    const user = await getUserFromToken(token);
+
+    if (!user) {
+        return NextResponse.json({message: MESSAGES.INVALID_TOKEN}, {status: 401});
+    }
 
     try {
 
@@ -256,12 +271,6 @@ export async function GET() {
 
 export async function POST(req) {
 
-    // const {user, message} = await getUserFromToken(req);
-    //
-    // if (message !== null) {
-    //     return NextResponse.json({message: message}, {status: 401});
-    // }
-
     try {
 
         const requestBody = CreateUserSchema.parse(JSON.parse(await req.text()));
@@ -288,13 +297,10 @@ export async function POST(req) {
             }
         }, process.env.JWT, {expiresIn: AUTH.TOKEN_EXPIRATION_TIME});
 
+        const {password, ...safeUser} = user;
+
         return NextResponse.json({
-            message: MESSAGES.SUCCESS_CREATE,
-            token,
-            user: {
-                ...user,
-                password: undefined,
-            },
+            user: safeUser
         }, {
             status: 201,
             headers: {

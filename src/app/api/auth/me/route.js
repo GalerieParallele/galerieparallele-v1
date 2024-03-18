@@ -20,6 +20,5 @@ export async function POST(req) {
         return NextResponse.json({message: MESSAGE.MISSING_TOKEN}, {status: 401});
     }
 
-
     return NextResponse.json(user, {status: 200})
 }
