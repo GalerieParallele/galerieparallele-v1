@@ -1,3 +1,52 @@
 .main {
+  .bigHead {
 
+  }
+
+  .atTheTop {
+    .atTheTopContainer {
+      display: flex;
+      justify-content: center;
+      height: 500px;
+
+      padding: 0 5px;
+
+      .left, .right {
+
+        flex: 1;
+
+        .imgContainer {
+          width: 100%;
+          height: 100%;
+
+          padding: 3px;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+      }
+
+      .left {
+      }
+
+      .right {
+        display: flex;
+        flex-direction: column;
+
+        .imgContainer {
+          width: 100%;
+          height: 50%;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+      }
+    }
+  }
 }
