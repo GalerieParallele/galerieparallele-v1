@@ -1,7 +1,7 @@
 import React from "react";
 
 import styles from "./Mentra.module.css"
-import Button from "@/components/items/button/Button";
+import Button from "@/components/ui/button/Button";
 
 export default function Mentra() {
     return (

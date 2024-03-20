@@ -2,7 +2,7 @@ import React, {useCallback, useState} from "react";
 
 import {useAuth} from "@/hooks/useAuth";
 
-import Button from "@/components/items/button/Button";
+import Button from "@/components/ui/button/Button";
 import {PiSignOutBold} from "react-icons/pi";
 
 import {Toast} from "@/constants/ToastConfig";

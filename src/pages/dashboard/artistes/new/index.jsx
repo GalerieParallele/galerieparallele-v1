@@ -7,10 +7,10 @@ import Swal from "sweetalert2";
 
 import DashboardNavbar from "@/components/dashboard/items/DashboardNavbar";
 import DashboardSectionItem from "@/components/dashboard/items/sections/DashboardSectionItem";
-import IconInput from "@/components/items/iconinput/IconInput";
-import Button from "@/components/items/button/Button";
+import IconInput from "@/components/ui/iconinput/IconInput";
+import Button from "@/components/ui/button/Button";
 import Select from "react-select";
-import Editor from "@/components/items/Editor";
+import Editor from "@/components/ui/Editor";
 
 import {MdEmail, MdPassword} from "react-icons/md";
 import {RxAvatar} from "react-icons/rx";

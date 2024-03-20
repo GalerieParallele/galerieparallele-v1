@@ -2,7 +2,7 @@ import React from "react";
 
 import styles from "@/components/home/shop/Shop.module.css"
 import ShopItem from "@/components/home/shop/ShopItem";
-import Button from "@/components/items/button/Button";
+import Button from "@/components/ui/button/Button";
 
 export default function Shop() {
     return (

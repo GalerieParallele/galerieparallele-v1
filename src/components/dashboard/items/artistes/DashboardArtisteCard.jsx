@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import styles from './DashboardArtisteCard.module.scss';
-import Button from "@/components/items/button/Button";
+import Button from "@/components/ui/button/Button";
 import {MdDelete, MdEdit} from "react-icons/md";
 import {useRouter} from "next/router";
 import ROUTES from "@/constants/ROUTES";

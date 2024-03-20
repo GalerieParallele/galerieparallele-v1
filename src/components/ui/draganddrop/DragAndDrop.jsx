@@ -4,7 +4,7 @@ import StorageUtils from '@/utils/StorageUtils';
 
 import styles from "./DragAndDrop.module.css"
 import {AiOutlineCloudUpload} from "react-icons/ai";
-import Button from "@/components/items/button/Button";
+import Button from "@/components/ui/button/Button";
 import {BiSelectMultiple} from "react-icons/bi";
 import {TbWorldUpload} from "react-icons/tb";
 import {useAuth} from "@/hooks/useAuth";

@@ -2,7 +2,7 @@ import styles from './Index.module.scss';
 import DashboardNavbar from "@/components/dashboard/items/DashboardNavbar";
 import ROUTES from "@/constants/ROUTES";
 import {useEffect, useState} from "react";
-import PageLoader from "@/components/items/PageLoader";
+import PageLoader from "@/components/ui/PageLoader";
 import Error from "@/components/error/Error";
 import {useRouter} from "next/router";
 import DashboardArtisteEditContratsDropzone

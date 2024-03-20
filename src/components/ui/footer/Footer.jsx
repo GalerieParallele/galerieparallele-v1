@@ -1,12 +1,12 @@
-import FooterSocial from "@/components/items/footer/FooterSocial";
+import FooterSocial from "@/components/ui/footer/FooterSocial";
 import styles from "./Footer.module.scss";
-import FooterPartenaires from "@/components/items/footer/FooterPartenaires";
-import FooterSocialLinks from "@/components/items/footer/FooterSocialLinks";
-import FooterMap from "@/components/items/footer/FooterMap";
-import FooterSectionNavigation from "@/components/items/footer/FooterSectionNavigation";
+import FooterPartenaires from "@/components/ui/footer/FooterPartenaires";
+import FooterSocialLinks from "@/components/ui/footer/FooterSocialLinks";
+import FooterMap from "@/components/ui/footer/FooterMap";
+import FooterSectionNavigation from "@/components/ui/footer/FooterSectionNavigation";
 import Link from "next/link";
-import FooterArtistContact from "@/components/items/footer/FooterArtistContact";
-import FooterLegal from "@/components/items/footer/FooterLegal";
+import FooterArtistContact from "@/components/ui/footer/FooterArtistContact";
+import FooterLegal from "@/components/ui/footer/FooterLegal";
 
 const sectionsQuiSommesNous = {
     histoire: {

@@ -1,8 +1,8 @@
 import React from "react";
 
-import Editor from "@/components/items/Editor";
-import IconInput from "@/components/items/iconinput/IconInput";
-import Button from "@/components/items/button/Button";
+import Editor from "@/components/ui/Editor";
+import IconInput from "@/components/ui/iconinput/IconInput";
+import Button from "@/components/ui/button/Button";
 
 import {BsTextParagraph} from "react-icons/bs";
 

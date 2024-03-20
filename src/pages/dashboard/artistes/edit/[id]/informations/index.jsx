@@ -2,13 +2,13 @@ import styles from './Index.module.scss';
 import DashboardNavbar from "@/components/dashboard/items/DashboardNavbar";
 import {useRouter} from "next/router";
 import React, {useEffect, useReducer, useState} from "react";
-import PageLoader from "@/components/items/PageLoader";
+import PageLoader from "@/components/ui/PageLoader";
 import Error from "@/components/error/Error";
 import ROUTES from "@/constants/ROUTES";
 import DashboardSectionItem from "@/components/dashboard/items/sections/DashboardSectionItem";
-import IconInput from "@/components/items/iconinput/IconInput";
+import IconInput from "@/components/ui/iconinput/IconInput";
 import {MdEmail, MdPassword} from "react-icons/md";
-import Button from "@/components/items/button/Button";
+import Button from "@/components/ui/button/Button";
 import {RxAvatar} from "react-icons/rx";
 import {BsBuildingsFill, BsFillFileEarmarkPersonFill, BsTelephoneFill} from "react-icons/bs";
 import {IoHome} from "react-icons/io5";
@@ -18,7 +18,7 @@ import Select from "react-select";
 import {AiFillFacebook, AiFillInstagram, AiFillLinkedin, AiOutlineFieldNumber} from "react-icons/ai";
 import {FaEarthAfrica} from "react-icons/fa6";
 import {GrTextAlignCenter} from "react-icons/gr";
-import Editor from "@/components/items/Editor";
+import Editor from "@/components/ui/Editor";
 
 const initialState = {
     user: {

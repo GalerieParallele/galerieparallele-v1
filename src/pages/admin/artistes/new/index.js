@@ -1,5 +1,5 @@
 import Admin from "@/components/admin/Admin";
-import Button from "@/components/items/button/Button";
+import Button from "@/components/ui/button/Button";
 import {AiFillFacebook, AiFillInstagram, AiFillLinkedin, AiOutlineArrowLeft} from "react-icons/ai";
 import ROUTES from "@/constants/ROUTES";
 import React, {useReducer, useState} from "react";
@@ -7,13 +7,13 @@ import {useRouter} from "next/router";
 
 import adminStyles from "@/pages/admin/articles/AdminArticles.module.css";
 import styles from './Index.module.scss';
-import IconInput from "@/components/items/iconinput/IconInput";
+import IconInput from "@/components/ui/iconinput/IconInput";
 import {MdEmail, MdPassword} from "react-icons/md";
 import {RxAvatar} from "react-icons/rx";
 import {BsFillFileEarmarkPersonFill, BsTelephoneFill} from "react-icons/bs";
 import ArtisteNewSectionItem from "@/components/admin/artistes/users/new/ArtisteNewSectionItem";
 import {IoHome} from "react-icons/io5";
-import Editor from "@/components/items/Editor";
+import Editor from "@/components/ui/Editor";
 import {GrTextAlignCenter} from "react-icons/gr";
 import {FaEarthAfrica} from "react-icons/fa6";
 import {Toast} from "@/constants/ToastConfig";

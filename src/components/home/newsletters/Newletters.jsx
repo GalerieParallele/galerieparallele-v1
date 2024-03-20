@@ -1,7 +1,7 @@
 import {IoMdMail} from "react-icons/io";
 
 import styles from "./Newletters.module.css";
-import Button from "@/components/items/button/Button";
+import Button from "@/components/ui/button/Button";
 
 export default function Newletters() {
     return (

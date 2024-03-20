@@ -4,7 +4,7 @@ import styles from './Button.module.css';
 
 import "../../../app/globals.css"
 
-import LittleSpinner from "@/components/items/LittleSpinner";
+import LittleSpinner from "@/components/ui/LittleSpinner";
 
 export default function Button({text, isLoading, onClick, disabled, isWhite}) {
     const buttonStyle = isWhite ? `${styles.button} ${styles.white}` : styles.button;

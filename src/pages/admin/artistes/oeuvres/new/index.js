@@ -5,9 +5,9 @@ import {useRouter} from "next/router";
 import ROUTES from "@/constants/ROUTES";
 
 import Admin from "@/components/admin/Admin";
-import Button from "@/components/items/button/Button";
-import Editor from "@/components/items/Editor";
-import IconInput from "@/components/items/iconinput/IconInput";
+import Button from "@/components/ui/button/Button";
+import Editor from "@/components/ui/Editor";
+import IconInput from "@/components/ui/iconinput/IconInput";
 import ArtisteNewSectionItem from "@/components/admin/artistes/users/new/ArtisteNewSectionItem";
 
 import adminStyles from "@/pages/admin/articles/AdminArticles.module.css";

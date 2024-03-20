@@ -2,13 +2,13 @@ import Admin from "@/components/admin/Admin";
 
 import adminStyles from "@/pages/admin/articles/AdminArticles.module.css";
 import styles from './Index.module.scss';
-import Button from "@/components/items/button/Button";
+import Button from "@/components/ui/button/Button";
 import {AiOutlineArrowLeft} from "react-icons/ai";
 import React from "react";
 import ROUTES from "@/constants/ROUTES";
 import {useRouter} from "next/router";
 import OeuvresList from "@/components/admin/artistes/oeuvres/OeuvresList";
-import SearchBar from "@/components/items/searchbar/SearchBar";
+import SearchBar from "@/components/ui/searchbar/SearchBar";
 import {BsPersonAdd} from "react-icons/bs";
 import {FaPaintBrush} from "react-icons/fa";
 

@@ -6,7 +6,7 @@
 
   background-color: var(--white);
 
-  padding: 12px 30px;
+  padding: 20px 30px;
   width: 100vw;
 
   display: flex;
@@ -23,6 +23,9 @@
 
 .left button {
   font-size: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .center a {
@@ -37,6 +40,9 @@
 
 .center {
   font-size: 100px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .center img {
@@ -225,13 +231,14 @@
         -webkit-text-fill-color: transparent;
 
         svg {
-            transition: var(--transition);
+          transition: var(--transition);
           color: var(--light-gray);
         }
 
 
         &:hover {
           background-position: left bottom;
+
           svg {
             color: var(--white);
 
@@ -295,11 +302,6 @@
   border-radius: var(--border-radius);
 }
 
-@media screen and (max-width: 650px) {
-  .right a p {
-    display: none;
-  }
-}
 
 @media screen and (max-width: 520px) {
   .menu {
@@ -323,7 +325,7 @@
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 760px) {
   .littleLogoName {
     display: block;
   }
@@ -356,6 +358,12 @@
     }
   }
 
+}
+
+@media screen and (max-width: 570px) {
+  .littleLogoName {
+    display: none;
+  }
 }
 
 @keyframes spin {

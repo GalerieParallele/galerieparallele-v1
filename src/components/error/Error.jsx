@@ -1,7 +1,7 @@
 import styles from './Error.module.scss';
 import Image from "next/image";
 import {useRouter} from "next/router";
-import Button from "@/components/items/button/Button";
+import Button from "@/components/ui/button/Button";
 import ROUTES from "@/constants/ROUTES";
 
 export default function Error({code, title, message}) {

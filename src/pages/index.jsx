@@ -10,16 +10,16 @@ import Artiste from "@/components/home/artistes/Artiste";
 import Mentra from "@/components/home/mentra/Mentra";
 import Shop from "@/components/home/shop/Shop";
 
-import PageLoader from "@/components/items/PageLoader";
+import PageLoader from "@/components/ui/PageLoader";
 
 import styles from './Index.module.css'
 import Pro from "@/components/home/pro/Pro";
-import Picto from "@/components/items/picto/Picto";
+import Picto from "@/components/ui/picto/Picto";
 import Amo from "@/components/home/amo/Amo";
 import MainMagazine from "@/components/home/magazine/MainMagazine";
-import Footer from "@/components/items/footer/Footer";
+import Footer from "@/components/ui/footer/Footer";
 import MainInstagram from "@/components/home/instagram/MainInstagram";
-import Navbar from "@/components/items/navbar/Navbar";
+import Navbar from "@/components/ui/navbar/Navbar";
 import Newletters from "@/components/home/newsletters/Newletters";
 
 export default function Index() {

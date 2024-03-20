@@ -2,18 +2,18 @@ import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 
 import styles from './Index.module.scss';
-import PageLoader from "@/components/items/PageLoader";
+import PageLoader from "@/components/ui/PageLoader";
 import Error from "@/components/error/Error";
 import {useArtists} from "@/hooks/useArtists";
-import Navbar from "@/components/items/navbar/Navbar";
+import Navbar from "@/components/ui/navbar/Navbar";
 import ArtistProfilAvatar from "@/components/artist/profile/avatar/ArtistProfileAvatar";
 import ArtistProfileSocial from "@/components/artist/profile/social/ArtistProfileSocial";
 import ArtistProfileHead from "@/components/artist/profile/ArtistProfileHead";
 import ArtistProfilSTD from "@/components/artist/profile/savethedate/ArtistProfileSTD";
-import LittleSpinner from "@/components/items/LittleSpinner";
+import LittleSpinner from "@/components/ui/LittleSpinner";
 import ArtistProfileBio from "@/components/artist/profile/bio/ArtistProfileBio";
-import Picto from "@/components/items/picto/Picto";
-import Footer from "@/components/items/footer/Footer";
+import Picto from "@/components/ui/picto/Picto";
+import Footer from "@/components/ui/footer/Footer";
 import ArtistProfilePortrait from "@/components/artist/profile/portrait/ArtistProfilePortrait";
 import ArtistProfileExpo from "@/components/artist/profile/expo/ArtistProfileExpo";
 

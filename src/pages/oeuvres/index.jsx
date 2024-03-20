@@ -1,4 +1,4 @@
-import Navbar from "@/components/items/navbar/Navbar";
+import Navbar from "@/components/ui/navbar/Navbar";
 
 import styles from './Index.module.scss';
 

@@ -1,4 +1,4 @@
-import Button from "@/components/items/button/Button";
+import Button from "@/components/ui/button/Button";
 
 import styles from "./FooterArtistContact.module.scss";
 

@@ -8,18 +8,18 @@ import Switch from 'react-switch';
 
 import DashboardNavbar from "@/components/dashboard/items/DashboardNavbar";
 import DashboardSectionItem from "@/components/dashboard/items/sections/DashboardSectionItem";
-import IconInput from "@/components/items/iconinput/IconInput";
-import PageLoader from "@/components/items/PageLoader";
+import IconInput from "@/components/ui/iconinput/IconInput";
+import PageLoader from "@/components/ui/PageLoader";
 import Error from "@/components/error/Error";
 
 import {FaEye, FaEyeSlash, FaQuestion} from "react-icons/fa";
 import {RiQuestionAnswerLine} from "react-icons/ri";
 
 import styles from './Index.module.scss';
-import Button from "@/components/items/button/Button";
+import Button from "@/components/ui/button/Button";
 import DashboardEditPotraitChinoisCard
     from "@/components/dashboard/artistes/edit/potrait-chinois/DashboardEditPotraitChinoisCard";
-import LittleSpinner from "@/components/items/LittleSpinner";
+import LittleSpinner from "@/components/ui/LittleSpinner";
 
 const initialState = {
     pc: {

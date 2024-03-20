@@ -3,7 +3,7 @@ import {FaEdit, FaEye, FaEyeSlash, FaRegSave, FaRegTrashAlt} from "react-icons/f
 import {useState} from "react";
 import {IoMdReturnLeft} from "react-icons/io";
 import Switch from "react-switch";
-import LittleSpinner from "@/components/items/LittleSpinner";
+import LittleSpinner from "@/components/ui/LittleSpinner";
 
 export default function DashboardEditPotraitChinoisCard({question, response, visibility}) {
 

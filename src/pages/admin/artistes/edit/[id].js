@@ -1,24 +1,24 @@
 import Admin from "@/components/admin/Admin";
 
 import adminStyles from "@/pages/admin/articles/AdminArticles.module.css";
-import Button from "@/components/items/button/Button";
+import Button from "@/components/ui/button/Button";
 import {AiFillFacebook, AiFillInstagram, AiFillLinkedin, AiOutlineArrowLeft} from "react-icons/ai";
 import ROUTES from "@/constants/ROUTES";
 import React, {useEffect, useReducer, useState} from "react";
 import {useRouter} from "next/router";
 import styles from "@/pages/admin/artistes/new/Index.module.scss";
 import ArtisteNewSectionItem from "@/components/admin/artistes/users/new/ArtisteNewSectionItem";
-import IconInput from "@/components/items/iconinput/IconInput";
+import IconInput from "@/components/ui/iconinput/IconInput";
 import {MdEmail, MdPassword} from "react-icons/md";
 import {RxAvatar} from "react-icons/rx";
 import {BsFillFileEarmarkPersonFill, BsTelephoneFill} from "react-icons/bs";
 import {IoHome} from "react-icons/io5";
 import {FaEarthAfrica} from "react-icons/fa6";
 import {GrTextAlignCenter} from "react-icons/gr";
-import Editor from "@/components/items/Editor";
-import LittleSpinner from "@/components/items/LittleSpinner";
+import Editor from "@/components/ui/Editor";
+import LittleSpinner from "@/components/ui/LittleSpinner";
 import {Toast} from "@/constants/ToastConfig";
-import BigSpinner from "@/components/items/BigSpinner";
+import BigSpinner from "@/components/ui/BigSpinner";
 import StorageUtils from "@/utils/StorageUtils";
 
 const initialState = {

@@ -6,7 +6,7 @@ import Image from "next/image";
 import {BiSolidUser} from "react-icons/bi";
 import {SlMenu} from "react-icons/sl";
 
-import Amo from "@/components/items/amo/Amo";
+import Amo from "@/components/ui/amo/Amo";
 
 import styles from './Navbar.module.scss';
 

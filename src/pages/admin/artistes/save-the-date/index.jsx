@@ -7,12 +7,12 @@ import Admin from "@/components/admin/Admin";
 import adminStyles from "@/pages/admin/articles/AdminArticles.module.css";
 import {useArtists} from "@/hooks/useArtists";
 import styles from "@/pages/admin/artistes/new/Index.module.scss";
-import Button from "@/components/items/button/Button";
+import Button from "@/components/ui/button/Button";
 import Select from "react-select";
 import ArtisteNewSectionItem from "@/components/admin/artistes/users/new/ArtisteNewSectionItem";
-import IconInput from "@/components/items/iconinput/IconInput";
+import IconInput from "@/components/ui/iconinput/IconInput";
 import {MdTitle} from "react-icons/md";
-import Editor from "@/components/items/Editor";
+import Editor from "@/components/ui/Editor";
 import {CiTextAlignJustify} from "react-icons/ci";
 
 const initialState = {

@@ -1,4 +1,4 @@
-import BigSpinner from "@/components/items/BigSpinner";
+import BigSpinner from "@/components/ui/BigSpinner";
 
 export default function PageLoader() {
     return <div style={{

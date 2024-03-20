@@ -1,6 +1,6 @@
 .artisteCard {
     height: 270px;
-    width: 220px;
+    width: 250px;
     border-radius:var(--border-radius);
     background-color: var(--white);
     display: flex;

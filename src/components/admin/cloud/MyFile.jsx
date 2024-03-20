@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 
 // Import des utilitaires et composants
 import StorageUtils from "@/utils/StorageUtils";
-import Button from "@/components/items/button/Button";
-import LittleSpinner from "@/components/items/LittleSpinner";
+import Button from "@/components/ui/button/Button";
+import LittleSpinner from "@/components/ui/LittleSpinner";
 import {Toast} from "@/constants/ToastConfig";
 
 // Import des icons

@@ -6,12 +6,12 @@ import {storage} from "../../../../firebaseConfig";
 import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
 
 
-import Button from "@/components/items/button/Button";
-import LittleSpinner from "@/components/items/LittleSpinner";
+import Button from "@/components/ui/button/Button";
+import LittleSpinner from "@/components/ui/LittleSpinner";
 
 import {AiOutlineCloudUpload} from "react-icons/ai";
 import {RiDeleteBin6Line} from "react-icons/ri";
-import styles from "@/components/items/fileinput/FileInput.module.css"
+import styles from "@/components/ui/fileinput/FileInput.module.css"
 import StorageUtils from "@/utils/StorageUtils";
 
 export default function FileInput() {

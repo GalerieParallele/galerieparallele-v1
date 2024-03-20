@@ -1,16 +1,16 @@
-import Button from "@/components/items/button/Button";
+import Button from "@/components/ui/button/Button";
 import {AiOutlineArrowLeft} from "react-icons/ai";
 import ROUTES from "@/constants/ROUTES";
 import Admin from "@/components/admin/Admin";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import SearchBar from "@/components/items/searchbar/SearchBar";
+import SearchBar from "@/components/ui/searchbar/SearchBar";
 import {BsPersonAdd} from "react-icons/bs";
 
 import adminStyles from "@/pages/admin/articles/AdminArticles.module.css";
 import styles from './Index.module.scss';
 import ArtisteCard from "@/components/admin/artistes/ArtisteCard";
-import LittleSpinner from "@/components/items/LittleSpinner";
+import LittleSpinner from "@/components/ui/LittleSpinner";
 
 export default function ArtistesIndex() {
 

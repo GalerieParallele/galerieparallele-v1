@@ -1,11 +1,11 @@
 import Admin from "@/components/admin/Admin";
 import adminStyles from "@/pages/admin/articles/AdminArticles.module.css";
-import Button from "@/components/items/button/Button";
+import Button from "@/components/ui/button/Button";
 import {AiOutlineFieldNumber} from "react-icons/ai";
 import ROUTES from "@/constants/ROUTES";
 import styles from "@/pages/admin/artistes/new/Index.module.scss";
 import ArtisteNewSectionItem from "@/components/admin/artistes/users/new/ArtisteNewSectionItem";
-import IconInput from "@/components/items/iconinput/IconInput";
+import IconInput from "@/components/ui/iconinput/IconInput";
 
 import {BsBuildingsFill} from "react-icons/bs";
 import {IoHome} from "react-icons/io5";

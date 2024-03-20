@@ -3,10 +3,10 @@ import {useRouter} from "next/router";
 import ROUTES from "@/constants/ROUTES";
 
 import DashboardNavbar from "@/components/dashboard/items/DashboardNavbar";
-import PageLoader from "@/components/items/PageLoader";
+import PageLoader from "@/components/ui/PageLoader";
 import Error from "@/components/error/Error";
 import Select from "react-select";
-import Button from "@/components/items/button/Button";
+import Button from "@/components/ui/button/Button";
 
 import {useEffect, useState} from "react";
 import {IoIosRefresh} from "react-icons/io";

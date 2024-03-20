@@ -8,14 +8,14 @@ import ROUTES from "@/constants/ROUTES";
 import {useArtists} from "@/hooks/useArtists";
 
 import CreatableSelect from "react-select/creatable";
-import Editor from "@/components/items/Editor";
+import Editor from "@/components/ui/Editor";
 
-import PageLoader from "@/components/items/PageLoader";
+import PageLoader from "@/components/ui/PageLoader";
 import Error from "@/components/error/Error";
 import DashboardNavbar from "@/components/dashboard/items/DashboardNavbar";
 import ArtisteNewSectionItem from "@/components/admin/artistes/users/new/ArtisteNewSectionItem";
-import IconInput from "@/components/items/iconinput/IconInput";
-import Button from "@/components/items/button/Button";
+import IconInput from "@/components/ui/iconinput/IconInput";
+import Button from "@/components/ui/button/Button";
 
 import {MdDriveFileRenameOutline, MdOutlineDescription} from "react-icons/md";
 import {

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router"; // Correction de l'importation du routeur
 import ROUTES from "@/constants/ROUTES";
-import PageLoader from "@/components/items/PageLoader";
+import PageLoader from "@/components/ui/PageLoader";
 import styles from "@/components/admin/articles/AdminArticlesNew.module.css";
-import Button from "@/components/items/button/Button";
+import Button from "@/components/ui/button/Button";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import BigSpinner from "@/components/items/BigSpinner";
+import BigSpinner from "@/components/ui/BigSpinner";
 import EditorSkeleton from "@/components/admin/articles/EditorSkeleton";
 import Admin from "@/components/admin/Admin";
 

@@ -3,13 +3,13 @@ import React, {useEffect, useState} from "react";
 import ROUTES from "@/constants/ROUTES";
 
 import Admin from "@/components/admin/Admin";
-import Button from "@/components/items/button/Button";
+import Button from "@/components/ui/button/Button";
 
 import {AiOutlineArrowLeft} from "react-icons/ai";
 
 import styles from "@/components/admin/articles/AdminArticlesNew.module.css";
 import {useRouter} from "next/router";
-import BigSpinner from "@/components/items/BigSpinner";
+import BigSpinner from "@/components/ui/BigSpinner";
 import {Toast} from "@/constants/ToastConfig";
 import EditorSkeleton from "@/components/admin/articles/EditorSkeleton";
 

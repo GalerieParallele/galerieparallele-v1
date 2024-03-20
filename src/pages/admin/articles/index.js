@@ -6,12 +6,12 @@ import {useRouter} from "next/router";
 
 import ArticleItem from "@/components/admin/articles/ArticleItem";
 import Admin from "@/components/admin/Admin";
-import Button from "@/components/items/button/Button";
+import Button from "@/components/ui/button/Button";
 
 import {AiOutlineArrowLeft} from "react-icons/ai";
 
 import styles from "./AdminArticles.module.css"
-import BigSpinner from "@/components/items/BigSpinner";
+import BigSpinner from "@/components/ui/BigSpinner";
 
 export default function AdminArticles() {
 

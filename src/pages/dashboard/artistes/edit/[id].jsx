@@ -4,7 +4,7 @@ import DashboardNavbar from "@/components/dashboard/items/DashboardNavbar";
 import DashboardArtistesEditTuilesList from "@/components/dashboard/artistes/edit/DashboardArtistesEditTuilesList";
 import ROUTES from "@/constants/ROUTES";
 import styles from './Index.module.scss';
-import PageLoader from "@/components/items/PageLoader";
+import PageLoader from "@/components/ui/PageLoader";
 import Error from "@/components/error/Error";
 
 export default function DashboardArtisteEditIndex() {

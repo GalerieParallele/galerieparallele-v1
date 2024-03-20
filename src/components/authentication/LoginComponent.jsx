@@ -5,8 +5,8 @@ import "../../app/globals.css";
 import {useAuth} from "@/hooks/useAuth";
 import {checkPassword, isValidEmail} from "@/constants/Util";
 
-import IconInput from "@/components/items/iconinput/IconInput";
-import Button from "@/components/items/button/Button";
+import IconInput from "@/components/ui/iconinput/IconInput";
+import Button from "@/components/ui/button/Button";
 
 import {MdEmail} from "react-icons/md";
 import {FiLock} from "react-icons/fi";
