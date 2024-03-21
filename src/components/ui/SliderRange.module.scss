@@ -1,0 +1,36 @@
+.sliderRange {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.sliderTrack {
+
+  display: flex;
+
+  padding: 0 5px;
+
+  border-radius: 25px;
+
+  input {
+    height: 4px;
+  }
+}
+
+.sliderThumb {
+
+}
+
+.sliderThumb::-webkit-slider-thumb {
+}
+
+.sliderThumb::-moz-range-thumb {
+}
+
+.sliderValues {
+display: flex;
+justify-content: space-between;
+}
+
+.sliderValues span {
+
+}
