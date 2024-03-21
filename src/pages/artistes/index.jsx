@@ -8,6 +8,7 @@ import Image from "next/image";
 import ArtisteCard from "@/components/home/artistes/ArtisteCard";
 import Link from "next/link";
 import SliderRange from "@/components/ui/SliderRange";
+import {FaPlus} from "react-icons/fa";
 
 export default function ArtistesHomeIndex() {
 
@@ -395,6 +396,11 @@ export default function ArtistesHomeIndex() {
                                 Voir plus...
                             </button>
                         </div>
+                    </div>
+                    <div className={styles.loadMore}>
+                        <button>
+                            <FaPlus/>
+                        </button>
                     </div>
                 </div>
             </div>
