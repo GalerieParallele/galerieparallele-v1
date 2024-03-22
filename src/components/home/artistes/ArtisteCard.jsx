@@ -3,13 +3,17 @@ import React from "react";
 import Image from "next/image";
 
 import styles from "./ArtisteCard.module.css"
+import Link from "next/link";
+import ROUTES from "@/constants/ROUTES";
 
 export default function ArtisteCard({artist}) {
 
     const displayname = artist.pseudo ? artist.pseudo : artist.user.firstname + artist.user.lastname;
 
     return (
-        <div className={styles.artisteCard}>
+        <Link
+            href={ROUTES.ARTISTES.PROFIL(artist.id)}
+            className={styles.artisteCard}>
             <div>
                 <div className={styles.imageContainer}>
                     <Image
@@ -23,6 +27,6 @@ export default function ArtisteCard({artist}) {
             <div>
                 <h5>{displayname}</h5>
             </div>
-        </div>
+        </Link>
     )
 }
