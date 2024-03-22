@@ -1,5 +1,4 @@
 import z from 'zod'
-import {ArtistSchema} from "@/app/api/artistes/route3";
 import {prisma} from "@/utils/PrismaUtil";
 import {NextResponse} from "next/server";
 
