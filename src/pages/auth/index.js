@@ -3,7 +3,6 @@ import React, {useEffect, useState} from 'react';
 import {useAuth} from "@/hooks/useAuth";
 
 import Image from "next/image";
-import Link from "next/link";
 
 import "@/app/globals.css";
 import styles from './Index.module.css';
@@ -21,7 +20,7 @@ export default function Index() {
 
     const router = useRouter();
 
-    const [login, setLogin] = React.useState(true);
+    const [login, setLogin] = useState(true);
     const [imageNumber, setImageNumber] = useState(0);
 
     useEffect(() => {
@@ -35,7 +34,7 @@ export default function Index() {
             <div className={styles.left}>
                 {
                     imageNumber === 0 ? (
-                        <></>
+                        <BigSpinner/>
                     ) : (
                         <Image
                             src={`/assets/img/login/login${imageNumber}.jpg`}
