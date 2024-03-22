@@ -2,8 +2,12 @@ import bcrypt from "bcryptjs";
 import {prisma} from "@/utils/PrismaUtil";
 import jwt from "jsonwebtoken";
 
-const MESSAGES = {
+export const UTIL_MESSAGES = {
+    NO_TOKEN_PROVIDED: "Aucun jeton d'authentification n'a été fourni.",
     TOKEN_VERIFICATION_ERROR: "Une erreur est survenue lors de la vérification du jeton d'authentification.",
+    MUST_BE_AUTHENTICATED: "Vous devez être authentifié pour accéder ou intéragir avec cette ressource.",
+    NO_USER_FOUND_IN_TOKEN: "Le jeton d'authentification fourni ne correspond à aucun utilisateur.",
+    MUST_HAVE_RIGHTS: "Vous n'avez pas les droits nécessaires pour accéder ou intéragir avec cette ressource.",
 }
 
 /**
@@ -72,7 +76,7 @@ export async function getUserFromToken(token) {
 
     } catch (error) {
 
-        if (process.env.ENV === 'development') console.error(MESSAGES.TOKEN_VERIFICATION_ERROR, error);
+        if (process.env.ENV === 'development') console.error(UTIL_MESSAGES.TOKEN_VERIFICATION_ERROR, error);
 
     }
 
