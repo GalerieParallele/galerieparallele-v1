@@ -1,146 +1,156 @@
 import {z} from 'zod';
-import {Prisma} from "@prisma/client";
 import {NextResponse} from "next/server";
-import {UserSchema} from "@/app/api/users/route";
-import {prisma} from "@/utils/PrismaUtil";
-import {LegalInformationSchema} from "@/app/api/legalsinformation/route";
-import {OeuvreSchema} from "@/app/api/oeuvres/route";
-
+import {getTokenFromRequest, getUserFromToken, UTIL_MESSAGES} from "@/constants/Util";
+import {Prisma} from "@prisma/client";
+import ROLES from "@/constants/ROLES";
 
 const MESSAGES = {
 
-    NO_ARTIST_FOUND: "Aucun artiste n'a été trouvé.",
-    NO_USER_FOUND: "L'utilisateur appartenant à cet artiste n'existe pas.",
+    BIO_REQUIRED: "La biographie de l'artiste est requise.",
+    BIO_MUST_BE_STRING: "La biographie de l'artiste doit être une chaîne de caractères.",
+    BIO_MIN_LENGTH: "La biographie de l'artiste doit contenir au moins 1 caractère.",
+
+    ID_REQUIRED: "L'id de l'artiste est requis.",
+    ID_MUST_BE_NUMBER: "L'id de l'artiste doit être un nombre entier.",
+    ID_MUST_BE_POSITIVE: "L'id de l'artiste doit être un nombre positif.",
+
+    PSEUDO_REQUIRED: "Le pseudo de l'artiste est requis.",
+    PSEUDO_MUST_BE_STRING: "Le pseudo de l'artiste doit être une chaîne de caractères.",
+    PSEUDO_MIN_LENGTH: "Le pseudo de l'artiste doit contenir au moins 1 caractère.",
+
+    NATIONALITY_REQUIRED: "La nationalité de l'artiste est requise.",
+    NATIONALITY_MUST_BE_STRING: "La nationalité de l'artiste doit être une chaîne de caractères.",
+    NATIONALITY_MIN_LENGTH: "La nationalité de l'artiste doit contenir au moins 1 caractère.",
+
+    INSTAGRAM_MUST_BE_STRING: "L'instagram de l'artiste doit être une chaîne de caractères.",
+    INSTAGRAM_STARTS_WITH: "L'instagram de l'artiste doit commencer par 'https://www.instagram.com/'.",
+    INSTAGRAM_REQUIRED: "L'instagram de l'artiste est requis.",
+
+    FACEBOOK_MUST_BE_STRING: "Le facebook de l'artiste doit être une chaîne de caractères.",
+    FACEBOOK_STARTS_WITH: "Le facebook de l'artiste doit commencer par 'https://www.facebook.com/'.",
+    FACEBOOK_REQUIRED: "Le facebook de l'artiste est requis.",
+
+    LINKEDIN_MUST_BE_STRING: "Le linkedin de l'artiste doit être une chaîne de caractères.",
+    LINKEDIN_STARTS_WITH: "Le linkedin de l'artiste doit commencer par 'https://www.linkedin.com/'.",
+    LINKEDIN_REQUIRED: "Le linkedin de l'artiste est requis.",
+
+    WEBSITE_MUST_BE_STRING: "Le site web de l'artiste doit être une chaîne de caractères.",
+    WEBSITE_STARTS_WITH: "Le site web de l'artiste doit commencer par 'https://'.",
+    WEBSITE_REQUIRED: "Le site web de l'artiste est requis.",
+
+    AT_THE_TOP_MUST_BE_BOOLEAN: "La valeur de 'atTheTop' doit être un booléen.",
+    AT_THE_TOP_REQUIRED: "La valeur de 'atTheTop' est requise.",
+
+    TOTAL_OF_ARTISTS_MUST_BE_NUMBER: "La valeur totale d'artiste doit être un nombre.",
+    TOTAL_OF_ARTISTS_MUST_BE_INT: "La valeur totale d'artiste doit être un nombre entier.",
+    TOTAL_OF_ARTISTS_MUST_BE_POSITIVE: "La valeur totale d'artiste doit être un nombre positif.",
+    TOTAL_OF_ARTISTS_REQUIRED: "La valeur totale d'artiste est requise.",
+
+    NO_ARTIST_FOUND: "Aucun artiste trouvé.",
     USER_ALREADY_ARTIST: "L'utilisateur est déjà un artiste.",
-
-    INVALID_ARTIST: "L'id de l'artiste renseigné ne correspond à aucun artiste.",
-
-    SUCCESS_DELETE: "L'artiste a bien été supprimé.",
 
 }
 
 const id = z
     .number({
-        message: "L'id de l'artiste doit être un nombre.",
-        required_error: "L'id de l'artiste est requis."
-    })
-    .int({
-        message: "L'id de l'artiste doit être un nombre entier.",
+        invalid_type_error: MESSAGES.ID_MUST_BE_NUMBER,
+        required_error: MESSAGES.ID_REQUIRED,
+        description: "Id de l'artiste.",
     })
     .positive({
-        message: "L'id de l'artiste doit être un nombre positif."
-    });
+        message: MESSAGES.ID_MUST_BE_POSITIVE,
+    })
 
 const pseudo = z
     .string({
-        message: "Le pseudo de l'artiste doit être une chaîne de caractères.",
-        required_error: "Le pseudo de l'artiste est requis."
+        invalid_type_error: MESSAGES.PSEUDO_MUST_BE_STRING,
+        required_error: MESSAGES.PSEUDO_REQUIRED,
+        description: "Pseudo de l'artiste.",
     })
-    .max(255, {
-        message: "Le pseudo de l'artiste ne doit pas dépasser 255 caractères."
+    .min(1, {
+        message: MESSAGES.PSEUDO_MIN_LENGTH,
     })
+    .optional()
     .nullable()
-    .optional();
 
 const nationality = z
     .string({
-        message: "La nationalité de l'artiste doit être une chaîne de caractères.",
-        required_error: "La nationalité de l'artiste est requise."
+        invalid_type_error: MESSAGES.NATIONALITY_MUST_BE_STRING,
+        required_error: MESSAGES.NATIONALITY_REQUIRED,
+        description: "Nationalité de l'artiste.",
     })
-    .max(255, {
-        message: "La nationalité de l'artiste ne doit pas dépasser 255 caractères."
+    .min(1, {
+        message: MESSAGES.NATIONALITY_MIN_LENGTH,
     })
+    .optional()
     .nullable()
-    .optional();
 
 const bio = z
     .string({
-        message: "La biographie de l'artiste doit être une chaîne de caractères.",
-        required_error: "La biographie de l'artiste est requise."
+        invalid_type_error: MESSAGES.BIO_MUST_BE_STRING,
+        required_error: MESSAGES.BIO_REQUIRED,
+        description: "Biographie de l'artiste.",
     })
-    .max(65535, {
-        message: "La biographie de l'artiste ne doit pas dépasser 65535 caractères."
+    .min(1, {
+        message: MESSAGES.BIO_MIN_LENGTH,
     })
+    .optional()
     .nullable()
-    .optional();
 
 const instagram = z
     .string({
-        message: "Le lien Instagram de l'artiste doit être une chaîne de caractères.",
-        required_error: "Le lien Instagram de l'artiste est requis."
+        invalid_type_error: MESSAGES.INSTAGRAM_MUST_BE_STRING,
+        required_error: MESSAGES.INSTAGRAM_REQUIRED,
+        description: "Instagram de l'artiste.",
     })
-    .max(255, {
-        message: "Le lien Instagram de l'artiste ne doit pas dépasser 255 caractères."
+    .startsWith('https://www.instagram.com/', {
+        message: MESSAGES.INSTAGRAM_STARTS_WITH,
     })
-    .url({
-        message: "Le lien Instagram de l'artiste doit être une URL valide."
-    })
-    .startsWith("https://www.instagram.com/", {
-        message: "Le lien Instagram de l'artiste doit commencer par 'https://www.instagram.com/'."
-    })
+    .optional()
     .nullable()
-    .optional();
 
 const facebook = z
     .string({
-        message: "Le lien Facebook de l'artiste doit être une chaîne de caractères.",
-        required_error: "Le lien Facebook de l'artiste est requis."
+        invalid_type_error: MESSAGES.FACEBOOK_MUST_BE_STRING,
+        required_error: MESSAGES.FACEBOOK_REQUIRED,
+        description: "Facebook de l'artiste.",
     })
-    .max(255, {
-        message: "Le lien Facebook de l'artiste ne doit pas dépasser 255 caractères."
+    .startsWith('https://www.facebook.com/', {
+        message: MESSAGES.FACEBOOK_STARTS_WITH,
     })
-    .url({
-        message: "Le lien Facebook de l'artiste doit être une URL valide."
-    })
-    .startsWith("https://www.facebook.com/", {
-        message: "Le lien Facebook de l'artiste doit commencer par 'https://www.facebook.com/'."
-    })
+    .optional()
     .nullable()
-    .optional();
 
 const linkedin = z
     .string({
-        message: "Le lien LinkedIn de l'artiste doit être une chaîne de caractères.",
-        required_error: "Le lien LinkedIn de l'artiste est requis."
+        invalid_type_error: MESSAGES.LINKEDIN_MUST_BE_STRING,
+        required_error: MESSAGES.LINKEDIN_REQUIRED,
+        description: "Linkedin de l'artiste.",
     })
-    .max(255, {
-        message: "Le lien LinkedIn de l'artiste ne doit pas dépasser 255 caractères."
+    .startsWith('https://www.linkedin.com/', {
+        message: MESSAGES.LINKEDIN_STARTS_WITH,
     })
-    .url({
-        message: "Le lien LinkedIn de l'artiste doit être une URL valide."
-    })
-    .startsWith("https://www.linkedin.com/", {
-        message: "Le lien LinkedIn de l'artiste doit commencer par 'https://www.linkedin.com/'."
-    })
+    .optional()
     .nullable()
-    .optional();
 
 const website = z
     .string({
-        message: "Le lien du site web de l'artiste doit être une chaîne de caractères.",
-        required_error: "Le lien du site web de l'artiste est requis."
+        invalid_type_error: MESSAGES.WEBSITE_MUST_BE_STRING,
+        required_error: MESSAGES.WEBSITE_REQUIRED,
+        description: "Site web de l'artiste.",
     })
-    .max(500, {
-        message: "Le lien du site web de l'artiste ne doit pas dépasser 500 caractères."
+    .startsWith('https://', {
+        message: MESSAGES.WEBSITE_STARTS_WITH,
     })
-    .url({
-        message: "Le lien du site web de l'artiste doit être une URL valide."
-    })
+    .optional()
     .nullable()
-    .optional();
 
-const tag = z
-    .array(z.string({
-            message: "Le tag de l'artiste doit être une chaîne de caractères.",
-            required_error: "Le tag de l'artiste est requis."
-        })
-            .transform(tag => tag.toUpperCase()
-            )
-    )
-    .optional();
-
-const user = UserSchema;
-const legalInformation = LegalInformationSchema.nullable();
+const atTheTop = z
+    .boolean({
+        invalid_type_error: MESSAGES.AT_THE_TOP_MUST_BE_BOOLEAN,
+        required_error: MESSAGES.AT_THE_TOP_REQUIRED,
+        description: "L'artiste est-il mis en avant ?",
+    })
 
 export const ArtistSchema = z.object({
     id,
@@ -151,205 +161,117 @@ export const ArtistSchema = z.object({
     facebook,
     linkedin,
     website,
-    tag,
-    user,
-    legalInformation,
-    oeuvre: z.array(OeuvreSchema).optional().nullable(),
-});
+    atTheTop,
+}).passthrough()
 
-const ArtistResponseSchema = z.object({
+const ArtistGetResponseSchema = z.object({
     total: z
         .number({
-            message: "Le nombre total d'artistes doit être un nombre.",
-            required_error: "Le nombre total d'artistes est requis."
+            invalid_type_error: MESSAGES.TOTAL_OF_ARTISTS_MUST_BE_NUMBER,
+            required_error: MESSAGES.TOTAL_OF_ARTISTS_REQUIRED,
+            description: "Nombre total d'artistes.",
         })
         .int({
-            message: "Le nombre total d'artistes doit être un nombre entier.",
+            message: MESSAGES.TOTAL_OF_ARTISTS_MUST_BE_INT,
         })
         .positive({
-            message: "Le nombre total d'artistes doit être un nombre positif."
+            message: MESSAGES.TOTAL_OF_ARTISTS_MUST_BE_POSITIVE,
         }),
-    list: z.array(ArtistSchema)
-});
+    list: z.array(ArtistSchema),
+})
 
-const ArtistSchemaPost = ArtistSchema
-    .omit({
-        id: true,
+const userid = z
+    .number({
+        required_error: MESSAGES.REQUIRED_ID,
+        invalid_type_error: MESSAGES.ID_MUST_BE_NUMBER,
     })
+    .int({
+        message: MESSAGES.ID_MUST_BE_POSITIVE,
+    })
+
+const ArtistPostRequestSchema = ArtistSchema
+    .omit({id})
     .partial()
     .extend({
-        userid: z
-            .number({
-                message: "L'id de l'utilisateur doit être un nombre.",
-                required_error: "L'id de l'utilisateur est requis."
-            })
-            .int({
-                message: "L'id de l'utilisateur doit être un nombre entier.",
-            })
-            .positive({
-                message: "L'id de l'utilisateur doit être un nombre positif."
-            })
+        userid,
+    })
+    .passthrough()
 
-    });
+const ArtistPatchRequestSchema = ArtistSchema
 
 export async function GET() {
 
     try {
 
         const artists = await prisma.artist.findMany({
-            select: {
-                id: true,
-                pseudo: true,
-                nationality: true,
-                bio: true,
-                instagram: true,
-                facebook: true,
-                linkedin: true,
-                website: true,
-                saveTheDate: {
-                    select: {
-                        title: true,
-                        content: true,
-                        date: true,
-                        photoURL: true,
-                    }
-                },
-                user: {
-                    select: {
-                        id: true,
-                        email: true,
-                        avatarURL: true,
-                        firstname: true,
-                        lastname: true,
-                        street: true,
-                        city: true,
-                        postalCode: true,
-                        phone: true,
-                        roles: true,
-                    }
-                },
-                tag: {
-                    select: {
-                        tag: {
-                            select: {
-                                name: true,
-                            }
-                        }
-                    }
-                },
-                legalInformation: {
-                    select: {
-                        id: true,
-                        societe: true,
-                        tva: true,
-                        tauxTva: true,
-                        siret: true,
-                        adrNumVoie: true,
-                        adrRue: true,
-                        adrVille: true,
-                        adrCodePostal: true,
-                        numMaisonsDesArtistes: true,
-                        numSecuriteSociale: true,
-                        artistId: true,
-                    }
-                },
-                oeuvre: {
-                    include: {
-                        oeuvre: true
-                    }
-                }
-            },
-            orderBy: {
-                id: 'asc'
+            include: {
+                user: true,
             }
-        });
+        })
 
         if (!artists.length) {
-            return NextResponse.json({message: MESSAGES.NO_ARTIST_FOUND}, {status: 404});
+            return NextResponse.json({message: MESSAGES.NO_ARTIST_FOUND}, {status: 404})
         }
 
         artists.map(artist => {
-            artist.tag = artist.tag.map(tag => tag.tag.name);
-        });
+            artist.userid = undefined
+            artist.user.password = undefined
+        })
 
-        artists.map(artist => {
-            artist.oeuvre = artist.oeuvre.map(oeuvre => oeuvre.oeuvre);
-        });
+        const validatedArtist = artists.map(artist => ArtistSchema.parse(artist))
 
-        const validatedArtist = artists.map(artist => ArtistSchema.parse(artist));
-
-        const response = ArtistResponseSchema.parse({
+        const response = ArtistGetResponseSchema.parse({
             total: validatedArtist.length,
-            list: validatedArtist
-        });
+            list: validatedArtist,
+        })
 
-        return NextResponse.json(response, {status: 200});
+        return NextResponse.json(response, {status: 200})
 
     } catch (error) {
 
-        console.log(error);
+        if (process.env.NODE_ENV === 'development') {
+            console.error("Artistes API - GET", error)
+        }
 
         if (error instanceof z.ZodError) {
-            return NextResponse.json({errors: error.errors[0].message}, {status: 400});
+            return NextResponse.json({message: error.errors[0].message}, {status: 400})
         }
 
         return NextResponse.json(MESSAGES.API_SERVER_ERROR, {status: 500});
 
     }
-
 }
 
 export async function POST(req) {
 
-    try {
+    const token = getTokenFromRequest(req);
 
-        const requestBody = ArtistSchemaPost.parse(JSON.parse(await req.text()))
+    if (!token) {
+        return NextResponse.json({message: UTIL_MESSAGES.NO_TOKEN_PROVIDED}, {status: 401})
+    }
+
+    const user =  await getUserFromToken(token);
+
+    if (!user) {
+        return NextResponse.json({message: UTIL_MESSAGES.NO_USER_FOUND_IN_TOKEN}, {status: 401})
+    }
+
+    console.log(user)
+
+    if (!user.roles.includes(ROLES.ADMIN)) {
+        return NextResponse.json({message: UTIL_MESSAGES.MUST_HAVE_RIGHTS}, {status: 403})
+    }
+
+    const requestBody = ArtistPostRequestSchema.parse(JSON.parse(await req.text()))
+
+    try {
 
         const artist = await prisma.artist.create({
             data: {
                 ...requestBody,
-                userid: requestBody.userid
-            },
-            select: {
-                id: true,
-                pseudo: true,
-                nationality: true,
-                facebook: true,
-                linkedin: true,
-                instagram: true,
-                website: true,
-                bio: true,
-                user: {
-                    select: {
-                        id: true,
-                        email: true,
-                        avatarURL: true,
-                        firstname: true,
-                        lastname: true,
-                        street: true,
-                        city: true,
-                        postalCode: true,
-                        phone: true,
-                        roles: true,
-                    }
-                },
-                legalInformation: {
-                    select: {
-                        id: true,
-                        societe: true,
-                        tva: true,
-                        tauxTva: true,
-                        siret: true,
-                        adrNumVoie: true,
-                        adrRue: true,
-                        adrVille: true,
-                        adrCodePostal: true,
-                        numMaisonsDesArtistes: true,
-                        numSecuriteSociale: true,
-                    }
-                }
+                userid: requestBody.userid,
             }
-        });
+        })
 
         return NextResponse.json(ArtistSchema.parse(artist), {status: 201});
 
@@ -382,80 +304,5 @@ export async function POST(req) {
 
 }
 
-export async function PATCH(req) {
 
-    try {
 
-        const ArtistSchemaOmitRelation = ArtistSchema.omit({
-            user: true,
-            legalInformation: true,
-            tag: true,
-        });
-
-        const requestBody = ArtistSchemaOmitRelation.parse(JSON.parse(await req.text()));
-
-        const id = requestBody.id;
-        delete requestBody.id;
-
-        const updateArtist = await prisma.artist.update({
-            where: {
-                id
-            },
-            data: {
-                ...requestBody,
-            },
-        })
-
-        const validatedArtist = ArtistSchemaOmitRelation.parse(updateArtist);
-
-        return NextResponse.json(validatedArtist, {status: 200});
-
-    } catch (error) {
-
-        if (process.env.NODE_ENV === 'development') {
-            console.log(error);
-        }
-
-        if (error instanceof z.ZodError) {
-            return NextResponse.json({message: error.errors[0].message}, {status: 400});
-        }
-
-        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
-            return NextResponse.json({message: MESSAGES.INVALID_ARTIST}, {status: 404});
-        }
-
-        return NextResponse.json(MESSAGES.API_SERVER_ERROR, {status: 500});
-    }
-}
-
-export async function DELETE(req) {
-
-    try {
-
-        const requestBody = ArtistSchema.pick({id: true}).parse(JSON.parse(await req.text()));
-
-        await prisma.artist.delete({
-            where: {
-                id: requestBody.id
-            }
-        });
-
-        return NextResponse.json({message: MESSAGES.SUCCESS_DELETE}, {status: 200})
-
-    } catch (error) {
-
-        console.log(error);
-
-        if (error instanceof z.ZodError) {
-            return NextResponse.json({message: error.errors[0].message}, {status: 400});
-        }
-
-        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
-            return NextResponse.json({message: MESSAGES.INVALID_ARTIST}, {status: 404});
-        }
-
-        return NextResponse.error(MESSAGES.API_SERVER_ERROR, {status: 500});
-
-    }
-
-}

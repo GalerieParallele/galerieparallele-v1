@@ -27,9 +27,6 @@ const MESSAGES = {
 
     NO_USER_FOUND: 'Aucun utilisateur trouvé.',
 
-    TOKEN_NOT_FOUND: 'Vous devez être connecté pour intéragir avec cette ressource. Le jeton d\'\authentification a expiré ou est invalide.',
-    NO_USER_FOUND_BY_TOKEN: 'Vous devez être connecté pour intéragir avec cette ressource. Aucun utilisateur n\'\a été trouvé avec ce jeton d\'authentification.',
-
 };
 
 const id = z
@@ -170,13 +167,13 @@ export async function GET(req) {
     const token = getTokenFromRequest(req);
 
     if (!token) {
-        return NextResponse.json({message: MESSAGES.TOKEN_NOT_FOUND}, {status: 401});
+        return NextResponse.json({message: MESSAGES.NO_TOKEN_PROVIDED}, {status: 401});
     }
 
     const user = getUserFromToken(token);
 
     if (!user) {
-        return NextResponse.json({message: MESSAGES.NO_USER_FOUND_BY_TOKEN}, {status: 401});
+        return NextResponse.json({message: MESSAGES.NO_USER_FOUND_IN_TOKEN}, {status: 401});
     }
 
     try {

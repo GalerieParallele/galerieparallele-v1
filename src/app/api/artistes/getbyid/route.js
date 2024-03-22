@@ -1,7 +1,7 @@
 import {NextResponse} from "next/server";
 import {z} from "zod";
 import {prisma} from "@/utils/PrismaUtil";
-import {ArtistSchema} from "@/app/api/artistes/route";
+import {ArtistSchema} from "@/app/api/artistes/route3";
 
 const MESSAGES = {
     INVALID_ARTIST: "L'id renseigné ne correspond à aucun artiste",
