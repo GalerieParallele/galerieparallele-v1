@@ -204,6 +204,14 @@ const ArtistPostRequestSchema = ArtistSchema
     .passthrough()
 
 const ArtistPatchRequestSchema = ArtistSchema
+    .partial()
+    .extend({
+        id,
+    })
+    .passthrough()
+
+const ArtistDeleteRequestSchema = ArtistSchema
+    .pick({id: true})
 
 export async function GET() {
 
@@ -283,7 +291,9 @@ export async function POST(req) {
 
     } catch (error) {
 
-        console.log(error);
+        if (process.env.NODE_ENV === 'development') {
+            console.error("Artistes API - POST", error)
+        }
 
         if (error instanceof z.ZodError) {
             return NextResponse.json({message: error.errors[0].message}, {status: 400});
@@ -310,6 +320,53 @@ export async function POST(req) {
 
 }
 
+export async function PATCH(req) {
+
+    const token = getTokenFromRequest(req);
+
+    if (!token) {
+        return NextResponse.json({message: UTIL_MESSAGES.NO_TOKEN_PROVIDED}, {status: 401})
+    }
+
+    const user = await getUserFromToken(token);
+
+    if (!user) {
+        return NextResponse.json({message: UTIL_MESSAGES.NO_USER_FOUND_IN_TOKEN}, {status: 401})
+    }
+
+    if (!user.roles.includes(ROLES.ADMIN) && user.id !== id) {
+        return NextResponse.json({message: MESSAGES.MUST_BE_OWN_OR_ADMIN}, {status: 403})
+    }
+
+    try {
+
+        const requestBody = ArtistPatchRequestSchema.parse(JSON.parse(await req.text()));
+
+        const id = requestBody.id;
+        delete requestBody.id;
+
+        const updateArtist = await prisma.artist.update({
+            where: {
+                id
+            },
+            data: {
+                ...requestBody,
+            },
+        });
+
+        const validatedArtist = ArtistSchema.parse(updateArtist);
+
+        return NextResponse.json(validatedArtist, {status: 200});
+
+    } catch (error) {
+
+        if (process.env.NODE_ENV === 'development') {
+            console.error("Artistes API - PATCH", error)
+        }
+
+    }
+}
+
 export async function DELETE(req) {
 
     const token = getTokenFromRequest(req);
@@ -330,7 +387,7 @@ export async function DELETE(req) {
 
     try {
 
-        const requestBody = ArtistSchema.pick({id: true}).parse(JSON.parse(await req.text()));
+        const requestBody = ArtistDeleteRequestSchema.parse(JSON.parse(await req.text()));
 
         await prisma.artist.delete({
             where: {
@@ -342,7 +399,9 @@ export async function DELETE(req) {
 
     } catch (error) {
 
-        console.log(error);
+        if (process.env.NODE_ENV === 'development') {
+            console.error("Artistes API - DELETE", error)
+        }
 
         if (error instanceof z.ZodError) {
             return NextResponse.json({message: error.errors[0].message}, {status: 400});
