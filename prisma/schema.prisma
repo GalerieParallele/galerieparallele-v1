@@ -110,6 +110,8 @@ model Artist {
 
   atTheTop Boolean @default(false) // Artiste à la une
 
+  private Boolean @default(true)
+
   userid Int  @unique
   user   User @relation(fields: [userid], references: [id], onDelete: Cascade)
 

@@ -8,6 +8,7 @@ import jwt from 'jsonwebtoken';
 import AUTH from "@/constants/AUTH";
 import {getTokenFromRequest, getUserFromToken, hashPassword} from "@/constants/Util";
 import {prisma} from "@/utils/PrismaUtil";
+import ROLES from "@/constants/ROLES";
 
 const MESSAGES = {
 
@@ -251,6 +252,17 @@ export async function POST(req) {
         }, process.env.JWT, {expiresIn: AUTH.TOKEN_EXPIRATION_TIME});
 
         const {password, ...safeUser} = user;
+
+        const tokenFromRequest = getTokenFromRequest(req);
+        const userFromToken = await getUserFromToken(tokenFromRequest);
+
+        if (userFromToken && userFromToken.roles.includes(ROLES.ADMIN)) {
+            return NextResponse.json({
+                user: safeUser
+            }, {
+                status: 201,
+            });
+        }
 
         return NextResponse.json({
             user: safeUser

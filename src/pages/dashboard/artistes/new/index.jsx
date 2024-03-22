@@ -14,11 +14,11 @@ import Editor from "@/components/ui/Editor";
 
 import {MdEmail, MdPassword} from "react-icons/md";
 import {RxAvatar} from "react-icons/rx";
-import {BsBuildingsFill, BsFillFileEarmarkPersonFill, BsTelephoneFill} from "react-icons/bs";
+import {BsFillFileEarmarkPersonFill, BsTelephoneFill} from "react-icons/bs";
 import {IoHome} from "react-icons/io5";
 
-import {FaFlag, FaPercentage} from "react-icons/fa";
-import {AiFillFacebook, AiFillInstagram, AiFillLinkedin, AiOutlineFieldNumber} from "react-icons/ai";
+import {FaFlag} from "react-icons/fa";
+import {AiFillFacebook, AiFillInstagram, AiFillLinkedin} from "react-icons/ai";
 import {FaEarthAfrica} from "react-icons/fa6";
 import {GrTextAlignCenter} from "react-icons/gr";
 
@@ -26,6 +26,7 @@ import styles from './Index.module.scss';
 import sectionStyles from '@/components/dashboard/items/sections/DashboardSectionItem.module.scss';
 import {useRouter} from "next/router";
 import StorageUtils from "@/utils/StorageUtils";
+import {useAuth} from "@/hooks/useAuth";
 
 const initialState = {
     user: {
@@ -48,18 +49,18 @@ const initialState = {
         linkedin: undefined,
         website: undefined,
     },
-    legal: {
-        societe: undefined,
-        adrNumVoie: undefined,
-        adrRue: undefined,
-        adrVille: undefined,
-        adrCodePostal: undefined,
-        siret: undefined,
-        tva: undefined,
-        tauxTva: undefined,
-        numMaisonsDesArtistes: undefined,
-        numSecuriteSociale: undefined,
-    }
+    // legal: {
+    //     societe: undefined,
+    //     adrNumVoie: undefined,
+    //     adrRue: undefined,
+    //     adrVille: undefined,
+    //     adrCodePostal: undefined,
+    //     siret: undefined,
+    //     tva: undefined,
+    //     tauxTva: undefined,
+    //     numMaisonsDesArtistes: undefined,
+    //     numSecuriteSociale: undefined,
+    // }
 };
 
 function reducer(state, action) {
@@ -82,6 +83,8 @@ export default function DashboardArtistesNewIndex() {
 
     const router = useRouter();
 
+    const {isLoading, user} = useAuth()
+
     const [state, dispatch] = useReducer(reducer, initialState);
     const [loading, setLoading] = useState(false);
 
@@ -95,29 +98,39 @@ export default function DashboardArtistesNewIndex() {
      * @param e
      */
     const handleGeneratePassword = (e) => {
-
         if (e) {
             e.preventDefault();
         }
 
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#!*$^:/;.,?&';
+        // Séparez les caractères par type pour un tirage séparé
+        const upperChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const lowerChars = 'abcdefghijklmnopqrstuvwxyz';
+        const numChars = '0123456789';
+        const specialChars = '#!*$^:/;.,?&';
         let password = '';
-        const charactersLength = characters.length;
-        const regex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[#!*$^:/;.,?&]).{8,}$');
 
-        for (let i = 0; i < 20; i++) {
-            password += characters.charAt(Math.floor(Math.random() * charactersLength));
+        // Assurez-vous d'ajouter au moins un caractère de chaque type
+        password += upperChars.charAt(Math.floor(Math.random() * upperChars.length));
+        password += lowerChars.charAt(Math.floor(Math.random() * lowerChars.length));
+        password += numChars.charAt(Math.floor(Math.random() * numChars.length));
+        password += specialChars.charAt(Math.floor(Math.random() * specialChars.length));
+
+        // Complétez le reste du mot de passe avec des caractères aléatoires de tous les types
+        const allChars = upperChars + lowerChars + numChars + specialChars;
+        const charactersLength = allChars.length;
+        for (let i = password.length; i < 10; i++) {
+            password += allChars.charAt(Math.floor(Math.random() * charactersLength));
         }
 
-        if (regex.test(password)) {
-            dispatch({
-                type: 'UPDATE_FORM',
-                payload: {field: 'user.password', value: password},
-            });
-        } else {
-            handleGeneratePassword(e);
-        }
+        // Mélangez le mot de passe pour ne pas être prédictible
+        password = password.split('').sort(() => 0.5 - Math.random()).join('');
+
+        dispatch({
+            type: 'UPDATE_FORM',
+            payload: {field: 'user.password', value: password},
+        });
     };
+
 
     /**
      * Permet de vérifier que tous les champs concernant le compte utilisateur sont remplis
@@ -221,25 +234,37 @@ export default function DashboardArtistesNewIndex() {
 
                 const artistsResponseJSON = await artistResponse.json();
 
-                if (!artistResponse.ok) throw new Error(artistsResponseJSON.message);
+                if (!artistResponse.ok) {
 
-                const artistId = artistsResponseJSON.id;
+                    await fetch(ROUTES.API.USERS.HOME, {
+                        method: 'DELETE',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            id: userid,
+                        }),
+                    });
 
+                    throw new Error(artistsResponseJSON.message);
 
-                let legalResponse;
+                }
 
-                legalResponse = await fetch(ROUTES.API.ARTISTES.LEGAL_INFORMATION, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        ...state.legal,
-                        artistId
-                    }),
-                });
-
-                const legalResponseJSON = await legalResponse.json();
-
-                if (!legalResponse.ok) throw new Error(legalResponseJSON.message);
+                // const artistId = artistsResponseJSON.id;
+                //
+                //
+                // let legalResponse;
+                //
+                // legalResponse = await fetch(ROUTES.API.ARTISTES.LEGAL_INFORMATION, {
+                //     method: 'POST',
+                //     headers: {'Content-Type': 'application/json'},
+                //     body: JSON.stringify({
+                //         ...state.legal,
+                //         artistId
+                //     }),
+                // });
+                //
+                // const legalResponseJSON = await legalResponse.json();
+                //
+                // if (!legalResponse.ok) throw new Error(legalResponseJSON.message);
 
 
                 Toast.fire({icon: 'success', title: 'Artiste créé avec succès'});
@@ -268,6 +293,7 @@ export default function DashboardArtistesNewIndex() {
     useEffect(() => {
         setLoading(true);
         setCountriesLoading(true);
+        console.log(user)
         fetch('https://restcountries.com/v3.1/all', {
             method: 'GET',
             headers: {
@@ -288,6 +314,7 @@ export default function DashboardArtistesNewIndex() {
                 returnURL={ROUTES.ADMIN.ARTISTES.HOME}
             />
             <div className={styles.content}>
+                <p>{user && user.lastname}</p>
                 <DashboardSectionItem
                     sectionName={"Informations Utilisateur"}
                     description={"Ces informations ne seront pas visibles du grand public"}
@@ -516,101 +543,101 @@ export default function DashboardArtistesNewIndex() {
                         />
                     </div>
                 </DashboardSectionItem>
-                <DashboardSectionItem
-                    sectionName={"Informations Juridique"}
-                    description={"Ces informations ne seront pas visibles du grand public"}
-                >
-                    <IconInput
-                        label={"Nom de société"}
-                        type={"text"}
-                        IconComponent={BsBuildingsFill}
-                        placeholder={"Ex: DP Gallery"}
-                        name={"legal.societe"}
-                        value={state.legal.societe}
-                        onChange={handleChange}
-                    />
-                    <IconInput
-                        label={"Numéro de voie"}
-                        type={"text"}
-                        IconComponent={IoHome}
-                        placeholder={"Ex: 1"}
-                        name={"legal.adrNumVoie"}
-                        value={state.legal.adrNumVoie}
-                        onChange={handleChange}
-                    />
-                    <IconInput
-                        label={"Nom de la voie"}
-                        type={"text"}
-                        IconComponent={IoHome}
-                        placeholder={"Ex: Rue de Paris"}
-                        name={"legal.adrRue"}
-                        value={state.legal.adrRue}
-                        onChange={handleChange}
-                    />
-                    <IconInput
-                        label={"Ville"}
-                        type={"text"}
-                        IconComponent={IoHome}
-                        placeholder={"Ex: Paris"}
-                        name={"legal.adrVille"}
-                        value={state.legal.adrVille}
-                        onChange={handleChange}
-                    />
-                    <IconInput
-                        label={"Code postal"}
-                        type={"text"}
-                        IconComponent={IoHome}
-                        placeholder={"Ex: 75000"}
-                        name={"legal.adrCodePostal"}
-                        value={state.legal.adrCodePostal}
-                        onChange={handleChange}
-                    />
-                    <IconInput
-                        label={"Numéro de SIRET (non visible sur le site)"}
-                        type={"text"}
-                        IconComponent={AiOutlineFieldNumber}
-                        placeholder={"Ex: 12345678912345"}
-                        name={"legal.siret"}
-                        value={state.legal.siret}
-                        onChange={handleChange}
-                    />
-                    <IconInput
-                        label={"Numéro de TVA (non visible sur le site)"}
-                        type={"text"}
-                        IconComponent={AiOutlineFieldNumber}
-                        placeholder={"Ex: 12345678912345"}
-                        name={"legal.tva"}
-                        value={state.legal.tva}
-                        onChange={handleChange}
-                    />
-                    <IconInput
-                        label={"Taux de TVA applicable (non visible sur le site)"}
-                        type={"text"}
-                        IconComponent={FaPercentage}
-                        placeholder={"Ex: 5.5%"}
-                        name={"legal.tauxTva"}
-                        value={state.legal.tauxTva}
-                        onChange={handleChange}
-                    />
-                    <IconInput
-                        label={"Numéro maison des artistes (non visible sur le site)"}
-                        type={"text"}
-                        IconComponent={AiOutlineFieldNumber}
-                        placeholder={"Ex: 12345678912345"}
-                        name={"legal.numMaisonsDesArtistes"}
-                        value={state.legal.numMaisonsDesArtistes}
-                        onChange={handleChange}
-                    />
-                    <IconInput
-                        label={"Numéro de sécurité sociale (non visible sur le site)"}
-                        type={"text"}
-                        IconComponent={AiOutlineFieldNumber}
-                        placeholder={"Ex: 12345678912345"}
-                        name={"legal.numSecuriteSociale"}
-                        value={state.legal.numSecuriteSociale}
-                        onChange={handleChange}
-                    />
-                </DashboardSectionItem>
+                {/*<DashboardSectionItem*/}
+                {/*    sectionName={"Informations Juridique"}*/}
+                {/*    description={"Ces informations ne seront pas visibles du grand public"}*/}
+                {/*>*/}
+                {/*    <IconInput*/}
+                {/*        label={"Nom de société"}*/}
+                {/*        type={"text"}*/}
+                {/*        IconComponent={BsBuildingsFill}*/}
+                {/*        placeholder={"Ex: DP Gallery"}*/}
+                {/*        name={"legal.societe"}*/}
+                {/*        value={state.legal.societe}*/}
+                {/*        onChange={handleChange}*/}
+                {/*    />*/}
+                {/*    <IconInput*/}
+                {/*        label={"Numéro de voie"}*/}
+                {/*        type={"text"}*/}
+                {/*        IconComponent={IoHome}*/}
+                {/*        placeholder={"Ex: 1"}*/}
+                {/*        name={"legal.adrNumVoie"}*/}
+                {/*        value={state.legal.adrNumVoie}*/}
+                {/*        onChange={handleChange}*/}
+                {/*    />*/}
+                {/*    <IconInput*/}
+                {/*        label={"Nom de la voie"}*/}
+                {/*        type={"text"}*/}
+                {/*        IconComponent={IoHome}*/}
+                {/*        placeholder={"Ex: Rue de Paris"}*/}
+                {/*        name={"legal.adrRue"}*/}
+                {/*        value={state.legal.adrRue}*/}
+                {/*        onChange={handleChange}*/}
+                {/*    />*/}
+                {/*    <IconInput*/}
+                {/*        label={"Ville"}*/}
+                {/*        type={"text"}*/}
+                {/*        IconComponent={IoHome}*/}
+                {/*        placeholder={"Ex: Paris"}*/}
+                {/*        name={"legal.adrVille"}*/}
+                {/*        value={state.legal.adrVille}*/}
+                {/*        onChange={handleChange}*/}
+                {/*    />*/}
+                {/*    <IconInput*/}
+                {/*        label={"Code postal"}*/}
+                {/*        type={"text"}*/}
+                {/*        IconComponent={IoHome}*/}
+                {/*        placeholder={"Ex: 75000"}*/}
+                {/*        name={"legal.adrCodePostal"}*/}
+                {/*        value={state.legal.adrCodePostal}*/}
+                {/*        onChange={handleChange}*/}
+                {/*    />*/}
+                {/*    <IconInput*/}
+                {/*        label={"Numéro de SIRET (non visible sur le site)"}*/}
+                {/*        type={"text"}*/}
+                {/*        IconComponent={AiOutlineFieldNumber}*/}
+                {/*        placeholder={"Ex: 12345678912345"}*/}
+                {/*        name={"legal.siret"}*/}
+                {/*        value={state.legal.siret}*/}
+                {/*        onChange={handleChange}*/}
+                {/*    />*/}
+                {/*    <IconInput*/}
+                {/*        label={"Numéro de TVA (non visible sur le site)"}*/}
+                {/*        type={"text"}*/}
+                {/*        IconComponent={AiOutlineFieldNumber}*/}
+                {/*        placeholder={"Ex: 12345678912345"}*/}
+                {/*        name={"legal.tva"}*/}
+                {/*        value={state.legal.tva}*/}
+                {/*        onChange={handleChange}*/}
+                {/*    />*/}
+                {/*    <IconInput*/}
+                {/*        label={"Taux de TVA applicable (non visible sur le site)"}*/}
+                {/*        type={"text"}*/}
+                {/*        IconComponent={FaPercentage}*/}
+                {/*        placeholder={"Ex: 5.5%"}*/}
+                {/*        name={"legal.tauxTva"}*/}
+                {/*        value={state.legal.tauxTva}*/}
+                {/*        onChange={handleChange}*/}
+                {/*    />*/}
+                {/*    <IconInput*/}
+                {/*        label={"Numéro maison des artistes (non visible sur le site)"}*/}
+                {/*        type={"text"}*/}
+                {/*        IconComponent={AiOutlineFieldNumber}*/}
+                {/*        placeholder={"Ex: 12345678912345"}*/}
+                {/*        name={"legal.numMaisonsDesArtistes"}*/}
+                {/*        value={state.legal.numMaisonsDesArtistes}*/}
+                {/*        onChange={handleChange}*/}
+                {/*    />*/}
+                {/*    <IconInput*/}
+                {/*        label={"Numéro de sécurité sociale (non visible sur le site)"}*/}
+                {/*        type={"text"}*/}
+                {/*        IconComponent={AiOutlineFieldNumber}*/}
+                {/*        placeholder={"Ex: 12345678912345"}*/}
+                {/*        name={"legal.numSecuriteSociale"}*/}
+                {/*        value={state.legal.numSecuriteSociale}*/}
+                {/*        onChange={handleChange}*/}
+                {/*    />*/}
+                {/*</DashboardSectionItem>*/}
                 <div className={styles.topSpace}>
                     <Button
                         text={"Créer l'artiste"}

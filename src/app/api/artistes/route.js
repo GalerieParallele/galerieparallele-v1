@@ -42,6 +42,9 @@ const MESSAGES = {
     AT_THE_TOP_MUST_BE_BOOLEAN: "La valeur de 'atTheTop' doit être un booléen.",
     AT_THE_TOP_REQUIRED: "La valeur de 'atTheTop' est requise.",
 
+    PRIVATE_MUST_BE_BOOLEAN: "La valeur de 'private' doit être un booléen.",
+    PRIVATE_REQUIRED: "La valeur de 'private' est requise.",
+
     TOTAL_OF_ARTISTS_MUST_BE_NUMBER: "La valeur totale d'artiste doit être un nombre.",
     TOTAL_OF_ARTISTS_MUST_BE_INT: "La valeur totale d'artiste doit être un nombre entier.",
     TOTAL_OF_ARTISTS_MUST_BE_POSITIVE: "La valeur totale d'artiste doit être un nombre positif.",
@@ -158,6 +161,14 @@ const atTheTop = z
     })
     .optional()
 
+const visibility = z
+    .boolean({
+        invalid_type_error: MESSAGES.PRIVATE_MUST_BE_BOOLEAN,
+        required_error: MESSAGES.PRIVATE_REQUIRED,
+        description: "L'artiste est-il privé ?",
+    })
+    .optional()
+
 export const ArtistSchema = z.object({
     id,
     pseudo,
@@ -168,6 +179,7 @@ export const ArtistSchema = z.object({
     linkedin,
     website,
     atTheTop,
+    private: visibility,
 }).passthrough()
 
 const ArtistGetResponseSchema = z.object({

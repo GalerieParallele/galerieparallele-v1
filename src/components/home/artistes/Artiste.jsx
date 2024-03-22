@@ -5,6 +5,7 @@ import Button from "@/components/ui/button/Button";
 import styles from "./Artiste.module.css";
 import ROUTES from "@/constants/ROUTES";
 import {useRouter} from "next/router";
+import ArtisteCard from "@/components/home/artistes/ArtisteCard";
 
 export default function Artiste() {
 
@@ -31,8 +32,12 @@ export default function Artiste() {
             <div className={styles.top}>
                 {artists.length === 0 ? <h3>Aucun artiste trouvé...</h3> :
                     artists.map((artist, index) => (
-                        // <ArtisteCard key={artist.pseudo} pseudo={artist.pseudo}/>
-                        <div key={index}>test</div>
+                        <>
+                            <ArtisteCard
+                                key={artist.id}
+                                artist={artist}
+                            />
+                        </>
                     ))
                 }
             </div>
@@ -40,7 +45,7 @@ export default function Artiste() {
                 <Button
                     text={"Nos artist"}
                     isWhite
-                onClick={() => router.push("/artistes")}
+                    onClick={() => router.push("/artistes")}
                 />
             </div>
         </div>
