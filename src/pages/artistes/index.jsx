@@ -92,21 +92,6 @@ export default function ArtistesHomeIndex() {
                 </div>
             </div>
             <div className={styles.allOfFameContainer}>
-                <ArtisteCard
-                    pseudo={"Artiste 1"}
-                />
-                <ArtisteCard
-                    pseudo={"Artiste 1"}
-                />
-                <ArtisteCard
-                    pseudo={"Artiste 1"}
-                />
-                <ArtisteCard
-                    pseudo={"Artiste 1"}
-                />
-                <ArtisteCard
-                    pseudo={"Artiste 1"}
-                />
             </div>
             <div className={styles.list}>
                 <div className={styles.left}>
