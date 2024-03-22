@@ -3,6 +3,7 @@ import {NextResponse} from "next/server";
 import {getTokenFromRequest, getUserFromToken, UTIL_MESSAGES} from "@/constants/Util";
 import {Prisma} from "@prisma/client";
 import ROLES from "@/constants/ROLES";
+import {prisma} from "@/utils/PrismaUtil";
 
 const MESSAGES = {
 
@@ -48,6 +49,10 @@ const MESSAGES = {
 
     NO_ARTIST_FOUND: "Aucun artiste trouvé.",
     USER_ALREADY_ARTIST: "L'utilisateur est déjà un artiste.",
+
+    SUCCESS_DELETE: "L'artiste a été supprimé avec succès.",
+    INVALID_ARTIST: "L'artiste renseigné ne correspond à aucun artiste enregistré.",
+    MUST_BE_OWN_OR_ADMIN: "Vous devez être l'artiste ou administrateur pour effectuer cette action.",
 
 }
 
@@ -151,6 +156,7 @@ const atTheTop = z
         required_error: MESSAGES.AT_THE_TOP_REQUIRED,
         description: "L'artiste est-il mis en avant ?",
     })
+    .optional()
 
 export const ArtistSchema = z.object({
     id,
@@ -250,7 +256,7 @@ export async function POST(req) {
         return NextResponse.json({message: UTIL_MESSAGES.NO_TOKEN_PROVIDED}, {status: 401})
     }
 
-    const user =  await getUserFromToken(token);
+    const user = await getUserFromToken(token);
 
     if (!user) {
         return NextResponse.json({message: UTIL_MESSAGES.NO_USER_FOUND_IN_TOKEN}, {status: 401})
@@ -299,6 +305,54 @@ export async function POST(req) {
         }
 
         return NextResponse.json(MESSAGES.API_SERVER_ERROR, {status: 500});
+
+    }
+
+}
+
+export async function DELETE(req) {
+
+    const token = getTokenFromRequest(req);
+
+    if (!token) {
+        return NextResponse.json({message: UTIL_MESSAGES.NO_TOKEN_PROVIDED}, {status: 401})
+    }
+
+    const user = await getUserFromToken(token);
+
+    if (!user) {
+        return NextResponse.json({message: UTIL_MESSAGES.NO_USER_FOUND_IN_TOKEN}, {status: 401})
+    }
+
+    if (!user.roles.includes(ROLES.ADMIN) && user.id !== id) {
+        return NextResponse.json({message: MESSAGES.MUST_BE_OWN_OR_ADMIN}, {status: 403})
+    }
+
+    try {
+
+        const requestBody = ArtistSchema.pick({id: true}).parse(JSON.parse(await req.text()));
+
+        await prisma.artist.delete({
+            where: {
+                id: requestBody.id
+            }
+        });
+
+        return NextResponse.json({message: MESSAGES.SUCCESS_DELETE}, {status: 200})
+
+    } catch (error) {
+
+        console.log(error);
+
+        if (error instanceof z.ZodError) {
+            return NextResponse.json({message: error.errors[0].message}, {status: 400});
+        }
+
+        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+            return NextResponse.json({message: MESSAGES.INVALID_ARTIST}, {status: 400});
+        }
+
+        return NextResponse.error(MESSAGES.API_SERVER_ERROR, {status: 500});
 
     }
 
