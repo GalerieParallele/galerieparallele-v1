@@ -166,16 +166,7 @@ const UpdateUserSchema = UserSchema.partial().extend({
 export async function GET(req) {
 
     const token = getTokenFromRequest(req);
-
-    if (!token) {
-        return NextResponse.json({message: MESSAGES.NO_TOKEN_PROVIDED}, {status: 401});
-    }
-
     const user = getUserFromToken(token);
-
-    if (!user) {
-        return NextResponse.json({message: MESSAGES.NO_USER_FOUND_IN_TOKEN}, {status: 401});
-    }
 
     try {
 
