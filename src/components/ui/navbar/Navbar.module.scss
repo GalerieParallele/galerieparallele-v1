@@ -216,11 +216,48 @@
       justify-content: center;
       align-items: center;
 
+      .social {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+
+        & > a {
+          font-size: 0.8rem;
+        }
+
+        .reseaux {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+
+          a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+
+        color: var(--white);
+
+        .verticalSeparator {
+          height: 20px;
+          width: 2px;
+          border-radius: 20px;
+          background-color: var(--light-gray);
+        }
+      }
+
       a {
         position: relative;
         color: var(--light-gray); // Couleur initiale du texte
         text-transform: uppercase;
-        font-size: 19px;
+        font-size: 15px;
         font-weight: 600;
         transition: var(--transition);
         background: linear-gradient(to right, var(--white) 50%, var(--light-gray) 50%);
@@ -251,7 +288,19 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
-        gap: 25px;
+        gap: 15px;
+
+        .subitem {
+          display: flex;
+            flex-direction: column;
+            gap: 5px;
+          .submenu {
+            margin-left: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+          }
+        }
 
         .specialLinks {
           display: flex;
@@ -260,7 +309,7 @@
 
           .magazine {
             font-family: 'Birthstone', cursive;
-            font-size: 25px;
+            font-size: 20px;
           }
 
           a {
@@ -279,9 +328,9 @@
       button {
         color: var(--black);
         background-color: var(--white);
-        padding: 15px 30px;
+        padding: 12px 15px;
         border-radius: var(--border-radius);
-        font-size: 15px;
+        font-size: 14px;
         text-transform: uppercase;
         font-weight: 600;
         transition: var(--transition);

@@ -13,7 +13,7 @@ import styles from './Navbar.module.scss';
 import {useAuth} from "@/hooks/useAuth";
 
 import ROUTES from "@/constants/ROUTES";
-import {FaHome, FaRegHeart, FaSearch, FaShoppingCart} from "react-icons/fa";
+import {FaFacebook, FaHome, FaInstagram, FaLinkedin, FaRegHeart, FaSearch, FaShoppingCart} from "react-icons/fa";
 import {IoBook} from "react-icons/io5";
 import {AiFillStar} from "react-icons/ai";
 import {useRouter} from "next/router";
@@ -128,7 +128,7 @@ export default function Navbar() {
                         <button
                             onClick={handleCloseSideMenu}
                         >
-                        <ImArrowLeft2/>
+                            <ImArrowLeft2/>
                         </button>
                     </div>
                     <div className={styles.top}>
@@ -168,32 +168,45 @@ export default function Navbar() {
                                 onClick={handleCloseSideMenu}
                                 href={"#"}
                             >
-                                Expositions
+                                Oeuvres
                             </Link>
-                            <Link
-                                onClick={handleCloseSideMenu}
-                                href={"#"}
-                            >
-                                La galerie
-                            </Link>
-                            <Link
-                                onClick={handleCloseSideMenu}
-                                href={"#"}
-                            >
-                                Shop
-                            </Link>
-                            <Link
-                                onClick={handleCloseSideMenu}
-                                href={"#"}
-                            >
-                                Espace entreprises
-                            </Link>
-                            <Link
-                                onClick={handleCloseSideMenu}
-                                href={"#"}
-                            >
-                                Événements privés
-                            </Link>
+                            <div className={styles.subitem}>
+                                <div className={styles.mainmenu}>
+                                    <Link
+                                        onClick={handleCloseSideMenu}
+                                        href={"#"}
+                                    >
+                                        La galerie
+                                    </Link>
+                                </div>
+                                <div className={styles.submenu}>
+                                    <Link
+                                        onClick={handleCloseSideMenu}
+                                        href={"#"}
+                                    >
+                                        Présentation
+                                    </Link>
+                                    <Link
+                                        onClick={handleCloseSideMenu}
+                                        href={"#"}
+                                    >
+                                        Nos services
+                                    </Link>
+                                    <Link
+                                        onClick={handleCloseSideMenu}
+                                        href={"#"}
+                                    >
+                                        Espace entreprises
+                                    </Link>
+                                    <Link
+                                        onClick={handleCloseSideMenu}
+                                        href={"#"}
+                                    >
+                                        Evènements privés
+                                    </Link>
+                                </div>
+                            </div>
+
                             <Link
                                 onClick={handleCloseSideMenu}
                                 href={"#"}
@@ -221,6 +234,35 @@ export default function Navbar() {
                                     <AiFillStar/>
                                     <p>Arts Member Only</p>
                                 </Link>
+                                <Link
+                                    onClick={handleCloseSideMenu}
+                                    href={"#"}
+                                >
+                                    <FaShoppingCart/>
+                                    <p>Shop</p>
+                                </Link>
+                            </div>
+                            <div
+                                className={styles.horizontalLine}
+                                style={{
+                                    margin: "20px 0"
+                                }}
+                            />
+                            <div className={styles.social}>
+                                <div className={styles.reseaux}>
+                                    <Link href={"#"}>
+                                        <FaInstagram/>
+                                    </Link>
+                                    <span className={styles.verticalSeparator}/>
+                                    <Link href={"#"}>
+                                        <FaFacebook/>
+                                    </Link>
+                                    <span className={styles.verticalSeparator}/>
+                                    <Link href={"#"}>
+                                        <FaLinkedin/>
+                                    </Link>
+                                </div>
+                                <Link href={"#"}>Suivre l&apos;actualité</Link>
                             </div>
                         </div>
                     </div>
