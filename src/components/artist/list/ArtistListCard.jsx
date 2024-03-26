@@ -3,22 +3,24 @@ import Image from "next/image";
 import Link from "next/link";
 import ROUTES from "@/constants/ROUTES";
 import {useEffect, useState} from "react";
+import LittleSpinner from "@/components/ui/LittleSpinner";
 
 export default function ArtistListCard({artist, countries}) {
 
     const displayname = artist.pseudo ? artist.pseudo : artist.user.firstname + " " + artist.user.lastname;
     const [displayFlag, setDisplayFlag] = useState('');
+    const [isFlagLoading, setIsFlagLoading] = useState(true);
 
     useEffect(() => {
         if (countries.length > 0 && artist.nationality) {
-            console.log(countries);
+            setIsFlagLoading(true);
             const foundCountry = countries.find(country => country.translations.fra.common === artist.nationality);
             if (foundCountry) {
                 setDisplayFlag(foundCountry.flags.png);
-                console.log(foundCountry.flags.png);
             } else {
                 setDisplayFlag('');
             }
+            setIsFlagLoading(false);
         }
     }, [countries, artist.nationality]);
 
@@ -33,18 +35,18 @@ export default function ArtistListCard({artist, countries}) {
                         height={1300}
                     />
                     {
-                        artist.nationality && displayFlag && (
-                            <>
-                                <div className={styles.nationality}>
-                                    <Image
-                                        src={displayFlag}
-                                        alt={"Drapeau France"}
-                                        width={500}
-                                        height={500}
-                                    />
-                                </div>
-                            </>
-                        )
+                        artist.nationality && (isFlagLoading ? (
+                            <LittleSpinner/>
+                        ) : displayFlag ? (
+                            <div className={styles.nationality}>
+                                <Image
+                                    src={displayFlag}
+                                    alt={"Drapeau"}
+                                    width={500}
+                                    height={500}
+                                />
+                            </div>
+                        ) : null)
                     }
                 </div>
                 <div className={styles.infoContainer}>
