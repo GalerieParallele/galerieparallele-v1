@@ -203,11 +203,7 @@ export default function AdminArtistEdit({artist}) {
                         }),
                     });
 
-                    console.log("artistRequest", artistRequest);
-
                     const artistResponse = await artistRequest.json();
-
-                    console.log("artistResponse", artistResponse);
 
                     if (artistRequest.status !== 200) {
                         throw new Error(artistResponse.message);

@@ -36,7 +36,6 @@ export function AuthProvider({children}) {
 
             if (response.status === 200) {
                 setUser(data);
-                console.log("checkAuth" + data)
             } else {
                 setUser(null);
             }

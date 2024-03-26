@@ -293,7 +293,6 @@ export default function DashboardArtistesNewIndex() {
     useEffect(() => {
         setLoading(true);
         setCountriesLoading(true);
-        console.log(user)
         fetch('https://restcountries.com/v3.1/all', {
             method: 'GET',
             headers: {

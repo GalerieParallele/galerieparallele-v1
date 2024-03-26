@@ -5,10 +5,9 @@ import Navbar from "@/components/ui/navbar/Navbar";
 import {useArtists} from "@/hooks/useArtists";
 import {useEffect, useState} from "react";
 import Image from "next/image";
-import ArtisteCard from "@/components/home/artistes/ArtisteCard";
 import Link from "next/link";
 import SliderRange from "@/components/ui/SliderRange";
-import {FaPlus} from "react-icons/fa";
+import ArtistListCard from "@/components/artist/list/ArtistListCard";
 
 export default function ArtistesHomeIndex() {
 
@@ -17,14 +16,21 @@ export default function ArtistesHomeIndex() {
     const {loading, artists, reloadArtists} = useArtists();
 
     const [rangeValue, setRangeValue] = useState([0, 100]);
+    const [countries, setCountries] = useState([]);
+
 
     const handleRangeChange = (newValue) => {
         setRangeValue(newValue);
     };
 
     useEffect(() => {
-        console.log(artists);
-    }, [artists]);
+        fetch('https://restcountries.com/v3.1/all')
+            .then((response) => response.json())
+            .then((data) => {
+                setCountries(data);
+            })
+            .catch((error) => console.error("Erreur lors du chargement des pays", error));
+    }, []);
 
     return (<div className={styles.main}>
         <Navbar/>
@@ -178,215 +184,16 @@ export default function ArtistesHomeIndex() {
                     </div>
                 </div>
                 <div className={styles.right}>
-                    <div className={styles.artistContainer}>
-                        <div className={styles.head}>
-                            <div className={styles.imgContainer}>
-                                <Image
-                                    src={"/assets/img/artistes/levalet.jpg"}
-                                    alt={"Photo de l'artiste Levalet"}
-                                    width={1300}
-                                    height={1300}
-                                />
-                                <div className={styles.nationality}>
-                                    <Image src={"/assets/img/drapeau_france.png"} alt={"Drapeau France"} width={500}
-                                           height={500}/>
-                                </div>
-                            </div>
-                            <div className={styles.infoContainer}>
-                                <h3>Levalet</h3>
-                                <button>
-                                    Voir le profil
-                                </button>
-                            </div>
-                        </div>
-                        <div className={styles.oeuvres}>
-                            <div className={styles.oeuvreContainer}>
-                                <div className={styles.imgContainer}>
-                                    <Image
-                                        src={"/assets/img/oeuvres/oeuvre1.jpg"}
-                                        alt={"Photo de l'oeuvre de l'artiste Levalet"}
-                                        width={500}
-                                        height={500}
-                                    />
-                                </div>
-                                <div className={styles.oeuvreInfo}>
-                                    <h4>Titre de l&apos;oeuvre</h4>
-                                </div>
-                            </div>
-                            <div className={styles.oeuvreContainer}>
-                                <div className={styles.imgContainer}>
-                                    <Image
-                                        src={"/assets/img/oeuvres/oeuvre1.jpg"}
-                                        alt={"Photo de l'oeuvre de l'artiste Levalet"}
-                                        width={500}
-                                        height={500}
-                                    />
-                                </div>
-                                <div className={styles.oeuvreInfo}>
-                                    <h4>Titre de l&apos;oeuvre</h4>
-                                </div>
-                            </div>
-                            <div className={styles.oeuvreContainer}>
-                                <div className={styles.imgContainer}>
-                                    <Image
-                                        src={"/assets/img/oeuvres/oeuvre1.jpg"}
-                                        alt={"Photo de l'oeuvre de l'artiste Levalet"}
-                                        width={500}
-                                        height={500}
-                                    />
-                                </div>
-                                <div className={styles.oeuvreInfo}>
-                                    <h4>Titre de l&apos;oeuvre</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={styles.moreOeuvres}>
-                            <button>
-                                Voir plus...
-                            </button>
-                        </div>
-                    </div>
-                    <div className={styles.artistContainer}>
-                        <div className={styles.head}>
-                            <div className={styles.imgContainer}>
-                                <Image
-                                    src={"/assets/img/artistes/levalet.jpg"}
-                                    alt={"Photo de l'artiste Levalet"}
-                                    width={1300}
-                                    height={1300}
-                                />
-                                <div className={styles.nationality}>
-                                    <Image src={"/assets/img/drapeau_france.png"} alt={"Drapeau France"} width={500}
-                                           height={500}/>
-                                </div>
-                            </div>
-                            <div className={styles.infoContainer}>
-                                <h3>Levalet</h3>
-                                <button>
-                                    Voir le profil
-                                </button>
-                            </div>
-                        </div>
-                        <div className={styles.oeuvres}>
-                            <div className={styles.oeuvreContainer}>
-                                <div className={styles.imgContainer}>
-                                    <Image
-                                        src={"/assets/img/oeuvres/oeuvre1.jpg"}
-                                        alt={"Photo de l'oeuvre de l'artiste Levalet"}
-                                        width={500}
-                                        height={500}
-                                    />
-                                </div>
-                                <div className={styles.oeuvreInfo}>
-                                    <h4>Titre de l&apos;oeuvre</h4>
-                                </div>
-                            </div>
-                            <div className={styles.oeuvreContainer}>
-                                <div className={styles.imgContainer}>
-                                    <Image
-                                        src={"/assets/img/oeuvres/oeuvre1.jpg"}
-                                        alt={"Photo de l'oeuvre de l'artiste Levalet"}
-                                        width={500}
-                                        height={500}
-                                    />
-                                </div>
-                                <div className={styles.oeuvreInfo}>
-                                    <h4>Titre de l&apos;oeuvre</h4>
-                                </div>
-                            </div>
-                            <div className={styles.oeuvreContainer}>
-                                <div className={styles.imgContainer}>
-                                    <Image
-                                        src={"/assets/img/oeuvres/oeuvre1.jpg"}
-                                        alt={"Photo de l'oeuvre de l'artiste Levalet"}
-                                        width={500}
-                                        height={500}
-                                    />
-                                </div>
-                                <div className={styles.oeuvreInfo}>
-                                    <h4>Titre de l&apos;oeuvre</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={styles.moreOeuvres}>
-                            <button>
-                                Voir plus...
-                            </button>
-                        </div>
-                    </div>
-                    <div className={styles.artistContainer}>
-                        <div className={styles.head}>
-                            <div className={styles.imgContainer}>
-                                <Image
-                                    src={"/assets/img/artistes/levalet.jpg"}
-                                    alt={"Photo de l'artiste Levalet"}
-                                    width={1300}
-                                    height={1300}
-                                />
-                                <div className={styles.nationality}>
-                                    <Image src={"/assets/img/drapeau_france.png"} alt={"Drapeau France"} width={500}
-                                           height={500}/>
-                                </div>
-                            </div>
-                            <div className={styles.infoContainer}>
-                                <h3>Levalet</h3>
-                                <button>
-                                    Voir le profil
-                                </button>
-                            </div>
-                        </div>
-                        <div className={styles.oeuvres}>
-                            <div className={styles.oeuvreContainer}>
-                                <div className={styles.imgContainer}>
-                                    <Image
-                                        src={"/assets/img/oeuvres/oeuvre1.jpg"}
-                                        alt={"Photo de l'oeuvre de l'artiste Levalet"}
-                                        width={500}
-                                        height={500}
-                                    />
-                                </div>
-                                <div className={styles.oeuvreInfo}>
-                                    <h4>Titre de l&apos;oeuvre</h4>
-                                </div>
-                            </div>
-                            <div className={styles.oeuvreContainer}>
-                                <div className={styles.imgContainer}>
-                                    <Image
-                                        src={"/assets/img/oeuvres/oeuvre1.jpg"}
-                                        alt={"Photo de l'oeuvre de l'artiste Levalet"}
-                                        width={500}
-                                        height={500}
-                                    />
-                                </div>
-                                <div className={styles.oeuvreInfo}>
-                                    <h4>Titre de l&apos;oeuvre</h4>
-                                </div>
-                            </div>
-                            <div className={styles.oeuvreContainer}>
-                                <div className={styles.imgContainer}>
-                                    <Image
-                                        src={"/assets/img/oeuvres/oeuvre1.jpg"}
-                                        alt={"Photo de l'oeuvre de l'artiste Levalet"}
-                                        width={500}
-                                        height={500}
-                                    />
-                                </div>
-                                <div className={styles.oeuvreInfo}>
-                                    <h4>Titre de l&apos;oeuvre</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={styles.moreOeuvres}>
-                            <button>
-                                Voir plus...
-                            </button>
-                        </div>
-                    </div>
-                    <div className={styles.loadMore}>
-                        <button>
-                            <FaPlus/>
-                        </button>
-                    </div>
+                    {
+                        artists.map((artist, index) => {
+                            return <ArtistListCard key={index} artist={artist} countries={countries}/>
+                        })
+                    }
+                    {/*<div className={styles.loadMore}>*/}
+                    {/*    <button>*/}
+                    {/*        <FaPlus/>*/}
+                    {/*    </button>*/}
+                    {/*</div>*/}
                 </div>
             </div>
         </div>
