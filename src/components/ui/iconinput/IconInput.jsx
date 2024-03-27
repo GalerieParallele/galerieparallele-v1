@@ -5,18 +5,16 @@ import styles from './IconInput.module.css';
 import Swal from "sweetalert2";
 import {FaEye, FaEyeSlash} from "react-icons/fa";
 
+export const handleOpenModalInformationRequired = async () => {
+    await Swal.fire(
+        'Champ requis',
+        'Ce champ est requis pour continuer',
+        'info'
+    )
+}
 function IconInput({IconComponent, label, type, required, ...inputProps}) {
     const [showPassword, setShowPassword] = useState(false);
 
-    const handleOpenModalInformationRequired = async () => {
-        await Swal.fire(
-            'Champ requis',
-            'Ce champ est requis pour continuer',
-            'info'
-        )
-    }
-
-    // Fonction pour gérer le rendu en fonction du type
     const renderInput = () => {
         switch(type) {
             case 'textarea':
@@ -40,7 +38,7 @@ function IconInput({IconComponent, label, type, required, ...inputProps}) {
                             <button
                                 type={'button'}
                                 onClick={() => setShowPassword(!showPassword)}
-                                className={styles.showPassword}>
+                                >
                                 {showPassword ? <FaEyeSlash/> : <FaEye/>}
                             </button>
                         </div>
