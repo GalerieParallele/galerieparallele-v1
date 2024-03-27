@@ -204,7 +204,7 @@ enum OrientationType {
 
 model Oeuvre {
   id   Int    @id @default(autoincrement()) // ID Unique de l'oeuvre
-  name String // Nom de l'oeuvre
+  name String @unique
 
   description String? @db.Text // Description de l'oeuvre
   anecdote    String? @db.Text // Anecdote de l'oeuvre
@@ -238,19 +238,18 @@ model Oeuvre {
 }
 
 model Couleur {
-  id      Int             @id @default(autoincrement())
+  hexa    String          @id @unique
   name    String          @unique
-  hexa    String          @unique
   oeuvres OeuvreCouleur[]
 }
 
 model OeuvreCouleur {
-  oeuvreId  Int
-  couleurId Int
-  oeuvre    Oeuvre  @relation(fields: [oeuvreId], references: [id], onDelete: Cascade)
-  couleur   Couleur @relation(fields: [couleurId], references: [id], onDelete: Cascade)
+  oeuvreId Int
+  hexa     String
+  oeuvre   Oeuvre  @relation(fields: [oeuvreId], references: [id], onDelete: Cascade)
+  couleur  Couleur @relation(fields: [hexa], references: [hexa], onDelete: Cascade)
 
-  @@id([oeuvreId, couleurId])
+  @@id([oeuvreId, hexa])
 }
 
 model OeuvreImage {
