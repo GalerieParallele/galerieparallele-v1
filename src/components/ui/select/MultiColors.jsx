@@ -82,6 +82,15 @@ const colorStyles = {
 export default function MultiColors({onChange}) {
 
     const [values, setValues] = useState([]);
+    const [selectedColors, setSelectedColors] = useState([]);
+
+    const handleChange = (selectedOptions) => {
+        // Transformer le tableau d'options sélectionnées en un tableau de valeurs
+        const values = selectedOptions.map(option => option.value);
+        onChange(values); // Envoyer ce nouveau tableau au parent
+        setSelectedColors(selectedOptions); // Mettre à jour l'état local avec les options sélectionnées
+    };
+
     return (
         <div className={sectionStyles.main}>
             <div className={sectionStyles.specialSectionHead}>
@@ -95,11 +104,8 @@ export default function MultiColors({onChange}) {
                 isMulti
                 options={colors}
                 styles={colorStyles}
-                onChange={(value) => {
-                    onChange({name: 'oeuvre.couleurs', value});
-                    setValues(value);
-                }}
-                value={values}
+                onChange={handleChange}
+                value={selectedColors}
             />
         </div>
     );

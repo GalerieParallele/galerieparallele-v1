@@ -34,45 +34,12 @@ export async function POST(req) {
             where: {
                 id
             },
-            select: {
-                id: true,
-                pseudo: true,
-                bio: true,
-                instagram: true,
-                facebook: true,
-                linkedin: true,
-                website: true,
-                saveTheDate: {
-                    select: {
-                        title: true,
-                        content: true,
-                        date: true,
-                        photoURL: true,
-                    }
-                },
-                user: {
-                    select: {
-                        id: true,
-                        email: true,
-                        avatarURL: true,
-                        firstname: true,
-                        lastname: true,
-                        street: true,
-                        city: true,
-                        postalCode: true,
-                        phone: true,
-                        roles: true,
-                    }
-                },
-                tag: {
-                    select: {
-                        tag: {
-                            select: {
-                                name: true,
-                            }
-                        }
-                    }
-                },
+            include: {
+                oeuvre: true,
+                tag: true,
+                saveTheDate: true,
+                exposition: true,
+                portrait: true
             }
         })
 

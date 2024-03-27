@@ -70,8 +70,8 @@ const hauteur = z
         required_error: "La hauteur de l'oeuvre est requise",
         invalid_type_error: "La hauteur de l'oeuvre doit être un nombre",
     })
-    .min(0, {
-        message: "La hauteur de l'oeuvre doit être supérieure ou égale à 0",
+    .min(1, {
+        message: "La hauteur de l'oeuvre doit être supérieure à 1",
     })
 
 const longueur = z
@@ -79,8 +79,8 @@ const longueur = z
         required_error: "La longueur de l'oeuvre est requise",
         invalid_type_error: "La longueur de l'oeuvre doit être un nombre",
     })
-    .min(0, {
-        message: "La longueur de l'oeuvre doit être supérieure ou égale à 0",
+    .min(1, {
+        message: "La longueur de l'oeuvre doit être supérieure à 1",
     })
 
 const largeur = z
@@ -88,8 +88,8 @@ const largeur = z
         required_error: "La largeur de l'oeuvre est requise",
         invalid_type_error: "La largeur de l'oeuvre doit être un nombre",
     })
-    .min(0, {
-        message: "La largeur de l'oeuvre doit être supérieure ou égale à 0",
+    .min(1, {
+        message: "La largeur de l'oeuvre doit être supérieure à 1",
     })
     .nullable()
     .optional();
@@ -177,9 +177,18 @@ const prix = z
         required_error: "Le prix de l'oeuvre est requis",
         invalid_type_error: "Le prix de l'oeuvre doit être un nombre",
     })
-    .min(0, {
-        message: "Le prix de l'oeuvre doit être supérieur ou égal à 0",
+    .min(1, {
+        message: "Le prix de l'oeuvre doit être supérieur à 0",
     });
+
+const orientation = z
+    .enum(
+        ["PORTRAIT", "PAYSAGE", "CARRE"],
+        {
+            required_error: "L'orientation de l'oeuvre est requise",
+            invalid_type_error: "L'orientation de l'oeuvre doit être soit PORTRAIT, PAYSAGE ou CARRE",
+        }
+    )
 
 export const OeuvreSchema = z.object({
     id,
@@ -196,6 +205,7 @@ export const OeuvreSchema = z.object({
     encadrement,
     signature,
     prix,
+    orientation,
     couleurs: z.array(z.number()).optional(),
     Artists: z.array(z.number()).optional(),
     UnknowArtistOeuvre: z.array(z.string()).optional(),
@@ -253,8 +263,17 @@ const OeuvreResponseSchema = z.object({
 export async function POST(req) {
 
     try {
-        const requestBody = JSON.parse(await req.text());
-        let {Artists, UnknowArtistOeuvre, couleurs, tag, type, images, ...oeuvreData} = requestBody;
+
+        let {
+            Artists,
+            UnknowArtistOeuvre,
+            couleurs,
+            tag,
+            type,
+            images,
+            ...oeuvreData
+        } = OeuvreSchema.omit({id: true}).parse(JSON.parse(await req.text()));
+
 
         try {
             parseFloat(oeuvreData.prix);
@@ -280,7 +299,7 @@ export async function POST(req) {
 
             } catch (error) {
                 console.log(error);
-                throw new Error("Une erreur est survenue lors de la création de l'oeuvre");
+                throw new Error(error.message);
             }
 
             if (Artists && Artists.length > 0) {
