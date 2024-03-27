@@ -1,3 +1,23 @@
+.specialSection {
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  border-radius: var(--border-radius);
+
+  padding: 15px;
+
+  background-color: var(--white);
+  box-shadow: var(--shadow);
+
+  .specialSectionHead {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+  }
+}
+
 .section {
   height: fit-content;
   display: flex;
@@ -24,10 +44,11 @@
     h3 {
       text-align: left;
     }
-    p{
+
+    p {
       margin-top: 5px;
-        font-size: 0.9rem;
-        color: var(--red);
+      font-size: 0.9rem;
+      color: var(--red);
     }
   }
 
@@ -43,25 +64,6 @@
     }
 
     .specialSection {
-
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-
-      border-radius: var(--border-radius);
-
-      padding: 15px;
-
-      background-color: var(--white);
-      box-shadow: var(--shadow);
-
-      .specialSectionHead {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 10px;
-      }
 
       .imgOeuvreContainer {
         display: flex;
