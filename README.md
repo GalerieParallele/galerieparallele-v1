@@ -20,8 +20,12 @@ npm run dev
 
 ```dotenv
 ENV="production"
-JWT="jwt"
-BREVO_API_KEY="brevo_key"
-POSTGRES_PASSWORD="password"
-DATABASE_URL=postgres://user:password@localhost:5432/gp_database
+JWT="JWT_TOKEN"
+BREVO_API_KEY=BREVO_API_KEY
+
+DATABASE_URL=postgres://user:PASSWORD@localhost:5432/gp_database
+
+POSTGRES_PASSWORD=PASSWORD
+POSTGRES_USER=user
+POSTGRES_DB=gp_database
 ```
