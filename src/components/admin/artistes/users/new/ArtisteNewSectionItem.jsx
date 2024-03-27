@@ -15,8 +15,8 @@ export default function ArtisteNewSectionItem({sectionName, description, require
     const handleOpenModalRequired = () => {
         Swal.fire({
             icon: 'info',
-            title: "Section requise avant de compléter",
-            text: "Veillez à remplir tous les champs requis dans cette section avant d'enregistrer l'artiste",
+            title: "Section à champ(s) requis",
+            text: "Veillez à bien remplir tous les champs requis dans cette section avant de continuer.",
         })
     }
 
