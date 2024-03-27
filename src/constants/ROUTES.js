@@ -102,6 +102,9 @@ const PATHS = {
         },
         USERS: {
             HOME: 'users',
+        },
+        COULEURS: {
+            HOME: 'couleurs',
         }
     }
 }
@@ -200,6 +203,9 @@ const ROUTES = {
         },
         USERS: {
             HOME: API_BASE + PATHS.API.USERS.HOME,
+        },
+        COULEURS: {
+            HOME: API_BASE + PATHS.API.COULEURS.HOME,
         }
     }
 }
