@@ -9,6 +9,7 @@
     align-items: center;
     gap: 25px;
     color: var(--black);
+    z-index: 100;
 }
 
 .imageContainer {
