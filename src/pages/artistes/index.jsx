@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SliderRange from "@/components/ui/SliderRange";
 import ArtistListCard from "@/components/artist/list/ArtistListCard";
+import ArtisteCard from "@/components/home/artistes/ArtisteCard";
 
 export default function ArtistesHomeIndex() {
 
@@ -98,6 +99,11 @@ export default function ArtistesHomeIndex() {
                 </div>
             </div>
             <div className={styles.allOfFameContainer}>
+                {
+                    artists.map((artist, index) => {
+                        return <ArtisteCard artist={artist} key={index}/>
+                    })
+                }
             </div>
             <div className={styles.list}>
                 <div className={styles.left}>
