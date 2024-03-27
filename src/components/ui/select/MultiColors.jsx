@@ -81,14 +81,12 @@ const colorStyles = {
 
 export default function MultiColors({onChange}) {
 
-    const [values, setValues] = useState([]);
     const [selectedColors, setSelectedColors] = useState([]);
 
     const handleChange = (selectedOptions) => {
-        // Transformer le tableau d'options sélectionnées en un tableau de valeurs
         const values = selectedOptions.map(option => option.value);
-        onChange(values); // Envoyer ce nouveau tableau au parent
-        setSelectedColors(selectedOptions); // Mettre à jour l'état local avec les options sélectionnées
+        onChange(values);
+        setSelectedColors(selectedOptions);
     };
 
     return (
@@ -103,6 +101,7 @@ export default function MultiColors({onChange}) {
                 defaultValue={[]}
                 isMulti
                 options={colors}
+                noOptionsMessage={() => "Aucune couleur trouvée"}
                 styles={colorStyles}
                 onChange={handleChange}
                 value={selectedColors}
