@@ -13,7 +13,7 @@ import DashboardNavbar from "@/components/dashboard/items/DashboardNavbar";
 import PageLoader from "@/components/ui/PageLoader";
 import Error from "@/components/error/Error";
 import ArtisteNewSectionItem from "@/components/admin/artistes/users/new/ArtisteNewSectionItem";
-import IconInput from "@/components/ui/iconinput/IconInput";
+import IconInput, {handleOpenModalInformationRequired} from "@/components/ui/iconinput/IconInput";
 import Button from "@/components/ui/button/Button";
 import Editor from "@/components/ui/Editor";
 
@@ -43,8 +43,9 @@ import {useArtists} from "@/hooks/useArtists";
 import {TbNavigationNorth} from "react-icons/tb";
 import Select from "react-select";
 import {CiCircleList} from "react-icons/ci";
-import {Toast} from "@/constants/ToastConfig";
 import LittleSpinner from "@/components/ui/LittleSpinner";
+import StorageUtils from "@/utils/StorageUtils";
+import {Toast} from "@/constants/ToastConfig";
 
 export const useOeuvreStore = create((set) => ({
     oeuvre: {
@@ -52,8 +53,8 @@ export const useOeuvreStore = create((set) => ({
         description: '',
         anecdote: '',
         prix: 0,
-        numerotation: 0,
-        limitation: 0,
+        numerotation: 1,
+        limitation: 1,
         support: '',
         technique: '',
         encadrement: '',
@@ -92,16 +93,48 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
 
     const fileInputRef = useRef(null);
 
-    const handleFormat = () => {
+    const handleGetImageLink = async (file) => {
+
+        const {
+            downloadURL,
+            success
+        } = await StorageUtils.uploadFile(file, 'artistes/' + artisteId + '/oeuvres/' + oeuvre.name + "/" + file.name, null);
+
+        if (!success) {
+            throw new Error(`Une erreur est survenue lors de l'upload de l'image ${file.name}. Si le problème persiste, veuillez contacter l'administrateur.`);
+        }
+
+        console.log(downloadURL);
+
+        return downloadURL;
+
+    }
+
+    const handleFormat = async () => {
 
         const copyOeuvre = {...oeuvre};
 
-        copyOeuvre.images = selectedFiles.map(file => {
-            return {
-                url: "https://fakeurl.fr",
-                position: selectedFiles.indexOf(file),
-            }
-        });
+        console.log(copyOeuvre);
+
+        await Promise.all(
+            selectedFiles.map(async (file) => {
+                try {
+                    const url = await handleGetImageLink(file);
+                    if (url) {
+                        copyOeuvre.images.push({
+                            url: url,
+                            position: selectedFiles.indexOf(file) + 1,
+                        });
+                    }
+                } catch (error) {
+                    Toast.fire({
+                        icon: 'error',
+                        title: "Une erreur est survenue lors de l'upload de l'image " + file.name + ". Si le problème persiste, veuillez contacter l'administrateur."
+                    });
+                }
+            })
+        );
+
 
         copyOeuvre.Artists = oeuvre.Artists.map(artist => artist.value);
         copyOeuvre.UnknowArtistOeuvre = oeuvre.UnknowArtistOeuvre.map(artist => artist.value);
@@ -113,7 +146,7 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
     }
 
     /**
-     * Permet de soumettre le formulaire d'ajout d'une oeuvre
+     * Permet de soumettre le formulaire d'ajout d'une œuvre
      * @param e
      * @returns {Promise<void>}
      */
@@ -128,7 +161,9 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
             title: 'Création de l\'oeuvre en cours...'
         });
 
-        const data = handleFormat();
+        const data = await handleFormat();
+
+        console.log(data);
 
         try {
 
@@ -143,17 +178,28 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
             const responseJSON = await response.json();
 
             if (response.status !== 201) {
+
+                await StorageUtils.listFiles('artistes/' + artisteId + '/oeuvres/' + oeuvre.name).then(async files => {
+                    for (const file of files) {
+                        await StorageUtils.deleteFile('artistes/' + artisteId + '/oeuvres/' + oeuvre.name + "/" + file.name);
+                    }
+                });
+
                 Toast.fire({
                     icon: 'error',
                     title: responseJSON.message || "Une erreur est survenue lors de la création de l'oeuvre. Si le problème persiste, veuillez contacter l'administrateur."
                 });
+
                 return false;
+
             }
 
             Toast.fire({
                 icon: 'success',
                 title: 'L\'oeuvre a bien été créée'
             });
+
+            router.push(ROUTES.ADMIN.ARTISTES.HOME);
 
         } catch (error) {
 
@@ -268,9 +314,7 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                                     <span>
                                         <MdOutlineDescription/>
                                     </span>
-
                             <p>Description</p>
-
                         </div>
                         <Editor
                             onEditorChange={(content) => updateField('description', content)
@@ -317,6 +361,7 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         name={"numerotation"}
                         value={oeuvre.numerotation}
                         disabled={loading}
+                        required
                     />
                     <IconInput
                         label={"Limitation"}
@@ -329,6 +374,7 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         name={"limitation"}
                         value={oeuvre.limitation}
                         disabled={loading}
+                        required
                     />
                     <IconInput
                         label={"Support"}
@@ -350,6 +396,7 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         name={"technique"}
                         value={oeuvre.technique}
                         disabled={loading}
+                        required
                     />
                     <IconInput
                         label={"Encadrement"}
@@ -360,7 +407,6 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         name={"encadrement"}
                         value={oeuvre.encadrement}
                         disabled={loading}
-                        required
                     />
                     <IconInput
                         label={"Signature"}
@@ -371,7 +417,6 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         name={"signature"}
                         value={oeuvre.signature}
                         disabled={loading}
-                        required
                     />
                 </ArtisteNewSectionItem>
                 <ArtisteNewSectionItem
@@ -438,7 +483,9 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                 <ArtisteNewSectionItem
                     sectionName={"Couleur(s)"}
                 >
-                    <MultiColors onChange={(e) => updateField('couleurs', e)}/>
+                    <MultiColors onChange={(e) => {
+                        updateField('couleurs', e)
+                    }}/>
                 </ArtisteNewSectionItem>
                 <ArtisteNewSectionItem
                     sectionName={"Artistes"}
@@ -452,10 +499,11 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                                 <p>Artiste(s) connu(s)</p>
                             </div>
                         </div>
-                        <CreatableSelect
+                        <Select
                             placeholder={"Sélectionner un ou plusieurs artistes connus"}
                             closeMenuOnSelect={false}
                             defaultValue={[]}
+                            noOptionsMessage={() => "Aucun artiste trouvé"}
                             isMulti
                             isLoading={artistLoading}
                             options={
@@ -542,15 +590,22 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                                     <span>
                                         <TbNavigationNorth/>
                                     </span>
-                            <div>
-                                <p>Orientation</p>
-                            </div>
+                            <p>
+                                Orientation
+                                <span onClick={handleOpenModalInformationRequired} style={{
+                                    color: 'var(--red)',
+                                    marginLeft: '5px'
+                                }}>
+                                       *
+                            </span>
+                            </p>
                         </div>
                         <Select
                             placeholder={"Sélectionner une orientation"}
                             closeMenuOnSelect={true}
                             defaultValue={[]}
                             isMulti={false}
+                            noOptionsMessage={() => "Aucune orientation trouvée"}
                             options={[
                                 {value: 'PORTRAIT', label: 'Portrait'},
                                 {value: 'PAYSAGE', label: 'Paysage'},
