@@ -41,6 +41,9 @@ import {CiCircleList} from "react-icons/ci";
 import styles from './Index.module.scss';
 import sectionStyles from '@/components/dashboard/items/sections/DashboardSectionItem.module.scss';
 import {Toast} from "@/constants/ToastConfig";
+import {TbNavigationNorth} from "react-icons/tb";
+import MultiColors from "@/components/ui/select/MultiColors";
+import Select from "react-select";
 
 const initialState = {
     oeuvre: {
@@ -50,6 +53,7 @@ const initialState = {
         hauteur: undefined,
         longueur: undefined,
         profondeur: undefined,
+        orientation: undefined,
         prix: undefined,
         numerotation: undefined,
         limitation: undefined,
@@ -62,20 +66,23 @@ const initialState = {
         tag: undefined,
         type: undefined,
         images: undefined,
+        couleurs: undefined,
     }
 };
 
 function reducer(state, action) {
     switch (action.type) {
         case 'UPDATE_FORM':
-            const [field, nestedField] = action.payload.field.split('.');
-            return {
-                ...state,
-                [field]: {
-                    ...state[field],
-                    [nestedField]: action.payload.value,
-                },
-            };
+            const keys = action.payload.field.split('.');
+            return keys.reduce((acc, key, index) => {
+                if (index === keys.length - 1) {
+                    return {
+                        ...acc,
+                        [key]: action.payload.value,
+                    };
+                }
+                return acc[key] ? acc[key] : {};
+            }, state);
         default:
             throw new Error("Action inconnue");
     }
@@ -157,10 +164,10 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
 
     /**
      * Permet de mettre à jour le state du formulaire
-     * @param e
+     * @param argument
      */
-    const handleChange = (e) => {
-        const {name, value} = e.target;
+    const handleChange = (argument) => {
+        const {name, value} = argument.target ? argument : argument;
         dispatch({
             type: 'UPDATE_FORM',
             payload: {field: name, value},
@@ -334,7 +341,6 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         name={"oeuvre.numerotation"}
                         value={state.oeuvre.numerotation}
                         disabled={loading}
-                        required
                     />
                     <IconInput
                         label={"Limitation"}
@@ -347,7 +353,6 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         name={"oeuvre.limitation"}
                         value={state.oeuvre.limitation}
                         disabled={loading}
-                        required
                     />
                     <IconInput
                         label={"Support"}
@@ -369,7 +374,6 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         name={"oeuvre.technique"}
                         value={state.oeuvre.technique}
                         disabled={loading}
-                        required
                     />
                     <IconInput
                         label={"Encadrement"}
@@ -454,6 +458,11 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                             ))}
                         </div>
                     </div>
+                </ArtisteNewSectionItem>
+                <ArtisteNewSectionItem
+                    sectionName={"Couleur(s)"}
+                >
+                    <MultiColors onChange={handleChange}/>
                 </ArtisteNewSectionItem>
                 <ArtisteNewSectionItem
                     sectionName={"Artistes"}
@@ -562,6 +571,34 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         value={state.oeuvre.profondeur}
                         disabled={loading}
                     />
+                    <div className={sectionStyles.specialSection}>
+                        <div className={sectionStyles.specialSectionHead}>
+                                    <span>
+                                        <TbNavigationNorth/>
+                                    </span>
+                            <div>
+                                <p>Orientation</p>
+                            </div>
+                        </div>
+                        <Select
+                            placeholder={"Sélectionner une orientation"}
+                            closeMenuOnSelect={true}
+                            defaultValue={[]}
+                            isMulti={false}
+                            options={[
+                                {value: 'PORTRAIT', label: 'Portrait'},
+                                {value: 'PAYSAGE', label: 'Paysage'},
+                                {value: 'CARRE', label: 'Carré'},
+                            ]}
+                            onChange={(value) => {
+                                dispatch({
+                                    type: 'UPDATE_FORM',
+                                    payload: {field: 'oeuvre.orientation', value},
+                                });
+                            }}
+                            value={state.oeuvre.orientation}
+                        />
+                    </div>
                 </ArtisteNewSectionItem>
                 <ArtisteNewSectionItem
                     sectionName={"Autres"}

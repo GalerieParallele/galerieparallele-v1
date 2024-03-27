@@ -196,6 +196,7 @@ export const OeuvreSchema = z.object({
     encadrement,
     signature,
     prix,
+    couleurs: z.array(z.number()).optional(),
     Artists: z.array(z.number()).optional(),
     UnknowArtistOeuvre: z.array(z.string()).optional(),
     tag: z.array(z.string()).optional().transform((value) => value ? value.map((tag) => tag.toUpperCase()) : value),
@@ -253,7 +254,7 @@ export async function POST(req) {
 
     try {
         const requestBody = JSON.parse(await req.text());
-        let {Artists, UnknowArtistOeuvre, tag, type, images, ...oeuvreData} = requestBody;
+        let {Artists, UnknowArtistOeuvre, couleurs, tag, type, images, ...oeuvreData} = requestBody;
 
         try {
             parseFloat(oeuvreData.prix);
@@ -354,6 +355,21 @@ export async function POST(req) {
                         });
                     } catch (error) {
                         throw new Error("Une erreur est survenue lors de la tentative d'ajout d'un tag à l'oeuvre");
+                    }
+                }));
+            }
+
+            if (couleurs && couleurs.length > 0) {
+                await Promise.all(couleurs.map(async (colorId) => {
+                    try {
+                        await tx.oeuvreCouleur.create({
+                            data: {
+                                couleurId: colorId,
+                                oeuvreId: createdOeuvre.id,
+                            },
+                        });
+                    } catch (error) {
+                        throw new Error("Une erreur est survenue lors de la tentative d'ajout d'une couleur à l'oeuvre");
                     }
                 }));
             }
