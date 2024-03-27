@@ -166,7 +166,7 @@ export default function Navbar() {
                             </Link>
                             <Link
                                 onClick={handleCloseSideMenu}
-                                href={"#"}
+                                href={ROUTES.OEUVRES.HOME}
                             >
                                 Oeuvres
                             </Link>
