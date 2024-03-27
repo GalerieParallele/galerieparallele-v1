@@ -42,9 +42,6 @@ const description = z
         required_error: "La description de l'oeuvre est requise",
         invalid_type_error: "La description de l'oeuvre doit être une chaîne de caractères",
     })
-    .min(1, {
-        message: "La description de l'oeuvre doit contenir au moins 1 caractère",
-    })
     .max(65535, {
         message: "La description de l'oeuvre doit contenir au plus 65535 caractères",
     })
@@ -55,9 +52,6 @@ const anecdote = z
     .string({
         required_error: "L'anecdote de l'oeuvre est requise",
         invalid_type_error: "L'anecdote de l'oeuvre doit être une chaîne de caractères",
-    })
-    .min(1, {
-        message: "L'anecdote de l'oeuvre doit contenir au moins 1 caractère",
     })
     .max(65535, {
         message: "L'anecdote de l'oeuvre doit contenir au plus 65535 caractères",
@@ -149,9 +143,6 @@ const encadrement = z
         required_error: "L'encadrement de l'oeuvre est requis",
         invalid_type_error: "L'encadrement de l'oeuvre doit être une chaîne de caractères",
     })
-    .min(1, {
-        message: "L'encadrement de l'oeuvre doit contenir au moins 1 caractère",
-    })
     .max(255, {
         message: "L'encadrement de l'oeuvre doit contenir au plus 255 caractères",
     })
@@ -162,9 +153,6 @@ const signature = z
     .string({
         required_error: "La signature de l'oeuvre est requise",
         invalid_type_error: "La signature de l'oeuvre doit être une chaîne de caractères",
-    })
-    .min(1, {
-        message: "La signature de l'oeuvre doit contenir au moins 1 caractère",
     })
     .max(255, {
         message: "La signature de l'oeuvre doit contenir au plus 255 caractères",
@@ -206,7 +194,7 @@ export const OeuvreSchema = z.object({
     signature,
     prix,
     orientation,
-    couleurs: z.array(z.number()).optional(),
+    couleurs: z.array(z.string()).optional(),
     Artists: z.array(z.number()).optional(),
     UnknowArtistOeuvre: z.array(z.string()).optional(),
     tag: z.array(z.string()).optional().transform((value) => value ? value.map((tag) => tag.toUpperCase()) : value),
@@ -379,11 +367,11 @@ export async function POST(req) {
             }
 
             if (couleurs && couleurs.length > 0) {
-                await Promise.all(couleurs.map(async (colorId) => {
+                await Promise.all(couleurs.map(async (hexa) => {
                     try {
                         await tx.oeuvreCouleur.create({
                             data: {
-                                couleurId: colorId,
+                                hexa: hexa,
                                 oeuvreId: createdOeuvre.id,
                             },
                         });
