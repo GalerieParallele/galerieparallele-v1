@@ -1,74 +1,161 @@
 .main {
-  .content {
-    padding: 50px;
+  height: 100vh;
+  width: 100vw;
 
-    .left {
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  .content {
+    padding: 50px 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+
+    .allOfFameContainer {
+      background-color: var(--black);
 
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      flex-direction: column;
-      gap: 40px;
+      align-items: center;
 
-      .filter {
+      gap: 25px;
+
+      padding: 25px 0;
+    }
+
+    .list {
+      display: flex;
+
+      .left {
+
+        width: 450px;
+        padding: 0 50px;
 
         display: flex;
-        justify-content: center;
-        align-items: center;
         flex-direction: column;
-        gap: 10px;
+        gap: 20px;
 
-        width: 250px;
+        .tagsContainer {
 
-        background-color: var(--white);
+          width: 100%;
 
-        border-radius: var(--border-radius);
+          padding: 25px 40px;
 
-        box-shadow: var(--shadow);
+          background-color: var(--white);
 
-        padding: 40px 20px;
+          box-shadow: var(--shadow);
 
-        .separator {
-          width: 50%;
-          height: 3px;
           border-radius: var(--border-radius);
-          background-color: #000;
-        }
 
-        .filterRow {
           display: flex;
-          justify-content: flex-start;
-          align-items: center;
-          flex-direction: row;
-          gap: 10px;
+          flex-direction: column;
+          gap: 20px;
+
+          .tagsTitle {
+            font-size: 1.5rem;
+          }
+
+          .tagsList {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            flex-wrap: wrap;
+
+            .tagItem {
+              background-color: var(--white);
+              padding: 5px 10px;
+              box-shadow: var(--shadow);
+              border-radius: 20px;
+              font-size: 0.9rem;
+            }
+          }
         }
 
-        .tendancesSpace {
+        .filtresContainer {
 
-          margin-top: 15px;
+          width: 100%;
 
+          padding: 25px 40px;
+
+          background-color: var(--white);
+
+          box-shadow: var(--shadow);
+
+          border-radius: var(--border-radius);
+
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+
+          .filtresTitle {
+            font-size: 1.5rem;
+          }
+
+          label {
+            font-size: 1.05rem;
+          }
+
+          .filtresList {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+            .tagItem {
+              background-color: var(--white);
+              padding: 5px 10px;
+              box-shadow: var(--shadow);
+            }
+
+            .filtreRow {
+              display: flex;
+              gap: 5px;
+              align-items: center;
+
+              input {
+                width: 15px;
+                height: 15px;
+              }
+            }
+          }
+
+        }
+      }
+
+      .right {
+
+        .loadMore {
           display: flex;
           justify-content: center;
-          align-items: center;
-          flex-direction: row;
-          flex-wrap: wrap;
-          gap: 12px;
+          margin-top: 20px;
 
-          .tendanceItem {
-            background-color: var(--white);
+          button {
+            cursor: pointer;
 
-            border-radius: 25px;
+            transition: var(--transition);
 
-            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-            padding: 6px 15px;
+            border-radius: 50%;
+
+            border: 2px solid var(--black);
+
+            padding: 15px;
+
+            font-size: 1.2rem;
+
+            &:hover {
+              background-color: var(--black);
+              color: var(--white);
+              transform: rotate(360deg);
+            }
           }
         }
       }
-    }
-
-    .right {
-
     }
   }
 }
