@@ -39,7 +39,8 @@ export async function POST(req) {
                 tag: true,
                 saveTheDate: true,
                 exposition: true,
-                portrait: true
+                portrait: true,
+                user: true
             }
         })
 
