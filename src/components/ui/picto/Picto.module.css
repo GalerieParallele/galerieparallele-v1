@@ -5,6 +5,9 @@
     align-items: center;
     gap: 150px;
 
+    background-color: var(--white);
+    box-shadow: var(--shadow);
+
     .pictoContainer {
 
         padding: 40px 0;
