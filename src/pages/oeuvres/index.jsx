@@ -4,6 +4,8 @@ import styles from './Index.module.scss';
 import SliderRange from "@/components/ui/SliderRange";
 import ArtistListCard from "@/components/artist/list/ArtistListCard";
 import {useState} from "react";
+import Picto from "@/components/ui/picto/Picto";
+import Footer from "@/components/ui/footer/Footer";
 
 export default function OeuvresIndex() {
 
@@ -155,6 +157,8 @@ export default function OeuvresIndex() {
                     </div>
                 </div>
             </div>
+            <Picto/>
+            <Footer/>
         </div>
     )
 

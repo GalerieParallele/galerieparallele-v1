@@ -9,6 +9,8 @@ import Link from "next/link";
 import SliderRange from "@/components/ui/SliderRange";
 import ArtistListCard from "@/components/artist/list/ArtistListCard";
 import ArtisteCard from "@/components/home/artistes/ArtisteCard";
+import Footer from "@/components/ui/footer/Footer";
+import Picto from "@/components/ui/picto/Picto";
 
 export default function ArtistesHomeIndex() {
 
@@ -203,5 +205,7 @@ export default function ArtistesHomeIndex() {
                 </div>
             </div>
         </div>
+        <Picto/>
+        <Footer/>
     </div>)
 }
