@@ -7,6 +7,7 @@ import {useEffect, useState} from "react";
 import Carousel from "@/components/ui/carousel/Carousel";
 import {FaFacebook, FaHeart, FaInstagram, FaRegHeart, FaWhatsapp} from "react-icons/fa";
 import Link from "next/link";
+import OeuvreTarif from "@/components/oeuvres/oeuvre-item/OeuvreTarif";
 
 export default function OeuvreHomePage() {
 
@@ -32,7 +33,6 @@ export default function OeuvreHomePage() {
 
     }, [router, router.query.id]);
 
-
     return (
         <div className={styles.main}>
             <Navbar/>
@@ -49,6 +49,13 @@ export default function OeuvreHomePage() {
                         <div className={styles.head}>
                             <h2>La joconde</h2>
                             <span><FaRegHeart className={styles.emptyHeart}/><FaHeart style={styles.fillHeart}/></span>
+                        </div>
+                        <div style={{
+                            width: "100%",
+                        }}>
+                            <OeuvreTarif
+                                prix={100}
+                            />
                         </div>
                         <div className={styles.shareContainer}>
                             <p>Partagez-moi</p>

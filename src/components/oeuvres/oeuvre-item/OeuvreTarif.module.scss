@@ -1,0 +1,121 @@
+.main {
+
+  padding: 15px;
+
+  border-radius: var(--border-radius);
+
+  background-color: var(--white);
+
+  box-shadow: var(--shadow);
+
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    position: relative;
+
+    p {
+      font-size: 18px;
+    }
+
+    svg {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+
+      font-size: 25px;
+
+      transition: var(--transition);
+    }
+
+    .clickMe {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      svg {
+        animation: shine 1s infinite alternate;
+      }
+    }
+
+    .open {
+      svg {
+        transform: rotate(90deg);
+      }
+    }
+
+    .close {
+      svg {
+        transform: rotate(0);
+      }
+    }
+  }
+
+  .content {
+
+    transition: var(--transition);
+
+    padding: 15px 0;
+
+    .bailArtContainer {
+      padding: 15px 0;
+      .bailArt {
+        color: var(--black);
+
+        padding: 5px 25px;
+
+        border: 2px solid var(--black);
+
+        position: relative;
+
+        background-color: transparent;
+
+        z-index: 1;
+
+        &:hover {
+          color: var(--white);
+
+          &::before {
+            width: 100%;
+          }
+        }
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 0;
+          height: 100%;
+          background-color: var(--black);
+          transition: width 1s;
+          z-index: -1;
+        }
+
+
+      }
+    }
+
+
+  }
+
+  div.close {
+    display: none;
+  }
+
+}
+
+@keyframes shine {
+  0% {
+    color: var(--light-gray);
+    transform: scale(1);
+  }
+  100% {
+    color: var(--black);
+    transform: scale(1.1);
+  }
+}
