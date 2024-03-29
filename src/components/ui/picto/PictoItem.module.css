@@ -23,7 +23,7 @@
 
     padding: 15px;
 
-    background: linear-gradient(5deg, rgba(0, 0, 0, 1) 0%, rgba(32, 32, 32, 1) 40%, rgba(44, 44, 44, 1) 64%, rgba(55, 55, 55, 1) 100%);
+    background: var(--gradient-black);
 
     color: var(--white);
 
