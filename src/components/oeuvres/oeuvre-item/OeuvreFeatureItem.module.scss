@@ -1,0 +1,37 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  transition: var(--transition);
+  span {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+
+    svg {
+      font-size: 25px;
+      transition: var(--transition);
+      color: var(--light-gray);
+    }
+  }
+
+  p {
+    margin-left: 30px;
+    font-size: 0.95rem;
+    color: var(--gray);
+
+  }
+
+  &:hover {
+
+    p {
+      color: var(--black);
+    }
+
+    span svg {
+      color: var(--gray);
+    }
+
+  }
+}

@@ -34,7 +34,7 @@
 
     .clickMe {
       position: absolute;
-      top: 10px;
+      top: 0;
       right: 0;
 
       svg {
@@ -57,15 +57,20 @@
 
   .content {
 
-    transition: all 0.5s ease-in-out;
+    transition: var(--transition);
 
-    padding: 15px 0;
+    padding: 25px 0;
 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     &.close {
       max-height: 0;
       opacity: 0;
       visibility: hidden;
+      padding: 0;
     }
 
     &.open {
@@ -74,19 +79,25 @@
       visibility: visible;
     }
 
-    .bailArtContainer {
+    .buyContainer {
       padding: 15px 0;
+
+      display: flex;
+      align-items: center;
+      gap: 10px;
 
       .bailArt {
         color: var(--black);
 
-        padding: 5px 25px;
+        padding: 5px 20px;
 
         border: 2px solid var(--black);
 
         position: relative;
 
         background-color: transparent;
+
+        border-radius: var(--border-radius);
 
         z-index: 1;
 

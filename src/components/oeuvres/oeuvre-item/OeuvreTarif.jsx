@@ -33,7 +33,13 @@ export default function OeuvreTarif({prix}) {
             </div>
             <div className={`${styles.content} ${open ? styles.open : styles.close}`}>
                 <p>Prix: {prix}€</p>
-                <div className={styles.bailArtContainer}>
+                <div className={styles.buyContainer}>
+                    <Link
+                        href={'#'}
+                        className={styles.bailArt}
+                    >
+                        Acheter
+                    </Link>
                     <Link
                         href={'#'}
                         className={styles.bailArt}

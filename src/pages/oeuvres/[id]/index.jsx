@@ -5,10 +5,25 @@ import Footer from "@/components/ui/footer/Footer";
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import Carousel from "@/components/ui/carousel/Carousel";
-import {FaFacebook, FaHeart, FaInstagram, FaRegHeart, FaWhatsapp} from "react-icons/fa";
+import {
+    FaChair,
+    FaFacebook,
+    FaHeart,
+    FaInstagram,
+    FaPaintBrush,
+    FaRegHeart,
+    FaSignature,
+    FaWhatsapp
+} from "react-icons/fa";
 import Link from "next/link";
 import OeuvreTarif from "@/components/oeuvres/oeuvre-item/OeuvreTarif";
 import Image from "next/image";
+import OeuvreFeatureItem from "@/components/oeuvres/oeuvre-item/OeuvreFeatureItem";
+import {MdHeight, MdOutlineFilterFrames} from "react-icons/md";
+import {RxWidth} from "react-icons/rx";
+import {LuMoveDiagonal} from "react-icons/lu";
+import {TbFileOrientation} from "react-icons/tb";
+import {AiOutlineFieldNumber} from "react-icons/ai";
 
 export default function OeuvreHomePage() {
 
@@ -38,7 +53,7 @@ export default function OeuvreHomePage() {
         <div className={styles.main}>
             <Navbar/>
             <div className={styles.content}>
-                <div className={styles.row}>
+                <div className={styles.headSection}>
                     <div className={styles.carouselContainer}>
                         <Carousel images={[
                             '/assets/img/no-img.jpg',
@@ -59,7 +74,7 @@ export default function OeuvreHomePage() {
                             />
                         </div>
                         <div className={styles.shareContainer}>
-                            <p>Partagez-moi</p>
+                            <p>Partagez-moi :</p>
                             <div>
                                 <Link href={"#"} target={"_blank"} className={styles.socialButton}><FaFacebook/></Link>
                                 <Link href={"#"} target={"_blank"} className={styles.socialButton}><FaInstagram/></Link>
@@ -68,27 +83,94 @@ export default function OeuvreHomePage() {
                         </div>
                     </div>
                 </div>
-                <div className={styles.artistContainer}>
-                    <div className={styles.left}>
-                        <div className={styles.imgContainer}>
-                            <Image src={'/assets/img/avatar.png'} alt={"Photo de l'artiste"} width={500} height={500}/>
-                            <div className={styles.flag}>
-                                <Image src={"/assets/img/drapeau_france.png"} alt={"Drapeau de la France"} width={50} height={50}/>
+                <div className={styles.featuresSection}>
+                    <div className={styles.featuresSectionContainer}>
+                        <OeuvreFeatureItem
+                            Icon={MdHeight}
+                            title={"Hauteur"}
+                            content={"153 cm"}
+                        />
+                        <OeuvreFeatureItem
+                            Icon={RxWidth}
+                            title={"Longueur"}
+                            content={"77 cm"}
+                        />
+                    </div>
+                    <div className={styles.featuresSectionContainer}>
+                        <OeuvreFeatureItem
+                            Icon={LuMoveDiagonal}
+                            title={"Profondeur"}
+                            content={"5 cm"}
+                        />
+                        <OeuvreFeatureItem
+                            Icon={TbFileOrientation}
+                            title={"Orientation"}
+                            content={"Portrait"}
+                        />
+                    </div>
+                    <div className={styles.featuresSectionContainer}>
+                        <OeuvreFeatureItem
+                            Icon={AiOutlineFieldNumber}
+                            title={"Numérotation"}
+                            content={"Oeuvre unique"}
+                        />
+                        <OeuvreFeatureItem
+                            Icon={AiOutlineFieldNumber}
+                            title={"Limitation"}
+                            content={"Oeuvre unique"}
+                        />
+                    </div>
+                    <div className={styles.featuresSectionContainer}>
+                        <OeuvreFeatureItem
+                            Icon={FaChair}
+                            title={"Support"}
+                            content={"Toile"}
+                        />
+                        <OeuvreFeatureItem
+                            Icon={FaPaintBrush}
+                            title={"Technique"}
+                            content={"Peinture à l'huile"}
+                        />
+                    </div>
+                    <div className={styles.featuresSectionContainer}>
+                        <OeuvreFeatureItem
+                            Icon={MdOutlineFilterFrames}
+                            title={"Encadrement"}
+                            content={"Cadre en bois"}
+                        />
+                        <OeuvreFeatureItem
+                            Icon={FaSignature}
+                            title={"Signature"}
+                            content={"En bas à droite"}
+                        />
+                    </div>
+                </div>
+                <div className={styles.artistSection}>
+                    <div className={styles.artistContainer}>
+                        <div className={styles.left}>
+                            <div className={styles.imgContainer}>
+                                <Image src={'/assets/img/avatar.png'} alt={"Photo de l'artiste"} width={500}
+                                       height={500}/>
+                                <div className={styles.flag}>
+                                    <Image src={"/assets/img/drapeau_france.png"} alt={"Drapeau de la France"}
+                                           width={50} height={50}/>
+                                </div>
+                            </div>
+                            <div>
+                                <h3>Leonard de Vinci</h3>
                             </div>
                         </div>
                         <div>
-                            <h3>Leonard de Vinci</h3>
-                        </div>
-                    </div>
-                    <div>
-                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-                            invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-                            et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-                            Lorem ipsum dolor sit amet...</p>
-                        <div className={styles.showMore}>
-                            <button>
-                                Voir plus
-                            </button>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+                                invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
+                                accusam
+                                et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
+                                Lorem ipsum dolor sit amet...</p>
+                            <div className={styles.showMore}>
+                                <button>
+                                    Voir plus
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
