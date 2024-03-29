@@ -8,6 +8,7 @@ import Carousel from "@/components/ui/carousel/Carousel";
 import {FaFacebook, FaHeart, FaInstagram, FaRegHeart, FaWhatsapp} from "react-icons/fa";
 import Link from "next/link";
 import OeuvreTarif from "@/components/oeuvres/oeuvre-item/OeuvreTarif";
+import Image from "next/image";
 
 export default function OeuvreHomePage() {
 
@@ -64,6 +65,30 @@ export default function OeuvreHomePage() {
                                 <Link href={"#"} target={"_blank"} className={styles.socialButton}><FaInstagram/></Link>
                                 <Link href={"#"} target={"_blank"} className={styles.socialButton}><FaWhatsapp/></Link>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div className={styles.artistContainer}>
+                    <div className={styles.left}>
+                        <div className={styles.imgContainer}>
+                            <Image src={'/assets/img/avatar.png'} alt={"Photo de l'artiste"} width={500} height={500}/>
+                            <div className={styles.flag}>
+                                <Image src={"/assets/img/drapeau_france.png"} alt={"Drapeau de la France"} width={50} height={50}/>
+                            </div>
+                        </div>
+                        <div>
+                            <h3>Leonard de Vinci</h3>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+                            invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
+                            et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
+                            Lorem ipsum dolor sit amet...</p>
+                        <div className={styles.showMore}>
+                            <button>
+                                Voir plus
+                            </button>
                         </div>
                     </div>
                 </div>
