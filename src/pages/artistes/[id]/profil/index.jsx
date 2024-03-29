@@ -144,7 +144,7 @@ export default function ArtisteProfilIndex() {
                                         title={"Biographie"}
                                     />
                                     <ArtistProfileBio
-                                        content={"<p style={{color: \"red\"}}>salut</p>"}
+                                        content={artist.bio && artist.bio}
                                     />
                                 </div>
                             </section>
