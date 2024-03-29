@@ -83,66 +83,99 @@ export default function OeuvreHomePage() {
                         </div>
                     </div>
                 </div>
-                <div className={styles.featuresSection}>
-                    <div className={styles.featuresSectionContainer}>
-                        <OeuvreFeatureItem
-                            Icon={MdHeight}
-                            title={"Hauteur"}
-                            content={"153 cm"}
-                        />
-                        <OeuvreFeatureItem
-                            Icon={RxWidth}
-                            title={"Longueur"}
-                            content={"77 cm"}
-                        />
+                <div>
+                    <div className={styles.featuresSection}>
+                        <div className={styles.featuresSectionContainer}>
+                            <OeuvreFeatureItem
+                                Icon={MdHeight}
+                                title={"Hauteur"}
+                                content={"153 cm"}
+                            />
+                            <OeuvreFeatureItem
+                                Icon={RxWidth}
+                                title={"Longueur"}
+                                content={"77 cm"}
+                            />
+                        </div>
+                        <div className={styles.featuresSectionContainer}>
+                            <OeuvreFeatureItem
+                                Icon={LuMoveDiagonal}
+                                title={"Profondeur"}
+                                content={"5 cm"}
+                            />
+                            <OeuvreFeatureItem
+                                Icon={TbFileOrientation}
+                                title={"Orientation"}
+                                content={"Portrait"}
+                            />
+                        </div>
+                        <div className={styles.featuresSectionContainer}>
+                            <OeuvreFeatureItem
+                                Icon={AiOutlineFieldNumber}
+                                title={"Numérotation"}
+                                content={"Oeuvre unique"}
+                            />
+                            <OeuvreFeatureItem
+                                Icon={AiOutlineFieldNumber}
+                                title={"Limitation"}
+                                content={"Oeuvre unique"}
+                            />
+                        </div>
+                        <div className={styles.featuresSectionContainer}>
+                            <OeuvreFeatureItem
+                                Icon={FaChair}
+                                title={"Support"}
+                                content={"Toile"}
+                            />
+                            <OeuvreFeatureItem
+                                Icon={FaPaintBrush}
+                                title={"Technique"}
+                                content={"Peinture à l'huile"}
+                            />
+                        </div>
+                        <div className={styles.featuresSectionContainer}>
+                            <OeuvreFeatureItem
+                                Icon={MdOutlineFilterFrames}
+                                title={"Encadrement"}
+                                content={"Cadre en bois"}
+                            />
+                            <OeuvreFeatureItem
+                                Icon={FaSignature}
+                                title={"Signature"}
+                                content={"En bas à droite"}
+                            />
+                        </div>
                     </div>
-                    <div className={styles.featuresSectionContainer}>
-                        <OeuvreFeatureItem
-                            Icon={LuMoveDiagonal}
-                            title={"Profondeur"}
-                            content={"5 cm"}
-                        />
-                        <OeuvreFeatureItem
-                            Icon={TbFileOrientation}
-                            title={"Orientation"}
-                            content={"Portrait"}
-                        />
-                    </div>
-                    <div className={styles.featuresSectionContainer}>
-                        <OeuvreFeatureItem
-                            Icon={AiOutlineFieldNumber}
-                            title={"Numérotation"}
-                            content={"Oeuvre unique"}
-                        />
-                        <OeuvreFeatureItem
-                            Icon={AiOutlineFieldNumber}
-                            title={"Limitation"}
-                            content={"Oeuvre unique"}
-                        />
-                    </div>
-                    <div className={styles.featuresSectionContainer}>
-                        <OeuvreFeatureItem
-                            Icon={FaChair}
-                            title={"Support"}
-                            content={"Toile"}
-                        />
-                        <OeuvreFeatureItem
-                            Icon={FaPaintBrush}
-                            title={"Technique"}
-                            content={"Peinture à l'huile"}
-                        />
-                    </div>
-                    <div className={styles.featuresSectionContainer}>
-                        <OeuvreFeatureItem
-                            Icon={MdOutlineFilterFrames}
-                            title={"Encadrement"}
-                            content={"Cadre en bois"}
-                        />
-                        <OeuvreFeatureItem
-                            Icon={FaSignature}
-                            title={"Signature"}
-                            content={"En bas à droite"}
-                        />
+                    <div className={styles.mockupSection}>
+                        <div className={styles.head}>
+                            <h2>Encore plus belle chez vous...</h2>
+                        </div>
+                        <div className={styles.mockups}>
+                            <div className={styles.imgContainer}>
+                                <Image
+                                    src={'/assets/img/mockups/mockup1.avif'}
+                                    alt={'Mockup 1'}
+                                    width={1000}
+                                    height={1000}
+                                />
+                            </div>
+                            <div className={styles.imgContainer}>
+                                <Image
+                                    src={'/assets/img/mockups/mockup2.jpg'}
+                                    alt={'Mockup 1'}
+                                    width={1000}
+                                    height={1000}
+                                />
+                            </div>
+                            <div className={styles.imgContainer}>
+                                <Image
+                                    src={'/assets/img/mockups/mockup3.avif'}
+                                    alt={'Mockup 1'}
+                                    width={1000}
+                                    height={1000}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className={styles.artistSection}>
