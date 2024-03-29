@@ -3,7 +3,20 @@ import Image from "next/image";
 import {useEffect, useState} from "react";
 import {IoIosArrowBack, IoIosArrowForward} from "react-icons/io";
 
-export default function Carousel({images = ['/assets/img/no-img.jpg'], autoLoop = true, time = 5000}) {
+/**
+ *
+ * @param images  Tableau des images à afficher
+ * @param bottomImages True si on affiche les miniatures en bas
+ * @param autoLoop True si on veut que les images défilent automatiquement
+ * @param time Temps entre chaque image (en secondes)
+ * @returns {JSX.Element} Carousel
+ */
+export default function Carousel({
+                                     images = ['/assets/img/no-img.jpg'],
+                                     bottomImages = true,
+                                     autoLoop = true,
+                                     time = 3
+                                 }) {
 
     const [mainImage, setMainImage] = useState(0);
     const [isHovering, setIsHovering] = useState(false);
@@ -20,15 +33,13 @@ export default function Carousel({images = ['/assets/img/no-img.jpg'], autoLoop 
      * Automatise le changement d'image toutes les 5 secondes
      */
     useEffect(() => {
-        if (!autoLoop) return;
+        if (!autoLoop || images.length <= 1) return;
         const interval = setInterval(() => {
             if (!isHovering) {
-                setMainImage(prevImage => (prevImage + 1) % images.length);
+                setMainImage((prevImage) => (prevImage + 1) % images.length);
             }
-        }, time);
-
+        }, time * 1000);
         return () => clearInterval(interval);
-
     }, [isHovering, images.length, autoLoop, time]);
 
     /**
@@ -71,24 +82,28 @@ export default function Carousel({images = ['/assets/img/no-img.jpg'], autoLoop 
                     <IoIosArrowForward/>
                 </button>
             </div>
-            <div className={styles.bottomThumbs}>
-                {
-                    indexesImages.length > 0 && indexesImages.map((index) => (
-                        <div
-                            key={index}
-                            className={`${styles.thumb} ${index === mainImage ? styles.active : ''}`}
-                            onClick={() => setMainImage(index)}
-                        >
-                            <Image
-                                src={images[index]}
-                                alt={`Miniature ${index}`}
-                                width={100}
-                                height={100}
-                            />
-                        </div>
-                    ))
-                }
-            </div>
+            {
+                bottomImages && (
+                    <div className={styles.bottomThumbs}>
+                        {
+                            indexesImages.length > 0 && indexesImages.map((index) => (
+                                <div
+                                    key={index}
+                                    className={`${styles.thumb} ${index === mainImage ? styles.active : ''}`}
+                                    onClick={() => setMainImage(index)}
+                                >
+                                    <Image
+                                        src={images[index]}
+                                        alt={`Miniature ${index}`}
+                                        width={100}
+                                        height={100}
+                                    />
+                                </div>
+                            ))
+                        }
+                    </div>
+                )
+            }
         </div>
     );
 }
