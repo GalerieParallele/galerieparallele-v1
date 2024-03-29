@@ -61,8 +61,8 @@ export default function Carousel({images = ['/assets/img/no-img.jpg'], autoLoop 
                             <Image
                                 src={images[mainImage]}
                                 alt={'Image principale'}
-                                width={1000}
-                                height={1000}
+                                layout={'fill'}
+                                objectFit={'contain'}
                             />
                         </div>
                     )
