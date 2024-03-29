@@ -24,6 +24,7 @@ import {RxWidth} from "react-icons/rx";
 import {LuMoveDiagonal} from "react-icons/lu";
 import {TbFileOrientation} from "react-icons/tb";
 import {AiOutlineFieldNumber} from "react-icons/ai";
+import MultiCarousel from "@/components/ui/carousel/MultiCarousel";
 
 export default function OeuvreHomePage() {
 
@@ -178,6 +179,10 @@ export default function OeuvreHomePage() {
                         </div>
                     </div>
                 </div>
+                <div className={styles.oeuvreMemeStyleSection}>
+                    <h2>Découvrez d&apos;autres oeuvres dans le même style</h2>
+                    <MultiCarousel/>
+                </div>
                 <div className={styles.artistSection}>
                     <div className={styles.artistContainer}>
                         <div className={styles.left}>
@@ -206,6 +211,10 @@ export default function OeuvreHomePage() {
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className={styles.autreOeuvreArtiste}>
+                    <h2>Découvrez d&apos;autres oeuvres du même artiste</h2>
+                    <MultiCarousel/>
                 </div>
             </div>
             <Picto/>

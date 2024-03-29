@@ -1,0 +1,36 @@
+.main {
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  padding: 0 10px;
+
+  button {
+    background-color: var(--white);
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+
+    svg {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .list {
+    width: fit-content;
+    display: flex;
+    gap: 20px;
+    transition: all 0.5s ease;
+    will-change: transform;
+    overflow: hidden;
+  }
+}
