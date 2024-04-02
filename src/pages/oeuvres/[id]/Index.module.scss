@@ -171,13 +171,8 @@
             height: 100%;
             object-fit: cover;
             box-shadow: var(--shadow);
-            filter: grayscale(100%) blur(2px);
             transition: var(--transition);
             border-radius: var(--border-radius);
-
-            &:hover {
-              filter: grayscale(0%);
-            }
           }
 
           @media screen and (max-width: 1640px) {
