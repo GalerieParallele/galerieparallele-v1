@@ -62,25 +62,41 @@ export default function OeuvreHomePage() {
                             '/assets/img/harcourt1.jpg'
                         ]}/>
                     </div>
-                    <div className={styles.info}>
-                        <div className={styles.head}>
-                            <h2>La joconde</h2>
-                            <span><FaRegHeart className={styles.emptyHeart}/><FaHeart style={styles.fillHeart}/></span>
-                        </div>
-                        <div style={{
-                            width: "100%",
-                        }}>
-                            <OeuvreTarif
-                                prix={100}
-                            />
-                        </div>
-                        <div className={styles.shareContainer}>
-                            <p>Partagez-moi :</p>
-                            <div>
-                                <Link href={"#"} target={"_blank"} className={styles.socialButton}><FaFacebook/></Link>
-                                <Link href={"#"} target={"_blank"} className={styles.socialButton}><FaInstagram/></Link>
-                                <Link href={"#"} target={"_blank"} className={styles.socialButton}><FaWhatsapp/></Link>
+                    <div className={styles.right}>
+                        <div className={styles.info}>
+                            <div className={styles.head}>
+                                <h2>La joconde</h2>
+                                <span><FaRegHeart className={styles.emptyHeart}/><FaHeart
+                                    style={styles.fillHeart}/></span>
                             </div>
+                            <div style={{
+                                width: "100%",
+                            }}>
+                                <OeuvreTarif
+                                    prix={100}
+                                />
+                            </div>
+                            <div className={styles.shareContainer}>
+                                <p>Partagez-moi :</p>
+                                <div>
+                                    <Link href={"#"} target={"_blank"}
+                                          className={styles.socialButton}><FaFacebook/></Link>
+                                    <Link href={"#"} target={"_blank"}
+                                          className={styles.socialButton}><FaInstagram/></Link>
+                                    <Link href={"#"} target={"_blank"}
+                                          className={styles.socialButton}><FaWhatsapp/></Link>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={styles.tagsSection}>
+                            <span>#Leonard de Vinci</span>
+                            <span>#Peinture</span>
+                            <span>#Portrait</span>
+                            <span>#Art</span>
+                            <span>#Leonard de Vinci</span>
+                            <span>#Peinture</span>
+                            <span>#Portrait</span>
+                            <span>#Art</span>
                         </div>
                     </div>
                 </div>

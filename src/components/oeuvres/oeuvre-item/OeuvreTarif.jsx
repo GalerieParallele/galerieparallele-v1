@@ -19,32 +19,16 @@ export default function OeuvreTarif({prix}) {
                 className={styles.head}
                 onClick={handleToggle}
             >
-                <span className={open ? styles.open : styles.close}>
-                    <IoIosArrowForward/>
-                </span>
                 <p>Tarifs</p>
-                {
-                    !open && (
-                        <span className={styles.clickMe}>
-                    <LuMousePointerClick/>
-                </span>
-                    )
-                }
             </div>
             <div className={`${styles.content} ${open ? styles.open : styles.close}`}>
-                <p>Prix: {prix}€</p>
+                <p>{prix} €</p>
                 <div className={styles.buyContainer}>
                     <Link
                         href={'#'}
                         className={styles.bailArt}
                     >
-                        Acheter
-                    </Link>
-                    <Link
-                        href={'#'}
-                        className={styles.bailArt}
-                    >
-                        Bail Art
+                        Acheter cette oeuvre
                     </Link>
                 </div>
             </div>
