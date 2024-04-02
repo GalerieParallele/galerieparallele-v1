@@ -1,9 +1,6 @@
 import styles from './OeuvreTarif.module.scss';
-
-import {IoIosArrowForward} from "react-icons/io";
 import {useState} from "react";
 import Link from "next/link";
-import {LuMousePointerClick} from "react-icons/lu";
 
 export default function OeuvreTarif({prix}) {
 

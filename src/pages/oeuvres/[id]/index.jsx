@@ -12,6 +12,7 @@ import {
     FaInstagram,
     FaPaintBrush,
     FaRegHeart,
+    FaRulerHorizontal,
     FaSignature,
     FaWhatsapp
 } from "react-icons/fa";
@@ -19,9 +20,7 @@ import Link from "next/link";
 import OeuvreTarif from "@/components/oeuvres/oeuvre-item/OeuvreTarif";
 import Image from "next/image";
 import OeuvreFeatureItem from "@/components/oeuvres/oeuvre-item/OeuvreFeatureItem";
-import {MdHeight, MdOutlineFilterFrames} from "react-icons/md";
-import {RxWidth} from "react-icons/rx";
-import {LuMoveDiagonal} from "react-icons/lu";
+import {MdOutlineFilterFrames} from "react-icons/md";
 import {TbFileOrientation} from "react-icons/tb";
 import {AiOutlineFieldNumber} from "react-icons/ai";
 import MultiCarousel from "@/components/ui/carousel/MultiCarousel";
@@ -65,9 +64,17 @@ export default function OeuvreHomePage() {
                     <div className={styles.right}>
                         <div className={styles.info}>
                             <div className={styles.head}>
-                                <h2>La joconde</h2>
-                                <span><FaRegHeart className={styles.emptyHeart}/><FaHeart
-                                    style={styles.fillHeart}/></span>
+                                <div className={styles.oeuvreName}>
+                                    <h2>La joconde</h2>
+                                    <span>
+                                    <FaRegHeart className={styles.emptyHeart}/>
+                                    <FaHeart
+                                        style={styles.fillHeart}/>
+                                </span>
+                                </div>
+                                <Link href={"#"}>
+                                    <h5>Leonard de Vinci</h5>
+                                </Link>
                             </div>
                             <div style={{
                                 width: "100%",
@@ -94,104 +101,129 @@ export default function OeuvreHomePage() {
                             <span>#Portrait</span>
                             <span>#Art</span>
                             <span>#Leonard de Vinci</span>
-                            <span>#Peinture</span>
                             <span>#Portrait</span>
                             <span>#Art</span>
+                            <span>#Leonard de Vinci</span>
+                            <span>#Portrait</span>
+                            <span>#Art</span>
+                            <span>#Leonard de Vinci</span>
+                            <span>#Portrait</span>
+                            <span>#Art</span>
+                            <span>#Leonard de Vinci</span>
                         </div>
                     </div>
                 </div>
-                <div>
+                <div className={styles.featureAndIASection}>
                     <div className={styles.featuresSection}>
-                        <div className={styles.featuresSectionContainer}>
-                            <OeuvreFeatureItem
-                                Icon={MdHeight}
-                                title={"Hauteur"}
-                                content={"153 cm"}
-                            />
-                            <OeuvreFeatureItem
-                                Icon={RxWidth}
-                                title={"Longueur"}
-                                content={"77 cm"}
-                            />
-                        </div>
-                        <div className={styles.featuresSectionContainer}>
-                            <OeuvreFeatureItem
-                                Icon={LuMoveDiagonal}
-                                title={"Profondeur"}
-                                content={"5 cm"}
-                            />
-                            <OeuvreFeatureItem
-                                Icon={TbFileOrientation}
-                                title={"Orientation"}
-                                content={"Portrait"}
-                            />
-                        </div>
-                        <div className={styles.featuresSectionContainer}>
-                            <OeuvreFeatureItem
-                                Icon={AiOutlineFieldNumber}
-                                title={"Numérotation"}
-                                content={"Oeuvre unique"}
-                            />
-                            <OeuvreFeatureItem
-                                Icon={AiOutlineFieldNumber}
-                                title={"Limitation"}
-                                content={"Oeuvre unique"}
-                            />
-                        </div>
-                        <div className={styles.featuresSectionContainer}>
-                            <OeuvreFeatureItem
-                                Icon={FaChair}
-                                title={"Support"}
-                                content={"Toile"}
-                            />
-                            <OeuvreFeatureItem
-                                Icon={FaPaintBrush}
-                                title={"Technique"}
-                                content={"Peinture à l'huile"}
-                            />
-                        </div>
-                        <div className={styles.featuresSectionContainer}>
-                            <OeuvreFeatureItem
-                                Icon={MdOutlineFilterFrames}
-                                title={"Encadrement"}
-                                content={"Cadre en bois"}
-                            />
-                            <OeuvreFeatureItem
-                                Icon={FaSignature}
-                                title={"Signature"}
-                                content={"En bas à droite"}
-                            />
-                        </div>
+                        <OeuvreFeatureItem
+                            Icon={FaRulerHorizontal}
+                            title={"Dimensions (cm)"}
+                            content={"153 x 77 x 5"}
+                            description={"Hauteur x Largeur x Profondeur"}
+                        />
+                        <OeuvreFeatureItem
+                            Icon={TbFileOrientation}
+                            title={"Orientation"}
+                            content={"Portrait"}
+                        />
+                        <OeuvreFeatureItem
+                            Icon={FaChair}
+                            title={"Support"}
+                            content={"Toile"}
+                        />
+                        <OeuvreFeatureItem
+                            Icon={FaPaintBrush}
+                            title={"Technique"}
+                            content={"Peinture à l'huile"}
+                        />
+                        <OeuvreFeatureItem
+                            Icon={MdOutlineFilterFrames}
+                            title={"Encadrement"}
+                            content={"Cadre en bois"}
+                        />
+                        <span className={styles.separator}/>
+                        <OeuvreFeatureItem
+                            Icon={FaSignature}
+                            title={"Signature"}
+                            content={"En bas à droite"}
+                        />
+                        <OeuvreFeatureItem
+                            Icon={AiOutlineFieldNumber}
+                            title={"Numérotation"}
+                            content={"Oeuvre unique"}
+                        />
+                        <OeuvreFeatureItem
+                            Icon={AiOutlineFieldNumber}
+                            title={"Limitation"}
+                            content={"Oeuvre unique"}
+                        />
                     </div>
-                    <div className={styles.mockupSection}>
-                        <div className={styles.head}>
-                            <h2>Encore plus belle chez vous...</h2>
+                    <div className={styles.moreInfoContainer}>
+                        <div className={styles.messages}>
+                            <div className={styles.responseMessage}>
+                                <span>Test</span>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                                    tempor
+                                </p>
+                            </div>
+                            <div className={styles.requestMessage}>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                                    tempor. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                                    eirmod
+                                    tempor.
+                                </p>
+                            </div>
+                            <div className={styles.responseMessage}>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr
+                                </p>
+                            </div>
+                            <div className={styles.requestMessage}>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr.
+                                </p>
+                            </div>
+                            <div className={styles.responseMessage}>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                                    tempor. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy.
+                                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                                </p>
+                            </div>
                         </div>
-                        <div className={styles.mockups}>
-                            <div className={styles.imgContainer}>
-                                <Image
-                                    src={'/assets/img/mockups/mockup1.avif'}
-                                    alt={'Mockup 1'}
-                                    width={1000}
-                                    height={1000}
-                                />
-                            </div>
-                            <div className={styles.imgContainer}>
-                                <Image
-                                    src={'/assets/img/mockups/mockup2.jpg'}
-                                    alt={'Mockup 1'}
-                                    width={1000}
-                                    height={1000}
-                                />
-                            </div>
-                            <div className={styles.imgContainer}>
-                                <Image
-                                    src={'/assets/img/mockups/mockup3.avif'}
-                                    alt={'Mockup 1'}
-                                    width={1000}
-                                    height={1000}
-                                />
-                            </div>
+                        <textarea placeholder={"Posez votre question ici..."}/>
+                    </div>
+                </div>
+                <div className={styles.mockupSection}>
+                    <div className={styles.head}>
+                        <h2>Encore plus belle chez vous...</h2>
+                    </div>
+                    <div className={styles.mockups}>
+                        <div className={styles.imgContainer}>
+                        <Image
+                                src={'/assets/img/mockups/mockup1.avif'}
+                                alt={'Mockup 1'}
+                                width={1000}
+                                height={1000}
+                            />
+                        </div>
+                        <div className={styles.imgContainer}>
+                            <Image
+                                src={'/assets/img/mockups/mockup2.jpg'}
+                                alt={'Mockup 1'}
+                                width={1000}
+                                height={1000}
+                            />
+                        </div>
+                        <div className={styles.imgContainer}>
+                            <Image
+                                src={'/assets/img/mockups/mockup3.avif'}
+                                alt={'Mockup 1'}
+                                width={1000}
+                                height={1000}
+                            />
                         </div>
                     </div>
                 </div>

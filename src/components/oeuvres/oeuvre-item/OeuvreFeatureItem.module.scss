@@ -3,23 +3,28 @@
   flex-direction: column;
   gap: 5px;
   transition: var(--transition);
+  font-size: 14px;
+
   span {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
+
+    .description {
+      color: var(--gray);
+      font-size: 12px;
+    }
 
     svg {
-      font-size: 25px;
       transition: var(--transition);
-      color: var(--light-gray);
+      color: var(--gradient-black);
     }
   }
 
   p {
-    margin-left: 30px;
-    font-size: 0.95rem;
-    color: var(--gray);
+    margin-left: 20px;
+    color: var(--gradient-black);
 
   }
 
