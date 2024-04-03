@@ -10,7 +10,7 @@ const images = [
     "https://picsum.photos/300/250?random=4",
 ];
 
-export default function MultiCarousel({imagesPerView = 3, autoLoop = true}) {
+export default function MultiCarousel({imagesPerView = 5, autoLoop = true}) {
 
     useEffect(() => {
         function handleResize() {
