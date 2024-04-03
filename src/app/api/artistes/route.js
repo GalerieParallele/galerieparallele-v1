@@ -232,16 +232,56 @@ export async function GET() {
         const artists = await prisma.artist.findMany({
             include: {
                 user: true,
+                oeuvre: {
+                    select: {
+                        oeuvre: {
+                            select: {
+                                id: true,
+                                name: true,
+                                description: true,
+                                hauteur: true,
+                                longueur: true,
+                                images: {
+                                    select: {
+                                        mediaURL: true,
+                                        position: true
+                                    },
+                                    orderBy: {
+                                        position: 'asc'
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-        })
+        });
 
         if (!artists.length) {
             return NextResponse.json({message: MESSAGES.NO_ARTIST_FOUND}, {status: 404})
         }
 
+
         artists.map(artist => {
             artist.userid = undefined
             artist.user.password = undefined
+
+            // Transformation en objet direct
+            artist.oeuvres = artist.oeuvre.map(oeuvre => oeuvre.oeuvre)
+
+            // Transformation en tableau d'images
+            artist.oeuvres.map(oeuvre => {
+                oeuvre.images = oeuvre.images.map(image => {
+                    return {
+                        mediaURL: image.mediaURL,
+                        position: image.position
+                    }
+                })
+            })
+
+
+            // Suppression mauvaise champ
+            artist.oeuvre = undefined
         })
 
         const validatedArtist = artists.map(artist => ArtistSchema.parse(artist))
