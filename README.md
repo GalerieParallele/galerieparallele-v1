@@ -28,4 +28,6 @@ DATABASE_URL=postgres://user:PASSWORD@localhost:5432/gp_database
 POSTGRES_PASSWORD=PASSWORD
 POSTGRES_USER=user
 POSTGRES_DB=gp_database
+
+OPEN_API_KEY="OPEN_API_KEY"
 ```
