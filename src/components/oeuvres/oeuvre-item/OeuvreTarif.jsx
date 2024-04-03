@@ -23,7 +23,7 @@ export default function OeuvreTarif({prix}) {
                 <div className={styles.buyContainer}>
                     <Link
                         href={'#'}
-                        className={styles.bailArt}
+                        className={styles.buyButton}
                     >
                         Acheter cette oeuvre
                     </Link>
