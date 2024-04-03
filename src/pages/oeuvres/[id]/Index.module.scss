@@ -17,7 +17,7 @@
     .headSection {
       display: flex;
       flex-direction: row;
-      gap: 20px;
+      gap: 10px;
 
       align-items: center;
 
@@ -29,11 +29,11 @@
         justify-content: center;
         align-items: center;
 
-        flex: 3;
+        flex: 2;
       }
 
       .right {
-        height: 100%;
+        flex: 1;
         display: flex;
         justify-content: center;
         flex-direction: column;
@@ -171,11 +171,11 @@
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
+      align-items: center;
       gap: 50px;
 
       padding: var(--section-padding);
 
-      width: 100%;
 
       .featuresSection {
         display: flex;
@@ -209,25 +209,54 @@
         flex-direction: column;
         justify-content: space-between;
         flex: 2;
+        gap: 20px;
         border-radius: var(--border-radius);
 
         padding: 50px;
 
-        textarea {
-          width: 100%;
-          padding: 10px;
-          border: none;
-          border-radius: var(--border-radius);
-          background-color: var(--white);
-          box-shadow: var(--shadow);
-          resize: none;
-          display: flex;
+        height: 600px;
+
+        overflow-y: auto;
+
+        form {
+          .textspace {
+            position: relative;
+
+            textarea {
+              width: 100%;
+              border: none;
+              padding: 15px;
+              border-radius: var(--border-radius);
+              background-color: var(--white);
+              box-shadow: var(--shadow);
+              resize: none;
+              display: flex;
+            }
+
+            button {
+              position: absolute;
+              right: 15px;
+              top: 50%;
+              transform: translateY(-50%);
+              color: var(--gradient-black);
+              font-size: 20px;
+              height: 100%;
+
+            }
+          }
         }
+
 
         .messages {
 
           max-height: 100%;
           overflow-y: auto;
+
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          padding: 25px 0;
 
           .responseMessage, .requestMessage {
             display: flex;
@@ -242,6 +271,8 @@
             background: var(--gradient-black);
 
             color: var(--white);
+
+            max-width: 80%;
           }
 
           .requestMessage {
