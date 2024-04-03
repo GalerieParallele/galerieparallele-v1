@@ -226,13 +226,6 @@ export const OeuvreSchema = z.object({
     ).optional(),
 })
 
-
-const OeuvreCreateSchema = OeuvreSchema
-    .omit({
-        id: true,
-    });
-
-
 const OeuvreResponseSchema = z.object({
     total: z
         .number({
