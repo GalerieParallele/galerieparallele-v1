@@ -62,35 +62,37 @@
             gap: 8px;
             height: fit-content;
 
-            span {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              color: var(--black);
-              font-size: 20px;
-              transition: var(--transition);
 
-              svg:nth-child(2) {
-                display: none;
-              }
-
-
-              &:hover {
-                svg:nth-child(1) {
-                  display: none;
-                }
-
-                svg:nth-child(2) {
-                  display: block;
-                }
-
-                transform: rotate(15deg) scale(1.1);
-              }
-            }
 
             .oeuvreName {
               display: flex;
               gap: 5px;
+
+              span {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: var(--black);
+                font-size: 20px;
+                transition: var(--transition);
+
+                svg:nth-child(2) {
+                  display: none;
+                }
+
+
+                &:hover {
+                  svg:nth-child(1) {
+                    display: none;
+                  }
+
+                  svg:nth-child(2) {
+                    display: block;
+                  }
+
+                  transform: rotate(15deg) scale(1.1);
+                }
+              }
             }
 
             h5 {
@@ -374,9 +376,13 @@
 
       padding: 75px 100px;
 
+      display: flex;
+        flex-direction: column;
+      gap: 40px;
+
       .artistContainer {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
         gap: 50px;
 
