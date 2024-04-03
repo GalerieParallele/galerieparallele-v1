@@ -239,6 +239,13 @@ export default function OeuvreHomePage() {
                                     )
                                 }
                             })}
+                            {
+                                convLoading && <div className={styles.responseMessage}>
+                                    <p>
+                                        <LittleSpinner/>
+                                    </p>
+                                </div>
+                            }
                         </div>
                         <form onSubmit={async (e) => {
                             e.preventDefault();
