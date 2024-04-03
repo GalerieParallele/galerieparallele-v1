@@ -21,6 +21,7 @@ export default function ArtistListCard({artist, countries}) {
                 setDisplayFlag('');
             }
             setIsFlagLoading(false);
+            console.log(artist)
         }
     }, [countries, artist.nationality]);
 
@@ -59,51 +60,39 @@ export default function ArtistListCard({artist, countries}) {
                 </div>
             </div>
             <div className={styles.oeuvres}>
-                <div className={styles.oeuvreContainer}>
-                    <div className={styles.imgContainer}>
-                        <Image
-                            src={"/assets/img/oeuvres/oeuvre1.jpg"}
-                            alt={"Photo de l'oeuvre de l'artiste Levalet"}
-                            width={500}
-                            height={500}
-                        />
-                    </div>
-                    <div className={styles.oeuvreInfo}>
-                        <h4>Titre de l&apos;oeuvre</h4>
-                    </div>
-                </div>
-                <div className={styles.oeuvreContainer}>
-                    <div className={styles.imgContainer}>
-                        <Image
-                            src={"/assets/img/oeuvres/oeuvre1.jpg"}
-                            alt={"Photo de l'oeuvre de l'artiste Levalet"}
-                            width={500}
-                            height={500}
-                        />
-                    </div>
-                    <div className={styles.oeuvreInfo}>
-                        <h4>Titre de l&apos;oeuvre</h4>
-                    </div>
-                </div>
-                <div className={styles.oeuvreContainer}>
-                    <div className={styles.imgContainer}>
-                        <Image
-                            src={"/assets/img/oeuvres/oeuvre1.jpg"}
-                            alt={"Photo de l'oeuvre de l'artiste Levalet"}
-                            width={500}
-                            height={500}
-                        />
-                    </div>
-                    <div className={styles.oeuvreInfo}>
-                        <h4>Titre de l&apos;oeuvre</h4>
-                    </div>
-                </div>
+                {
+                    artist.oeuvres && artist.oeuvres.length > 0 ? (
+                        artist.oeuvres.map((oeuvre, index) => {
+                            if (index > 4)
+                                return null;
+                            return (
+                                <div className={styles.oeuvreContainer} key={index}>
+                                    <div className={styles.imgContainer}>
+                                        <Image
+                                            src={oeuvre.images[0] && oeuvre.images[0].mediaURL ? oeuvre.images[0].mediaURL : "/assets/img/no-img.jpg"}
+                                            alt={"Photo de l'oeuvre de l'artiste Levalet"}
+                                            width={500}
+                                            height={500}
+                                        />
+                                    </div>
+                                    <div className={styles.oeuvreInfo}>
+                                        <h4>{oeuvre.name}</h4>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    ) : null
+                }
             </div>
-            <div className={styles.moreOeuvres}>
-                <button>
-                    Voir plus...
-                </button>
-            </div>
+            {
+                artist.oeuvres && artist.oeuvres.length > 0 ? (
+                    <div className={styles.moreOeuvres}>
+                        <button>
+                            Voir plus...
+                        </button>
+                    </div>
+                ) : null
+            }
         </div>
     )
 }
