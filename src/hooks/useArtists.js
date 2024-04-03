@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {festArtistsById, fetchArtists} from "@/services/artistes/artistesServices";
+import {fetchArtistByid, fetchArtists} from "@/services/artistesServices";
 
 export const useArtists = () => {
 
@@ -34,7 +34,7 @@ export const useArtists = () => {
         id = parseInt(id);
 
         try {
-            const response = await festArtistsById(id);
+            const response = await fetchArtistByid(id);
             const resString = response;
             if (response.success) {
                 setArtist(response.artist);
