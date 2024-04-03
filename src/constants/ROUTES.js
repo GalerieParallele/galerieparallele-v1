@@ -99,6 +99,7 @@ const PATHS = {
         },
         OEUVRES: {
             HOME: 'oeuvres',
+            GETBYID: createPath('oeuvres', 'getbyid')
         },
         USERS: {
             HOME: 'users',
@@ -195,6 +196,7 @@ const ROUTES = {
         },
         OEUVRES: {
             HOME: API_BASE + PATHS.API.OEUVRES.HOME,
+            GETBYID: API_BASE + PATHS.API.OEUVRES.GETBYID,
         },
         ARTISTES: {
             HOME: API_BASE + PATHS.API.ARTISTES.HOME,
