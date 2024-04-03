@@ -39,7 +39,7 @@ export const fetchArtists = async () => {
     }
 };
 
-export const festArtistsById = async (id) => {
+export const fetchArtistByid = async (id) => {
 
     try {
 
