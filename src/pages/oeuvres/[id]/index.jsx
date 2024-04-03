@@ -24,8 +24,15 @@ import {MdOutlineFilterFrames} from "react-icons/md";
 import {TbFileOrientation} from "react-icons/tb";
 import {AiOutlineFieldNumber} from "react-icons/ai";
 import MultiCarousel from "@/components/ui/carousel/MultiCarousel";
+import {IoSend} from "react-icons/io5";
+import LittleSpinner from "@/components/ui/LittleSpinner";
 
 export default function OeuvreHomePage() {
+
+    const MESSAGE_TYPE = {
+        REQUEST: 'REQUEST',
+        RESPONSE: 'RESPONSE'
+    }
 
     const router = useRouter();
 
@@ -33,6 +40,48 @@ export default function OeuvreHomePage() {
     const [error, setError] = useState(false);
 
     const [oeuvreId, setOeuvreId] = useState(null);
+
+    const [message, setMessage] = useState([]);
+    const [messageValue, setMessageValue] = useState('');
+    const [convLoading, setConvLoading] = useState(false);
+
+    const handleAddNewMessage = (type, content) => {
+        setMessage(prevMessages => [...prevMessages, [type, content]]);
+    }
+
+    const sendMessageToAPI = async (userMessage) => {
+        setConvLoading(true);
+        try {
+            const response = await fetch('/api/ai', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({message: userMessage, subject: 'La joconde'}),
+            });
+
+            if (!response.ok) {
+                throw new Error('Erreur de réseau ou du serveur');
+            }
+
+            const data = await response.json();
+            console.log(data);
+            handleAddNewMessage(MESSAGE_TYPE.RESPONSE, data.message);
+        } catch (error) {
+            console.error("Erreur lors de l'envoi du message:", error);
+            // Gérer l'erreur (par exemple, en affichant un message d'erreur à l'utilisateur)
+        } finally {
+            setConvLoading(false);
+        }
+    };
+
+    const handleSendMessage = async () => {
+        if (!messageValue.trim()) return; // Ne rien faire si le message est vide ou ne contient que des espaces
+
+        handleAddNewMessage(MESSAGE_TYPE.REQUEST, messageValue);
+        await sendMessageToAPI(messageValue);
+        setMessageValue(''); // Réinitialiser le champ de texte après l'envoi
+    };
 
     useEffect(() => {
 
@@ -48,6 +97,14 @@ export default function OeuvreHomePage() {
         setLoading(false);
 
     }, [router, router.query.id]);
+
+    let sendHelloMessage = false;
+
+    useEffect(() => {
+        if (sendHelloMessage) return;
+        handleAddNewMessage(MESSAGE_TYPE.RESPONSE, "Bonjour, je suis un assistant virtuel, je suis là pour répondre à vos questions. N'hésitez pas à me poser des questions sur cette oeuvre.");
+        sendHelloMessage = true;
+    }, []);
 
     return (
         <div className={styles.main}>
@@ -77,7 +134,10 @@ export default function OeuvreHomePage() {
                                 </Link>
                             </div>
                             <div style={{
-                                width: "100%",
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                width: '100%',
                             }}>
                                 <OeuvreTarif
                                     prix={100}
@@ -160,40 +220,48 @@ export default function OeuvreHomePage() {
                     </div>
                     <div className={styles.moreInfoContainer}>
                         <div className={styles.messages}>
-                            <div className={styles.responseMessage}>
-                                <span>Test</span>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                                    tempor
-                                </p>
-                            </div>
-                            <div className={styles.requestMessage}>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                                    tempor. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-                                    eirmod
-                                    tempor.
-                                </p>
-                            </div>
-                            <div className={styles.responseMessage}>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr
-                                </p>
-                            </div>
-                            <div className={styles.requestMessage}>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr.
-                                </p>
-                            </div>
-                            <div className={styles.responseMessage}>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                                    tempor. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy.
-                                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                                </p>
-                            </div>
+                            {message.map((msg, index) => {
+                                if (msg[0] === MESSAGE_TYPE.REQUEST) {
+                                    return (
+                                        <div key={index} className={styles.requestMessage}>
+                                            <p>
+                                                {msg[1]}
+                                            </p>
+                                        </div>
+                                    )
+                                } else {
+                                    return (
+                                        <div key={index} className={styles.responseMessage}>
+                                            <p>
+                                                {msg[1]}
+                                            </p>
+                                        </div>
+                                    )
+                                }
+                            })}
                         </div>
-                        <textarea placeholder={"Posez votre question ici..."}/>
+                        <form onSubmit={async (e) => {
+                            e.preventDefault();
+                            await handleSendMessage();
+                        }}>
+                            <div className={styles.textspace}>
+                                <textarea
+                                    placeholder="Parles moi de cette oeuvre"
+                                    value={messageValue}
+                                    onChange={(e) => setMessageValue(e.target.value)}
+                                    disabled={convLoading}
+                                    rows={1}
+                                />
+                                <button
+                                    type="submit"
+                                    disabled={convLoading}
+                                >
+                                    {
+                                        convLoading ? <LittleSpinner/> : <IoSend style={{fontSize: 20}}/>
+                                    }
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div className={styles.mockupSection}>
@@ -202,7 +270,7 @@ export default function OeuvreHomePage() {
                     </div>
                     <div className={styles.mockups}>
                         <div className={styles.imgContainer}>
-                        <Image
+                            <Image
                                 src={'/assets/img/mockups/mockup1.avif'}
                                 alt={'Mockup 1'}
                                 width={1000}
