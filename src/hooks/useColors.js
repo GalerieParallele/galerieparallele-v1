@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {fetchColors} from "@/services/couleurs/couleursServices";
+import {fetchColors} from "@/services/couleursServices";
 
 export const useColors = () => {
 
