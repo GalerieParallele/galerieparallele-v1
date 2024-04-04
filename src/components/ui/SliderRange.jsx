@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from './SliderRange.module.scss';
 
-export default function SliderRange({ initialMin, initialMax, initialValue, onChange }) {
+export default function SliderRange({ currentValue, initialMin, initialMax, initialValue, onChange }) {
     const [min, setMin] = useState(initialMin || 0);
     const [max, setMax] = useState(initialMax || 100);
     const [value, setValue] = useState(initialValue || [min, max]);
@@ -25,7 +25,7 @@ export default function SliderRange({ initialMin, initialMax, initialValue, onCh
                     type="range"
                     min={min}
                     max={max}
-                    value={value[0]}
+                    value={currentValue[0] || value[0]}
                     onChange={handleMinChange}
                     className={styles.sliderThumb}
                 />
@@ -33,7 +33,7 @@ export default function SliderRange({ initialMin, initialMax, initialValue, onCh
                     type="range"
                     min={min}
                     max={max}
-                    value={value[1]}
+                    value={currentValue[1] ||value[1]}
                     onChange={handleMaxChange}
                     className={styles.sliderThumb}
                     style={{
@@ -44,8 +44,8 @@ export default function SliderRange({ initialMin, initialMax, initialValue, onCh
             <div className={styles.sliderValues} style={{
                 marginTop: '10px',
             }}>
-                <span>+ de {value[0]}€</span>
-                <span>- de {value[1]}€</span>
+                <span>+ de {currentValue[0] || value[0]}€</span>
+                <span>- de {currentValue[1] ||value[1]}€</span>
             </div>
         </div>
     );
