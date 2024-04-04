@@ -119,27 +119,29 @@ export default function OeuvresIndex() {
                                 )
                             })
                         ) : (
-                            types && types.map((type, index) => {
-                                return (
-                                    <Link
-                                        href={"#"}
-                                        className={styles.typeItem}
-                                        key={index}>
-                                        <div className={styles.imgContainer}>
-                                            <Image
-                                                src={oeuvres.find(oeuvre => oeuvre.types.includes(type)).images[0].mediaURL}
-                                                alt={type}
-                                                width={500}
-                                                height={500}
-                                            />
-                                        </div>
-                                        <div className={styles.name}>
-                                            {type}
-                                        </div>
-                                        <div className={styles.filter}/>
-                                    </Link>
-                                )
-                            })
+                            types && types.length > 0 ? (
+                                types && types.map((type, index) => {
+                                    return (
+                                        <Link
+                                            href={"#"}
+                                            className={styles.typeItem}
+                                            key={index}>
+                                            <div className={styles.imgContainer}>
+                                                <Image
+                                                    src={oeuvres.find(oeuvre => oeuvre.types.includes(type)).images[0].mediaURL}
+                                                    alt={type}
+                                                    width={500}
+                                                    height={500}
+                                                />
+                                            </div>
+                                            <div className={styles.name}>
+                                                {type}
+                                            </div>
+                                            <div className={styles.filter}/>
+                                        </Link>
+                                    )
+                                })
+                            ) : null
                         )
                     }
                 </div>
