@@ -377,7 +377,7 @@ export default function OeuvreHomePage() {
                 </div>
                 <div className={styles.artistSection}>
                     {
-                        oeuvre && oeuvre.artists.length > 1 && oeuvre.artists.map((artist, index) => {
+                        oeuvre && oeuvre.artists.length && oeuvre.artists.map((artist, index) => {
                             return <div className={styles.artistContainer} key={index}>
                                 <div className={styles.left}>
                                     <div className={styles.imgContainer}>
