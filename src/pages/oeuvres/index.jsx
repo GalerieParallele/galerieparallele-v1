@@ -2,43 +2,54 @@ import Navbar from "@/components/ui/navbar/Navbar";
 
 import styles from './Index.module.scss';
 import SliderRange from "@/components/ui/SliderRange";
-import ArtistListCard from "@/components/artist/list/ArtistListCard";
 import {useState} from "react";
 import Picto from "@/components/ui/picto/Picto";
 import Footer from "@/components/ui/footer/Footer";
+import {useOeuvres} from "@/hooks/useOeuvres";
+import Link from "next/link";
+import ROUTES from "@/constants/ROUTES";
+import Image from "next/image";
+import OeuvreBreakCard from "@/components/oeuvres/OeuvreBreakCard";
+import {RiVipCrownLine} from "react-icons/ri";
 
 export default function OeuvresIndex() {
 
-    const fakeOeuvres = [
-        {
-            id: 9,
-            name: "Oeuvre 9",
-            images: [
-                "https://picsum.photos/200",
-            ]
-        },
-        {
-            id: 10,
-            name: "Oeuvre 10",
-            images: [
-                "https://picsum.photos/200",
-            ]
-        },
-        {
-            id: 11,
-            name: "Oeuvre 11",
-            images: [
-                "https://picsum.photos/200",
-            ]
-        }
-    ];
+    const {oeuvres} = useOeuvres();
 
-    const [rangeValue, setRangeValue] = useState([0, 100]);
+    const [rangeValue, setRangeValue] = useState([0, 50000]);
 
 
     const handleRangeChange = (newValue) => {
         setRangeValue(newValue);
     };
+
+    const oeuvresBreakCards = [
+        {
+            Icon: RiVipCrownLine,
+            title: "Arts Member Only",
+            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor, nisl nec vehicula.",
+            buttonText: "Devenir membre",
+            buttonAction: () => {
+                alert("debug")
+            }
+        },
+        {
+            Icon: RiVipCrownLine,
+            title: "Arts Member Only",
+            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor, nisl nec vehicula.",
+            buttonText: "Devenir membre",
+            buttonLink: "#"
+        },
+        {
+            Icon: RiVipCrownLine,
+            title: "Arts Member Only",
+            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor, nisl nec vehicula.",
+            buttonText: "Devenir membre",
+            buttonAction: () => {
+                alert("debug")
+            }
+        },
+    ]
 
 
     return (
@@ -47,18 +58,21 @@ export default function OeuvresIndex() {
             <div className={styles.content}>
                 <div className={styles.allOfFameContainer}>
                     {
-                        fakeOeuvres.map((oeuvre, index) => {
+                        oeuvres.map((oeuvre, index) => {
                             return (
-                                <div key={index}>
-                                    <div>
-                                        <img
-                                            src={oeuvre.images[0]}
+                                <Link
+                                    href={ROUTES.OEUVRES.VIEW(oeuvre.id)}
+                                    className={styles.allOfFameItem}
+                                    key={index}>
+                                    <div className={styles.imgContainer}>
+                                        <Image
+                                            src={oeuvre.images[0].mediaURL}
                                             alt={'test'}
-                                            width={200}
-                                            height={200}
+                                            width={500}
+                                            height={500}
                                         />
                                     </div>
-                                </div>
+                                </Link>
                             )
                         })
                     }
@@ -101,22 +115,22 @@ export default function OeuvresIndex() {
                             <h4 className={styles.filtresTitle}>
                                 Prix
                             </h4>
-                            <div className={styles.filtresList}>
+                            <form className={styles.filtresList}>
                                 <div className={styles.filtreRow}>
-                                    <input type="checkbox" name={"peinture"} onClick={
+                                    <input type="radio" name={"peinture"} onClick={
                                         () => setRangeValue([0, 100])
                                     }/>
-                                    <label htmlFor="peinture">Entre 0€ et 100€</label>
+                                    <label htmlFor="radio">Entre 0€ et 100€</label>
                                 </div>
                                 <div className={styles.filtreRow}>
-                                    <input type="checkbox" name={"sculpture"} onClick={
+                                    <input type="radio" name={"peinture"} onClick={
                                         () => setRangeValue([100, 500])
                                     }/>
                                     <label htmlFor="sculpture">Entre 100€ et 500€</label>
                                 </div>
                                 <div className={styles.filtreRow}>
-                                    <input type="checkbox" name={"photographie"} onClick={
-                                        () => setRangeValue([500, 1000])
+                                    <input type="radio" name={"peinture"} onClick={
+                                        () => setRangeValue([500, 50000])
                                     }/>
                                     <label htmlFor="photographie">Plus de 500€</label>
                                 </div>
@@ -125,8 +139,9 @@ export default function OeuvresIndex() {
                                     initialMax={50000}
                                     initialValue={[100, 50000]}
                                     onChange={handleRangeChange}
+                                    currentValue={rangeValue}
                                 />
-                            </div>
+                            </form>
                         </div>
 
                         <div className={styles.tagsContainer}>
@@ -148,12 +163,101 @@ export default function OeuvresIndex() {
                         </div>
                     </div>
                     <div className={styles.right}>
-                        <p>Ici les artistes</p>
-                        {/*<div className={styles.loadMore}>*/}
-                        {/*    <button>*/}
-                        {/*        <FaPlus/>*/}
-                        {/*    </button>*/}
-                        {/*</div>*/}
+                        {
+                            oeuvres && oeuvres.map((oeuvre, index) => {
+                                if (oeuvre.prix < rangeValue[0] || oeuvre.prix > rangeValue[1]) {
+                                    return null;
+                                }
+                                return (
+                                    <div
+                                        className={styles.oeuvreItem}
+                                        key={index}>
+                                        <div className={styles.imgContainer}>
+                                            <Image
+                                                src={oeuvre.images[0].mediaURL}
+                                                alt={oeuvre.name}
+                                                layout={"fill"}
+                                                objectFit={"contain"}
+                                            />
+                                        </div>
+                                        <div className={styles.oeuvreInfos}>
+                                            {
+                                                oeuvre && oeuvre.name && (
+                                                    <h4 className={styles.title}>
+                                                        {oeuvre.name}
+                                                    </h4>
+                                                )
+                                            }
+                                            {
+                                                oeuvre.artists.length > 0 && (
+                                                    <div className={styles.artists}>
+                                                        {
+                                                            oeuvre.artists.map((artist, index) => {
+                                                                return (
+                                                                    index === oeuvre.artists.length - 1 ? (
+                                                                        <Link href={ROUTES.ARTISTES.PROFIL(artist.id)}
+                                                                              key={index}>
+                                                                            {artist.pseudo ? artist.pseudo : artist.user.lastname.toUpperCase() + " " + artist.user.firstname}
+                                                                        </Link>
+                                                                    ) : (
+                                                                        <Link href={ROUTES.ARTISTES.PROFIL(artist.id)}
+                                                                              key={index}>
+                                                                            {artist.pseudo}, {" "}
+                                                                        </Link>
+                                                                    )
+                                                                )
+                                                            })
+                                                        }
+                                                    </div>
+                                                )
+                                            }
+                                            {
+                                                oeuvre.types.length > 0 && (
+                                                    <p className={styles.types}>
+                                                        {
+                                                            oeuvre.types.map((type, index) => {
+                                                                return (
+                                                                    index === oeuvre.types.length - 1 ? (
+                                                                        type
+                                                                    ) : (
+                                                                        type + " - "
+                                                                    )
+                                                                )
+                                                            })
+                                                        }
+                                                    </p>
+                                                )
+                                            }
+                                            {
+                                                oeuvre && oeuvre.prix && (
+                                                    <p className={styles.prix}>
+                                                        {oeuvre.prix} €
+                                                    </p>
+                                                )
+                                            }
+                                        </div>
+                                    </div>
+                                )
+
+                            })
+                        }
+                        <div style={{
+                            width: "100%",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}>
+                            <OeuvreBreakCard
+                                Icon={RiVipCrownLine}
+                                title={"Arts Member Only"}
+                                content={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor, nisl nec vehicula."}
+                                buttonText={"Devenir membre"}
+                                buttonAction={() => {
+                                    alert("debug")
+                                }}
+                            />
+                        </div>
+
                     </div>
                 </div>
             </div>
