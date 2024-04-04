@@ -11,7 +11,7 @@ import ROUTES from "@/constants/ROUTES";
 import Image from "next/image";
 import OeuvreBreakCard from "@/components/oeuvres/OeuvreBreakCard";
 import {RiVipCrownLine} from "react-icons/ri";
-import BigSpinner from "@/components/ui/BigSpinner";
+import Skeleton from "@/components/ui/Skeleton";
 
 export default function OeuvresIndex() {
 
@@ -19,6 +19,13 @@ export default function OeuvresIndex() {
 
     const [rangeValue, setRangeValue] = useState([0, 50000]);
     const [hoverAllOfFame, setHoverAllOfFame] = useState(false);
+    const [hoverType, setHoverType] = useState(false);
+
+    /**
+     * Liste des types d'œuvres disponibles sans doublons
+     * @type {FlatArray<any[], 1>[]|*[]}
+     */
+    const types = oeuvres && oeuvres.length > 0 ? oeuvres.map(oeuvre => oeuvre.types).flat().filter((value, index, self) => self.indexOf(value) === index) : [];
 
 
     const handleRangeChange = (newValue) => {
@@ -71,11 +78,69 @@ export default function OeuvresIndex() {
         }
     }, [hoverAllOfFame]);
 
+    useEffect(() => {
+        const typeContainer = document.querySelector('#typeContainer');
+        if (typeContainer) {
+            const scrollInterval = setInterval(() => {
+                if (hoverType)
+                    return;
+                if (typeContainer.scrollLeft < typeContainer.scrollWidth - typeContainer.clientWidth) {
+                    typeContainer.scrollLeft += 1;
+                } else {
+                    typeContainer.scrollLeft = 0;
+                }
+            }, 20);
+
+            return () => clearInterval(scrollInterval);
+        }
+    }, [hoverType]);
 
     return (
         <div className={styles.main}>
             <Navbar/>
             <div className={styles.content}>
+                <div
+                    onMouseEnter={() => setHoverType(true)}
+                    onMouseLeave={() => setHoverType(false)}
+                    className={styles.type}
+                    id={"typeContainer"}
+                >
+                    {
+                        oeuvreLoading ? (
+                            Array.from({length: 3}, (_, index) => {
+                                return (
+                                    <div
+                                        className={styles.skeleton}
+                                        key={index}>
+                                        <Skeleton/>
+                                    </div>
+                                )
+                            })
+                        ) : (
+                            types && types.map((type, index) => {
+                                return (
+                                    <Link
+                                        href={"#"}
+                                        className={styles.typeItem}
+                                        key={index}>
+                                        <div className={styles.imgContainer}>
+                                            <Image
+                                                src={oeuvres.find(oeuvre => oeuvre.types.includes(type)).images[0].mediaURL}
+                                                alt={type}
+                                                width={500}
+                                                height={500}
+                                            />
+                                        </div>
+                                        <div className={styles.name}>
+                                            {type}
+                                        </div>
+                                        <div className={styles.filter}/>
+                                    </Link>
+                                )
+                            })
+                        )
+                    }
+                </div>
                 <div
                     onMouseEnter={() => setHoverAllOfFame(true)}
                     onMouseLeave={() => setHoverAllOfFame(false)}
@@ -89,10 +154,8 @@ export default function OeuvresIndex() {
                                     <div
                                         className={styles.allOfFameItem}
                                         key={index}>
-                                        <div className={styles.imgContainer} style={{
-                                            color: "white",
-                                        }}>
-                                            <BigSpinner/>
+                                        <div className={styles.skeleton}>
+                                            <Skeleton/>
                                         </div>
                                     </div>
                                 )
@@ -145,30 +208,46 @@ export default function OeuvresIndex() {
                                 Types
                             </h4>
                             <div className={styles.filtresList}>
-                                <div className={styles.filtreRow}>
-                                    <input type="checkbox" name={"peinture"}/>
-                                    <label htmlFor="peinture">Peinture</label>
-                                </div>
-                                <div className={styles.filtreRow}>
-                                    <input type="checkbox" name={"sculpture"}/>
-                                    <label htmlFor="sculpture">Sculpture</label>
-                                </div>
-                                <div className={styles.filtreRow}>
-                                    <input type="checkbox" name={"photographie"}/>
-                                    <label htmlFor="photographie">Photographie</label>
-                                </div>
-                                <div className={styles.filtreRow}>
-                                    <input type="checkbox" name={"peinture"}/>
-                                    <label htmlFor="peinture">Peinture</label>
-                                </div>
-                                <div className={styles.filtreRow}>
-                                    <input type="checkbox" name={"sculpture"}/>
-                                    <label htmlFor="sculpture">Sculpture</label>
-                                </div>
-                                <div className={styles.filtreRow}>
-                                    <input type="checkbox" name={"photographie"}/>
-                                    <label htmlFor="photographie">Photographie</label>
-                                </div>
+                                {
+                                    oeuvreLoading ? (
+                                        Array.from({length: 5}, (_, index) => {
+                                            return (
+                                                <div
+                                                    key={index}
+                                                    style={{
+                                                        display: "flex",
+                                                        gap: 5,
+                                                    }}
+                                                >
+                                                    <div style={{
+                                                        width: "20px",
+                                                        height: "20px",
+                                                        overflow: "hidden",
+                                                    }}>
+                                                        <Skeleton/>
+                                                    </div>
+                                                    <div style={{
+                                                        width: "100%",
+                                                        height: "20px",
+                                                        overflow: "hidden",
+                                                    }}>
+                                                        <Skeleton/>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })
+                                    ) : (
+                                        types && types.map((type, index) => {
+                                            return (
+                                                <div className={styles.filtreRow}
+                                                     key={index}>
+                                                    <input type="checkbox" name={type}/>
+                                                    <label htmlFor={type}>{type}</label>
+                                                </div>
+                                            )
+                                        })
+                                    )
+                                }
                             </div>
                         </div>
 
@@ -226,120 +305,137 @@ export default function OeuvresIndex() {
                     <div className={styles.right}>
                         {
                             oeuvreLoading ? (
-                                Array.from({length: 10}, (_, index) => {
-                                    return (
-                                        <div
-                                            className={styles.oeuvreItem}
-                                            key={index}>
-                                            <div className={styles.imgContainer} style={{
-                                                color: "var(--black)",
-                                            }}>
-                                                <BigSpinner/>
-                                            </div>
-                                        </div>
-                                    )
-                                })
+                                <div style={{
+                                    width: "100%",
+                                    height: "100%",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    gap: "1rem",
+                                    flexWrap: "wrap",
+                                }}>
+                                    {
+                                        Array.from({length: 10}, (_, index) => {
+                                            return (
+                                                <div
+                                                    key={index}
+                                                    style={{
+                                                        width: "300px",
+                                                        height: "300px",
+                                                        display: "flex",
+                                                        margin: "1rem 0",
+                                                    }}
+                                                >
+                                                    <Skeleton/>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
                             ) : (
                                 oeuvres && oeuvres.map((oeuvre, index) => {
                                     if (oeuvre.prix < rangeValue[0] || oeuvre.prix > rangeValue[1]) {
                                         return null;
                                     }
                                     return (
-                                        <div
-                                            className={styles.oeuvreItem}
-                                            key={index}>
-                                            <Link
-                                                href={ROUTES.OEUVRES.VIEW(oeuvre.id)}
-                                                className={styles.imgContainer}>
-                                                <Image
-                                                    src={oeuvre.images[0].mediaURL}
-                                                    alt={oeuvre.name}
-                                                    layout={"fill"}
-                                                    objectFit={"contain"}
-                                                />
-                                            </Link>
-                                            <div className={styles.oeuvreInfos}>
-                                                {
-                                                    oeuvre && oeuvre.name && (
-                                                        <h4 className={styles.title}>
-                                                            {oeuvre.name}
-                                                        </h4>
-                                                    )
-                                                }
-                                                {
-                                                    oeuvre.artists.length > 0 && (
-                                                        <div className={styles.artists}>
-                                                            {
-                                                                oeuvre.artists.map((artist, index) => {
-                                                                    return (
-                                                                        index === oeuvre.artists.length - 1 ? (
-                                                                            <Link href={ROUTES.ARTISTES.PROFIL(artist.id)}
-                                                                                  key={index}>
-                                                                                {artist.pseudo ? artist.pseudo : artist.user.lastname.toUpperCase() + " " + artist.user.firstname}
-                                                                            </Link>
-                                                                        ) : (
-                                                                            <Link href={ROUTES.ARTISTES.PROFIL(artist.id)}
-                                                                                  key={index}>
-                                                                                {artist.pseudo}, {" "}
-                                                                            </Link>
+                                        <>
+                                            <div
+                                                className={styles.oeuvreItem}
+                                                key={index}>
+                                                <Link
+                                                    href={ROUTES.OEUVRES.VIEW(oeuvre.id)}
+                                                    className={styles.imgContainer}>
+                                                    <Image
+                                                        src={oeuvre.images[0].mediaURL}
+                                                        alt={oeuvre.name}
+                                                        layout={"fill"}
+                                                        objectFit={"contain"}
+                                                    />
+                                                </Link>
+                                                <div className={styles.oeuvreInfos}>
+                                                    {
+                                                        oeuvre && oeuvre.name && (
+                                                            <h4 className={styles.title}>
+                                                                {oeuvre.name}
+                                                            </h4>
+                                                        )
+                                                    }
+                                                    {
+                                                        oeuvre.artists.length > 0 && (
+                                                            <div className={styles.artists}>
+                                                                {
+                                                                    oeuvre.artists.map((artist, index) => {
+                                                                        return (
+                                                                            index === oeuvre.artists.length - 1 ? (
+                                                                                <Link
+                                                                                    href={ROUTES.ARTISTES.PROFIL(artist.id)}
+                                                                                    key={index}>
+                                                                                    {artist.pseudo ? artist.pseudo : artist.user.lastname.toUpperCase() + " " + artist.user.firstname}
+                                                                                </Link>
+                                                                            ) : (
+                                                                                <Link
+                                                                                    href={ROUTES.ARTISTES.PROFIL(artist.id)}
+                                                                                    key={index}>
+                                                                                    {artist.pseudo}, {" "}
+                                                                                </Link>
+                                                                            )
                                                                         )
-                                                                    )
-                                                                })
-                                                            }
-                                                        </div>
-                                                    )
-                                                }
-                                                {
-                                                    oeuvre.types.length > 0 && (
-                                                        <p className={styles.types}>
-                                                            {
-                                                                oeuvre.types.map((type, index) => {
-                                                                    return (
-                                                                        index === oeuvre.types.length - 1 ? (
-                                                                            type
-                                                                        ) : (
-                                                                            type + " - "
+                                                                    })
+                                                                }
+                                                            </div>
+                                                        )
+                                                    }
+                                                    {
+                                                        oeuvre.types.length > 0 && (
+                                                            <p className={styles.types}>
+                                                                {
+                                                                    oeuvre.types.map((type, index) => {
+                                                                        return (
+                                                                            index === oeuvre.types.length - 1 ? (
+                                                                                type
+                                                                            ) : (
+                                                                                type + " - "
+                                                                            )
                                                                         )
-                                                                    )
-                                                                })
-                                                            }
-                                                        </p>
-                                                    )
-                                                }
-                                                {
-                                                    oeuvre && oeuvre.prix && (
-                                                        <p className={styles.prix}>
-                                                            {oeuvre.prix} €
-                                                        </p>
-                                                    )
-                                                }
+                                                                    })
+                                                                }
+                                                            </p>
+                                                        )
+                                                    }
+                                                    {
+                                                        oeuvre && oeuvre.prix && (
+                                                            <p className={styles.prix}>
+                                                                {oeuvre.prix} €
+                                                            </p>
+                                                        )
+                                                    }
+                                                </div>
                                             </div>
-                                        </div>
+                                            {
+                                                index === oeuvres.length - 2 ? (
+                                                    <div style={{
+                                                        width: "100%",
+                                                        display: "flex",
+                                                        justifyContent: "center",
+                                                        alignItems: "center",
+                                                    }}>
+                                                        <OeuvreBreakCard
+                                                            Icon={RiVipCrownLine}
+                                                            title={"Arts Member Only"}
+                                                            content={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor, nisl nec vehicula."}
+                                                            buttonText={"Devenir membre"}
+                                                            buttonAction={() => {
+                                                                alert("debug")
+                                                            }}
+                                                        />
+                                                    </div>
+                                                ) : null
+                                            }
+                                        </>
                                     )
-
                                 })
                             )
                         }
-                        {
-
-                        }
-                        <div style={{
-                            width: "100%",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}>
-                            <OeuvreBreakCard
-                                Icon={RiVipCrownLine}
-                                title={"Arts Member Only"}
-                                content={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor, nisl nec vehicula."}
-                                buttonText={"Devenir membre"}
-                                buttonAction={() => {
-                                    alert("debug")
-                                }}
-                            />
-                        </div>
-
                     </div>
                 </div>
             </div>

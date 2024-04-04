@@ -14,6 +14,72 @@
     flex-direction: column;
     gap: 50px;
 
+    .type {
+      padding: 20px 100px;
+
+      display: flex;
+      flex-direction: row;
+      gap: 25px;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      overflow-x: auto;
+
+      .skeleton, .typeItem {
+        position: relative;
+
+        width: 350px;
+        min-width: 350px;
+        height: 180px;
+
+        border-radius: var(--border-radius);
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .name {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 2;
+          color: var(--white);
+            font-size: 1.5rem;
+          text-transform: uppercase;
+          font-weight: bold;
+          text-align: center;
+        }
+
+        .filter {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+
+          transition: var(--transition);
+
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+          }
+        }
+      }
+    }
+
     .allOfFameContainer {
       background-color: var(--black);
 
@@ -30,7 +96,7 @@
 
       .allOfFameItem {
 
-        .imgContainer {
+        .skeleton, .imgContainer {
           width: 270px;
           height: 270px;
           overflow: hidden;
@@ -197,19 +263,19 @@
             gap: 5px;
 
             a {
-                color: var(--black);
-                text-decoration: none;
+              color: var(--black);
+              text-decoration: none;
 
             }
 
             .prix {
-                font-size: 1.3rem;
-                font-weight: bold;
+              font-size: 1.3rem;
+              font-weight: bold;
 
             }
 
             .types {
-                font-size: 0.9rem;
+              font-size: 0.9rem;
               color: rgba(0, 0, 0, 0.3);
 
             }
