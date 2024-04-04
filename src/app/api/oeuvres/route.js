@@ -11,6 +11,7 @@ const MESSAGES = {
     INVALID_OEUVRE: "L'oeuvre est invalide",
 
     NO_ARTIST_FOUND: "Aucun artiste n'a été trouvé",
+    NO_OEUVRES_FOUND: "Aucune oeuvre n'a été trouvée",
 }
 
 const id = z
@@ -194,37 +195,7 @@ export const OeuvreSchema = z.object({
     signature,
     prix,
     orientation,
-    couleurs: z.array(z.string()).optional(),
-    Artists: z.array(z.number()).optional(),
-    UnknowArtistOeuvre: z.array(z.string()).optional(),
-    tag: z.array(z.string()).optional().transform((value) => value ? value.map((tag) => tag.toUpperCase()) : value),
-    type: z.array(z.string()).optional().transform((value) => value ? value.map((type) => type.toUpperCase()) : value),
-    images: z.array(z.object(
-            {
-                url: z.string({
-                    required_error: "L'url de l'image est requise",
-                    invalid_type_error: "L'url de l'image doit être une chaîne de caractères",
-                })
-                    .min(
-                        1,
-                        {
-                            message: "L'url de l'image doit contenir au moins 1 caractère",
-                        }
-                    ),
-                position: z.number({
-                    required_error: "La position de l'image est requise",
-                    invalid_type_error: "La position de l'image doit être un nombre",
-                })
-                    .positive({
-                        message: "La position de l'image doit être positive",
-                    })
-                    .int({
-                        message: "La position de l'image doit être un nombre entier",
-                    }),
-            }
-        )
-    ).optional(),
-})
+}).passthrough();
 
 const OeuvreResponseSchema = z.object({
     total: z
@@ -240,6 +211,114 @@ const OeuvreResponseSchema = z.object({
         }),
     list: z.array(OeuvreSchema),
 })
+
+export async function GET() {
+
+    try {
+
+        const oeuvres = await prisma.oeuvre.findMany({
+            include: {
+                images: {
+                    select: {
+                        position: true,
+                        mediaURL: true,
+                    }
+                },
+                Artists: {
+                    include: {
+                        artist: {
+                            select: {
+                                id: true,
+                                pseudo: true,
+                                user: {
+                                    select: {
+                                        lastname: true,
+                                        firstname: true,
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                UnknowArtistOeuvre: {
+                    select: {
+                        artist: {
+                            select: {
+                                id: true,
+                                name: true,
+                            }
+                        },
+                    }
+                },
+                tag: {
+                    select: {
+                        tag: {
+                            select: {
+                                name: true,
+                            }
+                        }
+                    }
+                },
+                type: {
+                    select: {
+                        type: {
+                            select: {
+                                name: true,
+                            }
+                        }
+                    },
+                },
+                couleurs: {
+                    select: {
+                        couleur: {
+                            select: {
+                                hexa: true,
+                                name: true,
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        if (!oeuvres.length) {
+            return NextResponse.json({message: MESSAGES.NO_OEUVRES_FOUND}, {status: 404});
+        }
+
+        oeuvres.forEach((oeuvre) => {
+            oeuvre.artists = oeuvre.Artists.map(({artist}) => artist);
+            oeuvre.Artists = undefined;
+
+            oeuvre.unknowartists = oeuvre.UnknowArtistOeuvre.map(({artist}) => artist);
+            oeuvre.UnknowArtistOeuvre = undefined;
+
+            oeuvre.tags = oeuvre.tag.map(({tag}) => tag.name);
+            oeuvre.tag = undefined;
+
+            oeuvre.types = oeuvre.type.map(({type}) => type.name);
+            oeuvre.type = undefined;
+
+            oeuvre.couleurs = oeuvre.couleurs.map(({couleur}) => couleur);
+
+        });
+
+
+        return NextResponse.json(OeuvreResponseSchema.parse({total: oeuvres.length, list: oeuvres}), {status: 200});
+
+    } catch (error) {
+
+        if (process.env.NODE_ENV === "development") {
+            console.log("Oeuvres API - GET", error);
+        }
+
+        if (error instanceof z.ZodError) {
+            return NextResponse.json({message: error.errors[0].message}, {status: 400})
+        }
+
+        return NextResponse.error(MESSAGES.API_SERVER_ERROR, {status: 500});
+
+    }
+}
 
 export async function POST(req) {
 
