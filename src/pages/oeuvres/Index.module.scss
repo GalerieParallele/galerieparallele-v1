@@ -5,6 +5,8 @@
   overflow-y: auto;
   overflow-x: hidden;
 
+  scroll-behavior: smooth;
+
   .content {
     padding: 50px 0;
 
@@ -16,12 +18,39 @@
       background-color: var(--black);
 
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
 
-      gap: 25px;
+      gap: 35px;
 
-      padding: 25px 0;
+      padding: 50px 0;
+
+      max-width: 100%;
+      overflow-x: auto;
+
+      .allOfFameItem {
+
+        .imgContainer {
+          width: 270px;
+          height: 270px;
+          overflow: hidden;
+
+          &:hover {
+            cursor: pointer;
+
+            & img {
+              transform: scale(1.1);
+            }
+          }
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+          }
+        }
+      }
 
     }
 
@@ -143,6 +172,7 @@
           .imgContainer {
             position: relative;
             width: 100%;
+
             &:after {
               content: "";
               display: block;

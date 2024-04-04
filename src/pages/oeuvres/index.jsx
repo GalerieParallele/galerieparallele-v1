@@ -2,7 +2,7 @@ import Navbar from "@/components/ui/navbar/Navbar";
 
 import styles from './Index.module.scss';
 import SliderRange from "@/components/ui/SliderRange";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Picto from "@/components/ui/picto/Picto";
 import Footer from "@/components/ui/footer/Footer";
 import {useOeuvres} from "@/hooks/useOeuvres";
@@ -17,6 +17,7 @@ export default function OeuvresIndex() {
     const {oeuvres} = useOeuvres();
 
     const [rangeValue, setRangeValue] = useState([0, 50000]);
+    const [hoverAllOfFame, setHoverAllOfFame] = useState(false);
 
 
     const handleRangeChange = (newValue) => {
@@ -51,12 +52,73 @@ export default function OeuvresIndex() {
         },
     ]
 
+    useEffect(() => {
+        const allOfFameContainer = document.querySelector('#allOfFameContainer');
+        if (allOfFameContainer) {
+            const scrollInterval = setInterval(() => {
+                if (hoverAllOfFame)
+                    return;
+                if (allOfFameContainer.scrollLeft < allOfFameContainer.scrollWidth - allOfFameContainer.clientWidth) {
+                    allOfFameContainer.scrollLeft += 1; // Ajustez ce chiffre pour contrôler la vitesse
+                } else {
+                    // retour au début de manière fluide
+                    allOfFameContainer.scrollLeft = 0;
+                }
+            }, 50); // Ajustez le timing pour contrôler la vitesse de défilement
+
+            return () => clearInterval(scrollInterval); // Nettoyez l'intervalle quand le composant est démonté
+        }
+    }, [hoverAllOfFame]);
+
 
     return (
         <div className={styles.main}>
             <Navbar/>
             <div className={styles.content}>
-                <div className={styles.allOfFameContainer}>
+                <div
+                    onMouseEnter={() => setHoverAllOfFame(true)}
+                    onMouseLeave={() => setHoverAllOfFame(false)}
+                    className={styles.allOfFameContainer}
+                    id={"allOfFameContainer"}>
+                    <div id={"startAllOfFameContainer"}/>
+                    {
+                        oeuvres.map((oeuvre, index) => {
+                            return (
+                                <Link
+                                    href={ROUTES.OEUVRES.VIEW(oeuvre.id)}
+                                    className={styles.allOfFameItem}
+                                    key={index}>
+                                    <div className={styles.imgContainer}>
+                                        <Image
+                                            src={oeuvre.images[0].mediaURL}
+                                            alt={'test'}
+                                            width={500}
+                                            height={500}
+                                        />
+                                    </div>
+                                </Link>
+                            )
+                        })
+                    }
+                    {
+                        oeuvres.map((oeuvre, index) => {
+                            return (
+                                <Link
+                                    href={ROUTES.OEUVRES.VIEW(oeuvre.id)}
+                                    className={styles.allOfFameItem}
+                                    key={index}>
+                                    <div className={styles.imgContainer}>
+                                        <Image
+                                            src={oeuvre.images[0].mediaURL}
+                                            alt={'test'}
+                                            width={500}
+                                            height={500}
+                                        />
+                                    </div>
+                                </Link>
+                            )
+                        })
+                    }
                     {
                         oeuvres.map((oeuvre, index) => {
                             return (
