@@ -23,6 +23,9 @@ const PATHS = {
     },
     OEUVRES: {
         HOME: createPath('oeuvres'),
+        VIEW(oeuvreId) {
+            return createPath('oeuvres', oeuvreId);
+        }
     },
     ADMIN: {
         HOME: createPath('dashboard'),
@@ -125,6 +128,9 @@ const ROUTES = {
     },
     OEUVRES: {
         HOME: BASE_URL + PATHS.OEUVRES.HOME,
+        VIEW(oeuvreId) {
+            return BASE_URL + PATHS.OEUVRES.VIEW(oeuvreId);
+        }
     },
     ADMIN: {
         HOME: BASE_URL + PATHS.ADMIN.HOME,
