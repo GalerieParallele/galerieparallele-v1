@@ -141,37 +141,7 @@ export default function ArtistesHomeIndex() {
                         </div>
                     </div>
 
-                    <div className={styles.filtresContainer}>
-                        <h4 className={styles.filtresTitle}>
-                            Prix
-                        </h4>
-                        <div className={styles.filtresList}>
-                            <div className={styles.filtreRow}>
-                                <input type="checkbox" name={"peinture"} onClick={
-                                    () => setRangeValue([0, 100])
-                                }/>
-                                <label htmlFor="peinture">Entre 0€ et 100€</label>
-                            </div>
-                            <div className={styles.filtreRow}>
-                                <input type="checkbox" name={"sculpture"} onClick={
-                                    () => setRangeValue([100, 500])
-                                }/>
-                                <label htmlFor="sculpture">Entre 100€ et 500€</label>
-                            </div>
-                            <div className={styles.filtreRow}>
-                                <input type="checkbox" name={"photographie"} onClick={
-                                    () => setRangeValue([500, 1000])
-                                }/>
-                                <label htmlFor="photographie">Plus de 500€</label>
-                            </div>
-                            <SliderRange
-                                initialMin={0}
-                                initialMax={50000}
-                                initialValue={[100, 50000]}
-                                onChange={handleRangeChange}
-                            />
-                        </div>
-                    </div>
+
 
                     <div className={styles.tagsContainer}>
                         <h4 className={styles.tagsTitle}>
