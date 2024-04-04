@@ -11,10 +11,11 @@ import ROUTES from "@/constants/ROUTES";
 import Image from "next/image";
 import OeuvreBreakCard from "@/components/oeuvres/OeuvreBreakCard";
 import {RiVipCrownLine} from "react-icons/ri";
+import BigSpinner from "@/components/ui/BigSpinner";
 
 export default function OeuvresIndex() {
 
-    const {oeuvres} = useOeuvres();
+    const {oeuvres, loading: oeuvreLoading} = useOeuvres();
 
     const [rangeValue, setRangeValue] = useState([0, 50000]);
     const [hoverAllOfFame, setHoverAllOfFame] = useState(false);
@@ -82,61 +83,59 @@ export default function OeuvresIndex() {
                     id={"allOfFameContainer"}>
                     <div id={"startAllOfFameContainer"}/>
                     {
-                        oeuvres.map((oeuvre, index) => {
-                            return (
-                                <Link
-                                    href={ROUTES.OEUVRES.VIEW(oeuvre.id)}
-                                    className={styles.allOfFameItem}
-                                    key={index}>
-                                    <div className={styles.imgContainer}>
-                                        <Image
-                                            src={oeuvre.images[0].mediaURL}
-                                            alt={'test'}
-                                            width={500}
-                                            height={500}
-                                        />
+                        oeuvreLoading ? (
+                            Array.from({length: 10}, (_, index) => {
+                                return (
+                                    <div
+                                        className={styles.allOfFameItem}
+                                        key={index}>
+                                        <div className={styles.imgContainer} style={{
+                                            color: "white",
+                                        }}>
+                                            <BigSpinner/>
+                                        </div>
                                     </div>
-                                </Link>
+                                )
+                            })
+                        ) : (
+                            oeuvres && oeuvres.length > 0 ? (
+                                oeuvres.map((oeuvre, index) => {
+                                    return (
+                                        <Link
+                                            href={ROUTES.OEUVRES.VIEW(oeuvre.id)}
+                                            className={styles.allOfFameItem}
+                                            key={index}>
+                                            <div className={styles.imgContainer}>
+                                                <Image
+                                                    src={oeuvre.images[0].mediaURL}
+                                                    alt={'test'}
+                                                    width={500}
+                                                    height={500}
+                                                />
+                                            </div>
+                                        </Link>
+                                    )
+                                })
+                            ) : (
+                                <div style={{
+                                    width: "100%",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    padding: "3rem",
+
+                                }}>
+                                    <p style={{
+                                        color: "white",
+                                        fontSize: "1.5rem",
+                                        textAlign: "center",
+
+                                    }}>
+                                        Aucune oeuvre trouvée
+                                    </p>
+                                </div>
                             )
-                        })
-                    }
-                    {
-                        oeuvres.map((oeuvre, index) => {
-                            return (
-                                <Link
-                                    href={ROUTES.OEUVRES.VIEW(oeuvre.id)}
-                                    className={styles.allOfFameItem}
-                                    key={index}>
-                                    <div className={styles.imgContainer}>
-                                        <Image
-                                            src={oeuvre.images[0].mediaURL}
-                                            alt={'test'}
-                                            width={500}
-                                            height={500}
-                                        />
-                                    </div>
-                                </Link>
-                            )
-                        })
-                    }
-                    {
-                        oeuvres.map((oeuvre, index) => {
-                            return (
-                                <Link
-                                    href={ROUTES.OEUVRES.VIEW(oeuvre.id)}
-                                    className={styles.allOfFameItem}
-                                    key={index}>
-                                    <div className={styles.imgContainer}>
-                                        <Image
-                                            src={oeuvre.images[0].mediaURL}
-                                            alt={'test'}
-                                            width={500}
-                                            height={500}
-                                        />
-                                    </div>
-                                </Link>
-                            )
-                        })
+                        )
                     }
                 </div>
                 <div className={styles.list}>
@@ -226,84 +225,103 @@ export default function OeuvresIndex() {
                     </div>
                     <div className={styles.right}>
                         {
-                            oeuvres && oeuvres.map((oeuvre, index) => {
-                                if (oeuvre.prix < rangeValue[0] || oeuvre.prix > rangeValue[1]) {
-                                    return null;
-                                }
-                                return (
-                                    <div
-                                        className={styles.oeuvreItem}
-                                        key={index}>
-                                        <Link
-                                            href={ROUTES.OEUVRES.VIEW(oeuvre.id)}
-                                            className={styles.imgContainer}>
-                                            <Image
-                                                src={oeuvre.images[0].mediaURL}
-                                                alt={oeuvre.name}
-                                                layout={"fill"}
-                                                objectFit={"contain"}
-                                            />
-                                        </Link>
-                                        <div className={styles.oeuvreInfos}>
-                                            {
-                                                oeuvre && oeuvre.name && (
-                                                    <h4 className={styles.title}>
-                                                        {oeuvre.name}
-                                                    </h4>
-                                                )
-                                            }
-                                            {
-                                                oeuvre.artists.length > 0 && (
-                                                    <div className={styles.artists}>
-                                                        {
-                                                            oeuvre.artists.map((artist, index) => {
-                                                                return (
-                                                                    index === oeuvre.artists.length - 1 ? (
-                                                                        <Link href={ROUTES.ARTISTES.PROFIL(artist.id)}
-                                                                              key={index}>
-                                                                            {artist.pseudo ? artist.pseudo : artist.user.lastname.toUpperCase() + " " + artist.user.firstname}
-                                                                        </Link>
-                                                                    ) : (
-                                                                        <Link href={ROUTES.ARTISTES.PROFIL(artist.id)}
-                                                                              key={index}>
-                                                                            {artist.pseudo}, {" "}
-                                                                        </Link>
-                                                                    )
-                                                                )
-                                                            })
-                                                        }
-                                                    </div>
-                                                )
-                                            }
-                                            {
-                                                oeuvre.types.length > 0 && (
-                                                    <p className={styles.types}>
-                                                        {
-                                                            oeuvre.types.map((type, index) => {
-                                                                return (
-                                                                    index === oeuvre.types.length - 1 ? (
-                                                                        type
-                                                                    ) : (
-                                                                        type + " - "
-                                                                    )
-                                                                )
-                                                            })
-                                                        }
-                                                    </p>
-                                                )
-                                            }
-                                            {
-                                                oeuvre && oeuvre.prix && (
-                                                    <p className={styles.prix}>
-                                                        {oeuvre.prix} €
-                                                    </p>
-                                                )
-                                            }
+                            oeuvreLoading ? (
+                                Array.from({length: 10}, (_, index) => {
+                                    return (
+                                        <div
+                                            className={styles.oeuvreItem}
+                                            key={index}>
+                                            <div className={styles.imgContainer} style={{
+                                                color: "var(--black)",
+                                            }}>
+                                                <BigSpinner/>
+                                            </div>
                                         </div>
-                                    </div>
-                                )
+                                    )
+                                })
+                            ) : (
+                                oeuvres && oeuvres.map((oeuvre, index) => {
+                                    if (oeuvre.prix < rangeValue[0] || oeuvre.prix > rangeValue[1]) {
+                                        return null;
+                                    }
+                                    return (
+                                        <div
+                                            className={styles.oeuvreItem}
+                                            key={index}>
+                                            <Link
+                                                href={ROUTES.OEUVRES.VIEW(oeuvre.id)}
+                                                className={styles.imgContainer}>
+                                                <Image
+                                                    src={oeuvre.images[0].mediaURL}
+                                                    alt={oeuvre.name}
+                                                    layout={"fill"}
+                                                    objectFit={"contain"}
+                                                />
+                                            </Link>
+                                            <div className={styles.oeuvreInfos}>
+                                                {
+                                                    oeuvre && oeuvre.name && (
+                                                        <h4 className={styles.title}>
+                                                            {oeuvre.name}
+                                                        </h4>
+                                                    )
+                                                }
+                                                {
+                                                    oeuvre.artists.length > 0 && (
+                                                        <div className={styles.artists}>
+                                                            {
+                                                                oeuvre.artists.map((artist, index) => {
+                                                                    return (
+                                                                        index === oeuvre.artists.length - 1 ? (
+                                                                            <Link href={ROUTES.ARTISTES.PROFIL(artist.id)}
+                                                                                  key={index}>
+                                                                                {artist.pseudo ? artist.pseudo : artist.user.lastname.toUpperCase() + " " + artist.user.firstname}
+                                                                            </Link>
+                                                                        ) : (
+                                                                            <Link href={ROUTES.ARTISTES.PROFIL(artist.id)}
+                                                                                  key={index}>
+                                                                                {artist.pseudo}, {" "}
+                                                                            </Link>
+                                                                        )
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
+                                                    )
+                                                }
+                                                {
+                                                    oeuvre.types.length > 0 && (
+                                                        <p className={styles.types}>
+                                                            {
+                                                                oeuvre.types.map((type, index) => {
+                                                                    return (
+                                                                        index === oeuvre.types.length - 1 ? (
+                                                                            type
+                                                                        ) : (
+                                                                            type + " - "
+                                                                        )
+                                                                    )
+                                                                })
+                                                            }
+                                                        </p>
+                                                    )
+                                                }
+                                                {
+                                                    oeuvre && oeuvre.prix && (
+                                                        <p className={styles.prix}>
+                                                            {oeuvre.prix} €
+                                                        </p>
+                                                    )
+                                                }
+                                            </div>
+                                        </div>
+                                    )
 
-                            })
+                                })
+                            )
+                        }
+                        {
+
                         }
                         <div style={{
                             width: "100%",

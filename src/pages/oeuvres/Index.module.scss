@@ -191,6 +191,28 @@
 
           .oeuvreInfos {
             text-align: center;
+
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+
+            a {
+                color: var(--black);
+                text-decoration: none;
+
+            }
+
+            .prix {
+                font-size: 1.3rem;
+                font-weight: bold;
+
+            }
+
+            .types {
+                font-size: 0.9rem;
+              color: rgba(0, 0, 0, 0.3);
+
+            }
           }
         }
 
