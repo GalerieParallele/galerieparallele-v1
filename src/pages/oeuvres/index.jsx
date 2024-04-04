@@ -27,6 +27,8 @@ export default function OeuvresIndex() {
      */
     const types = oeuvres && oeuvres.length > 0 ? oeuvres.map(oeuvre => oeuvre.types).flat().filter((value, index, self) => self.indexOf(value) === index) : [];
 
+    const tags = oeuvres && oeuvres.length > 0 ? oeuvres.map(oeuvre => oeuvre.tags).flat().filter((value, index, self) => self.indexOf(value) === index) : [];
+
 
     const handleRangeChange = (newValue) => {
         setRangeValue(newValue);
@@ -289,16 +291,38 @@ export default function OeuvresIndex() {
                                 Tags
                             </h4>
                             <div className={styles.tagsList}>
-                                <span className={styles.tagItem}>#Tag 1</span>
-                                <span className={styles.tagItem}>#Tag 2</span>
-                                <span className={styles.tagItem}>#Tag 3</span>
-                                <span className={styles.tagItem}>#Tag 4</span>
-                                <span className={styles.tagItem}>#Tag 5</span>
-                                <span className={styles.tagItem}>#Tag 6</span>
-                                <span className={styles.tagItem}>#Tag 7</span>
-                                <span className={styles.tagItem}>#Tag 8</span>
-                                <span className={styles.tagItem}>#Tag 9</span>
-                                <span className={styles.tagItem}>#Tag 10</span>
+                                {
+                                    oeuvreLoading ? (
+                                        Array.from({length: 5}, (_, index) => {
+                                            return (
+                                                <div
+                                                    key={index}
+                                                    style={{
+                                                        display: "flex",
+                                                        gap: 5,
+                                                    }}
+                                                >
+                                                    <div style={{
+                                                        width: "70px",
+                                                        height: "25px",
+                                                        overflow: "hidden",
+                                                        borderRadius: "20px",
+                                                    }}>
+                                                        <Skeleton/>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })
+                                    ) : (
+                                        tags && tags.map((tag, index) => {
+                                            return (
+                                                <span className={styles.tagItem} key={index}>
+                                                    {tag}
+                                                </span>
+                                            )
+                                        })
+                                    )
+                                }
                             </div>
                         </div>
                     </div>
