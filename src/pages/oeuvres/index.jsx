@@ -234,14 +234,16 @@ export default function OeuvresIndex() {
                                     <div
                                         className={styles.oeuvreItem}
                                         key={index}>
-                                        <div className={styles.imgContainer}>
+                                        <Link
+                                            href={ROUTES.OEUVRES.VIEW(oeuvre.id)}
+                                            className={styles.imgContainer}>
                                             <Image
                                                 src={oeuvre.images[0].mediaURL}
                                                 alt={oeuvre.name}
                                                 layout={"fill"}
                                                 objectFit={"contain"}
                                             />
-                                        </div>
+                                        </Link>
                                         <div className={styles.oeuvreInfos}>
                                             {
                                                 oeuvre && oeuvre.name && (
