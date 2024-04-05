@@ -1,0 +1,37 @@
+.tagsList {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  padding: 8px;
+
+  .tagItem {
+    background-color: var(--white);
+    padding: 5px 10px;
+
+    border-radius: 20px;
+    font-size: 0.9rem;
+
+    & label {
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .hiddenCheckbox {
+      opacity: 0;
+      position: absolute;
+      width: 0;
+      height: 0;
+      margin: 0;
+      padding: 0;
+      visibility: hidden;
+      display: none;
+
+        &:checked + label {
+            background-color: var(--black);
+            color: var(--white);
+        }
+    }
+  }
+}
