@@ -1,23 +1,35 @@
-import Navbar from "@/components/ui/navbar/Navbar";
-
-import styles from './Index.module.scss';
-import SliderRange from "@/components/ui/SliderRange";
 import {useEffect, useState} from "react";
+
+import useFiltersStore from "@/stores/oeuvresFIltersStore";
+import {useOeuvres} from "@/hooks/useOeuvres";
+
+import Link from "next/link";
+import Image from "next/image";
+
+import ROUTES from "@/constants/ROUTES";
+
+import Navbar from "@/components/ui/navbar/Navbar";
+import OeuvreBreakCard from "@/components/oeuvres/OeuvreBreakCard";
+import Skeleton from "@/components/ui/Skeleton";
 import Picto from "@/components/ui/picto/Picto";
 import Footer from "@/components/ui/footer/Footer";
-import {useOeuvres} from "@/hooks/useOeuvres";
-import Link from "next/link";
-import ROUTES from "@/constants/ROUTES";
-import Image from "next/image";
-import OeuvreBreakCard from "@/components/oeuvres/OeuvreBreakCard";
+
+import FiltresOrientations from "@/components/oeuvres/filtres/FiltresOrientations";
+import {IoMdClose} from "react-icons/io";
+import FiltresTypes from "@/components/oeuvres/filtres/FiltresTypes";
+import FiltresPrix from "@/components/oeuvres/filtres/FiltresPrix";
+import FiltresCouleurs from "@/components/oeuvres/filtres/FiltresCouleurs";
+import FiltresTags from "@/components/oeuvres/filtres/FiltresTags";
+
 import {RiVipCrownLine} from "react-icons/ri";
-import Skeleton from "@/components/ui/Skeleton";
+
+import styles from './Index.module.scss';
 
 export default function OeuvresIndex() {
 
     const {oeuvres, loading: oeuvreLoading} = useOeuvres();
+    const {filters, setFilter, getFilteredOeuvres, setOeuvres, removeAllFilters, initialState} = useFiltersStore();
 
-    const [rangeValue, setRangeValue] = useState([0, 50000]);
     const [hoverAllOfFame, setHoverAllOfFame] = useState(false);
     const [hoverType, setHoverType] = useState(false);
 
@@ -36,10 +48,6 @@ export default function OeuvresIndex() {
      * @param newValue
      */
     let colors = oeuvres && oeuvres.length > 0 ? Array.from(new Set(oeuvres.map(oeuvre => oeuvre.couleurs).flat().filter((value, index, self) => self.indexOf(value) === index))) : [];
-
-    const handleRangeChange = (newValue) => {
-        setRangeValue(newValue);
-    };
 
     const oeuvresBreakCards = [
         {
@@ -105,8 +113,8 @@ export default function OeuvresIndex() {
     }, [hoverType]);
 
     useEffect(() => {
-        console.log(colors)
-    }, []);
+        setOeuvres(oeuvres);
+    }, [oeuvres])
 
     return (
         <div className={styles.main}>
@@ -216,92 +224,145 @@ export default function OeuvresIndex() {
                         )
                     }
                 </div>
+
+                {
+                    filters && JSON.stringify(filters) !== JSON.stringify(initialState) && (
+                        <div className={styles.filtresHeadList}>
+                            <p>Filtres actifs :</p>
+                            {
+                                filters && (
+                                    <>
+                                        {
+                                            filters.orientation && filters.orientation.length > 0 && (
+                                                filters.orientation.map((orientation, index) => {
+                                                    return (
+                                                        <span
+                                                            key={index}>
+                                        <p>
+                                            {orientation.charAt(0) + orientation.slice(1).toLowerCase()}
+                                        </p>
+                                        <button onClick={() => {
+                                            setFilter('orientation', filters.orientation.filter(o => o !== orientation));
+                                        }}>
+                                            <IoMdClose/>
+                                        </button>
+                                    </span>
+                                                    )
+                                                })
+                                            )
+                                        }
+                                        {
+                                            filters.types && filters.types.length > 0 && (
+                                                filters.types.map((type, index) => {
+                                                    return (
+                                                        <span
+                                                            key={index}>
+                                        <p>
+                                            {type.charAt(0) + type.slice(1).toLowerCase()}
+                                        </p>
+                                        <button onClick={() => {
+                                            setFilter('types', filters.types.filter(o => o !== type));
+                                        }}>
+                                            <IoMdClose/>
+                                        </button>
+                                    </span>
+                                                    )
+                                                })
+                                            )
+                                        }
+                                        {
+                                            filters.priceRange && filters.priceRange.length > 0 && (
+                                                filters.priceRange[0] === initialState.priceRange[0] && filters.priceRange[1] === initialState.priceRange[1] ? null : (
+                                                    <span>
+                                                <p>
+                                                    {filters.priceRange[0]}€ - {filters.priceRange[1]}€
+                                                </p>
+                                                <button onClick={() => {
+                                                    setFilter('priceRange', [priceMin, priceMax]);
+                                                }}>
+                                                    <IoMdClose/>
+                                                </button>
+                                            </span>
+                                                )
+                                            )
+                                        }
+                                        {
+                                            filters.colors && filters.colors.length > 0 && (
+                                                filters.colors.map((color, index) => {
+                                                    return (
+                                                        <span
+                                                            key={index}>
+                                                            <p>
+                                                                {colors.find(c => c.hexa === color).name}
+                                                            </p>
+                                                            <button
+                                                                onClick={() => {
+                                                                    setFilter('colors', filters.colors.filter(o => o !== color));
+                                                                }
+                                                                }>
+                                                                <IoMdClose/>
+                                                            </button>
+                                                        </span>
+                                                    )
+                                                })
+                                            )
+                                        }
+                                            {
+                                                filters.tags && filters.tags.length > 0 && (
+                                                    filters.tags.map((tag, index) => {
+                                                        return (
+                                                            <span
+                                                                key={index}>
+                                                                <p>
+                                                                    {tag}
+                                                                </p>
+                                                                <button onClick={() => {
+                                                                    setFilter('tags', filters.tags.filter(o => o !== tag));
+                                                                }}>
+                                                                    <IoMdClose/>
+                                                                </button>
+                                                            </span>
+                                                        )
+                                                    })
+                                                )
+
+                                            }
+                                    </>
+                                )
+                            }
+                            <button
+                                style={{
+                                    padding: "8px 10px",
+                                    backgroundColor: "red",
+                                    color: "white",
+                                    borderRadius: "20px",
+                                    border: "none",
+                                    cursor: "pointer",
+                                    fontWeight: "bold",
+                                }}
+                                onClick={() => {
+                                    removeAllFilters();
+                                }}>
+                                Réinitialiser
+                            </button>
+                        </div>
+                    )
+                }
+
+
                 <div className={styles.list}>
                     <div className={styles.left}>
+                        <FiltresTypes
+                            types={types}
+                            loading={oeuvreLoading}
+                        />
+                        <FiltresPrix
+                            min={0}
+                            max={100000}
+                        />
 
-                        {/*Types filtres*/}
-                        <div className={styles.filtresContainer}>
-                            <h4 className={styles.filtresTitle}>
-                                Types
-                            </h4>
-                            <div className={styles.filtresList}>
-                                {
-                                    oeuvreLoading ? (
-                                        Array.from({length: 5}, (_, index) => {
-                                            return (
-                                                <div
-                                                    key={index}
-                                                    style={{
-                                                        display: "flex",
-                                                        gap: 5,
-                                                    }}
-                                                >
-                                                    <div style={{
-                                                        width: "20px",
-                                                        height: "20px",
-                                                        overflow: "hidden",
-                                                    }}>
-                                                        <Skeleton/>
-                                                    </div>
-                                                    <div style={{
-                                                        width: "100%",
-                                                        height: "20px",
-                                                        overflow: "hidden",
-                                                    }}>
-                                                        <Skeleton/>
-                                                    </div>
-                                                </div>
-                                            )
-                                        })
-                                    ) : (
-                                        types && types.map((type, index) => {
-                                            return (
-                                                <div className={styles.filtreRow}
-                                                     key={index}>
-                                                    <input type="checkbox" name={type}/>
-                                                    <label htmlFor={type}>{type}</label>
-                                                </div>
-                                            )
-                                        })
-                                    )
-                                }
-                            </div>
-                        </div>
 
-                        {/*Prix filtres*/}
-                        <div className={styles.filtresContainer}>
-                            <h4 className={styles.filtresTitle}>
-                                Prix
-                            </h4>
-                            <form className={styles.filtresList}>
-                                <div className={styles.filtreRow}>
-                                    <input type="radio" name={"peinture"} onClick={
-                                        () => setRangeValue([0, 100])
-                                    }/>
-                                    <label htmlFor="radio">Entre 0€ et 100€</label>
-                                </div>
-                                <div className={styles.filtreRow}>
-                                    <input type="radio" name={"peinture"} onClick={
-                                        () => setRangeValue([100, 500])
-                                    }/>
-                                    <label htmlFor="sculpture">Entre 100€ et 500€</label>
-                                </div>
-                                <div className={styles.filtreRow}>
-                                    <input type="radio" name={"peinture"} onClick={
-                                        () => setRangeValue([500, 50000])
-                                    }/>
-                                    <label htmlFor="photographie">Plus de 500€</label>
-                                </div>
-                                <SliderRange
-                                    initialMin={0}
-                                    initialMax={50000}
-                                    initialValue={[100, 50000]}
-                                    onChange={handleRangeChange}
-                                    currentValue={rangeValue}
-                                />
-                            </form>
-                        </div>
-
+                        {/*Dimensions filtres*/}
                         <div className={styles.filtresContainer}>
                             <h4 className={styles.filtresTitle}>
                                 Dimensions
@@ -340,113 +401,15 @@ export default function OeuvresIndex() {
                             </form>
                         </div>
 
-                        {/*Couleurs filtres*/}
-                        <div className={styles.filtresContainer}>
-                            <h4 className={styles.filtresTitle}>
-                                Couleur{colors && colors.length > 1 ? "s" : ""}
-                            </h4>
-                            <div className={styles.filtresList}>
-                                {
-                                    oeuvreLoading ? (
-                                        Array.from({length: 5}, (_, index) => {
-                                            return (
-                                                <div
-                                                    key={index}
-                                                    style={{
-                                                        display: "flex",
-                                                        gap: 5,
-                                                    }}
-                                                >
-                                                    <div style={{
-                                                        width: "20px",
-                                                        height: "20px",
-                                                        overflow: "hidden",
-                                                    }}>
-                                                        <Skeleton/>
-                                                    </div>
-                                                    <div style={{
-                                                        width: "20px",
-                                                        height: "20px",
-                                                        overflow: "hidden",
-                                                        borderRadius: "50%",
-                                                    }}>
-                                                        <Skeleton/>
-                                                    </div>
-                                                    {/*random width min max*/}
-                                                    <div style={{
-                                                        width: Math.floor(Math.random() * (80 - 10 + 1) + 10) + "%",
-                                                        height: "20px",
-                                                        overflow: "hidden",
-                                                    }}>
-                                                        <Skeleton/>
-                                                    </div>
-                                                </div>
-                                            )
-                                        })
-                                    ) : (
-                                        colors && colors.map((color, index) => {
-                                                return (
-                                                    <div className={styles.filtreRow}
-                                                         key={index}>
-                                                        <input type="checkbox" name={color.name}/>
-                                                        <div style={{
-                                                            width: "20px",
-                                                            height: "20px",
-                                                            backgroundColor: color.hexa,
-                                                            borderRadius: "50%",
-                                                            margin: "0 5px",
-                                                            boxShadow: "var(--shadow)",
-                                                        }}/>
-                                                        <label htmlFor={color.name}>{color.name}</label>
-                                                    </div>
-                                                )
-                                            }
-                                        )
-                                    )
-                                }
-                            </div>
-                        </div>
-
-                        {/*Tags filtres*/}
-                        <div className={styles.tagsContainer}>
-                            <h4 className={styles.tagsTitle}>
-                                Tag{tags && tags.length > 1 ? "s" : ""}
-                            </h4>
-                            <div className={styles.tagsList}>
-                                {
-                                    oeuvreLoading ? (
-                                        Array.from({length: 5}, (_, index) => {
-                                            return (
-                                                <div
-                                                    key={index}
-                                                    style={{
-                                                        display: "flex",
-                                                        gap: 5,
-                                                    }}
-                                                >
-                                                    <div style={{
-                                                        width: "70px",
-                                                        height: "25px",
-                                                        overflow: "hidden",
-                                                        borderRadius: "20px",
-                                                    }}>
-                                                        <Skeleton/>
-                                                    </div>
-                                                </div>
-                                            )
-                                        })
-                                    ) : (
-                                        tags && tags.map((tag, index) => {
-                                            return (
-                                                <span className={styles.tagItem} key={index}>
-                                                    {tag}
-                                                </span>
-                                            )
-                                        })
-                                    )
-                                }
-                            </div>
-                        </div>
+                        <FiltresOrientations/>
+                        <FiltresCouleurs
+                            loading={oeuvreLoading}
+                            colors={colors}
+                        />
+                        <FiltresTags
+                            loading={oeuvreLoading}
+                            tags={tags}
+                        />
                     </div>
                     <div className={styles.right}>
                         {
@@ -479,10 +442,7 @@ export default function OeuvresIndex() {
                                     }
                                 </div>
                             ) : (
-                                oeuvres && oeuvres.map((oeuvre, index) => {
-                                    if (oeuvre.prix < rangeValue[0] || oeuvre.prix > rangeValue[1]) {
-                                        return null;
-                                    }
+                                getFilteredOeuvres && Array.from(getFilteredOeuvres()).map((oeuvre, index) => {
                                     return (
                                         <>
                                             <div
