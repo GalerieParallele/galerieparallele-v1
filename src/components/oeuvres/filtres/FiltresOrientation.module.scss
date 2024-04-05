@@ -1,0 +1,49 @@
+.filtresOrientation {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+  .orientationItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    .selected {
+      border: 2px solid var(--black);
+    }
+
+    .container {
+      background-color: var(--light-white);
+      box-shadow: var(--shadow);
+      padding: 5px;
+      height: 80px;
+      width: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: var(--border-radius);
+
+      .shape {
+        background: var(--gradient-black);
+        border-radius: var(--border-radius);
+      }
+
+      .paysage {
+        height: 40px;
+        width: 60px;
+      }
+
+      .portrait {
+        height: 60px;
+        width: 40px;
+      }
+
+      .carre {
+        height: 60px;
+        width: 60px;
+      }
+    }
+  }
+}
