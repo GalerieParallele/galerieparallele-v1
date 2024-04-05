@@ -20,6 +20,7 @@ import FiltresTypes from "@/components/oeuvres/filtres/FiltresTypes";
 import FiltresPrix from "@/components/oeuvres/filtres/FiltresPrix";
 import FiltresCouleurs from "@/components/oeuvres/filtres/FiltresCouleurs";
 import FiltresTags from "@/components/oeuvres/filtres/FiltresTags";
+import FiltresDimensions from "@/components/oeuvres/filtres/FiltresDimensions";
 
 import {RiVipCrownLine} from "react-icons/ri";
 
@@ -307,12 +308,12 @@ export default function OeuvresIndex() {
                                                 })
                                             )
                                         }
-                                            {
-                                                filters.tags && filters.tags.length > 0 && (
-                                                    filters.tags.map((tag, index) => {
-                                                        return (
-                                                            <span
-                                                                key={index}>
+                                        {
+                                            filters.tags && filters.tags.length > 0 && (
+                                                filters.tags.map((tag, index) => {
+                                                    return (
+                                                        <span
+                                                            key={index}>
                                                                 <p>
                                                                     {tag}
                                                                 </p>
@@ -322,11 +323,62 @@ export default function OeuvresIndex() {
                                                                     <IoMdClose/>
                                                                 </button>
                                                             </span>
-                                                        )
-                                                    })
-                                                )
+                                                    )
+                                                })
+                                            )
 
-                                            }
+                                        }
+                                        {
+                                            filters.heightRange && filters.heightRange.length > 0 && (
+                                                filters.heightRange[0] === initialState.heightRange[0] && filters.heightRange[1] === initialState.heightRange[1] ? null : (
+                                                    <span>
+                                                <p>
+                                                    Hauteur : {filters.heightRange[0]}cm - {filters.heightRange[1]}cm
+                                                </p>
+                                                <button onClick={() => {
+                                                    setFilter('heightRange', [initialState.heightRange[0], initialState.heightRange[1]]);
+                                                }}>
+                                                    <IoMdClose/>
+                                                </button>
+                                            </span>
+
+                                                )
+                                            )
+                                        }
+                                        {
+                                            filters.widthRange && filters.widthRange.length > 0 && (
+                                                filters.widthRange[0] === initialState.widthRange[0] && filters.widthRange[1] === initialState.widthRange[1] ? null : (
+                                                    <span>
+                                                <p>
+                                                    Longueur : {filters.widthRange[0]}cm - {filters.widthRange[1]}cm
+                                                </p>
+                                                <button onClick={() => {
+                                                    setFilter('widthRange', [initialState.widthRange[0], initialState.widthRange[1]]);
+                                                }}>
+                                                    <IoMdClose/>
+                                                </button>
+                                            </span>
+
+                                                )
+                                            )
+                                        }
+                                        {
+                                            filters.depthRange && filters.depthRange.length > 0 && (
+                                                filters.depthRange[0] === initialState.depthRange[0] && filters.depthRange[1] === initialState.depthRange[1] ? null : (
+                                                    <span>
+                                                <p>
+                                                    Profondeur : {filters.depthRange[0]}cm - {filters.depthRange[1]}cm
+                                                </p>
+                                                <button onClick={() => {
+                                                    setFilter('depthRange', [initialState.depthRange[0], initialState.depthRange[1]]);
+                                                }}>
+                                                    <IoMdClose/>
+                                                </button>
+                                            </span>
+
+                                                )
+                                            )
+                                        }
                                     </>
                                 )
                             }
@@ -362,44 +414,7 @@ export default function OeuvresIndex() {
                         />
 
 
-                        {/*Dimensions filtres*/}
-                        <div className={styles.filtresContainer}>
-                            <h4 className={styles.filtresTitle}>
-                                Dimensions
-                            </h4>
-                            <form className={styles.filtresList}>
-                                <div className={styles.dimensionsRow}>
-                                    <h5>Hauteur :</h5>
-                                    <div className={styles.inputs}>
-                                        <span>Entre</span>
-                                        <input type={"number"}/>
-                                        <span>cm et</span>
-                                        <input type={"number"}/>
-                                        <span>cm</span>
-                                    </div>
-                                </div>
-                                <div className={styles.dimensionsRow}>
-                                    <h5>Largeur :</h5>
-                                    <div className={styles.inputs}>
-                                        <span>Entre</span>
-                                        <input type={"number"}/>
-                                        <span>cm et</span>
-                                        <input type={"number"}/>
-                                        <span>cm</span>
-                                    </div>
-                                </div>
-                                <div className={styles.dimensionsRow}>
-                                    <h5>Profondeur :</h5>
-                                    <div className={styles.inputs}>
-                                        <span>Entre</span>
-                                        <input type={"number"}/>
-                                        <span>cm et</span>
-                                        <input type={"number"}/>
-                                        <span>cm</span>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                        <FiltresDimensions/>
 
                         <FiltresOrientations/>
                         <FiltresCouleurs
