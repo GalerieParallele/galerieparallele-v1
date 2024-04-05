@@ -1,21 +1,26 @@
 import create from 'zustand';
 
+const initialState = {
+    orientation: [],
+    priceRange: [0, 100000],
+    heightRange: [0, 100000],
+    widthRange: [0, 100000],
+    depthRange: [0, 100000],
+    uniquePiece: false,
+    support: [],
+    technique: [],
+    encadrement: [],
+    signature: [],
+    colors: [],
+    artists: [],
+    types: [],
+    tags: [],
+}
+
+
 const useFiltersStore = create((set, get) => ({
     filters: {
-        orientation: [],
-        priceRange: [0, 100000],
-        heightRange: [0, 100000],
-        widthRange: [0, 100000],
-        depthRange: [0, 100000],
-        uniquePiece: false,
-        support: [],
-        technique: [],
-        encadrement: [],
-        signature: [],
-        colors: [],
-        artists: [],
-        types: [],
-        tags: [],
+        ...initialState,
     },
     setFilter: (filterName, value) =>
         set((state) => ({
@@ -39,16 +44,15 @@ const useFiltersStore = create((set, get) => ({
             if (filters.technique.length > 0 && !filters.technique.includes(oeuvre.technique)) return false;
             if (filters.encadrement.length > 0 && !filters.encadrement.includes(oeuvre.encadrement)) return false;
             if (filters.signature.length > 0 && !filters.signature.includes(oeuvre.signature)) return false;
-
             if (filters.colors.length > 0 && !filters.colors.some(colorHexa => oeuvre.couleurs.map(c => c.hexa).includes(colorHexa))) return false;
             if (filters.artists.length > 0 && !filters.artists.some(artistId => oeuvre.artists.map(a => a.id).includes(artistId))) return false;
             if (filters.types.length > 0 && !filters.types.some(type => oeuvre.types.map(t => t).includes(type))) return false;
-            if (filters.tags.length > 0 && !filters.tags.some(tag => oeuvre.tags.map(t => t).includes(tag))) return false;
-
-            return true;
+            return !(filters.tags.length > 0 && !filters.tags.some(tag => oeuvre.tags.map(t => t).includes(tag)));
 
         });
     },
+    removeAllFilters: () => set(() => ({filters: initialState})),
+    initialState,
 }));
 
 export default useFiltersStore;
