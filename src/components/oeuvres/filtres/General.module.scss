@@ -1,0 +1,88 @@
+.filtresContainer {
+
+  width: 100%;
+
+  padding: 25px 40px;
+
+  background-color: var(--white);
+
+  box-shadow: var(--shadow);
+
+  border-radius: var(--border-radius);
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .filtresTitle {
+    font-size: 1.5rem;
+  }
+
+  label {
+    font-size: 1.05rem;
+  }
+
+  .filtresList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    .dimensionsRow {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      &:not(:first-child) {
+        margin-top: 15px;
+      }
+
+      h5 {
+        text-transform: uppercase;
+      }
+
+      .inputs {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+
+        // no control
+        input {
+          border-bottom: 1px solid var(--black);
+          padding: 3px 5px;
+          width: 50px;
+
+          /* Firefox */
+          -moz-appearance: textfield;
+
+          /* Chrome, Safari, Edge, Opera */
+          &::-webkit-outer-spin-button,
+          &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+          }
+
+        }
+      }
+    }
+
+    .tagItem {
+      background-color: var(--white);
+      padding: 5px 10px;
+      box-shadow: var(--shadow);
+    }
+
+    .filtreRow {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+
+      input {
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+
+}
