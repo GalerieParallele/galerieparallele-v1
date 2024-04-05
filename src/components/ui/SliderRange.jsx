@@ -1,51 +1,42 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from './SliderRange.module.scss';
+import useFiltersStore from "@/stores/oeuvresFIltersStore";
 
-export default function SliderRange({ currentValue, initialMin, initialMax, initialValue, onChange }) {
-    const [min, setMin] = useState(initialMin || 0);
-    const [max, setMax] = useState(initialMax || 100);
-    const [value, setValue] = useState(initialValue || [min, max]);
+export default function SliderRange({max, min, symbol = '€'}) {
 
-    const handleMinChange = (e) => {
-        const newValue = Math.min(parseInt(e.target.value), value[1]);
-        setValue([newValue, value[1]]);
-        onChange([newValue, value[1]]);
-    };
-
-    const handleMaxChange = (e) => {
-        const newValue = Math.max(parseInt(e.target.value), value[0]);
-        setValue([value[0], newValue]);
-        onChange([value[0], newValue]);
-    };
+    const {filters, setFilter} = useFiltersStore();
 
     return (
         <div className={styles.sliderRange}>
-            <div className={styles.sliderTrack} style={{ '--value1': value[0], '--value2': value[1], '--max': max }}>
+            <div className={styles.sliderTrack}
+                 style={{'--value1': filters.priceRange[0], '--value2': filters.priceRange[1], '--max': max}}>
                 <input
                     type="range"
                     min={min}
                     max={max}
-                    value={currentValue[0] || value[0]}
-                    onChange={handleMinChange}
+                    value={filters.priceRange[0]}
+                    onChange={(e) => setFilter('priceRange', [parseInt(e.target.value), filters.priceRange[1]])}
                     className={styles.sliderThumb}
+                    step={50}
                 />
                 <input
                     type="range"
                     min={min}
                     max={max}
-                    value={currentValue[1] ||value[1]}
-                    onChange={handleMaxChange}
+                    value={filters.priceRange[1]}
+                    onChange={(e) => setFilter('priceRange', [filters.priceRange[0], parseInt(e.target.value)])}
                     className={styles.sliderThumb}
                     style={{
-                        marginLeft: '-3px',
+                        marginLeft: '-4px',
                     }}
+                    step={50}
                 />
             </div>
             <div className={styles.sliderValues} style={{
                 marginTop: '10px',
             }}>
-                <span>+ de {currentValue[0] || value[0]}€</span>
-                <span>- de {currentValue[1] ||value[1]}€</span>
+                <span>+ de {filters.priceRange[0]}{symbol}</span>
+                <span>- de {filters.priceRange[1]}{symbol}</span>
             </div>
         </div>
     );

@@ -17,18 +17,49 @@
 }
 
 .sliderThumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  background: var(--black);
+  border-radius: 25px;
+  cursor: pointer;
 
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px; /* Largeur de la poignée */
+    height: 20px; /* Hauteur de la poignée */
+    background: var(--white); /* Couleur de fond */
+    box-shadow: var(--shadow);
+    border: 2px solid var(--light-gray);
+    cursor: pointer;
+    border-radius: 50%; /* Rendre la poignée circulaire */
+  }
+
+  &::-moz-range-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px; /* Largeur de la poignée */
+    height: 20px; /* Hauteur de la poignée */
+    background: var(--white); /* Couleur de fond */
+    box-shadow: var(--shadow);
+    border: 2px solid var(--light-gray);
+    cursor: pointer;
+    border-radius: 50%; /* Rendre la poignée circulaire */
+  }
 }
 
 .sliderThumb::-webkit-slider-thumb {
+
 }
 
 .sliderThumb::-moz-range-thumb {
+
 }
 
 .sliderValues {
-display: flex;
-justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .sliderValues span {
