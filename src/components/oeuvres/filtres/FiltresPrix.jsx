@@ -36,7 +36,10 @@ export default function FiltresPrix({min, max}) {
                     max={max}
                     initialValue={[min, max]}
                     onChange={(value) => setFilter('priceRange', value)}
-                    currentValue={filters.priceRange}
+                    symbol={'€'}
+                    filterKey={'priceRange'}
+                    filterValue={filters.priceRange}
+
                 />
             </form>
         </InitialFiltresItem>
