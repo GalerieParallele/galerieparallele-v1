@@ -1,0 +1,12 @@
+.close {
+  height: 0 !important;
+  margin-top: 0 !important;
+  transition: var(--transition);
+}
+
+.content {
+  margin-top: 20px;
+  height: auto;
+  overflow: hidden;
+  transition: var(--transition);
+}
