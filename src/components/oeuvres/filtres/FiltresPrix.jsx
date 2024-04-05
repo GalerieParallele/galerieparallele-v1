@@ -2,6 +2,7 @@ import SliderRange from "@/components/ui/SliderRange";
 
 import styles from './General.module.scss';
 import useFiltersStore from "@/stores/oeuvresFIltersStore";
+import InitialFiltresItem from "@/components/oeuvres/filtres/InitialFiltresItem";
 
 export default function FiltresPrix({min, max}) {
 
@@ -13,10 +14,9 @@ export default function FiltresPrix({min, max}) {
         [500, 50000]
     ]
     return (
-        <div className={styles.filtresContainer}>
-            <h4 className={styles.filtresTitle}>
-                Prix
-            </h4>
+        <InitialFiltresItem
+            title={"Prix"}
+        >
             <form className={styles.filtresList}>
                 {
                     steps.map((step, index) => (
@@ -24,9 +24,9 @@ export default function FiltresPrix({min, max}) {
                             <input
                                 type="radio"
                                 name={"peinture"}
-                                   onClick={
-                                () => setFilter('priceRange', step)
-                            }/>
+                                onClick={
+                                    () => setFilter('priceRange', step)
+                                }/>
                             <label htmlFor="radio">{`Entre ${step[0]}€ et ${step[1]}€`}</label>
                         </div>
                     ))
@@ -39,6 +39,6 @@ export default function FiltresPrix({min, max}) {
                     currentValue={filters.priceRange}
                 />
             </form>
-        </div>
+        </InitialFiltresItem>
     )
 }

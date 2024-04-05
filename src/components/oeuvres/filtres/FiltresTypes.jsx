@@ -2,6 +2,7 @@ import React from 'react';
 import Skeleton from "@/components/ui/Skeleton";
 import styles from './General.module.scss';
 import useFiltersStore from "@/stores/oeuvresFIltersStore";
+import InitialFiltresItem from "@/components/oeuvres/filtres/InitialFiltresItem";
 
 
 export default function FiltresTypes({loading: oeuvreLoading, types = []}) {
@@ -18,10 +19,9 @@ export default function FiltresTypes({loading: oeuvreLoading, types = []}) {
     };
 
     return (
-        <div className={styles.filtresContainer}>
-            <h4 className={styles.filtresTitle}>
-                Types
-            </h4>
+        <InitialFiltresItem
+            title={"Type" + (!oeuvreLoading && types && types.length > 0 ? 's' : '')}
+        >
             <div className={styles.filtresList}>
                 {oeuvreLoading ? (
                     Array.from({length: 5}).map((_, index) => (
@@ -46,6 +46,6 @@ export default function FiltresTypes({loading: oeuvreLoading, types = []}) {
                     ))
                 )}
             </div>
-        </div>
+        </InitialFiltresItem>
     );
 }
