@@ -83,8 +83,6 @@ export default function DashboardArtistesNewIndex() {
 
     const router = useRouter();
 
-    const {isLoading, user} = useAuth()
-
     const [state, dispatch] = useReducer(reducer, initialState);
     const [loading, setLoading] = useState(false);
 
@@ -313,7 +311,6 @@ export default function DashboardArtistesNewIndex() {
                 returnURL={ROUTES.ADMIN.ARTISTES.HOME}
             />
             <div className={styles.content}>
-                <p>{user && user.lastname}</p>
                 <DashboardSectionItem
                     sectionName={"Informations Utilisateur"}
                     description={"Ces informations ne seront pas visibles du grand public"}
