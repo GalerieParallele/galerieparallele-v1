@@ -26,9 +26,16 @@ export default function OeuvresIndex() {
      * @type {FlatArray<any[], 1>[]|*[]}
      */
     const types = oeuvres && oeuvres.length > 0 ? oeuvres.map(oeuvre => oeuvre.types).flat().filter((value, index, self) => self.indexOf(value) === index) : [];
-
+    /**
+     * Liste des tags d'œuvres disponibles sans doublons
+     * @type {T[]|*[]}
+     */
     const tags = oeuvres && oeuvres.length > 0 ? oeuvres.map(oeuvre => oeuvre.tags).flat().filter((value, index, self) => self.indexOf(value) === index) : [];
-
+    /**
+     * Listes des couleurs d'œuvres disponibles sans doublons
+     * @param newValue
+     */
+    let colors = oeuvres && oeuvres.length > 0 ? Array.from(new Set(oeuvres.map(oeuvre => oeuvre.couleurs).flat().filter((value, index, self) => self.indexOf(value) === index))) : [];
 
     const handleRangeChange = (newValue) => {
         setRangeValue(newValue);
@@ -96,6 +103,10 @@ export default function OeuvresIndex() {
             return () => clearInterval(scrollInterval);
         }
     }, [hoverType]);
+
+    useEffect(() => {
+        console.log(colors)
+    }, []);
 
     return (
         <div className={styles.main}>
@@ -207,6 +218,8 @@ export default function OeuvresIndex() {
                 </div>
                 <div className={styles.list}>
                     <div className={styles.left}>
+
+                        {/*Types filtres*/}
                         <div className={styles.filtresContainer}>
                             <h4 className={styles.filtresTitle}>
                                 Types
@@ -255,6 +268,7 @@ export default function OeuvresIndex() {
                             </div>
                         </div>
 
+                        {/*Prix filtres*/}
                         <div className={styles.filtresContainer}>
                             <h4 className={styles.filtresTitle}>
                                 Prix
@@ -288,9 +302,115 @@ export default function OeuvresIndex() {
                             </form>
                         </div>
 
+                        <div className={styles.filtresContainer}>
+                            <h4 className={styles.filtresTitle}>
+                                Dimensions
+                            </h4>
+                            <form className={styles.filtresList}>
+                                <div className={styles.dimensionsRow}>
+                                    <h5>Hauteur :</h5>
+                                    <div className={styles.inputs}>
+                                        <span>Entre</span>
+                                        <input type={"number"}/>
+                                        <span>cm et</span>
+                                        <input type={"number"}/>
+                                        <span>cm</span>
+                                    </div>
+                                </div>
+                                <div className={styles.dimensionsRow}>
+                                    <h5>Largeur :</h5>
+                                    <div className={styles.inputs}>
+                                        <span>Entre</span>
+                                        <input type={"number"}/>
+                                        <span>cm et</span>
+                                        <input type={"number"}/>
+                                        <span>cm</span>
+                                    </div>
+                                </div>
+                                <div className={styles.dimensionsRow}>
+                                    <h5>Profondeur :</h5>
+                                    <div className={styles.inputs}>
+                                        <span>Entre</span>
+                                        <input type={"number"}/>
+                                        <span>cm et</span>
+                                        <input type={"number"}/>
+                                        <span>cm</span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        {/*Couleurs filtres*/}
+                        <div className={styles.filtresContainer}>
+                            <h4 className={styles.filtresTitle}>
+                                Couleur{colors && colors.length > 1 ? "s" : ""}
+                            </h4>
+                            <div className={styles.filtresList}>
+                                {
+                                    oeuvreLoading ? (
+                                        Array.from({length: 5}, (_, index) => {
+                                            return (
+                                                <div
+                                                    key={index}
+                                                    style={{
+                                                        display: "flex",
+                                                        gap: 5,
+                                                    }}
+                                                >
+                                                    <div style={{
+                                                        width: "20px",
+                                                        height: "20px",
+                                                        overflow: "hidden",
+                                                    }}>
+                                                        <Skeleton/>
+                                                    </div>
+                                                    <div style={{
+                                                        width: "20px",
+                                                        height: "20px",
+                                                        overflow: "hidden",
+                                                        borderRadius: "50%",
+                                                    }}>
+                                                        <Skeleton/>
+                                                    </div>
+                                                    {/*random width min max*/}
+                                                    <div style={{
+                                                        width: Math.floor(Math.random() * (80 - 10 + 1) + 10) + "%",
+                                                        height: "20px",
+                                                        overflow: "hidden",
+                                                    }}>
+                                                        <Skeleton/>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })
+                                    ) : (
+                                        colors && colors.map((color, index) => {
+                                                return (
+                                                    <div className={styles.filtreRow}
+                                                         key={index}>
+                                                        <input type="checkbox" name={color.name}/>
+                                                        <div style={{
+                                                            width: "20px",
+                                                            height: "20px",
+                                                            backgroundColor: color.hexa,
+                                                            borderRadius: "50%",
+                                                            margin: "0 5px",
+                                                            boxShadow: "var(--shadow)",
+                                                        }}/>
+                                                        <label htmlFor={color.name}>{color.name}</label>
+                                                    </div>
+                                                )
+                                            }
+                                        )
+                                    )
+                                }
+                            </div>
+                        </div>
+
+                        {/*Tags filtres*/}
                         <div className={styles.tagsContainer}>
                             <h4 className={styles.tagsTitle}>
-                                Tags
+                                Tag{tags && tags.length > 1 ? "s" : ""}
                             </h4>
                             <div className={styles.tagsList}>
                                 {
