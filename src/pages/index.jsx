@@ -21,6 +21,7 @@ import Footer from "@/components/ui/footer/Footer";
 import MainInstagram from "@/components/home/instagram/MainInstagram";
 import Navbar from "@/components/ui/navbar/Navbar";
 import Newletters from "@/components/home/newsletters/Newletters";
+import Confiance from "@/components/ui/confiance/Confiance";
 
 export default function Index() {
 
@@ -49,6 +50,7 @@ export default function Index() {
                         <MainMagazine/>
                         <MainInstagram/>
                         <Newletters/>
+                        <Confiance/>
                         <Footer/>
                     </main>
                 </>
