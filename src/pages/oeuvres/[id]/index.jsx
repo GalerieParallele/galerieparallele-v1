@@ -210,7 +210,7 @@ export default function OeuvreHomePage() {
                                 width: '100%',
                             }}>
                                 <OeuvreTarif
-                                    prix={oeuvre && oeuvre.prix}
+                                    oeuvre={oeuvre}
                                 />
                             </div>
                             <div className={styles.shareContainer}>

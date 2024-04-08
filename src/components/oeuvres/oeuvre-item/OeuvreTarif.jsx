@@ -2,7 +2,7 @@ import styles from './OeuvreTarif.module.scss';
 import {useState} from "react";
 import Link from "next/link";
 
-export default function OeuvreTarif({prix}) {
+export default function OeuvreTarif({oeuvre}) {
 
     const [open, setOpen] = useState(false);
 
@@ -19,11 +19,12 @@ export default function OeuvreTarif({prix}) {
                 <p>Tarifs</p>
             </div>
             <div className={`${styles.content} ${open ? styles.open : styles.close}`}>
-                <p>{prix} €</p>
+                <p>{oeuvre.prix} €</p>
                 <div className={styles.buyContainer}>
                     <Link
-                        href={'#'}
+                        href={oeuvre.artsperURL}
                         className={styles.buyButton}
+                        target={'_blank'}
                     >
                         Acheter cette oeuvre
                     </Link>
