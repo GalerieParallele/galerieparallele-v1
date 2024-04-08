@@ -170,7 +170,6 @@ export default function OeuvresIndex() {
                     onMouseLeave={() => setHoverAllOfFame(false)}
                     className={styles.allOfFameContainer}
                     id={"allOfFameContainer"}>
-                    <div id={"startAllOfFameContainer"}/>
                     {
                         oeuvreLoading ? (
                             Array.from({length: 10}, (_, index) => {
@@ -188,19 +187,34 @@ export default function OeuvresIndex() {
                             oeuvres && oeuvres.length > 0 ? (
                                 oeuvres.map((oeuvre, index) => {
                                     return (
-                                        <Link
-                                            href={ROUTES.OEUVRES.VIEW(oeuvre.id)}
-                                            className={styles.allOfFameItem}
-                                            key={index}>
-                                            <div className={styles.imgContainer}>
-                                                <Image
-                                                    src={oeuvre.images[0].mediaURL}
-                                                    alt={'test'}
-                                                    width={500}
-                                                    height={500}
-                                                />
-                                            </div>
-                                        </Link>
+                                        <>
+                                            <Link
+                                                href={ROUTES.OEUVRES.VIEW(oeuvre.id)}
+                                                className={styles.allOfFameItem}
+                                                key={index}>
+                                                <div className={styles.imgContainer}>
+                                                    <Image
+                                                        src={oeuvre.images[0].mediaURL}
+                                                        alt={'test'}
+                                                        width={500}
+                                                        height={500}
+                                                    />
+                                                </div>
+                                            </Link>
+                                            <Link
+                                                href={ROUTES.OEUVRES.VIEW(oeuvre.id)}
+                                                className={styles.allOfFameItem}
+                                                key={index}>
+                                                <div className={styles.imgContainer}>
+                                                    <Image
+                                                        src={oeuvre.images[0].mediaURL}
+                                                        alt={'test'}
+                                                        width={500}
+                                                        height={500}
+                                                    />
+                                                </div>
+                                            </Link>
+                                        </>
                                     )
                                 })
                             ) : (
