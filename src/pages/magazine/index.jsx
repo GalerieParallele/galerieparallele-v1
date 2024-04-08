@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Button from "@/components/ui/button/Button";
 import {useRouter} from "next/router";
+import Confiance from "@/components/ui/confiance/Confiance";
 
 export default function MagazineIndex() {
 
@@ -163,6 +164,7 @@ export default function MagazineIndex() {
                 </div>
             </div>
             <Picto/>
+            <Confiance/>
             <Footer/>
         </div>
     )
