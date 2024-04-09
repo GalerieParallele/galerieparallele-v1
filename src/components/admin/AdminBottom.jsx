@@ -6,12 +6,12 @@ import Button from "@/components/ui/button/Button";
 import {PiSignOutBold} from "react-icons/pi";
 
 import {Toast} from "@/constants/ToastConfig";
-import MESSAGES from "@/constants/MESSAGES";
 import ROUTES from "@/constants/ROUTES";
 
 import styles from "./AdminNav.module.css";
 
 import {useRouter} from "next/router";
+import {STATIC_MESSAGES as MESSAGES} from "@/constants/STATIC_MESSAGES";
 
 export default function AdminBottom() {
 
