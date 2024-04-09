@@ -2,25 +2,11 @@ import {NextResponse} from "next/server";
 import {z} from "zod";
 import {prisma} from "@/utils/PrismaUtil";
 import {ArtistSchema} from "@/app/api/artistes/route";
+import {STATIC_MESSAGES} from "@/constants/STATIC_MESSAGES";
 
 const MESSAGES = {
     INVALID_ARTIST: "L'id renseigné ne correspond à aucun artiste",
 }
-
-const ArtistSchemaById = z.object({
-    id: z.number({
-        message: "L'id de l'artiste doit être un nombre",
-        required_error: "L'id de l'artiste est requis"
-    })
-        .int({
-            message: "L'id de l'artiste doit être un nombre entier",
-            required_error: "L'id de l'artiste est requis"
-        })
-        .positive({
-            message: "L'id de l'artiste doit être un nombre positif",
-            required_error: "L'id de l'artiste est requis"
-        })
-});
 
 export async function POST(req) {
 
@@ -48,6 +34,8 @@ export async function POST(req) {
             return NextResponse.json({message: MESSAGES.INVALID_ARTIST}, {status: 404});
         }
 
+        artist.user.password = undefined;
+
         return NextResponse.json(
             artist,
             {
@@ -67,7 +55,7 @@ export async function POST(req) {
             return NextResponse.json({message: MESSAGES.INVALID_ARTIST}, {status: 404});
         }
 
-        return NextResponse.json({message: MESSAGES.API_SERVER_ERROR}, {status: 500});
+        return NextResponse.json({message: STATIC_MESSAGES.API_SERVER_ERROR}, {status: 500});
 
     }
 
