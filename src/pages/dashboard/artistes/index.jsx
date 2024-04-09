@@ -1,48 +1,44 @@
 import styles from './Index.module.scss';
-import {useArtists} from "@/hooks/useArtists";
-import {useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import DashboardArtisteCard from "@/components/dashboard/items/artistes/DashboardArtisteCard";
 import LittleSpinner from "@/components/ui/LittleSpinner";
-import Error from "@/components/error/Error";
 import Button from "@/components/ui/button/Button";
 import DashboardNavbar from "@/components/dashboard/items/DashboardNavbar";
 import ROUTES from "@/constants/ROUTES";
 import Select from "react-select";
 import {useRouter} from "next/router";
 import {IoIosRefresh} from "react-icons/io";
+import useArtistsStore from "@/stores/artistsStore";
+import {Toast} from "@/constants/ToastConfig";
 
-export default function DashboardArtistesIndex() {
+export default function DashboardArtistesIndex(factory, deps) {
 
     const router = useRouter();
 
-    const {artists, artistLoading, error, reloadArtists} = useArtists();
+    const {
+        artists,
+        artistLoading,
+        reloadArtists,
+    } = useArtistsStore();
+
     const [currentArtistSearch, setCurrentArtistSearch] = useState(null);
 
     const filteredArtists = useMemo(() => {
-        return currentArtistSearch ? artists.filter(artist => artist.id === currentArtistSearch.value) : artists;
-    }, [artists, currentArtistSearch]);
-
-    const selectOptions = artists.map(artist =>{
-        const displayName = artist.user.lastname + " " + artist.user.firstname + (artist.pseudo ? " (" + artist.pseudo + ")" : "");
-        return {
-            value: artist.id,
-            label: displayName
+        if (!currentArtistSearch) {
+            return artists;
         }
-        }
-    );
+        return artists.filter(artist => artist.id === currentArtistSearch.value);
+    }, [artists, currentArtistSearch])
 
-    const displayError = error && error.code !== 404;
-    const noArtistsFound = !artistLoading && !filteredArtists.length;
-
-    if (displayError) {
-        return (
-            <Error
-                code={error.code}
-                title={"Une erreur est survenue"}
-                message={"Il semble qu'une erreur soit survenue lors de la récupération des artistes."}
-            />
-        );
-    }
+    useEffect(() => {
+        reloadArtists()
+            .catch(() => {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Une erreur est survenue lors du chargement des artistes.'
+                })
+            })
+    }, [currentArtistSearch, reloadArtists]);
 
     return (
         <div className={styles.main}>
@@ -57,7 +53,14 @@ export default function DashboardArtistesIndex() {
                         defaultValue={[]}
                         isMulti={false}
                         isClearable
-                        options={selectOptions}
+                        options={artists.map(artist => {
+                                const displayName = artist.user.lastname + " " + artist.user.firstname + (artist.pseudo ? " (" + artist.pseudo + ")" : "");
+                                return {
+                                    value: artist.id,
+                                    label: displayName
+                                }
+                            }
+                        )}
                         onChange={setCurrentArtistSearch}
                         value={currentArtistSearch}
                         isLoading={artistLoading}
@@ -76,7 +79,7 @@ export default function DashboardArtistesIndex() {
             <div className={styles.content}>
                 {artistLoading ? (
                     <LittleSpinner/>
-                ) : noArtistsFound ? (
+                ) : artists && artists.length === 0 ? (
                     <h3>Aucun artiste trouvé</h3>
                 ) : (
                     filteredArtists.map(artist => (

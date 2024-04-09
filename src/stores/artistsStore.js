@@ -1,6 +1,6 @@
 import {create} from 'zustand';
-import {fetchArtistById, fetchArtists} from "@/services/artistesServices";
 
+import {fetchArtistById, fetchArtists} from "@/services/artistesServices";
 
 const useArtistsStore = create((set, get) => ({
     artists: [],
@@ -25,10 +25,10 @@ const useArtistsStore = create((set, get) => ({
     getArtistById: async (id) => {
         set({loading: true, error: null});
         try {
-            const response = await fetchArtistById(id);
+            const response = await fetchArtistById(parseInt(id));
 
             if (!response.success) {
-                set({error: response.error});
+                throw new Error(response.error); // ou une adaptation selon la structure de votre réponse d'erreur
             }
 
             set({artist: response.data});

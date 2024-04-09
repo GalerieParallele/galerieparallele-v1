@@ -252,7 +252,7 @@ export default function OeuvresIndex() {
                                                 filters.orientation.map((orientation, index) => {
                                                     return (
                                                         <span
-                                                            key={index}>
+                                                            key={"orientation." + index}>
                                         <p>
                                             {orientation.charAt(0) + orientation.slice(1).toLowerCase()}
                                         </p>
@@ -293,7 +293,7 @@ export default function OeuvresIndex() {
                                                     {filters.priceRange[0]}€ - {filters.priceRange[1]}€
                                                 </p>
                                                 <button onClick={() => {
-                                                    setFilter('priceRange', [priceMin, priceMax]);
+                                                    setFilter('priceRange', [initialState.priceRange[0], initialState.priceRange[1]]);
                                                 }}>
                                                     <IoMdClose/>
                                                 </button>

@@ -322,8 +322,6 @@ export async function POST(req) {
         return NextResponse.json({message: UTIL_MESSAGES.NO_USER_FOUND_IN_TOKEN}, {status: 401})
     }
 
-    console.log(user)
-
     if (!user.roles.includes(ROLES.ADMIN)) {
         return NextResponse.json({message: UTIL_MESSAGES.MUST_HAVE_RIGHTS}, {status: 403})
     }

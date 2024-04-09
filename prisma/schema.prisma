@@ -34,20 +34,14 @@ model User {
   UserLegalInformation UserLegalInformation?
 }
 
-// --------------------------------------------------------------
-
-// Save the date model -------------------------------------------
-
-model ArtistSaveTheDate {
+model UserLegalInformation {
   id Int @id @default(autoincrement())
 
-  title    String   @db.VarChar(255)
-  content  String   @db.Text
-  date     DateTime @default(now())
-  photoURL String   @db.Text
+  legalInformationId Int
+  legalInformation   LegalInformation @relation(fields: [legalInformationId], references: [id], onDelete: Cascade)
 
-  artistId Int
-  artist   Artist @relation(fields: [artistId], references: [id], onDelete: Cascade)
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 // --------------------------------------------------------------
@@ -75,19 +69,6 @@ model ArticleTag {
   tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
 
   @@id([articleId, tagId])
-}
-
-// --------------------------------------------------------------
-
-// Tag model -----------------------------------------------------
-
-model Tag {
-  id   Int    @id @default(autoincrement())
-  name String @unique
-
-  artists  ArtistTag[]
-  oeuvres  OeuvreTag[]
-  articles ArticleTag[]
 }
 
 // --------------------------------------------------------------
@@ -120,6 +101,7 @@ model Artist {
   exposition  ArtistExposition[]
   oeuvre      ArtistOeuvre[]
   portrait    ArtistPortrait[]
+  recompense  ArtistRecompense[]
 
   legalInformation ArtistLegalInformation?
 }
@@ -164,43 +146,31 @@ model ArtistLegalInformation {
   artist   Artist @relation(fields: [artistId], references: [id], onDelete: Cascade)
 }
 
-model UserLegalInformation {
+model ArtistSaveTheDate {
   id Int @id @default(autoincrement())
 
-  legalInformationId Int
-  legalInformation   LegalInformation @relation(fields: [legalInformationId], references: [id], onDelete: Cascade)
+  title    String   @db.VarChar(255)
+  content  String   @db.Text
+  date     DateTime @default(now())
+  photoURL String   @db.Text
 
-  userId Int  @unique
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  artistId Int
+  artist   Artist @relation(fields: [artistId], references: [id], onDelete: Cascade)
 }
 
-model LegalInformation {
+model ArtistRecompense {
   id Int @id @default(autoincrement())
 
-  societe       String?
-  adrNumVoie    String?
-  adrRue        String?
-  adrVille      String?
-  adrCodePostal String?
+  title   String @db.VarChar(255)
+  content String @db.Text
 
-  siret String? @unique
-  tva   String? @unique
-
-  ArtistLegalInformation ArtistLegalInformation[]
-  UserLegalInformation   UserLegalInformation[]
+  artistId Int
+  artist   Artist @relation(fields: [artistId], references: [id], onDelete: Cascade)
 }
 
 // --------------------------------------------------------------
 
-// Couleur model -------------------------------------------------
-
 // Oeuvre model --------------------------------------------------
-
-enum OrientationType {
-  PORTRAIT
-  PAYSAGE
-  CARRE
-}
 
 model Oeuvre {
   id   Int    @id @default(autoincrement()) // ID Unique de l'oeuvre
@@ -221,6 +191,8 @@ model Oeuvre {
 
   atTheTop Boolean @default(false) // Oeuvre à la une
 
+  artsperURL String @default("https://www.artsper.com/fr/galeries-d-art/france/10431/la-galerie-parallele?section=artwork&page=1") // URL Artsper de l'oeuvre
+
   numerotation Int?    @default(1) // Numérotation de l'oeuvre
   limitation   Int?    @default(1) // Limitation de l'oeuvre
   support      String // Support de l'oeuvre
@@ -235,6 +207,12 @@ model Oeuvre {
   type     OeuvreTypes[] // Types de l'oeuvre
   images   OeuvreImage[] // Images de l'oeuvre
   couleurs OeuvreCouleur[] // Couleurs de l'oeuvre
+}
+
+enum OrientationType {
+  PORTRAIT
+  PAYSAGE
+  CARRE
 }
 
 model Couleur {
@@ -314,6 +292,19 @@ model ArtistUnknow {
 
 // --------------------------------------------------------------
 
+// Tag model -----------------------------------------------------
+
+model Tag {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  artists  ArtistTag[]
+  oeuvres  OeuvreTag[]
+  articles ArticleTag[]
+}
+
+// --------------------------------------------------------------
+
 // Portrait model ------------------------------------------------
 
 model Portrait {
@@ -336,3 +327,25 @@ model Actuality {
   photoURL String  @db.Text
   private  Boolean @default(false)
 }
+
+// --------------------------------------------------------------
+
+// LegalInformation model ----------------------------------------
+
+model LegalInformation {
+  id Int @id @default(autoincrement())
+
+  societe       String?
+  adrNumVoie    String?
+  adrRue        String?
+  adrVille      String?
+  adrCodePostal String?
+
+  siret String? @unique
+  tva   String? @unique
+
+  ArtistLegalInformation ArtistLegalInformation[]
+  UserLegalInformation   UserLegalInformation[]
+}
+
+// --------------------------------------------------------------

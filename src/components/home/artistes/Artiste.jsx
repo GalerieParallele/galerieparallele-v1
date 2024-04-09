@@ -1,31 +1,25 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 
 import Button from "@/components/ui/button/Button";
 
 import styles from "./Artiste.module.css";
-import ROUTES from "@/constants/ROUTES";
 import {useRouter} from "next/router";
 import ArtisteCard from "@/components/home/artistes/ArtisteCard";
+import useArtistsStore from "@/stores/artistsStore";
+import ROUTES from "@/constants/ROUTES";
 
 export default function Artiste() {
 
     const router = useRouter();
 
-    const [artists, setArtists] = useState([]);
+    const {
+        artists,
+        reloadArtists,
+    } = useArtistsStore();
 
     useEffect(() => {
-
-        fetch(ROUTES.API.ARTISTES.HOME)
-            .then(response => response.json())
-            .then(data => {
-                if (data.list) {
-                    setArtists(data.list);
-                }
-            })
-            .catch(error => {
-                // GERER LES ERREURS
-            });
-    }, []);
+        reloadArtists()
+    }, [artists]);
 
     return (
         <div className={styles.artiste}>
@@ -34,8 +28,8 @@ export default function Artiste() {
                     artists.map((artist, index) => (
                         <>
                             <ArtisteCard
-                                key={artist.id}
                                 artist={artist}
+                                key={index}
                             />
                         </>
                     ))
@@ -45,7 +39,7 @@ export default function Artiste() {
                 <Button
                     text={"Nos artist"}
                     isWhite
-                    onClick={() => router.push("/artistes")}
+                    onClick={() => router.push(ROUTES.ARTISTES.HOME)}
                 />
             </div>
         </div>

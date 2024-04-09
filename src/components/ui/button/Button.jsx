@@ -6,7 +6,7 @@ import "../../../app/globals.css"
 
 import LittleSpinner from "@/components/ui/LittleSpinner";
 
-export default function Button({text, isLoading, onClick, disabled, isWhite}) {
+export default function Button({text, isLoading, onClick, disabled, isWhite, type = "button"}) {
     const buttonStyle = isWhite ? `${styles.button} ${styles.white}` : styles.button;
 
     return (
@@ -19,6 +19,7 @@ export default function Button({text, isLoading, onClick, disabled, isWhite}) {
             </button>
         ) : (
             <button
+                type={type}
                 className={buttonStyle}
                 disabled={isLoading}
                 onClick={onClick}

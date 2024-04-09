@@ -2,7 +2,6 @@ import {useRouter} from "next/router";
 
 import styles from './Index.module.scss';
 import Navbar from "@/components/ui/navbar/Navbar";
-import {useArtists} from "@/hooks/useArtists";
 import {useEffect, useState} from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,20 +10,21 @@ import ArtistListCard from "@/components/artist/list/ArtistListCard";
 import ArtisteCard from "@/components/home/artistes/ArtisteCard";
 import Footer from "@/components/ui/footer/Footer";
 import Picto from "@/components/ui/picto/Picto";
+import useArtistsStore from "@/stores/artistsStore";
 
 export default function ArtistesHomeIndex() {
 
     const router = useRouter();
 
-    const {loading, artists, reloadArtists} = useArtists();
+    const {
+        artists,
+        artistLoading,
+        error,
+        reloadArtists,
+    } = useArtistsStore();
 
-    const [rangeValue, setRangeValue] = useState([0, 100]);
     const [countries, setCountries] = useState([]);
 
-
-    const handleRangeChange = (newValue) => {
-        setRangeValue(newValue);
-    };
 
     useEffect(() => {
         fetch('https://restcountries.com/v3.1/all')
@@ -33,6 +33,7 @@ export default function ArtistesHomeIndex() {
                 setCountries(data);
             })
             .catch((error) => console.error("Erreur lors du chargement des pays", error));
+        reloadArtists()
     }, []);
 
     return (<div className={styles.main}>

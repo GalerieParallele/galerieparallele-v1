@@ -20,6 +20,41 @@ export function checkPassword(password) {
 }
 
 /**
+ * Permet de générer un mot de passe aléatoire suivant les critères de sécurité
+ * @param e
+ */
+export const handleGeneratePassword = (e) => {
+    if (e) {
+        e.preventDefault();
+    }
+
+    // Séparez les caractères par type pour un tirage séparé
+    const upperChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const lowerChars = 'abcdefghijklmnopqrstuvwxyz';
+    const numChars = '0123456789';
+    const specialChars = '#!*$^:/;.,?&';
+    let password = '';
+
+    // Assurez-vous d'ajouter au moins un caractère de chaque type
+    password += upperChars.charAt(Math.floor(Math.random() * upperChars.length));
+    password += lowerChars.charAt(Math.floor(Math.random() * lowerChars.length));
+    password += numChars.charAt(Math.floor(Math.random() * numChars.length));
+    password += specialChars.charAt(Math.floor(Math.random() * specialChars.length));
+
+    // Complétez le reste du mot de passe avec des caractères aléatoires de tous les types
+    const allChars = upperChars + lowerChars + numChars + specialChars;
+    const charactersLength = allChars.length;
+    for (let i = password.length; i < 10; i++) {
+        password += allChars.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    // Mélangez le mot de passe pour ne pas être prédictible
+    password = password.split('').sort(() => 0.5 - Math.random()).join('');
+
+    return password;
+};
+
+/**
  * Permet de vérifier si un email est valide
  * @param email L'email à vérifier
  * @returns {boolean} True si l'email est valide, false sinon

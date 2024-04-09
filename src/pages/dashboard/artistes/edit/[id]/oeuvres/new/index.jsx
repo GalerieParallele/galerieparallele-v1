@@ -39,13 +39,13 @@ import Image from "next/image";
 import {ImCross} from "react-icons/im";
 import MultiColors from "@/components/ui/select/MultiColors";
 import CreatableSelect from "react-select/creatable";
-import {useArtists} from "@/hooks/useArtists";
 import {TbNavigationNorth} from "react-icons/tb";
 import Select from "react-select";
 import {CiCircleList} from "react-icons/ci";
 import LittleSpinner from "@/components/ui/LittleSpinner";
 import StorageUtils from "@/utils/StorageUtils";
 import {Toast} from "@/constants/ToastConfig";
+import useArtistsStore from "@/stores/artistsStore";
 
 export const useOeuvreStore = create((set) => ({
     oeuvre: {
@@ -79,7 +79,11 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
 
     const router = useRouter();
 
-    const {artists, loading: artistLoading} = useArtists();
+    const {
+        artists,
+        reloadArtists,
+        loading: artistLoading
+    } = useArtistsStore();
 
     const [artisteId, setArtisteId] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -275,6 +279,10 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
         }
         setLoading(false);
     }, [router, router.query.id]);
+
+    useEffect(() => {
+        reloadArtists();
+    }, []);
 
     if (loading) {
         return <PageLoader/>;

@@ -6,10 +6,61 @@ import {MdDelete, MdEdit} from "react-icons/md";
 import {useRouter} from "next/router";
 import ROUTES from "@/constants/ROUTES";
 import Link from "next/link";
+import {Toast} from "@/constants/ToastConfig";
+import Swal from "sweetalert2";
+import useArtistsStore from "@/stores/artistsStore";
 
 export default function DashboardArtisteCard({artiste}) {
 
     const router = useRouter();
+
+    const {
+        removeArtistById,
+    } = useArtistsStore();
+
+    const handleDelete = async (id) => {
+        try {
+            const response = await fetch(ROUTES.API.ARTISTES.HOME, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({id})
+            });
+            if (!response.ok) {
+                throw new Error('Échec de la suppression de l’artiste');
+            }
+            Toast.fire({
+                icon: 'success',
+                title: 'Artiste supprimé'
+            });
+        } catch (error) {
+            console.error('Erreur lors de la suppression:', error);
+            Toast.fire({
+                icon: 'error',
+                title: 'Erreur lors de la suppression de l’artiste'
+            });
+        }
+    }
+
+
+    const handleConfirmModal = async (id) => {
+        await Swal.fire({
+            title: 'Êtes-vous sûr(e) de vouloir supprimer cet artiste ?',
+            text: "Cette action est irréversible.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: 'var(--red)',
+            cancelButtonColor: 'var(--black)',
+            confirmButtonText: 'Supprimer',
+            cancelButtonText: 'Annuler'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await handleDelete(id);
+                removeArtistById(id);
+            }
+        })
+    }
 
     return (
         <div className={styles.main}>
@@ -28,7 +79,10 @@ export default function DashboardArtisteCard({artiste}) {
                         className={styles.buttonEdit}>
                         <MdEdit/>
                     </button>
-                    <button className={styles.buttonDelete}>
+                    <button
+                        className={styles.buttonDelete}
+                        onClick={() => handleConfirmModal(artiste.id)}
+                    >
                         <MdDelete/>
                     </button>
                 </div>

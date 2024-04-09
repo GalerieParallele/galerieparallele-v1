@@ -26,7 +26,7 @@ import styles from './Index.module.scss';
 import sectionStyles from '@/components/dashboard/items/sections/DashboardSectionItem.module.scss';
 import {useRouter} from "next/router";
 import StorageUtils from "@/utils/StorageUtils";
-import {useAuth} from "@/hooks/useAuth";
+import {handleGeneratePassword} from "@/constants/Util";
 
 const initialState = {
     user: {
@@ -91,43 +91,7 @@ export default function DashboardArtistesNewIndex() {
 
     const [avatarURL, setAvatarURL] = useState(undefined);
 
-    /**
-     * Permet de générer un mot de passe aléatoire suivant les critères de sécurité
-     * @param e
-     */
-    const handleGeneratePassword = (e) => {
-        if (e) {
-            e.preventDefault();
-        }
 
-        // Séparez les caractères par type pour un tirage séparé
-        const upperChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        const lowerChars = 'abcdefghijklmnopqrstuvwxyz';
-        const numChars = '0123456789';
-        const specialChars = '#!*$^:/;.,?&';
-        let password = '';
-
-        // Assurez-vous d'ajouter au moins un caractère de chaque type
-        password += upperChars.charAt(Math.floor(Math.random() * upperChars.length));
-        password += lowerChars.charAt(Math.floor(Math.random() * lowerChars.length));
-        password += numChars.charAt(Math.floor(Math.random() * numChars.length));
-        password += specialChars.charAt(Math.floor(Math.random() * specialChars.length));
-
-        // Complétez le reste du mot de passe avec des caractères aléatoires de tous les types
-        const allChars = upperChars + lowerChars + numChars + specialChars;
-        const charactersLength = allChars.length;
-        for (let i = password.length; i < 10; i++) {
-            password += allChars.charAt(Math.floor(Math.random() * charactersLength));
-        }
-
-        // Mélangez le mot de passe pour ne pas être prédictible
-        password = password.split('').sort(() => 0.5 - Math.random()).join('');
-
-        dispatch({
-            type: 'UPDATE_FORM',
-            payload: {field: 'user.password', value: password},
-        });
-    };
 
 
     /**

@@ -10,14 +10,6 @@ async function handleResponse(response) {
     return await response.json();
 }
 
-function handleFormatResponse(success, data = null, error = null) {
-    return {
-        success,
-        data,
-        error,
-    };
-}
-
 export const fetchArtists = async () => {
     try {
         const response = await fetch(ROUTES.API.ARTISTES.HOME, {
@@ -34,7 +26,7 @@ export const fetchArtists = async () => {
 export const fetchArtistById = async (id) => {
 
     try {
-        const response = await fetch(`${ROUTES.API.ARTISTES.GETBYID}`, {
+        const response = await fetch(ROUTES.API.ARTISTES.GETBYID, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

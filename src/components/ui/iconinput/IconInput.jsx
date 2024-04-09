@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import '../../../app/globals.css'
-import styles from './IconInput.module.css';
+import styles from './IconInput.module.scss';
 import Swal from "sweetalert2";
 import {FaEye, FaEyeSlash} from "react-icons/fa";
+import Image from "next/image";
 
 export const handleOpenModalInformationRequired = async () => {
     await Swal.fire(
@@ -12,11 +13,27 @@ export const handleOpenModalInformationRequired = async () => {
         'info'
     )
 }
-function IconInput({IconComponent, label, type, required, ...inputProps}) {
+
+function IconInput({
+                       IconComponent,
+                       label,
+                       type,
+                       required,
+                       file = null,
+                       fileText = "Cliquez pour ajouter un fichier",
+                       ...inputProps
+                   }) {
+
     const [showPassword, setShowPassword] = useState(false);
 
+    const fileRef = useRef(null);
+
+    const handleOpenFileModal = () => {
+        fileRef.current.click();
+    }
+
     const renderInput = () => {
-        switch(type) {
+        switch (type) {
             case 'textarea':
                 return (
                     <textarea
@@ -38,9 +55,42 @@ function IconInput({IconComponent, label, type, required, ...inputProps}) {
                             <button
                                 type={'button'}
                                 onClick={() => setShowPassword(!showPassword)}
-                                >
+                            >
                                 {showPassword ? <FaEyeSlash/> : <FaEye/>}
                             </button>
+                        </div>
+                    </div>
+                );
+            case 'file':
+                return (
+                    <div
+                        className={styles.mainFileContainer}>
+                        <div
+                            className={styles.fileInput}
+                            onClick={handleOpenFileModal}
+                        >
+                            <input
+                                type={type}
+                                {...inputProps}
+                                className={styles.input}
+                                required={required}
+                                style={{display: 'none'}}
+                                ref={fileRef}
+                            />
+                            <p>{fileText}</p>
+                        </div>
+                        <div>
+                            <div
+                                className={styles.imgContainer}
+                            >
+                                <Image
+                                    src={file || '/assets/img/no-img.jpg'}
+                                    alt={'file'}
+                                    className={styles.fileImage}
+                                    width={150}
+                                    height={150}
+                                />
+                            </div>
                         </div>
                     </div>
                 );

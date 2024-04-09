@@ -13,10 +13,36 @@ function hashPassword(password) {
 async function main() {
 
     const userNumber = 50
-    const artistNumber = 5
+    const tagNumber = 20
 
     // delete all
     await prisma.user.deleteMany()
+    await prisma.user.create({
+        data: {
+            email: 'olsen.matheo@gmail.com',
+            password: hashPassword('Matheo51100*'),
+            lastname: 'OLSEN',
+            firstname: 'Mathéo',
+            street: '40 rue roger salengro',
+            city: 'Reims',
+            postalCode: '51100',
+            phone: '0769141995',
+            avatarURL: 'https://avatars.githubusercontent.com/u/72213809?v=4',
+            roles:
+                ["ROLE_ADMIN"]
+        }
+    })
+
+
+    await prisma.tag.deleteMany()
+
+    for (let i = 0; i < tagNumber; i++) {
+        await prisma.tag.create({
+            data: {
+                name: faker.word.adjective()
+            }
+        })
+    }
 
     for (let i = 0; i < userNumber; i++) {
 
@@ -41,27 +67,26 @@ async function main() {
             }
         )
 
-        if (i % 2 === 0) {
-            const pseudo = i % 2 === 0 ? faker.internet.userName({
-                firstName: firstname,
-                lastName: lastname,
-            }) : undefined
-            await prisma.artist.create({
-                data: {
-                    pseudo,
-                    user: {
-                        connect: {
-                            id: user.id
-                        }
-                    },
-                    nationality: 'France',
-                    facebook: 'https://www.facebook.com/' + firstname + '.' + lastname,
-                    instagram: 'https://www.instagram.com/' + firstname + '.' + lastname,
-                    linkedin: 'https://www.linkedin.com/in/' + firstname + '-' + lastname,
-                    website: 'https://' + firstname + lastname + '.com',
+        // 50 % chance of pseudo
+        const chance = Math.random() * 100
+
+        const pseudo = chance > 50 ? faker.internet.userName() : null
+
+        await prisma.artist.create({
+            data: {
+                pseudo,
+                user: {
+                    connect: {
+                        id: user.id
+                    }
                 },
-            })
-        }
+                nationality: 'France',
+                facebook: 'https://www.facebook.com/' + firstname + '.' + lastname,
+                instagram: 'https://www.instagram.com/' + firstname + '.' + lastname,
+                linkedin: 'https://www.linkedin.com/in/' + firstname + '-' + lastname,
+                website: 'https://' + firstname + lastname + '.com',
+            }
+        })
     }
 }
 
