@@ -14,9 +14,8 @@ async function main() {
     const userNumber = 50
     const tagNumber = 20
 
-    // delete all
-    await prisma.artist.deleteMany()
     await prisma.user.deleteMany()
+    await prisma.artist.deleteMany()
     await prisma.tag.deleteMany()
 
     await prisma.user.create({
@@ -31,22 +30,6 @@ async function main() {
             phone: '0769141995',
             avatarURL: 'https://loremflickr.com/320/240',
             roles: ["ROLE_ADMIN"],
-            artist: {
-                create: {
-                    pseudo: 'Matheo',
-                    legalInformation: {
-                        create: {
-                            numMaisonsDesArtistes: '123456789',
-                            legalInformation: {
-                                create: {
-                                    siret: 'gggg',
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
         }
     })
 
