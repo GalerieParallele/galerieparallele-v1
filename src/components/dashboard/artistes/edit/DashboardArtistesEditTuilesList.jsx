@@ -1,8 +1,9 @@
 import DashboardTuiles from "@/components/dashboard/items/DashboardTuiles";
-import {FaFileContract, FaImage, FaPaintBrush, FaQuestion, FaUser} from "react-icons/fa";
+import {FaFileContract, FaImage, FaPaintBrush, FaQuestion, FaTrophy, FaUser} from "react-icons/fa";
 import {GoLaw} from "react-icons/go";
 import {BsCalendarDate} from "react-icons/bs";
 import ROUTES from "@/constants/ROUTES";
+import {MdWavingHand} from "react-icons/md";
 
 export default function DashboardArtistesEditTuilesList({artisteId}) {
     return (
@@ -36,6 +37,16 @@ export default function DashboardArtistesEditTuilesList({artisteId}) {
                 IconComponent={BsCalendarDate}
                 name={"SaveTheDate"}
                 to={ROUTES.ADMIN.ARTISTES.EDIT.SAVETHEDATE(artisteId)}
+            />
+            <DashboardTuiles
+                IconComponent={FaTrophy}
+                name={"Récompenses"}
+                to={'#'}
+            />
+            <DashboardTuiles
+                IconComponent={MdWavingHand}
+                name={"Expositions"}
+                to={'#'}
             />
         </>
     )
