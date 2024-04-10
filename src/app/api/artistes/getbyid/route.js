@@ -41,17 +41,19 @@ export async function POST(req) {
             return NextResponse.json({message: MESSAGES.INVALID_ARTIST}, {status: 404});
         }
 
-        artist.legalInformation.id = undefined;
-        artist.legalInformation.artistId = undefined;
-        artist.legalInformation.legalInformationId = undefined;
-        artist.legalInformation.legalInformation.id = undefined;
+        if (artist.legalInformation) {
+            artist.legalInformation.id = undefined;
+            artist.legalInformation.artistId = undefined;
+            artist.legalInformation.legalInformationId = undefined;
+            artist.legalInformation.legalInformation.id = undefined;
 
-        const proLegalInformation = artist.legalInformation.legalInformation;
+            const proLegalInformation = artist.legalInformation.legalInformation;
 
-        artist.legalInformation.legalInformation = undefined;
-        artist.legalInformation = {
-            ...artist.legalInformation,
-            ...proLegalInformation
+            artist.legalInformation.legalInformation = undefined;
+            artist.legalInformation = {
+                ...artist.legalInformation,
+                ...proLegalInformation
+            }
         }
 
         artist.user.password = undefined;
