@@ -19,15 +19,19 @@ export default function OeuvreTarif({oeuvre}) {
                 <p>Tarifs</p>
             </div>
             <div className={`${styles.content} ${open ? styles.open : styles.close}`}>
-                <p>{oeuvre.prix} €</p>
+                <p>{oeuvre && oeuvre.prix} €</p>
                 <div className={styles.buyContainer}>
-                    <Link
-                        href={oeuvre.artsperURL}
-                        className={styles.buyButton}
-                        target={'_blank'}
-                    >
-                        Acheter cette oeuvre
-                    </Link>
+                    {
+                        oeuvre && oeuvre.artsperURL && (
+                            <Link
+                                href={oeuvre.artsperURL}
+                                className={styles.buyButton}
+                                target={'_blank'}
+                            >
+                                Acheter cette oeuvre
+                            </Link>
+                        )
+                    }
                 </div>
             </div>
         </div>
