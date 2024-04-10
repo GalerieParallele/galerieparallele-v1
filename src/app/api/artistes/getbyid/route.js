@@ -26,12 +26,32 @@ export async function POST(req) {
                 saveTheDate: true,
                 exposition: true,
                 portrait: true,
-                user: true
+                recompense: true,
+                user: true,
+                legalInformation: {
+                    include: {
+                        legalInformation: true,
+                    }
+                },
+
             }
         })
 
         if (!artist) {
             return NextResponse.json({message: MESSAGES.INVALID_ARTIST}, {status: 404});
+        }
+
+        artist.legalInformation.id = undefined;
+        artist.legalInformation.artistId = undefined;
+        artist.legalInformation.legalInformationId = undefined;
+        artist.legalInformation.legalInformation.id = undefined;
+
+        const proLegalInformation = artist.legalInformation.legalInformation;
+
+        artist.legalInformation.legalInformation = undefined;
+        artist.legalInformation = {
+            ...artist.legalInformation,
+            ...proLegalInformation
         }
 
         artist.user.password = undefined;
