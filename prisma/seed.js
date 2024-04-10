@@ -1,7 +1,6 @@
 const {PrismaClient} = require('@prisma/client')
 const {faker} = require('@faker-js/faker');
 const bcrypt = require("bcryptjs");
-const {addPathSuffix} = require("next/dist/shared/lib/router/utils/add-path-suffix");
 
 const prisma = new PrismaClient()
 
@@ -16,7 +15,10 @@ async function main() {
     const tagNumber = 20
 
     // delete all
+    await prisma.artist.deleteMany()
     await prisma.user.deleteMany()
+    await prisma.tag.deleteMany()
+
     await prisma.user.create({
         data: {
             email: 'olsen.matheo@gmail.com',
@@ -27,14 +29,26 @@ async function main() {
             city: 'Reims',
             postalCode: '51100',
             phone: '0769141995',
-            avatarURL: 'https://avatars.githubusercontent.com/u/72213809?v=4',
-            roles:
-                ["ROLE_ADMIN"]
+            avatarURL: 'https://loremflickr.com/320/240',
+            roles: ["ROLE_ADMIN"],
+            artist: {
+                create: {
+                    pseudo: 'Matheo',
+                    legalInformation: {
+                        create: {
+                            numMaisonsDesArtistes: '123456789',
+                            legalInformation: {
+                                create: {
+                                    siret: 'gggg',
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
         }
     })
-
-
-    await prisma.tag.deleteMany()
 
     for (let i = 0; i < tagNumber; i++) {
         await prisma.tag.create({
