@@ -319,9 +319,14 @@ export default function DashboardArtistesNewIndex() {
                         </div>
                         <div>
                             <Button
-                                type={""}
                                 text={"Générer"}
-                                onClick={handleGeneratePassword}
+                                onClick={() => {
+                                    dispatch({
+                                        type: 'UPDATE_FORM',
+                                        payload: {field: 'user.password', value: handleGeneratePassword()},
+                                    });
+
+                                }}
                             />
                         </div>
                     </div>

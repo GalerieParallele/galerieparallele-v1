@@ -16,6 +16,11 @@ import {BsFillFileEarmarkPersonFill, BsTelephoneFill} from "react-icons/bs";
 import {FaFlag} from "react-icons/fa";
 import Select from "react-select";
 import sectionStyles from "@/components/dashboard/items/sections/DashboardSectionItem.module.scss";
+import {GrTextAlignCenter} from "react-icons/gr";
+import Editor from "@/components/ui/Editor";
+import {AiFillFacebook, AiFillInstagram, AiFillLinkedin} from "react-icons/ai";
+import {FaEarthAfrica} from "react-icons/fa6";
+import Switch from "react-switch";
 
 
 export default function DashboardArtisteEditInformations() {
@@ -35,11 +40,15 @@ export default function DashboardArtisteEditInformations() {
     } = useArtistsStore();
 
     const [artisteId, setArtisteId] = useState(null);
+
     const [countries, setCountries] = useState([]);
     const [countriesLoading, setCountriesLoading] = useState(true);
+
     const [avatarFile, setAvatarFile] = useState(null);
+    const [nationality, setNationality] = useState(null);
 
     const handleSubmit = () => {
+        console.log(artist.bio)
         console.log(formData);
     }
 
@@ -243,13 +252,13 @@ export default function DashboardArtisteEditInformations() {
                             </div>
                         </div>
                         <Select
-                            placeholder={"Sélectionner la nationalité de l'artiste"}
+                            placeholder={artist ? artist.nationality : "Selectionnez une nationalité"}
                             closeMenuOnSelect={true}
                             defaultValue={[]}
                             isMulti={false}
                             name={"artist.nationality"}
                             isClearable
-                            value={formData && formData.artist && formData.artist.nationality}
+                            value={nationality}
                             options={
                                 countries.map((country) => {
                                     return {
@@ -261,86 +270,102 @@ export default function DashboardArtisteEditInformations() {
                             isLoading={countriesLoading}
                             isDisabled={countriesLoading}
                             onChange={(selectedOption) => {
-                                updateFormData("artist.nationality", selectedOption.value)
+                                setNationality(selectedOption)
+                                updateFormData("artist.nationality", selectedOption ? selectedOption.value : undefined)
                             }}
                         />
                     </div>
-                    {/*    <div className={sectionStyles.specialSection}>*/}
-                    {/*        <div className={sectionStyles.specialSectionHead}>*/}
-                    {/*                    <span>*/}
-                    {/*                        <GrTextAlignCenter/>*/}
-                    {/*                    </span>*/}
-                    {/*            <div>*/}
-                    {/*                <p>Biographie</p>*/}
-                    {/*            </div>*/}
-                    {/*        </div>*/}
-                    {/*        <Editor*/}
-                    {/*            onEditorChange={(content) => {*/}
-                    {/*                updateFormData("artist.bio")({*/}
-                    {/*                    target: {*/}
-                    {/*                        value: content*/}
-                    {/*                    }*/}
-                    {/*                })*/}
-                    {/*            }*/}
-                    {/*            }*/}
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*    <IconInput*/}
-                    {/*        label={"Instagram"}*/}
-                    {/*        type={"text"}*/}
-                    {/*        IconComponent={AiFillInstagram}*/}
-                    {/*        placeholder={formData.artist.instagram ? formData.artist.instagram : "Ex: https://www.instagram.com/..."}*/}
-                    {/*        value={formData.artist.instagram}*/}
-                    {/*        name={"artist.instagram"}*/}
-                    {/*        onChange={updateFormData("artist.instagram")}*/}
-                    {/*    />*/}
-                    {/*    <IconInput*/}
-                    {/*        label={"Facebook"}*/}
-                    {/*        type={"text"}*/}
-                    {/*        IconComponent={AiFillFacebook}*/}
-                    {/*        placeholder={formData.artist.facebook ? formData.artist.facebook : "Ex: https://www.facebook.com/..."}*/}
-                    {/*        value={formData.artist.facebook}*/}
-                    {/*        name={"artist.facebook"}*/}
-                    {/*        onChange={updateFormData("artist.facebook")}*/}
-                    {/*    />*/}
-                    {/*    <IconInput*/}
-                    {/*        label={"LinkedIn"}*/}
-                    {/*        type={"text"}*/}
-                    {/*        IconComponent={AiFillLinkedin}*/}
-                    {/*        placeholder={formData.artist.linkedin ? formData.artist.linkedin : "Ex: https://www.linkedin.com/..."}*/}
-                    {/*        value={formData.artist.linkedin}*/}
-                    {/*        name={"artist.linkedin"}*/}
-                    {/*        onChange={updateFormData("artist.linkedin")}*/}
-                    {/*    />*/}
-                    {/*    <IconInput*/}
-                    {/*        label={"Site web"}*/}
-                    {/*        type={"text"}*/}
-                    {/*        IconComponent={FaEarthAfrica}*/}
-                    {/*        placeholder={formData.artist.website ? formData.artist.website : "Ex: https://matheo-olsen.fr"}*/}
-                    {/*        value={formData.artist.website}*/}
-                    {/*        name={"artist.website"}*/}
-                    {/*        onChange={updateFormData("artist.website")}*/}
-                    {/*    />*/}
-                    {/*    <div className={sectionStyles.specialSection}>*/}
-                    {/*        <div className={sectionStyles.specialSectionHead}>*/}
-                    {/*            <span>*/}
-                    {/*                <GrTextAlignCenter/>*/}
-                    {/*            </span>*/}
-                    {/*            <div>*/}
-                    {/*                <p>Visibilité</p>*/}
-                    {/*            </div>*/}
-                    {/*        </div>*/}
-                    {/*        <div>*/}
-                    {/*            <Switch checked={formData.artist.private} onChange={(value) => {*/}
-                    {/*                updateFormData("artist.private")({*/}
-                    {/*                    target: {*/}
-                    {/*                        value: value*/}
-                    {/*                    }*/}
-                    {/*                })*/}
-                    {/*            }}*/}
-                    {/*            />*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
+                    <div className={sectionStyles.specialSection}>
+                        <div className={sectionStyles.specialSectionHead}>
+                                        <span>
+                                            <GrTextAlignCenter/>
+                                        </span>
+                            <div>
+                                <p>Biographie</p>
+                            </div>
+                        </div>
+                        <Editor
+                            defaultContent={artist && artist.bio ? artist.bio : ""}
+                            onEditorChange={(content) => {
+                                updateFormData("artist.bio", content)
+                            }
+                            }
+                        />
+                    </div>
+                    <IconInput
+                        label={"Instagram"}
+                        type={"text"}
+                        IconComponent={AiFillInstagram}
+                        placeholder={artist && artist.instagram ? artist.instagram : "Ex: https://www.instagram.com/..."}
+                        value={formData && formData.artist && formData.artist.instagram}
+                        name={"artist.instagram"}
+                        onChange={(e) => updateFormData("artist.instagram", e.target.value === "" ? undefined : e.target.value)}
+                    />
+                    <IconInput
+                        label={"Facebook"}
+                        type={"text"}
+                        IconComponent={AiFillFacebook}
+                        placeholder={artist && artist.facebook ? artist.facebook : "Ex: https://www.facebook.com/..."}
+                        value={formData && formData.artist && formData.artist.facebook}
+                        name={"artist.facebook"}
+                        onChange={(e) => updateFormData("artist.facebook", e.target.value === "" ? undefined : e.target.value)}
+                    />
+                    <IconInput
+                        label={"LinkedIn"}
+                        type={"text"}
+                        IconComponent={AiFillLinkedin}
+                        placeholder={artist && artist.linkedin ? artist.linkedin : "Ex: https://www.linkedin.com/..."}
+                        value={formData && formData.artist && formData.artist.linkedin}
+                        name={"artist.linkedin"}
+                        onChange={(e) => updateFormData("artist.linkedin", e.target.value === "" ? undefined : e.target.value)}
+                    />
+                    <IconInput
+                        label={"Site web"}
+                        type={"text"}
+                        IconComponent={FaEarthAfrica}
+                        placeholder={artist && artist.website ? artist.website : "Ex: https://matheo-olsen.fr"}
+                        value={formData && formData.artist && formData.artist.website}
+                        name={"artist.website"}
+                        onChange={(e) => updateFormData("artist.website", e.target.value === "" ? undefined : e.target.value)}
+                    />
+                    <div className={sectionStyles.specialSection}>
+                        <div className={sectionStyles.specialSectionHead}>
+                                <span>
+                                    <GrTextAlignCenter/>
+                                </span>
+                            <div>
+                                <p>Visibilité</p>
+                            </div>
+                        </div>
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "flex-start",
+                                alignItems: "center",
+                                gap: "1rem"
+                            }}
+                        >
+                            <span
+                            style={{
+                                color: formData && formData.artist && formData.artist.private ? "var(--light-gray)" : "var(--black)",
+                            }}
+                            >
+                                Public
+                            </span>
+                            <Switch
+                                onChange={(checked) => updateFormData("artist.private", checked)}
+                                checked={formData && formData.artist && formData.artist.private}
+                            />
+                            <span
+                                style={{
+                                    color: formData && formData.artist && formData.artist.private ? "var(--black)" : "var(--light-gray)",
+                                }}
+                            >
+                                Privé
+                            </span>
+                        </div>
+                    </div>
                 </DashboardSectionItem>
                 {/*<DashboardSectionItem*/}
                 {/*    sectionName={"Informations Juridique"}*/}
