@@ -22,6 +22,7 @@ import {AiFillFacebook, AiFillInstagram, AiFillLinkedin, AiOutlineFieldNumber} f
 import {FaEarthAfrica} from "react-icons/fa6";
 import Switch from "react-switch";
 import Skeleton from "@/components/ui/Skeleton";
+import {Toast} from "@/constants/ToastConfig";
 
 
 export default function DashboardArtisteEditInformations() {
@@ -48,8 +49,40 @@ export default function DashboardArtisteEditInformations() {
     const [avatarFile, setAvatarFile] = useState(null);
     const [nationality, setNationality] = useState(null);
 
-    const handleSubmit = () => {
-        console.log(formData);
+    const handleSubmit = async () => {
+
+        const userBody = formData.user;
+
+        console.log(userBody);
+
+        // Vérifier si user body est complètement undefined
+        if (Object.keys(userBody).some(key => userBody[key] !== undefined)) {
+
+            const res = await fetch(ROUTES.API.USERS.HOME, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    id: artist.user.id,
+                    ...userBody
+                })
+            })
+
+            const data = await res.json();
+
+            if (res.ok) {
+                Toast.fire({
+                    icon: "success",
+                    title: "Les informations de l'utilisateur ont bien été mises à jour"
+                })
+            } else {
+                Toast.fire({
+                    icon: "error",
+                    title: data.message
+                })
+            }
+        }
     }
 
     useEffect(() => {
@@ -75,10 +108,13 @@ export default function DashboardArtisteEditInformations() {
      * Permet de définir l'id de l'artiste à chaque fois que l'on change de page
      */
     useEffect(() => {
-        if (router.query.id) {
-            setArtisteId(router.query.id);
+
+        const routerId = router.query.id;
+
+        if (routerId && /^\d+$/.test(routerId)) {
+            setArtisteId(parseInt(routerId));
         }
-    }, [router.query.id])
+    }, [router, router.query.id])
 
     /**
      * Permet de récupérer les informations de l'artiste
