@@ -164,7 +164,6 @@ export default function MagazineIndex() {
                 </div>
             </div>
             <Picto/>
-            <Confiance/>
             <Footer/>
         </div>
     )

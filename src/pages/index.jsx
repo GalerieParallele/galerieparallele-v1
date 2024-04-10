@@ -50,7 +50,6 @@ export default function Index() {
                         <MainMagazine/>
                         <MainInstagram/>
                         <Newletters/>
-                        <Confiance/>
                         <Footer/>
                     </main>
                 </>
