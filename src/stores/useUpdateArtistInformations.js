@@ -10,9 +10,7 @@ const initialState = {
         city: undefined,
         postalCode: undefined,
         phone: undefined,
-        roles: undefined,
         avatarURL: undefined,
-        artist: undefined,
     },
     artist: {
         pseudo: undefined,
