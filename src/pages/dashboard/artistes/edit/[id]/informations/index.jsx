@@ -139,19 +139,31 @@ export default function DashboardArtisteEditInformations() {
             <div className={styles.content}>
                 {
                     loading || countriesLoading ? (
-                        Array.from({length: 3}).map((_, index) => {
-                            return (
-                                <div
-                                    key={index}
-                                    style={{
-                                        width: "100%",
-                                        height: "70px",
-                                    }}
-                                >
+                        <>
+                            <div className={styles.topSpace}>
+                                <div style={{
+                                    width: "120px",
+                                    height: "40px",
+                                }}>
                                     <Skeleton/>
                                 </div>
-                            )
-                        })
+                            </div>
+                            {
+                                Array.from({length: 3}).map((_, index) => {
+                                    return (
+                                        <div
+                                            key={index}
+                                            style={{
+                                                width: "100%",
+                                                height: "70px",
+                                            }}
+                                        >
+                                            <Skeleton/>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </>
                     ) : (
                         <>
                             <div className={styles.topSpace}>
