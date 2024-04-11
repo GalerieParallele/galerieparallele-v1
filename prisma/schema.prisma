@@ -28,20 +28,22 @@ model User {
 
   avatarURL String? @db.Text
 
+  // Legal information ----------------------------
+
+  societe       String?
+  adrNumVoie    String?
+  adrRue        String?
+  adrVille      String?
+  adrCodePostal String?
+
+  siret String? @unique
+  tva   String? @unique
+
+  // --------------------------------------------
+
   artist Artist?
 
-  articles             Article[]
-  UserLegalInformation UserLegalInformation?
-}
-
-model UserLegalInformation {
-  id Int @id @default(autoincrement())
-
-  legalInformationId Int
-  legalInformation   LegalInformation @relation(fields: [legalInformationId], references: [id], onDelete: Cascade)
-
-  userId Int  @unique
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  articles Article[]
 }
 
 // --------------------------------------------------------------
@@ -84,14 +86,39 @@ model Artist {
 
   bio String? @db.Text
 
+  // Social networks ----------------------------
+
   instagram String?
   facebook  String?
   linkedin  String?
   website   String?
 
+  // --------------------------------------------
+
+  // Visibility ----------------------------
+
   atTheTop Boolean @default(false) // Artiste à la une
 
   private Boolean @default(true)
+
+  // --------------------------------------------
+
+  // Legal information ----------------------------
+
+  numMaisonsDesArtistes String?
+  numSecuriteSociale    String?
+  tauxTva               String?
+
+  societe       String?
+  adrNumVoie    String?
+  adrRue        String?
+  adrVille      String?
+  adrCodePostal String?
+
+  siret String? @unique
+  tva   String? @unique
+
+  // --------------------------------------------
 
   userid Int  @unique
   user   User @relation(fields: [userid], references: [id], onDelete: Cascade)
@@ -102,8 +129,6 @@ model Artist {
   oeuvre      ArtistOeuvre[]
   portrait    ArtistPortrait[]
   recompense  ArtistRecompense[]
-
-  legalInformation ArtistLegalInformation?
 }
 
 model ArtistExposition {
@@ -130,20 +155,6 @@ model ArtistPortrait {
   portraitId Int
   artist     Artist   @relation(fields: [artistId], references: [id], onDelete: Cascade)
   portrait   Portrait @relation(fields: [portraitId], references: [id], onDelete: Cascade)
-}
-
-model ArtistLegalInformation {
-  id Int @id @default(autoincrement())
-
-  numMaisonsDesArtistes String?
-  numSecuriteSociale    String? @unique
-  tauxTva               String?
-
-  legalInformationId Int
-  legalInformation   LegalInformation @relation(fields: [legalInformationId], references: [id], onDelete: Cascade)
-
-  artistId Int    @unique
-  artist   Artist @relation(fields: [artistId], references: [id], onDelete: Cascade)
 }
 
 model ArtistSaveTheDate {
@@ -326,26 +337,6 @@ model Actuality {
   content  String  @db.Text
   photoURL String  @db.Text
   private  Boolean @default(false)
-}
-
-// --------------------------------------------------------------
-
-// LegalInformation model ----------------------------------------
-
-model LegalInformation {
-  id Int @id @default(autoincrement())
-
-  societe       String?
-  adrNumVoie    String?
-  adrRue        String?
-  adrVille      String?
-  adrCodePostal String?
-
-  siret String? @unique
-  tva   String? @unique
-
-  ArtistLegalInformation ArtistLegalInformation[]
-  UserLegalInformation   UserLegalInformation[]
 }
 
 // --------------------------------------------------------------
