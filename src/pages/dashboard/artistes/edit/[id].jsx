@@ -5,36 +5,43 @@ import DashboardArtistesEditTuilesList from "@/components/dashboard/artistes/edi
 import ROUTES from "@/constants/ROUTES";
 import styles from './Index.module.scss';
 import PageLoader from "@/components/ui/PageLoader";
-import Error from "@/components/error/Error";
+import useArtistsStore from "@/stores/artistsStore";
 
 export default function DashboardArtisteEditIndex() {
 
     const router = useRouter();
 
-    const [loading, setLoading] = useState(true);
     const [artisteId, setArtisteId] = useState(null);
-    const [error, setError] = useState(false);
+
+    const {
+        artist,
+        getArtistById,
+        loading
+    } = useArtistsStore();
 
     useEffect(() => {
-        if (router.query.id && /^\d+$/.test(router.query.id)) {
-            setArtisteId(router.query.id);
-            setError(false);
-        } else {
-            setError(true);
+
+        const routerId = router.query.id;
+
+        if (routerId && /^\d+$/.test(routerId)) {
+
+            setArtisteId(parseInt(routerId));
+
         }
-        setLoading(false);
+
     }, [router, router.query.id]);
+
+    /**
+     * Permet de récupérer les informations de l'artiste
+     */
+    useEffect(() => {
+        if (artisteId) {
+            getArtistById(artisteId);
+        }
+    }, [artisteId, getArtistById])
 
     if (loading) {
         return <PageLoader/>;
-    }
-
-    if (error) {
-        return <Error
-            code={404}
-            title={"Artiste introuvable"}
-            message={"L'artiste avec l'identifiant \"" + router.query.id + "\" n'existe pas"}
-        />;
     }
 
     return (
@@ -42,7 +49,7 @@ export default function DashboardArtisteEditIndex() {
             <DashboardNavbar returnURL={ROUTES.ADMIN.ARTISTES.HOME}/>
             <div className={styles.content}>
                 <DashboardArtistesEditTuilesList
-                    artisteId={artisteId}
+                    artisteId={artist&& artist.id}
                 />
             </div>
         </div>

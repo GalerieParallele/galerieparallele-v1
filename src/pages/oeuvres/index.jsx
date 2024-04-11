@@ -194,20 +194,7 @@ export default function OeuvresIndex() {
                                                 key={index}>
                                                 <div className={styles.imgContainer}>
                                                     <Image
-                                                        src={oeuvre.images[0].mediaURL}
-                                                        alt={'test'}
-                                                        width={500}
-                                                        height={500}
-                                                    />
-                                                </div>
-                                            </Link>
-                                            <Link
-                                                href={ROUTES.OEUVRES.VIEW(oeuvre.id)}
-                                                className={styles.allOfFameItem}
-                                                key={index}>
-                                                <div className={styles.imgContainer}>
-                                                    <Image
-                                                        src={oeuvre.images[0].mediaURL}
+                                                        src={oeuvre && oeuvre.images.length > 0 ? oeuvre.images[0].mediaURL : "/assets/img/no-img.jpg"}
                                                         alt={'test'}
                                                         width={500}
                                                         height={500}
@@ -481,7 +468,7 @@ export default function OeuvresIndex() {
                                                     href={ROUTES.OEUVRES.VIEW(oeuvre.id)}
                                                     className={styles.imgContainer}>
                                                     <Image
-                                                        src={oeuvre.images[0].mediaURL}
+                                                        src={oeuvre && oeuvre.images.length > 0 ? oeuvre.images[0].mediaURL : "/assets/img/no-img.jpg"}
                                                         alt={oeuvre.name}
                                                         layout={"fill"}
                                                         objectFit={"contain"}

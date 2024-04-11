@@ -7,7 +7,7 @@ export default function DashboardArtisteEditOeuvreCard({oeuvre}) {
             <div className={styles.content}>
                 <div className={styles.top}>
                     <Image
-                        src={"https://picsum.photos/200/300"}
+                        src={oeuvre && oeuvre.images.length > 0  && oeuvre.images[0].url || "/assets/img/no-img.jpg"}
                         alt={"Oeuvre"}
                         width={200}
                         height={300}

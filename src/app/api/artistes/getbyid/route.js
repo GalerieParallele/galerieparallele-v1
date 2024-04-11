@@ -21,7 +21,53 @@ export async function POST(req) {
                 id
             },
             include: {
-                oeuvre: true,
+                oeuvre: {
+                    select: {
+                        oeuvre: {
+                            include: {
+                                Artists: {
+                                    select: {
+                                        artist: true
+                                    }
+                                },
+                                UnknowArtistOeuvre: {
+                                    select: {
+                                        artist: true
+                                    }
+                                },
+                                tag: {
+                                    select: {
+                                        tag: {
+                                            select: {
+                                                name: true
+                                            }
+                                        }
+                                    }
+                                },
+                                type: {
+                                    select: {
+                                        type: {
+                                            select: {
+                                                name: true
+                                            }
+                                        }
+                                    }
+                                },
+                                images: true,
+                                couleurs: {
+                                    select: {
+                                        couleur: {
+                                            select: {
+                                                hexa: true,
+                                                name: true
+                                            }
+                                        }
+                                    }
+                                },
+                            },
+                        },
+                    }
+                },
                 tag: true,
                 saveTheDate: true,
                 exposition: true,
@@ -35,6 +81,46 @@ export async function POST(req) {
         if (!artist) {
             return NextResponse.json({message: MESSAGES.INVALID_ARTIST}, {status: 404});
         }
+
+        artist.oeuvre = artist.oeuvre.map(oeuvre => {
+            return oeuvre.oeuvre
+        })
+
+        artist.oeuvre = artist.oeuvre.map(oeuvre => {
+            oeuvre.artists = oeuvre.Artists.map(artist => {
+                return artist.artist
+            })
+            oeuvre.unknowArtists = oeuvre.UnknowArtistOeuvre.map(artist => {
+                return artist.artist
+            })
+            oeuvre.couleurs = oeuvre.couleurs.map(couleur => {
+                return couleur.couleur
+            })
+            oeuvre.images = oeuvre.images
+                .map(image => {
+                    return {
+                        position: image.position,
+                        url: image.mediaURL
+                    }
+                })
+                .sort((a, b) => a.position - b.position)
+
+            oeuvre.tag = oeuvre.tag.map(tag => {
+                return tag.tag.name
+            })
+            oeuvre.type = oeuvre.type.map(type => {
+                return type.type.name
+            })
+
+            oeuvre.tags = oeuvre.tag
+            oeuvre.types = oeuvre.type
+
+            delete oeuvre.Artists
+            delete oeuvre.UnknowArtistOeuvre
+            delete oeuvre.tag
+            delete oeuvre.type
+            return oeuvre
+        })
 
         artist.user.password = undefined;
         artist.userid = undefined;

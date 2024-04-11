@@ -3,8 +3,6 @@ import {useRouter} from "next/router";
 import ROUTES from "@/constants/ROUTES";
 
 import DashboardNavbar from "@/components/dashboard/items/DashboardNavbar";
-import PageLoader from "@/components/ui/PageLoader";
-import Error from "@/components/error/Error";
 import Select from "react-select";
 import Button from "@/components/ui/button/Button";
 
@@ -14,37 +12,40 @@ import {IoIosRefresh} from "react-icons/io";
 import styles from './Index.module.scss';
 import DashboardArtisteEditOeuvresList
     from "@/components/dashboard/artistes/edit/oeuvres/DashboardArtisteEditOeuvresList";
+import useArtistsStore from "@/stores/artistsStore";
 
 export default function DashboardArtisteEditOeuvres() {
 
     const router = useRouter();
 
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const {
+        artist,
+        getArtistById,
+        loading
+    } = useArtistsStore();
 
     const [artisteId, setArtisteId] = useState(null);
 
     useEffect(() => {
-        if (router.query.id && /^\d+$/.test(router.query.id)) {
-            setArtisteId(router.query.id);
-            setError(false);
-        } else {
-            setError(true);
+
+        const routerId = router.query.id;
+
+        if (routerId && /^\d+$/.test(routerId)) {
+
+            setArtisteId(routerId);
         }
-        setLoading(false);
+
     }, [router, router.query.id]);
 
-    if (loading) {
-        return <PageLoader/>;
-    }
+    /**
+     * Permet de récupérer les informations de l'artiste
+     */
+    useEffect(() => {
+        if (artisteId) {
+            getArtistById(artisteId);
+        }
+    }, [artisteId, getArtistById])
 
-    if (error) {
-        return <Error
-            code={404}
-            title={"Artiste introuvable"}
-            message={"L'artiste avec l'identifiant \"" + router.query.id + "\" n'existe pas"}
-        />;
-    }
 
     return (
         <div className={styles.main}>
@@ -78,8 +79,17 @@ export default function DashboardArtisteEditOeuvres() {
                 />
             </div>
             <div className={styles.content}>
-                <DashboardArtisteEditOeuvresList
-                    />
+                {
+                    artist && artist.oeuvre.length > 0 ? (
+                        <DashboardArtisteEditOeuvresList
+                            oeuvres={artist && artist.oeuvre}
+                        />
+                    ) : (
+                        <h3>{artist.pseudo ? artist.pseudo : (artist.user.lastname.toUpperCase() + " " + artist.user.firstname)} n&apos;a
+                            pas d&apos;oeuvre à son compte</h3>
+                    )
+                }
+
             </div>
         </div>
     );
