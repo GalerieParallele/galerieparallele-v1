@@ -61,7 +61,7 @@ function IconInput({
                         </div>
                     </div>
                 );
-            case 'file':
+            case 'avatar':
                 return (
                     <div
                         className={styles.mainFileContainer}>
@@ -70,7 +70,7 @@ function IconInput({
                             onClick={handleOpenFileModal}
                         >
                             <input
-                                type={type}
+                                type={"file"}
                                 {...inputProps}
                                 className={styles.input}
                                 required={required}
