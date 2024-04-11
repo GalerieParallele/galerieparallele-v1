@@ -10,7 +10,6 @@ const initialState = {
         city: undefined,
         postalCode: undefined,
         phone: undefined,
-        avatarURL: undefined,
     },
     artist: {
         pseudo: undefined,
@@ -22,27 +21,23 @@ const initialState = {
         website: undefined,
         atTheTop: undefined,
         private: undefined,
-        userid: undefined,
+        numMaisonsDesArtistes: undefined,
+        numSecuriteSociale: undefined,
+        tauxTva: undefined,
+        societe: undefined,
+        adrNumVoie: undefined,
+        adrRue: undefined,
+        adrVille: undefined,
+        adrCodePostal: undefined,
+        siret: undefined,
+        tva: undefined,
+
         tags: undefined,
         saveTheDate: undefined,
         exposition: undefined,
         oeuvre: undefined,
         portrait: undefined,
         recompense: undefined,
-        legalInformation: {
-            numMaisonsDesArtistes: undefined,
-            numSecuriteSociale: undefined,
-            tauxTva: undefined,
-            legalInformation: {
-                societe: undefined,
-                adrNumVoie: undefined,
-                adrRue: undefined,
-                adrVille: undefined,
-                adrCodePostal: undefined,
-                siret: undefined,
-                tva: undefined,
-            }
-        }
     },
 }
 
@@ -59,7 +54,7 @@ const useUpdateArtistInformations = create((set, get) => ({
         }
 
         current[fields[fields.length - 1]] = value;
-        return { formData };
+        return {formData};
     }),
     resetFormData: () => {
         set({formData: {...initialState}});
