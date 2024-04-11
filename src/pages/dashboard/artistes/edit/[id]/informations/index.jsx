@@ -23,6 +23,7 @@ import {FaEarthAfrica} from "react-icons/fa6";
 import Switch from "react-switch";
 import Skeleton from "@/components/ui/Skeleton";
 import {Toast} from "@/constants/ToastConfig";
+import StorageUtils from "@/utils/StorageUtils";
 
 
 export default function DashboardArtisteEditInformations() {
@@ -51,21 +52,70 @@ export default function DashboardArtisteEditInformations() {
 
     const handleSubmit = async () => {
 
-        const userBody = formData.user;
+        const userBody = {...formData.user};
+        console.log("userBody", userBody)
 
-        console.log(userBody);
+        const artistBody = {...formData.artist};
+        console.log("artistBody", artistBody)
 
-        // Vérifier si user body est complètement undefined
-        if (Object.keys(userBody).some(key => userBody[key] !== undefined)) {
 
-            const res = await fetch(ROUTES.API.USERS.HOME, {
+        if (avatarFile !== null || Object.keys(userBody).some(key => userBody[key] !== undefined)) {
+
+            if (avatarFile) {
+
+                const {
+                    downloadURL,
+                    success
+                } = await StorageUtils.uploadFile(avatarFile, "users/" + artist.user.id + "/avatar", null);
+
+                if (!success) Toast.fire({
+                    icon: "error",
+                    title: "Une erreur est survenue lors de l'envoi de l'avatar vers le cloud"
+                })
+
+                userBody.avatarURL = downloadURL;
+
+            }
+
+            if (Object.keys(userBody).some(key => userBody[key] !== undefined)) {
+                const res = await fetch(ROUTES.API.USERS.HOME, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        id: artist.user.id,
+                        ...userBody
+                    })
+                })
+
+                const data = await res.json();
+
+                if (res.status === 200) {
+                    Toast.fire({
+                        icon: "success",
+                        title: "Les informations utilisateur ont bien été mises à jour",
+                    })
+                    router.push(ROUTES.ADMIN.ARTISTES.EDIT.HOME(artisteId))
+                } else {
+                    Toast.fire({
+                        icon: "error",
+                        title: data.message
+                    })
+                }
+            }
+        }
+
+        if (Object.keys(artistBody).some(key => artistBody[key] !== undefined)) {
+
+            const res = await fetch(ROUTES.API.ARTISTES.HOME, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    id: artist.user.id,
-                    ...userBody
+                    id: artist.id,
+                    ...artistBody
                 })
             })
 
@@ -74,9 +124,11 @@ export default function DashboardArtisteEditInformations() {
             if (res.ok) {
                 Toast.fire({
                     icon: "success",
-                    title: "Les informations de l'utilisateur ont bien été mises à jour"
+                    title: "Les informations ont bien été mises à jour",
                 })
+                router.push(ROUTES.ADMIN.ARTISTES.EDIT.HOME(artisteId))
             } else {
+
                 Toast.fire({
                     icon: "error",
                     title: data.message
@@ -126,8 +178,10 @@ export default function DashboardArtisteEditInformations() {
     }, [artisteId, getArtistById])
 
     useEffect(() => {
-        if (artist)
+        if (artist) {
             updateFormData("artist.private", artist.private)
+            updateFormData("artist.atTheTop", artist.atTheTop)
+        }
     }, [artist, updateFormData])
 
 
@@ -171,11 +225,13 @@ export default function DashboardArtisteEditInformations() {
                                     text={"Enregistrer"}
                                     type={"submit"}
                                     onClick={handleSubmit}
+                                    disabled={loading}
+                                    isLoading={loading}
                                 />
                             </div>
                             <DashboardSectionItem
                                 sectionName={"Informations Utilisateur"}
-                                description={"Ces informations ne seront pas visibles du grand public"}
+                                description={"Certaines des informations les plus sensibles ne sont pas visibles du grand public"}
                             >
                                 <IconInput
                                     label={"E-mail"}
@@ -224,17 +280,13 @@ export default function DashboardArtisteEditInformations() {
                                 </div>
                                 <IconInput
                                     label={"Avatar"}
-                                    type={"file"}
+                                    type={"avatar"}
                                     // file by formdata file or artist urlavatar
-                                    file={avatarFile ? avatarFile : artist && artist.user && artist.user.avatarURL ? artist.user.avatarURL : '/assets/img/avatar.png'}
+                                    file={avatarFile ? URL.createObjectURL(avatarFile) : artist && artist.user && artist.user.avatarURL ? artist.user.avatarURL : '/assets/img/avatar.png'}
                                     fileText={`Cliquez ici pour ${artist && artist.user && artist.user.avatarURL ? "modifier" : "ajouter"} l'avatar`}
                                     IconComponent={RxAvatar}
                                     multiple={false}
-                                    onChange={(e) => {
-                                        console.log(e.target.files);
-                                        setAvatarFile(URL.createObjectURL(e.target.files[0]));
-                                        updateFormData("user.avatarURL", e.target.files[0]);
-                                    }}
+                                    onChange={(e) => setAvatarFile(e.target.files[0])}
                                     name={"user.avatarURL"}
                                     accept={"image/*"}
                                     disabled={loading}
@@ -443,6 +495,51 @@ export default function DashboardArtisteEditInformations() {
                             </span>
                                     </div>
                                 </div>
+                                <div className={sectionStyles.specialSection}>
+                                    <div className={sectionStyles.specialSectionHead}>
+                                <span>
+                                    <GrTextAlignCenter/>
+                                </span>
+                                        <div>
+                                            <p>À la une</p>
+                                        </div>
+                                    </div>
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            justifyContent: "flex-start",
+                                            alignItems: "center",
+                                            gap: "1rem"
+                                        }}
+                                    >
+                            <span
+                                style={{
+                                    color: formData && formData.artist && formData.artist.atTheTop ? "var(--light-gray)" : "var(--black)",
+                                }}
+                            >
+                                Non
+                            </span>
+                                        <Switch
+                                            onChange={(checked) => {
+                                                updateFormData("artist.atTheTop", checked)
+                                            }}
+                                            checked={formData && formData.artist && formData.artist.atTheTop}
+                                            onColor={"#070707"}
+                                            offColor={"#070707"}
+                                            checkedIcon={false}
+                                            uncheckedIcon={false}
+                                        />
+                                        <span
+                                            style={{
+                                                color: formData && formData.artist && formData.artist.atTheTop ? "var(--black)" : "var(--light-gray)",
+                                            }}
+                                        >
+                                Oui{" "}{formData && formData.artist && formData.artist.atTheTop && <span
+                                            style={{color: 'var(--red)'}}>( = cet artiste sera mis en avant)</span>}
+                            </span>
+                                    </div>
+                                </div>
                             </DashboardSectionItem>
                             <DashboardSectionItem
                                 sectionName={"Informations Juridique"}
@@ -452,90 +549,106 @@ export default function DashboardArtisteEditInformations() {
                                     label={"Nom de société"}
                                     type={"text"}
                                     IconComponent={BsBuildingsFill}
-                                    placeholder={artist && artist.legalInformation && artist.legalInformation.societe ? artist.legalInformation.societe : "Ex: GalerieParallele"}
+                                    placeholder={artist && artist.societe ? artist.societe : "Ex: GalerieParallele"}
                                     name={"legal.societe"}
-                                    value={formData && formData.artist && formData.artist.legalInformation && formData.artist.legalInformation.legalInformation && formData.artist.legalInformation.legalInformation.societe}
-                                    onChange={(e) => updateFormData("artist.legalInformation.legalInformation.societe", e.target.value === "" ? undefined : e.target.value)}
+                                    value={formData.artist.societe}
+                                    onChange={(e) => updateFormData("artist.societe", e.target.value === "" ? undefined : e.target.value)}
                                     required
                                 />
                                 <IconInput
                                     label={"Numéro de voie"}
                                     type={"text"}
                                     IconComponent={IoHome}
-                                    placeholder={artist && artist.legalInformation && artist.legalInformation.adrNumVoie ? artist.legalInformation.adrNumVoie : "Ex: 1"}
+                                    placeholder={artist && artist.adrNumVoie ? artist.adrNumVoie : "Ex: 1"}
                                     name={"legal.adrNumVoie"}
-                                    value={formData.artist.legalInformation.legalInformation.adrNumVoie}
-                                    onChange={(e) => updateFormData("artist.legalInformation.legalInformation.adrNumVoie", e.target.value === "" ? undefined : e.target.value)}
+                                    value={formData.artist.adrNumVoie}
+                                    onChange={(e) => updateFormData("artist.adrNumVoie", e.target.value === "" ? undefined : e.target.value)}
                                     required
                                 />
                                 <IconInput
                                     label={"Nom de la voie"}
                                     type={"text"}
                                     IconComponent={IoHome}
-                                    placeholder={formData.artist.legalInformation.legalInformation.adrRue ? formData.artist.legalInformation.legalInformation.adrRue : "Ex: Rue de Paris"}
+                                    placeholder={artist && artist.adrRue ? artist.adrRue : "Ex: rue de Paris"}
                                     name={"legal.adrRue"}
-                                    value={formData && formData.artist.legalInformation.legalInformation.adrRue}
-                                    onChange={(e) => updateFormData("artist.legalInformation.legalInformation.adrRue", e.target.value === "" ? undefined : e.target.value)}
+                                    value={formData.artist.adrRue}
+                                    onChange={(e) => updateFormData("artist.adrRue", e.target.value === "" ? undefined : e.target.value)}
                                     required
                                 />
                                 <IconInput
                                     label={"Ville"}
                                     type={"text"}
                                     IconComponent={IoHome}
-                                    placeholder={formData.artist.legalInformation.legalInformation.adrVille ? formData.artist.legalInformation.legalInformation.adrVille : "Ex: Paris"}
+                                    placeholder={artist && artist.adrVille ? artist.adrVille : "Ex: Paris"}
                                     name={"legal.adrVille"}
-                                    value={formData.artist.legalInformation.legalInformation.adrVille}
-                                    onChange={(e) => updateFormData("artist.legalInformation.legalInformation.adrVille", e.target.value === "" ? undefined : e.target.value)}
+                                    value={formData.artist.adrVille}
+                                    onChange={(e) => updateFormData("artist.adrVille", e.target.value === "" ? undefined : e.target.value)}
                                     required
                                 />
                                 <IconInput
                                     label={"Code postal"}
                                     type={"text"}
                                     IconComponent={IoHome}
-                                    placeholder={formData.artist.legalInformation.legalInformation.adrCodePostal ? formData.artist.legalInformation.legalInformation.adrCodePostal : "Ex: 75000"}
+                                    placeholder={artist && artist.adrCodePostal ? artist.adrCodePostal : "Ex: 75000"}
                                     name={"legal.adrCodePostal"}
-                                    value={formData.artist.legalInformation.legalInformation.adrCodePostal}
-                                    onChange={(e) => updateFormData("artist.legalInformation.legalInformation.adrCodePostal", e.target.value === "" ? undefined : e.target.value)}
+                                    value={formData.artist.adrCodePostal}
+                                    onChange={(e) => updateFormData("artist.adrCodePostal", e.target.value === "" ? undefined : e.target.value)}
                                     required
                                 />
                                 <IconInput
                                     label={"Numéro de SIRET (non visible sur le site)"}
                                     type={"text"}
+                                    maxLength={14}
+                                    minLength={14}
                                     IconComponent={AiOutlineFieldNumber}
-                                    placeholder={artist && artist.legalInformation && artist.legalInformation.siret ? artist.legalInformation.siret : "Ex: 12345678912345"}
+                                    placeholder={artist && artist.siret ? artist.siret : "Ex: 14589632547025"}
                                     name={"legal.siret"}
-                                    value={formData.artist.legalInformation.legalInformation.siret}
-                                    onChange={(e) => updateFormData("artist.legalInformation.legalInformation.siret", e.target.value === "" ? undefined : e.target.value)}
+                                    value={formData.artist.siret}
+                                    onChange={(e) => updateFormData("artist.siret", e.target.value === "" ? undefined : e.target.value)}
                                     required
                                 />
                                 <IconInput
                                     label={"Numéro de TVA (non visible sur le site)"}
                                     type={"text"}
+                                    minLength={13}
+                                    maxLength={13}
                                     IconComponent={AiOutlineFieldNumber}
-                                    placeholder={formData.artist.legalInformation.legalInformation.tva ? formData.artist.legalInformation.legalInformation.tva : "Ex: 12345678912345"}
+                                    placeholder={artist && artist.tva ? artist.tva : "Ex: FR85698541230"}
                                     name={"legal.tva"}
-                                    value={formData.artist.legalInformation.legalInformation.tva}
-                                    onChange={(e) => updateFormData("artist.legalInformation.legalInformation.tva", e.target.value === "" ? undefined : e.target.value)}
+                                    value={formData.artist.tva}
+                                    onChange={(e) => updateFormData("artist.tva", e.target.value === "" ? undefined : e.target.value)}
+                                    required
+                                />
+                                <IconInput
+                                    label={"Taux de TVA (non visible sur le site)"}
+                                    type={"text"}
+                                    IconComponent={AiOutlineFieldNumber}
+                                    placeholder={artist && artist.tauxTva ? artist.tauxTva : "Ex: 20% sur marge"}
+                                    name={"legal.tva"}
+                                    value={formData.artist.tauxTva}
+                                    onChange={(e) => updateFormData("artist.tauxTva", e.target.value === "" ? undefined : e.target.value)}
                                     required
                                 />
                                 <IconInput
                                     label={"Numéro maison des artistes (non visible sur le site)"}
                                     type={"text"}
                                     IconComponent={AiOutlineFieldNumber}
-                                    placeholder={formData.artist.legalInformation.legalInformation.numMaisonsDesArtistes ? formData.artist.legalInformation.legalInformation.numMaisonsDesArtistes : "Ex: 12345678912345"}
+                                    placeholder={artist && artist.numMaisonsDesArtistes ? artist.numMaisonsDesArtistes : "Ex: 12345678912345"}
                                     name={"legal.numMaisonsDesArtistes"}
-                                    value={formData.artist.legalInformation.legalInformation.numMaisonsDesArtistes}
-                                    onChange={(e) => updateFormData("artist.legalInformation.legalInformation.numMaisonsDesArtistes", e.target.value === "" ? undefined : e.target.value)}
+                                    value={formData.artist.numMaisonsDesArtistes}
+                                    onChange={(e) => updateFormData("artist.numMaisonsDesArtistes", e.target.value === "" ? undefined : e.target.value)}
                                     required
                                 />
                                 <IconInput
                                     label={"Numéro de sécurité sociale (non visible sur le site)"}
                                     type={"text"}
+                                    minLength={15}
+                                    maxLength={15}
                                     IconComponent={AiOutlineFieldNumber}
-                                    placeholder={formData.artist.legalInformation.legalInformation.numSecuriteSociale ? formData.artist.legalInformation.legalInformation.numSecuriteSociale : "Ex: 12345678912345"}
+                                    placeholder={artist && artist.numSecuriteSociale ? artist.numSecuriteSociale : "Ex: 158745236589641"}
                                     name={"legal.numSecuriteSociale"}
-                                    value={formData.artist.legalInformation.legalInformation.numSecuriteSociale}
-                                    onChange={(e) => updateFormData("artist.legalInformation.legalInformation.numSecuriteSociale", e.target.value === "" ? undefined : e.target.value)}
+                                    value={formData.artist.numSecuriteSociale}
+                                    onChange={(e) => updateFormData("artist.numSecuriteSociale", e.target.value === "" ? undefined : e.target.value)}
                                     required
                                 />
                             </DashboardSectionItem>
