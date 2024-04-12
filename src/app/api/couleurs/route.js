@@ -1,4 +1,4 @@
-import z, {Schema} from "zod";
+import z from "zod";
 import {NextResponse} from "next/server";
 
 const MESSAGES = {
