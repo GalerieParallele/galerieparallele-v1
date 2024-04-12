@@ -42,7 +42,7 @@ export default function DashboardArtisteEditInformations() {
         loading
     } = useArtistsStore();
 
-    const [artisteId, setArtisteId] = useState(null);
+    const artistId = parseInt(router.query.id);
 
     const [countries, setCountries] = useState([]);
     const [countriesLoading, setCountriesLoading] = useState(true);
@@ -96,7 +96,7 @@ export default function DashboardArtisteEditInformations() {
                         icon: "success",
                         title: "Les informations utilisateur ont bien été mises à jour",
                     })
-                    router.push(ROUTES.ADMIN.ARTISTES.EDIT.HOME(artisteId))
+                    router.push(ROUTES.ADMIN.ARTISTES.EDIT.HOME(artistId))
                 } else {
                     Toast.fire({
                         icon: "error",
@@ -126,7 +126,7 @@ export default function DashboardArtisteEditInformations() {
                     icon: "success",
                     title: "Les informations ont bien été mises à jour",
                 })
-                router.push(ROUTES.ADMIN.ARTISTES.EDIT.HOME(artisteId))
+                router.push(ROUTES.ADMIN.ARTISTES.EDIT.HOME(artistId))
             } else {
 
                 Toast.fire({
@@ -157,25 +157,11 @@ export default function DashboardArtisteEditInformations() {
     }, [resetFormData])
 
     /**
-     * Permet de définir l'id de l'artiste à chaque fois que l'on change de page
-     */
-    useEffect(() => {
-
-        const routerId = router.query.id;
-
-        if (routerId && /^\d+$/.test(routerId)) {
-            setArtisteId(parseInt(routerId));
-        }
-    }, [router, router.query.id])
-
-    /**
      * Permet de récupérer les informations de l'artiste
      */
     useEffect(() => {
-        if (artisteId) {
-            getArtistById(artisteId);
-        }
-    }, [artisteId, getArtistById])
+        getArtistById(artistId);
+    }, [artistId, getArtistById])
 
     useEffect(() => {
         if (artist) {
@@ -188,7 +174,7 @@ export default function DashboardArtisteEditInformations() {
     return (
         <div className={styles.main}>
             <DashboardNavbar
-                returnURL={ROUTES.ADMIN.ARTISTES.EDIT.HOME(artisteId)}
+                returnURL={ROUTES.ADMIN.ARTISTES.EDIT.HOME(artistId)}
             />
             <div className={styles.content}>
                 {
