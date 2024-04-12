@@ -52,8 +52,6 @@ export async function GET() {
             }
         })
 
-        console.log(couleurs)
-
         if (!couleurs.length) {
             return NextResponse.json({message: MESSAGES.NO_COLORS}, {status: 404})
         }
