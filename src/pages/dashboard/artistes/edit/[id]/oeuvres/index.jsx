@@ -85,7 +85,7 @@ export default function DashboardArtisteEditOeuvres() {
                             oeuvres={artist && artist.oeuvre}
                         />
                     ) : (
-                        <h3>{artist.pseudo ? artist.pseudo : (artist.user.lastname.toUpperCase() + " " + artist.user.firstname)} n&apos;a
+                        <h3>{artist && artist.pseudo ? artist.pseudo : (artist && artist.user.lastname.toUpperCase() + " " + artist.user.firstname)} n&apos;a
                             pas d&apos;oeuvre à son compte</h3>
                     )
                 }
