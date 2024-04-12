@@ -1,5 +1,12 @@
 import Image from "next/image";
 
+import styles from './DashboardArtisteEditOeuvreCard.module.scss';
+import {MdDelete, MdEdit} from "react-icons/md";
+
+import {FaEye} from "react-icons/fa";
+import ROUTES from "@/constants/ROUTES";
+import Link from "next/link";
+
 export default function DashboardArtisteEditOeuvreCard({oeuvre}) {
 
     return (
@@ -7,17 +14,19 @@ export default function DashboardArtisteEditOeuvreCard({oeuvre}) {
             <div className={styles.content}>
                 <div className={styles.top}>
                     <Image
-                        src={oeuvre && oeuvre.images.length > 0  && oeuvre.images[0].url || "/assets/img/no-img.jpg"}
+                        src={oeuvre && oeuvre.images.length > 0 && oeuvre.images[0].url || "/assets/img/no-img.jpg"}
                         alt={"Oeuvre"}
                         width={200}
                         height={300}
                     />
                     <div className={styles.oeuvreActions}>
-                        <button
+                        <Link
+                            href={ROUTES.OEUVRES.VIEW(oeuvre.id)}
+                            target={"_blank"}
                             className={styles.show}
                         >
                             <FaEye/>
-                        </button>
+                        </Link>
                         <button
                             className={styles.edit}
                         >
@@ -39,10 +48,5 @@ export default function DashboardArtisteEditOeuvreCard({oeuvre}) {
                 </div>
             </div>
         </div>
-)
-
+    )
 }
-import styles from './DashboardArtisteEditOeuvreCard.module.scss';
-import {MdDelete, MdEdit} from "react-icons/md";
-
-import {FaEye} from "react-icons/fa";
