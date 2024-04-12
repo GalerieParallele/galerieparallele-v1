@@ -80,8 +80,6 @@ export default function DashboardArtistesNewIndex() {
     const [avatarURL, setAvatarURL] = useState(undefined);
 
 
-
-
     /**
      * Permet de vérifier que tous les champs concernant le compte utilisateur sont remplis
      * @returns {this is any[]}
@@ -200,7 +198,7 @@ export default function DashboardArtistesNewIndex() {
 
                 Toast.fire({icon: 'success', title: 'Artiste créé avec succès'});
 
-                await router.push(ROUTES.ADMIN.ARTISTES.EDIT.HOME(userid));
+                router.push(ROUTES.ADMIN.ARTISTES.EDIT.HOME(userid));
 
             } catch (error) {
 

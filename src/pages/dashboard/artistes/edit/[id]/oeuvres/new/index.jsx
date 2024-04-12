@@ -12,7 +12,6 @@ import sectionStyles from '@/components/dashboard/items/sections/DashboardSectio
 import DashboardNavbar from "@/components/dashboard/items/DashboardNavbar";
 import PageLoader from "@/components/ui/PageLoader";
 import Error from "@/components/error/Error";
-import ArtisteNewSectionItem from "@/components/admin/artistes/users/new/ArtisteNewSectionItem";
 import IconInput, {handleOpenModalInformationRequired} from "@/components/ui/iconinput/IconInput";
 import Button from "@/components/ui/button/Button";
 import Editor from "@/components/ui/Editor";
@@ -46,6 +45,7 @@ import LittleSpinner from "@/components/ui/LittleSpinner";
 import StorageUtils from "@/utils/StorageUtils";
 import {Toast} from "@/constants/ToastConfig";
 import useArtistsStore from "@/stores/artistsStore";
+import DashboardSectionItem from "@/components/dashboard/items/sections/DashboardSectionItem";
 
 export const useOeuvreStore = create((set) => ({
     oeuvre: {
@@ -302,7 +302,7 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                 returnURL={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES(artisteId)}
             />
             <div className={styles.content}>
-                <ArtisteNewSectionItem
+                <DashboardSectionItem
                     sectionName={"Informations générales"}
                     required
                 >
@@ -353,8 +353,8 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         disabled={loading}
                         required
                     />
-                </ArtisteNewSectionItem>
-                <ArtisteNewSectionItem
+                </DashboardSectionItem>
+                <DashboardSectionItem
                     sectionName={"Informations techniques"}
                     required
                 >
@@ -426,8 +426,8 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         value={oeuvre.signature}
                         disabled={loading}
                     />
-                </ArtisteNewSectionItem>
-                <ArtisteNewSectionItem
+                </DashboardSectionItem>
+                <DashboardSectionItem
                     sectionName={"Images"}
                 >
                     <div className={sectionStyles.specialSection}>
@@ -487,15 +487,15 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                             ))}
                         </div>
                     </div>
-                </ArtisteNewSectionItem>
-                <ArtisteNewSectionItem
+                </DashboardSectionItem>
+                <DashboardSectionItem
                     sectionName={"Couleur(s)"}
                 >
                     <MultiColors onChange={(e) => {
                         updateField('couleurs', e)
                     }}/>
-                </ArtisteNewSectionItem>
-                <ArtisteNewSectionItem
+                </DashboardSectionItem>
+                <DashboardSectionItem
                     sectionName={"Artistes"}
                 >
                     <div className={sectionStyles.specialSection}>
@@ -553,8 +553,8 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                             value={oeuvre.UnknowArtistOeuvre}
                         />
                     </div>
-                </ArtisteNewSectionItem>
-                <ArtisteNewSectionItem
+                </DashboardSectionItem>
+                <DashboardSectionItem
                     sectionName={"Dimensions"}
                     required
                 >
@@ -623,8 +623,8 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                             value={oeuvre.orientation}
                         />
                     </div>
-                </ArtisteNewSectionItem>
-                <ArtisteNewSectionItem
+                </DashboardSectionItem>
+                <DashboardSectionItem
                     sectionName={"Autres"}
                 >
                     <div className={sectionStyles.specialSection}>
@@ -677,7 +677,7 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                             value={oeuvre.type}
                         />
                     </div>
-                </ArtisteNewSectionItem>
+                </DashboardSectionItem>
                 <div className={styles.topSpace}>
                     <Button
                         text={createLoading ? <LittleSpinner/> : "Créer l'oeuvre"}
