@@ -82,11 +82,10 @@ export default function DashboardArtisteEditOeuvres() {
                 {
                     artist && artist.oeuvre.length > 0 ? (
                         <DashboardArtisteEditOeuvresList
-                            oeuvres={artist && artist.oeuvre}
+                            artist={artist}
                         />
                     ) : (
-                        <h3>{artist && artist.pseudo ? artist.pseudo : (artist && artist.user.lastname.toUpperCase() + " " + artist.user.firstname)} n&apos;a
-                            pas d&apos;oeuvre à son compte</h3>
+                        <h3>Cet artiste ne possède pas d&apos;oeuvre enregistrée sur le site</h3>
                     )
                 }
 

@@ -6,8 +6,9 @@ import {MdDelete, MdEdit} from "react-icons/md";
 import {FaEye} from "react-icons/fa";
 import ROUTES from "@/constants/ROUTES";
 import Link from "next/link";
+import {ar} from "@faker-js/faker";
 
-export default function DashboardArtisteEditOeuvreCard({oeuvre}) {
+export default function DashboardArtisteEditOeuvreCard({oeuvre, artist}) {
 
     return (
         <div className={styles.main}>
@@ -27,11 +28,12 @@ export default function DashboardArtisteEditOeuvreCard({oeuvre}) {
                         >
                             <FaEye/>
                         </Link>
-                        <button
+                        <Link
+                            href={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRE_EDIT(artist.id, oeuvre.id)}
                             className={styles.edit}
                         >
                             <MdEdit/>
-                        </button>
+                        </Link>
                         <button
                             className={styles.delete}
                         >
