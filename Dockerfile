@@ -2,34 +2,41 @@
 FROM node:alpine AS dependencies
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm install --omit=dev
+# Installez uniquement les dépendances de production
+RUN npm ci --only=production
 
 # Étape 2 : Construction
 FROM node:alpine AS build
 WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
-# Inclure le script ici
-COPY wait-for-db.sh ./wait-for-db.sh
-RUN chmod +x ./wait-for-db.sh
-RUN npm install -g prisma
+# Exécutez Prisma generate sans installation globale
 COPY prisma ./prisma
 RUN npx prisma generate
+# Construisez l'application
 RUN npm run build
+
+# Supprimez les dépendances de développement inutiles après la construction
+# Ceci est utile si le processus de construction installe des dépendances de développement
+RUN npm prune --production
 
 # Étape 3 : Déploiement
 FROM node:alpine AS deploy
 WORKDIR /app
 ENV NODE_ENV production
-# Assurez-vous de copier le script de l'étape de construction à l'étape de déploiement
-COPY --from=build /app ./
 
-# Installez les outils clients de PostgreSQL
+# Installez les outils clients de PostgreSQL si absolument nécessaire
 RUN apk add --no-cache postgresql-client
 
-# Copiez également le script ici
+# Copiez uniquement les fichiers nécessaires à l'exécution de l'application
+COPY --from=build /app/next.config.js ./
+COPY --from=build /app/public ./public
+COPY --from=build /app/.next ./.next
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/package.json ./package.json
+# Si wait-for-db.sh est nécessaire pour le démarrage de l'app, incluez-le également
 COPY --from=build /app/wait-for-db.sh ./wait-for-db.sh
-EXPOSE 3000
-ENV PORT 3000
-CMD ["npm", "start"]
+RUN chmod +x ./wait-for-db.sh
 
+EXPOSE 3000
+CMD ["npm", "start"]
