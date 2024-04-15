@@ -1,7 +1,6 @@
 import z from "zod";
 
 import {NextResponse} from "next/server";
-
 import {prisma} from "@/utils/PrismaUtil";
 
 const MESSAGES = {
@@ -13,7 +12,6 @@ const MESSAGES = {
     NAME_REQUIRED: "Le nom de la couleur est requis.",
 
     NO_COLORS: "Aucune couleur n'a été trouvée."
-
 }
 
 const hexa = z
@@ -54,11 +52,11 @@ export async function GET() {
             }
         })
 
-        if (!couleurs.length) {
+        if (!couleurs || couleurs.length === 0) {
             return NextResponse.json({message: MESSAGES.NO_COLORS}, {status: 404})
         }
 
-        const validatedColors = couleurs.map(couleur => {
+        const validatedColors = Array.from(couleurs).map(couleur => {
             return ColorSchema.parse(couleur)
         })
 
