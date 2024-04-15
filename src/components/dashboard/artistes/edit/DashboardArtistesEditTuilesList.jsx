@@ -13,41 +13,41 @@ export default function DashboardArtistesEditTuilesList({artisteId}) {
                 name={"Informations utilisateur & artiste"}
                 to={ROUTES.ADMIN.ARTISTES.EDIT.INFORMATIONS(artisteId)}
             />
-            <DashboardTuiles
-                IconComponent={FaPaintBrush}
-                name={"Oeuvres"}
-                to={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES(artisteId)}
-            />
-            <DashboardTuiles
-                IconComponent={FaFileContract}
-                name={"Relations contractuelles"}
-                to={ROUTES.ADMIN.ARTISTES.EDIT.CONTRATS(artisteId)}
-            />
-            <DashboardTuiles
-                IconComponent={FaImage}
-                name={"Illustrations"}
-                to={ROUTES.ADMIN.ARTISTES.EDIT.ILLUSTRATIONS(artisteId)}
-            />
-            <DashboardTuiles
-                IconComponent={FaQuestion}
-                name={"Portrait chinois"}
-                to={ROUTES.ADMIN.ARTISTES.EDIT.PORTRAIT_CHINOIS(artisteId)}
-            />
-            <DashboardTuiles
-                IconComponent={BsCalendarDate}
-                name={"SaveTheDate"}
-                to={ROUTES.ADMIN.ARTISTES.EDIT.SAVETHEDATE(artisteId)}
-            />
-            <DashboardTuiles
-                IconComponent={FaTrophy}
-                name={"Récompenses"}
-                to={'#'}
-            />
-            <DashboardTuiles
-                IconComponent={MdWavingHand}
-                name={"Expositions"}
-                to={'#'}
-            />
+            {/*<DashboardTuiles*/}
+            {/*    IconComponent={FaPaintBrush}*/}
+            {/*    name={"Oeuvres"}*/}
+            {/*    to={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES(artisteId)}*/}
+            {/*/>*/}
+            {/*<DashboardTuiles*/}
+            {/*    IconComponent={FaFileContract}*/}
+            {/*    name={"Relations contractuelles"}*/}
+            {/*    to={ROUTES.ADMIN.ARTISTES.EDIT.CONTRATS(artisteId)}*/}
+            {/*/>*/}
+            {/*<DashboardTuiles*/}
+            {/*    IconComponent={FaImage}*/}
+            {/*    name={"Illustrations"}*/}
+            {/*    to={ROUTES.ADMIN.ARTISTES.EDIT.ILLUSTRATIONS(artisteId)}*/}
+            {/*/>*/}
+            {/*<DashboardTuiles*/}
+            {/*    IconComponent={FaQuestion}*/}
+            {/*    name={"Portrait chinois"}*/}
+            {/*    to={ROUTES.ADMIN.ARTISTES.EDIT.PORTRAIT_CHINOIS(artisteId)}*/}
+            {/*/>*/}
+            {/*<DashboardTuiles*/}
+            {/*    IconComponent={BsCalendarDate}*/}
+            {/*    name={"SaveTheDate"}*/}
+            {/*    to={ROUTES.ADMIN.ARTISTES.EDIT.SAVETHEDATE(artisteId)}*/}
+            {/*/>*/}
+            {/*<DashboardTuiles*/}
+            {/*    IconComponent={FaTrophy}*/}
+            {/*    name={"Récompenses"}*/}
+            {/*    to={'#'}*/}
+            {/*/>*/}
+            {/*<DashboardTuiles*/}
+            {/*    IconComponent={MdWavingHand}*/}
+            {/*    name={"Expositions"}*/}
+            {/*    to={'#'}*/}
+            {/*/>*/}
         </>
     )
 }

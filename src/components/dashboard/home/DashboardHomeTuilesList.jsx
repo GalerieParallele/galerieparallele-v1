@@ -12,11 +12,11 @@ export default function DashboardHomeTuilesList() {
                 IconComponent={IoIosMan}
                 to={ROUTES.ADMIN.ARTISTES.HOME}
             />
-            <DashboardTuiles
-                name={"Oeuvres"}
-                IconComponent={FaPaintBrush}
-                to={"#"}
-            />
+            {/*<DashboardTuiles*/}
+            {/*    name={"Oeuvres"}*/}
+            {/*    IconComponent={FaPaintBrush}*/}
+            {/*    to={"#"}*/}
+            {/*/>*/}
         </>
     )
 }
