@@ -13,11 +13,11 @@ export default function DashboardArtistesEditTuilesList({artisteId}) {
                 name={"Informations utilisateur & artiste"}
                 to={ROUTES.ADMIN.ARTISTES.EDIT.INFORMATIONS(artisteId)}
             />
-            {/*<DashboardTuiles*/}
-            {/*    IconComponent={FaPaintBrush}*/}
-            {/*    name={"Oeuvres"}*/}
-            {/*    to={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES(artisteId)}*/}
-            {/*/>*/}
+            <DashboardTuiles
+                IconComponent={FaPaintBrush}
+                name={"Oeuvres"}
+                to={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES(artisteId)}
+            />
             {/*<DashboardTuiles*/}
             {/*    IconComponent={FaFileContract}*/}
             {/*    name={"Relations contractuelles"}*/}
