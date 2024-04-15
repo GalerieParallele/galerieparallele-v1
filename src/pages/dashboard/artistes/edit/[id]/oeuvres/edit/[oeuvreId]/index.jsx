@@ -1,6 +1,7 @@
 import {useRouter} from "next/router";
 import ROUTES from "@/constants/ROUTES";
 import DashboardNavbar from "@/components/dashboard/items/DashboardNavbar";
+import DashboardTuiles from "@/components/dashboard/items/DashboardTuiles";
 
 export default function DashboardArtisteOeuvreEdit() {
 
@@ -9,6 +10,9 @@ export default function DashboardArtisteOeuvreEdit() {
     return (
         <div>
             <DashboardNavbar returnURL={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES(router.query.id)}/>
+            <div>
+
+            </div>
         </div>
     )
 }

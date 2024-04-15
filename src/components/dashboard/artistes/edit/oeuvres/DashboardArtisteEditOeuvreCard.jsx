@@ -6,7 +6,6 @@ import {MdDelete, MdEdit} from "react-icons/md";
 import {FaEye} from "react-icons/fa";
 import ROUTES from "@/constants/ROUTES";
 import Link from "next/link";
-import {ar} from "@faker-js/faker";
 
 export default function DashboardArtisteEditOeuvreCard({oeuvre, artist}) {
 
