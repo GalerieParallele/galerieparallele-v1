@@ -1,44 +1,47 @@
-import {z} from "zod";
-
-import {NextResponse} from "next/server";
 import {prisma} from "@/utils/PrismaUtil";
+import {NextResponse} from "next/server";
+import z from "zod";
+import {Prisma} from "@prisma/client";
 
 const MESSAGES = {
-    HEXA_MUST_BE_A_STRING: "La valeur hexadécimal doit être une chaîne de caractères.",
-    HEXA_REQUIRED: "La valeur hexadécimal est requise.",
-    HEXA_INVALID_LENGTH: "La valeur hexadécimal doit être de 6 caractères.",
-
-    NAME_MUST_BE_A_STRING: "Le nom de la couleur doit être une chaîne de caractères.",
-    NAME_REQUIRED: "Le nom de la couleur est requis.",
-
-    NO_COLORS: "Aucune couleur n'a été trouvée."
+    NO_COLORS: "Aucune couleur n'a été trouvée.",
 }
-
-const hexa = z
-    .string({
-        invalid_type_error: MESSAGES.HEXA_MUST_BE_A_STRING,
-        required_error: MESSAGES.HEXA_REQUIRED,
-        description: "La valeur hexadécimal de la couleur."
-    })
-    .length(7, {
-        message: MESSAGES.HEXA_INVALID_LENGTH,
-    })
 
 const name = z
     .string({
-        invalid_type_error: MESSAGES.NAME_MUST_BE_A_STRING,
-        required_error: MESSAGES.NAME_REQUIRED,
-        description: "Le nom de la couleur."
+        description: "Nom de la couleur",
+        required_error: "Le nom de la couleur est requis.",
+        invalid_type_error: "Le nom de la couleur doit être une chaîne de caractères.",
+    })
+    .min(3, {
+        message: "Le nom de la couleur doit contenir au moins 3 caractères.",
     })
 
-const ColorSchema = z.object({
-    hexa,
-    name
-})
+const hexa = z
+    .string({
+        description: "Code hexadécimal de la couleur",
+        required_error: "Le code hexadécimal de la couleur est requis.",
+        invalid_type_error: "Le code hexadécimal de la couleur doit être une chaîne de caractères.",
+    })
+    .length(7, {
+        message: "Le code hexadécimal de la couleur doit contenir 7 caractères.",
+    })
 
-const ColorSchemaResponse = z.object({
-    total: z.number(),
-    list: z.array(ColorSchema)
+const ColorSchema = z
+    .object({
+        hexa, name,
+    })
+
+const ResponseSchema = z.object({
+    total: z
+        .number({
+            required_error: "Le nombre total de couleurs est requis.",
+            invalid_type_error: "Le nombre total de couleurs doit être un nombre entier positif.",
+            description: "Nombre total de couleurs",
+        })
+        .positive({
+            message: "Le nombre total de couleurs doit être un nombre entier positif.",
+        }), list: z.array(ColorSchema),
 })
 
 export async function GET() {
@@ -47,51 +50,37 @@ export async function GET() {
 
         const couleurs = await prisma.couleur.findMany({
             select: {
-                name: true,
-                hexa: true
+                hexa: true, name: true,
             }
         })
-
-        console.log(JSON.stringify(couleurs))
 
         if (!couleurs || couleurs.length === 0) {
             return NextResponse.json({message: MESSAGES.NO_COLORS}, {status: 404})
         }
 
-        const validatedColors = couleurs.map(couleur => {
-            const validated = ColorSchema.parse(couleur)
-            return {
-                hexa: validated.hexa,
-                name: validated.name
-            }
-        })
+        const validatedColors = couleurs.map(couleur => ColorSchema.parse(couleur))
 
-        validatedColors.map(couleur => {
-            console.log(JSON.stringify(couleur))
+        const response = ResponseSchema.parse({
+            total: validatedColors.length, list: validatedColors,
         })
-
-        const response = ColorSchemaResponse.parse({
-            total: validatedColors.length,
-            list: validatedColors
-        })
-
-        console.log(JSON.stringify(response))
 
         return NextResponse.json(response, {status: 200})
 
     } catch (error) {
 
-        if (process.env.NODE_ENV === 'development') {
-            console.error("Couleurs API - GET", error)
+        if (process.env.NODE_ENV === "development") {
+            console.error(error)
         }
 
         if (error instanceof z.ZodError) {
-            if (error.errors.length > 0)
-                return NextResponse.json({message: error.errors[0].message}, {status: 400})
+            return NextResponse.json({message: error.errors[0].message}, {status: 400})
         }
 
-        return NextResponse.json(MESSAGES.API_SERVER_ERROR, {status: 500});
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            return NextResponse.json({message: error.message}, {status: 400})
+        }
+
+        return NextResponse.error("Erreur interne au serveur.", {status: 500});
 
     }
-
 }
