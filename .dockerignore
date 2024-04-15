@@ -45,9 +45,6 @@ README.md
 LICENSE
 .dockerignore
 *.md
-*.yml
-*.yaml
-*.json
 *.lock
 Dockerfile
 docker-compose*.yml
