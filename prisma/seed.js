@@ -11,8 +11,7 @@ function hashPassword(password) {
 
 async function main() {
 
-    const userNumber = 50
-    const tagNumber = 20
+    const userNumber = 8
 
     await prisma.user.deleteMany()
     await prisma.artist.deleteMany()
@@ -32,14 +31,6 @@ async function main() {
             roles: ["ROLE_ADMIN"],
         }
     })
-
-    for (let i = 0; i < tagNumber; i++) {
-        await prisma.tag.create({
-            data: {
-                name: faker.word.adjective()
-            }
-        })
-    }
 
     for (let i = 0; i < userNumber; i++) {
 
