@@ -52,18 +52,30 @@ export async function GET() {
             }
         })
 
+        console.log(JSON.stringify(couleurs))
+
         if (!couleurs || couleurs.length === 0) {
             return NextResponse.json({message: MESSAGES.NO_COLORS}, {status: 404})
         }
 
-        const validatedColors = Array.from(couleurs).map(couleur => {
-            return ColorSchema.parse(couleur)
+        const validatedColors = couleurs.map(couleur => {
+            const validated = ColorSchema.parse(couleur)
+            return {
+                hexa: validated.hexa,
+                name: validated.name
+            }
+        })
+
+        validatedColors.map(couleur => {
+            console.log(JSON.stringify(couleur))
         })
 
         const response = ColorSchemaResponse.parse({
             total: validatedColors.length,
             list: validatedColors
         })
+
+        console.log(JSON.stringify(response))
 
         return NextResponse.json(response, {status: 200})
 
@@ -74,7 +86,8 @@ export async function GET() {
         }
 
         if (error instanceof z.ZodError) {
-            return NextResponse.json({message: error.errors[0].message}, {status: 400})
+            if (error.errors.length > 0)
+                return NextResponse.json({message: error.errors[0].message}, {status: 400})
         }
 
         return NextResponse.json(MESSAGES.API_SERVER_ERROR, {status: 500});
