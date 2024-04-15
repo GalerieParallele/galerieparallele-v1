@@ -16,7 +16,7 @@ export default function DashboardArtisteOeuvreEdit() {
 
     return (
         <div>
-            <DashboardNavbar returnURL={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES(router.query.id)}/>
+            <DashboardNavbar returnURL={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.HOME(router.query.id)}/>
             <div className={styles.main}>
                 <DashboardTuiles
                     IconComponent={FaInfoCircle}

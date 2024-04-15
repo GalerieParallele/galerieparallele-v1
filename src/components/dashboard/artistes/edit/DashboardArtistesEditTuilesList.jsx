@@ -16,7 +16,7 @@ export default function DashboardArtistesEditTuilesList({artisteId}) {
             <DashboardTuiles
                 IconComponent={FaPaintBrush}
                 name={"Oeuvres"}
-                to={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES(artisteId)}
+                to={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.HOME(artisteId)}
             />
             {/*<DashboardTuiles*/}
             {/*    IconComponent={FaFileContract}*/}

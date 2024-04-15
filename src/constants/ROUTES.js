@@ -54,14 +54,19 @@ const PATHS = {
                 LEGAL(artisteId) {
                     return createPath('dashboard', 'artistes', 'edit', artisteId, 'legal')
                 },
-                OEUVRES(artisteId) {
-                    return createPath('dashboard', 'artistes', 'edit', artisteId, 'oeuvres')
-                },
-                OEUVRE_EDIT(artisteId, oeuvreId) {
-                    return createPath('dashboard', 'artistes', 'edit', artisteId, 'oeuvres', 'edit', oeuvreId)
-                },
-                OEUVRES_NEW(artisteId) {
-                    return createPath('dashboard', 'artistes', 'edit', artisteId, 'oeuvres', 'new')
+                OEUVRES: {
+                    HOME(artisteId) {
+                        return createPath('dashboard', 'artistes', 'edit', artisteId, 'oeuvres')
+                    },
+                    EDIT(artisteId, oeuvreId) {
+                        return createPath('dashboard', 'artistes', 'edit', artisteId, 'oeuvres', 'edit', oeuvreId)
+                    },
+                    NEW(artisteId) {
+                        return createPath('dashboard', 'artistes', 'edit', artisteId, 'oeuvres', 'new')
+                    },
+                    INFO_GEN(artisteId, oeuvreId) {
+                        return createPath('dashboard', 'artistes', 'edit', artisteId, 'oeuvres', 'edit', oeuvreId, 'informations-generales')
+                    }
                 },
                 SAVETHEDATE(artisteId) {
                     return createPath('dashboard', 'artistes', 'edit', artisteId, 'save-the-date')
@@ -162,14 +167,19 @@ const ROUTES = {
                 LEGAL(artisteId) {
                     return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.LEGAL(artisteId)
                 },
-                OEUVRES(artisteId) {
-                    return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.OEUVRES(artisteId)
-                },
-                OEUVRE_EDIT(artisteId, oeuvreId) {
-                    return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.OEUVRE_EDIT(artisteId, oeuvreId)
-                },
-                OEUVRES_NEW(artisteId) {
-                    return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.OEUVRES_NEW(artisteId)
+                OEUVRES: {
+                    HOME(artisteId) {
+                        return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.OEUVRES.HOME(artisteId)
+                    },
+                    EDIT(artisteId, oeuvreId) {
+                        return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.OEUVRES.EDIT(artisteId, oeuvreId)
+                    },
+                    NEW(artisteId) {
+                        return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.OEUVRES.NEW(artisteId)
+                    },
+                    INFO_GEN(artisteId, oeuvreId) {
+                        return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.INFO_GEN(artisteId, oeuvreId)
+                    },
                 },
                 SAVETHEDATE(artisteId) {
                     return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.SAVETHEDATE(artisteId)
