@@ -1,11 +1,61 @@
-.git
+# Fichiers de log
+*.log
+logs
+*.logs
+npm-debug.log*
+
+# Dossier node_modules
 node_modules
+jspm_packages
+
+# Dossiers de build et de compilation
+build
+dist
+.tmp
+.temp
+
+# Répertoires de cache
+.cache
+.pnpm-store
 .next
-.eslint*
-.prettier
-README.md
-npm-debug.log
-yarn-error.log
-Dockerfile
+.nuxt
+.vuepress
+
+# Fichiers de configuration et dossiers spécifiques à l'environnement de développement
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 .dockerignore
-docker-compose.yml
+.git
+.gitignore
+.DS_Store
+.npmrc
+.yarnrc
+.sass-cache
+
+# Fichiers spécifiques à l'éditeur
+.editorconfig
+.idea
+.vscode
+
+# Autres fichiers et dossiers qui ne sont pas nécessaires dans l'image de production
+README.md
+LICENSE
+.dockerignore
+*.md
+*.yml
+*.yaml
+*.json
+*.lock
+Dockerfile
+docker-compose*.yml
+*.sample
+__mocks__
+__tests__
+tests
+*.test.js
+*.spec.js
+coverage
+*.config.js
