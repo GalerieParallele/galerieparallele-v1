@@ -56,13 +56,13 @@ export async function GET() {
             return NextResponse.json({message: MESSAGES.NO_COLORS}, {status: 404})
         }
 
-        const validatedColors = Array.from(couleurs).map(couleur => {
-            return ColorSchema.parse(couleur)
-        })
+        // const validatedColors = Array.from(couleurs).map(couleur => {
+        //     return ColorSchema.parse(couleur)
+        // })
 
         const response = ColorSchemaResponse.parse({
-            total: validatedColors.length,
-            list: validatedColors
+            total: couleurs.length,
+            list: couleurs
         })
 
         return NextResponse.json(response, {status: 200})
