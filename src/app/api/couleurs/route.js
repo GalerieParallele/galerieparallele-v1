@@ -2,6 +2,8 @@ import z from "zod";
 
 import {NextResponse} from "next/server";
 
+import {prisma} from "@/utils/PrismaUtil";
+
 const MESSAGES = {
     HEXA_MUST_BE_A_STRING: "La valeur hexadécimal doit être une chaîne de caractères.",
     HEXA_REQUIRED: "La valeur hexadécimal est requise.",
