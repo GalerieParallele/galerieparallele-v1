@@ -178,7 +178,7 @@ const ROUTES = {
                         return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.OEUVRES.NEW(artisteId)
                     },
                     INFO_GEN(artisteId, oeuvreId) {
-                        return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.INFO_GEN(artisteId, oeuvreId)
+                        return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.OEUVRES.INFO_GEN(artisteId, oeuvreId)
                     },
                 },
                 SAVETHEDATE(artisteId) {

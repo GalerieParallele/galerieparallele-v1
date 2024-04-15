@@ -542,6 +542,76 @@ export async function POST(req) {
     }
 }
 
+export async function PATCH(req) {
+
+    try {
+
+        const {
+            artists,
+            unknowartists,
+            couleurs,
+            tag,
+            type,
+            images,
+            ...oeuvreData
+        } = OeuvreSchema.omit({id: true}).partial().parse(JSON.parse(await req.text()));
+
+
+        if (artists) {
+            // TODO : Patch artists to oeuvre
+        }
+
+        if (unknowartists) {
+            // TODO : Patch unknowartists to oeuvre
+        }
+
+        if (couleurs) {
+            // TODO : Patch couleurs to oeuvre
+        }
+
+        if (tag) {
+            // TODO : Patch tag to oeuvre
+        }
+
+        if (type) {
+            // TODO : Patch type to oeuvre
+        }
+
+        if (images) {
+            // TODO : Patch images to oeuvre
+        }
+
+        const updatedOeuvre = await prisma.oeuvre.update({
+            where: {
+                id: oeuvreData.id,
+            },
+            data: oeuvreData,
+        });
+
+        const validatedOeuvre = OeuvreSchema.parse(updatedOeuvre);
+
+        return NextResponse.json(validatedOeuvre, {status: 200});
+
+    } catch (error) {
+
+        if (process.env.NODE_ENV === "development") {
+            console.log(error);
+        }
+
+        if (error instanceof z.ZodError) {
+            return NextResponse.json({message: error.errors[0].message}, {status: 400});
+        }
+
+        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+            return NextResponse.json({message: MESSAGES.INVALID_OEUVRE}, {status: 404});
+        }
+
+        return NextResponse.error(MESSAGES.API_SERVER_ERROR, {status: 500});
+
+    }
+
+}
+
 export async function DELETE(req) {
 
     try {

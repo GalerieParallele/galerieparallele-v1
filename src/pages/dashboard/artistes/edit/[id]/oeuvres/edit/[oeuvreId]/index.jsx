@@ -14,6 +14,9 @@ export default function DashboardArtisteOeuvreEdit() {
 
     const router = useRouter();
 
+    const artisteId = router.query.id;
+    const oeuvreId = router.query.oeuvreId;
+
     return (
         <div>
             <DashboardNavbar returnURL={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.HOME(router.query.id)}/>
@@ -21,7 +24,7 @@ export default function DashboardArtisteOeuvreEdit() {
                 <DashboardTuiles
                     IconComponent={FaInfoCircle}
                     name={"Informations générales"}
-                    to={"#"}
+                    to={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.INFO_GEN(artisteId, oeuvreId)}
                 />
                 <DashboardTuiles
                     IconComponent={IoHammer}
