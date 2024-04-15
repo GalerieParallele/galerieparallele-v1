@@ -198,7 +198,7 @@ export default function DashboardArtistesNewIndex() {
 
                 Toast.fire({icon: 'success', title: 'Artiste créé avec succès'});
 
-                router.push(ROUTES.ADMIN.ARTISTES.EDIT.HOME(userid));
+                router.push(ROUTES.ADMIN.ARTISTES.HOME);
 
             } catch (error) {
 
