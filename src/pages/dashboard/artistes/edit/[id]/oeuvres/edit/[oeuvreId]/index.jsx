@@ -29,7 +29,7 @@ export default function DashboardArtisteOeuvreEdit() {
                 <DashboardTuiles
                     IconComponent={IoHammer}
                     name={"Informations techniques"}
-                    to={"#"}
+                    to={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.INFO_TECH(artisteId, oeuvreId)}
                 />
                 {/*<DashboardTuiles*/}
                 {/*    IconComponent={FaImage}*/}
