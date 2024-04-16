@@ -18,7 +18,7 @@ jobs:
           SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
           SERVER_HOST: ${{ secrets.SERVER_HOST }}
         run: |
-          sshpass -p $SERVER_PASSWORD ssh $SERVER_USERNAME@$SERVER_HOST << EOF
+          sshpass -p $SERVER_PASSWORD ssh -tt $SERVER_USERNAME@$SERVER_HOST << EOF
             cd /home/gp/Web
             git pull origin main
             docker build -t galerieparallele .
