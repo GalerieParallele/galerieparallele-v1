@@ -203,7 +203,7 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                 title: 'L\'oeuvre a bien été créée'
             });
 
-            router.push(ROUTES.ADMIN.ARTISTES.HOME);
+            router.push(ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.HOME(artisteId) );
 
         } catch (error) {
 

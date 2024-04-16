@@ -6,8 +6,57 @@ import {MdDelete, MdEdit} from "react-icons/md";
 import {FaEye} from "react-icons/fa";
 import ROUTES from "@/constants/ROUTES";
 import Link from "next/link";
+import {Toast} from "@/constants/ToastConfig";
+import Swal from "sweetalert2";
 
-export default function DashboardArtisteEditOeuvreCard({oeuvre, artist}) {
+export default function DashboardArtisteEditOeuvreCard({oeuvre, artist, onDelete}) {
+
+    const handleConfirmModal = async () => {
+        await Swal.fire({
+            title: 'Êtes-vous sûr(e) de vouloir supprimer cette oeuvre ?',
+            text: "Cette action est irréversible.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: 'var(--red)',
+            cancelButtonColor: 'var(--black)',
+            confirmButtonText: 'Supprimer',
+            cancelButtonText: 'Annuler'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await handleDelete();
+                onDelete();
+            }
+        })
+    }
+
+
+    const handleDelete = async () => {
+
+        const response = await fetch(ROUTES.API.OEUVRES.HOME, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: oeuvre.id
+            })
+        })
+
+        if (response.ok) {
+            Toast.fire({
+                icon: 'success',
+                title: 'Oeuvre supprimée avec succès'
+            })
+            onDelete();
+            return;
+        }
+
+        Toast.fire({
+            icon: 'error',
+            title: 'Une erreur est survenue lors de la suppression de l\'oeuvre'
+        })
+
+    }
 
     return (
         <div className={styles.main}>
@@ -35,6 +84,7 @@ export default function DashboardArtisteEditOeuvreCard({oeuvre, artist}) {
                         </Link>
                         <button
                             className={styles.delete}
+                            onClick={handleConfirmModal}
                         >
                             <MdDelete/>
                         </button>

@@ -72,9 +72,7 @@ export default function DashboardArtisteEditOeuvres() {
                 />
                 <Button
                     text={<IoIosRefresh/>}
-                    onClick={() => {
-                        // TODO : Ajouter un bouton de rechargement des artistes
-                    }}
+                    onClick={() => getArtistById(artisteId)}
                 />
             </div>
             <div className={styles.content}>
@@ -82,6 +80,7 @@ export default function DashboardArtisteEditOeuvres() {
                     artist && artist.oeuvre.length > 0 ? (
                         <DashboardArtisteEditOeuvresList
                             artist={artist}
+                            onDelete={() => getArtistById(artisteId)}
                         />
                     ) : (
                         <h3>Cet artiste ne possède pas d&apos;oeuvre enregistrée sur le site</h3>

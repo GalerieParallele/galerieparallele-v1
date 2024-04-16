@@ -2,15 +2,10 @@ import DashboardArtisteEditOeuvreCard
     from "@/components/dashboard/artistes/edit/oeuvres/DashboardArtisteEditOeuvreCard";
 
 import styles from './DashboardArtisteEditOeuvresList.module.scss';
-import {useEffect} from "react";
 
-export default function DashboardArtisteEditOeuvresList({artist}) {
+export default function DashboardArtisteEditOeuvresList({artist, onDelete}) {
 
     const oeuvres = artist && artist.oeuvre ? artist.oeuvre : [];
-
-    useEffect(() => {
-        console.log(oeuvres)
-    }, [oeuvres])
 
     return (
         <div className={styles.main}>
@@ -20,6 +15,7 @@ export default function DashboardArtisteEditOeuvresList({artist}) {
                         key={index}
                         oeuvre={oeuvre}
                         artist={artist}
+                        onDelete={onDelete}
                     />
                 ))
             }
