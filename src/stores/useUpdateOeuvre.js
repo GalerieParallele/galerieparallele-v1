@@ -20,7 +20,8 @@ const initialState = {
         longueur: undefined,
         profondeur: undefined,
         orientation: undefined,
-    }
+    },
+    couleurs: undefined,
 }
 
 const useUpdateOeuvre = create((set, get) => ({
