@@ -23,7 +23,7 @@ jobs:
             cd /home/gp/Web
             git pull origin main
             docker build -t galerieparallele .
-            docker-compose up -d
+            docker compose up -d
           EOF
         env:
           SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
