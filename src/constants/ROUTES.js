@@ -66,6 +66,9 @@ const PATHS = {
                     },
                     INFO_GEN(artisteId, oeuvreId) {
                         return createPath('dashboard', 'artistes', 'edit', artisteId, 'oeuvres', 'edit', oeuvreId, 'informations-generales')
+                    },
+                    INFO_TECH(artisteId, oeuvreId) {
+                        return createPath('dashboard', 'artistes', 'edit', artisteId, 'oeuvres', 'edit', oeuvreId, 'informations-techniques')
                     }
                 },
                 SAVETHEDATE(artisteId) {
@@ -180,6 +183,9 @@ const ROUTES = {
                     INFO_GEN(artisteId, oeuvreId) {
                         return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.OEUVRES.INFO_GEN(artisteId, oeuvreId)
                     },
+                    INFO_TECH(artisteId, oeuvreId) {
+                        return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.OEUVRES.INFO_TECH(artisteId, oeuvreId)
+                    }
                 },
                 SAVETHEDATE(artisteId) {
                     return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.SAVETHEDATE(artisteId)

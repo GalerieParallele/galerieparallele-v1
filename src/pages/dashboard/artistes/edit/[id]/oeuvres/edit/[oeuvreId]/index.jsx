@@ -26,11 +26,11 @@ export default function DashboardArtisteOeuvreEdit() {
                     name={"Informations générales"}
                     to={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.INFO_GEN(artisteId, oeuvreId)}
                 />
-                {/*<DashboardTuiles*/}
-                {/*    IconComponent={IoHammer}*/}
-                {/*    name={"Informations techniques"}*/}
-                {/*    to={"#"}*/}
-                {/*/>*/}
+                <DashboardTuiles
+                    IconComponent={IoHammer}
+                    name={"Informations techniques"}
+                    to={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.INFO_TECH(artisteId, oeuvreId)}
+                />
                 {/*<DashboardTuiles*/}
                 {/*    IconComponent={FaImage}*/}
                 {/*    name={"Images"}*/}

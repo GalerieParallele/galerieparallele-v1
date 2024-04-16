@@ -44,10 +44,6 @@ export default function HomeOeuvreDashboardEditInfoGen() {
 
         if (Object.values(formData.informations_generales).some(value => value !== undefined)) {
 
-            Object.values(formData.informations_generales).forEach(value => {
-                value === "" ? value = undefined : value;
-            });
-
             const response = await fetch(ROUTES.API.OEUVRES.HOME, {
                 method: 'PATCH',
                 headers: {
@@ -86,16 +82,16 @@ export default function HomeOeuvreDashboardEditInfoGen() {
 
     useEffect(() => {
         resetFormData();
-
     }, [resetFormData]);
 
-    // if touch ctrl + s submit form
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.ctrlKey && e.key === 's') {
                 e.preventDefault();
                 handleSubmit();
             }
+
+            if (e.ctrlKey && e.key === 'Escape') router.push(ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.EDIT(artisteId, oeuvreId));
         }
 
         window.addEventListener('keydown', handleKeyDown);
@@ -164,6 +160,7 @@ export default function HomeOeuvreDashboardEditInfoGen() {
                             </div>
                             <DashboardSectionItem
                                 sectionName={"Informations générales"}
+                                defaultOpen={true}
                             >
                                 <IconInput
                                     label={"Nom de l'oeuvre"}
