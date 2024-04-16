@@ -172,7 +172,7 @@ export default function HomeOeuvreDashboardEditInfoGen() {
                                     placeholder={oeuvre && oeuvre.name ? oeuvre.name : "Ex: Mona lisa"}
                                     value={formData.informations_generales.name}
                                     name={"name"}
-                                    onChange={(e) => updateFormData("informations_generales.name", e.target.value === "" || oeuvre.name ? undefined : e.target.value)}
+                                    onChange={(e) => updateFormData("informations_generales.name", e.target.value === "" || e.target.value === oeuvre.name ? undefined : e.target.value)}
                                     disabled={loading}
                                 />
                                 <div className={sectionStyles.specialSection}>
