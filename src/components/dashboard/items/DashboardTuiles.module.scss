@@ -18,6 +18,8 @@
 
   transition: var(--transition);
 
+  padding: 8px;
+
   &:hover {
     cursor: pointer;
     box-shadow: var(--hover-shadow);
