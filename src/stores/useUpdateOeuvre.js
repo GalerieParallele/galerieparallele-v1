@@ -6,6 +6,20 @@ const initialState = {
         description: undefined,
         anecdote: undefined,
         prix: undefined,
+    },
+    informations_techniques: {
+        numerotation: undefined,
+        limitation: undefined,
+        support: undefined,
+        technique: undefined,
+        encadrement: undefined,
+        signature: undefined,
+    },
+    dimensions: {
+        hauteur: undefined,
+        longueur: undefined,
+        profondeur: undefined,
+        orientation: undefined,
     }
 }
 
