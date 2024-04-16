@@ -46,7 +46,6 @@ export default function DashboardArtisteEditOeuvres() {
         }
     }, [artisteId, getArtistById])
 
-
     return (
         <div className={styles.main}>
             <DashboardNavbar
@@ -69,7 +68,7 @@ export default function DashboardArtisteEditOeuvres() {
                 </div>
                 <Button
                     text={"Créer une oeuvre"}
-                    onClick={() => router.push(ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES_NEW(artisteId))}
+                    onClick={() => router.push(ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.NEW(artisteId))}
                 />
                 <Button
                     text={<IoIosRefresh/>}

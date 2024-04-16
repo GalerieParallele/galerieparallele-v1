@@ -299,7 +299,7 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
     return (
         <div className={styles.main}>
             <DashboardNavbar
-                returnURL={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES(artisteId)}
+                returnURL={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.HOME(artisteId)}
             />
             <div className={styles.content}>
                 <DashboardSectionItem

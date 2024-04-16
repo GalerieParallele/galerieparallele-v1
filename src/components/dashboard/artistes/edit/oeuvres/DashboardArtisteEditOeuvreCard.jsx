@@ -28,7 +28,7 @@ export default function DashboardArtisteEditOeuvreCard({oeuvre, artist}) {
                             <FaEye/>
                         </Link>
                         <Link
-                            href={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRE_EDIT(artist.id, oeuvre.id)}
+                            href={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.EDIT(artist.id, oeuvre.id)}
                             className={styles.edit}
                         >
                             <MdEdit/>
