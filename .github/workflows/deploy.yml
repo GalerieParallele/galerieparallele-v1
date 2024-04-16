@@ -12,15 +12,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
       - name: Deploy to Server
-        env:
-          SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
-          SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
-          SERVER_HOST: ${{ secrets.SERVER_HOST }}
         run: |
-          sshpass -p $SERVER_PASSWORD ssh -tt $SERVER_USERNAME@$SERVER_HOST << EOF
+          ssh -o StrictHostKeyChecking=no $SERVER_USERNAME@$SERVER_HOST << EOF
             cd /home/gp/Web
             git pull origin main
             docker build -t galerieparallele .
             docker-compose up -d
           EOF
+        env:
+          SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+
