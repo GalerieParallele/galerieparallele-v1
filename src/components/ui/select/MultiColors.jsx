@@ -30,6 +30,7 @@ export default function MultiColors({onChange, defaultHexaSelected = [], blocked
         <div style={{marginBottom: '200px'}}>
             <Select
                 placeholder="Sélectionner une couleur"
+                closeMenuOnSelect={false}
                 isMulti
                 options={options}
                 noOptionsMessage={() => "Aucune couleur trouvée"}
