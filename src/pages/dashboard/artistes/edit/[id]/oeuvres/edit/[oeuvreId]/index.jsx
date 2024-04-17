@@ -36,11 +36,11 @@ export default function DashboardArtisteOeuvreEdit() {
                 {/*    name={"Images"}*/}
                 {/*    to={"#"}*/}
                 {/*/>*/}
-                {/*<DashboardTuiles*/}
-                {/*    IconComponent={IoMdColorPalette}*/}
-                {/*    name={"Couleurs"}*/}
-                {/*    to={"#"}*/}
-                {/*/>*/}
+                <DashboardTuiles
+                    IconComponent={IoMdColorPalette}
+                    name={"Couleurs"}
+                    to={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.COLORS(artisteId, oeuvreId)}
+                />
                 {/*<DashboardTuiles*/}
                 {/*    IconComponent={FaUser}*/}
                 {/*    name={"Artistes"}*/}

@@ -566,7 +566,60 @@ export async function PATCH(req) {
         }
 
         if (couleurs) {
-            // TODO : Patch couleurs to oeuvre
+
+            const currentSelectedColorsHexa = couleurs.map(({hexa}) => hexa);
+
+            const currentOeuvreColors = await prisma.oeuvreCouleur.findMany({
+                where: {
+                    oeuvreId: oeuvreData.id,
+                },
+                select: {
+                    hexa: true,
+                }
+            });
+
+            const addedColors = currentSelectedColorsHexa.filter((hexa) => !currentOeuvreColors.some((color) => color.hexa === hexa));
+            const removedColors = currentOeuvreColors.filter((color) => !currentSelectedColorsHexa.some((hexa) => color.hexa === hexa));
+
+            console.log("addedColors", addedColors);
+            console.log("removedColors", removedColors);
+
+            await prisma.$transaction(async (tx) => {
+
+                if (addedColors.length > 0) {
+                    await Promise.all(addedColors.map(async (hexa) => {
+                        try {
+                            await tx.oeuvreCouleur.create({
+                                data: {
+                                    hexa,
+                                    oeuvreId: oeuvreData.id,
+                                }
+                            });
+                        } catch (error) {
+                            throw new Error("Une erreur est survenue lors de l'ajout d'une couleur à l'oeuvre");
+                        }
+                    }))
+                }
+
+                if (removedColors.length > 0) {
+                    await Promise.all(removedColors.map(async ({hexa}) => {
+                        try {
+                            await tx.oeuvreCouleur.delete({
+                                where: {
+                                    oeuvreId_hexa: {
+                                        oeuvreId: oeuvreData.id,
+                                        hexa,
+                                    }
+                                }
+                            });
+                        } catch (error) {
+                            console.log(error);
+                            throw new Error("Une erreur est survenue lors de la suppression d'une couleur de l'oeuvre");
+                        }
+                    }));
+                }
+            });
+
         }
 
         if (tag) {
