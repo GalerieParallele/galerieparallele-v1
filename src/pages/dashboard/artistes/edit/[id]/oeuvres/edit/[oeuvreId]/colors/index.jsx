@@ -118,7 +118,6 @@ export default function HomeOeuvreDashboardEditColors() {
                         title: "Une erreur est survenue lors de la récupération de l'oeuvre."
                     });
                 });
-        console.log(oeuvre)
     }, [oeuvreId])
 
     return (

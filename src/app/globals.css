@@ -18,8 +18,11 @@
     --green: #00c500;
     --blue: #006fff;
     --gray: rgb(148, 148, 148);
+
     --light-gray: rgba(148, 148, 148, 0.58);
     --light-white: rgba(255, 255, 255, 0.7);
+    --light-red: rgb(255, 73, 73);
+
     --gradient-black: linear-gradient(5deg, rgba(0, 0, 0, 1) 0%, rgba(32, 32, 32, 1) 40%, rgba(44, 44, 44, 1) 64%, rgba(55, 55, 55, 1) 100%);
 
     --shadow: 0 0 10px rgba(0, 0, 0, 0.2);
