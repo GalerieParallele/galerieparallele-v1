@@ -172,7 +172,7 @@ export default function DashboardArtisteOeuvreEdit() {
                             <DashboardTuiles
                                 IconComponent={IoIosResize}
                                 name={"Dimensions"}
-                                to={"#"}
+                                to={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.DIMENSIONS(artist.id, oeuvre.id)}
                             />
                             {/*<DashboardTuiles*/}
                             {/*    IconComponent={LuPlus}*/}
