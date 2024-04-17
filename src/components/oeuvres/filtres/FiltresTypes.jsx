@@ -1,7 +1,7 @@
 import React from 'react';
 import Skeleton from "@/components/ui/Skeleton";
 import styles from './General.module.scss';
-import useFiltersStore from "@/stores/oeuvresFIltersStore";
+import useFiltersStore from "@/stores/oeuvresFiltersStore";
 import InitialFiltresItem from "@/components/oeuvres/filtres/InitialFiltresItem";
 
 

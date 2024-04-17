@@ -2,7 +2,7 @@ import Skeleton from "@/components/ui/Skeleton";
 import InitialFiltresItem from "@/components/oeuvres/filtres/InitialFiltresItem";
 
 import styles from './FiltresTags.module.scss';
-import useFiltersStore from "@/stores/oeuvresFIltersStore";
+import useFiltersStore from "@/stores/oeuvresFiltersStore";
 
 export default function FiltresTags({loading: oeuvreLoading, tags = []}) {
 

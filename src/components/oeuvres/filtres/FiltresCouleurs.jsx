@@ -3,7 +3,7 @@ import InitialFiltresItem from "@/components/oeuvres/filtres/InitialFiltresItem"
 
 import styles from './General.module.scss';
 import colorsStyles from './FiltresCouleurs.module.scss';
-import useFiltersStore from "@/stores/oeuvresFIltersStore";
+import useFiltersStore from "@/stores/oeuvresFiltersStore";
 
 export default function FiltresCouleurs({loading: oeuvreLoading, colors = []}) {
 
