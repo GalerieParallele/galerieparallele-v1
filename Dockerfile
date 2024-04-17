@@ -21,7 +21,7 @@ WORKDIR /app
 ENV NODE_ENV production
 
 # Installez les outils clients de PostgreSQL si absolument nécessaire
-RUN apk add --no-cache postgresql-client && rm -rf /var/cache/apk/*
+#RUN apk add --no-cache postgresql-client && rm -rf /var/cache/apk/*
 
 # Copiez uniquement les fichiers nécessaires à l'exécution de l'application
 COPY --from=build /app/next.config.js ./
@@ -31,8 +31,8 @@ COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/package.json ./package.json
 COPY --from=build /app/prisma ./prisma
 # Si wait-for-db.sh est nécessaire pour le démarrage de l'app, incluez-le également
-COPY --from=build /app/wait-for-db.sh ./wait-for-db.sh
-RUN chmod +x ./wait-for-db.sh
+#COPY --from=build /app/wait-for-db.sh ./wait-for-db.sh
+#RUN chmod +x ./wait-for-db.sh
 
 EXPOSE 3000
 CMD ["npm", "start"]
