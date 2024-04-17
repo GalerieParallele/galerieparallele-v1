@@ -11,7 +11,7 @@ export default function ShopItem({imgSrc, articleName}) {
         <div className={styles.shopItem}>
             <div className={styles.imgContainer}>
                 <Image
-                    src={`/assets/img/shop/${imgSrc}`}
+                    src={imgSrc}
                     alt={`Photo du shop de l'article ${articleName}`}
                     fill
                 />

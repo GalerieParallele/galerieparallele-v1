@@ -166,29 +166,30 @@ export default function OeuvreHomePage() {
     }
 
     return (
-        <div className={styles.main}>
-            <Navbar/>
-            <div className={styles.content}>
-                <div className={styles.headSection}>
-                    <div className={styles.carouselContainer}>
-                        <Carousel
-                            images={oeuvre && oeuvre.images ? oeuvre.images.map(image => image.url) : ['/assets/img/no-img.jpg']}/>
-                    </div>
-                    <div className={styles.right}>
-                        <div className={styles.info}>
-                            <div className={styles.head}>
-                                <div className={styles.oeuvreName}>
-                                    <h2>{oeuvre && oeuvre.name}</h2>
-                                    <span>
+        <>
+            <div className={styles.main}>
+                <Navbar/>
+                <div className={styles.content}>
+                    <div className={styles.headSection}>
+                        <div className={styles.carouselContainer}>
+                            <Carousel
+                                images={oeuvre && oeuvre.images ? oeuvre.images.map(image => image.url) : ['/assets/img/no-img.jpg']}/>
+                        </div>
+                        <div className={styles.right}>
+                            <div className={styles.info}>
+                                <div className={styles.head}>
+                                    <div className={styles.oeuvreName}>
+                                        <h2>{oeuvre && oeuvre.name}</h2>
+                                        <span>
                                     <FaRegHeart className={styles.emptyHeart}/>
                                     <FaHeart
                                         style={styles.fillHeart}/>
                                 </span>
-                                </div>
-                                <span style={{
-                                    display: 'flex',
-                                    gap: 3,
-                                }}>
+                                    </div>
+                                    <span style={{
+                                        display: 'flex',
+                                        gap: 3,
+                                    }}>
                                     {
                                         oeuvre && oeuvre.artists.map((artist, index) => {
                                             return (
@@ -202,125 +203,125 @@ export default function OeuvreHomePage() {
                                         })
                                     }
                                 </span>
-                            </div>
-                            <div style={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                width: '100%',
-                            }}>
-                                <OeuvreTarif
-                                    oeuvre={oeuvre}
-                                />
-                            </div>
-                            <div className={styles.shareContainer}>
-                                <p>Partagez-moi :</p>
-                                <div>
-                                    <Link href={"#"} target={"_blank"}
-                                          className={styles.socialButton}><FaFacebook/></Link>
-                                    <Link href={"#"} target={"_blank"}
-                                          className={styles.socialButton}><FaInstagram/></Link>
-                                    <Link href={"#"} target={"_blank"}
-                                          className={styles.socialButton}><FaWhatsapp/></Link>
+                                </div>
+                                <div style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    width: '100%',
+                                }}>
+                                    <OeuvreTarif
+                                        oeuvre={oeuvre}
+                                    />
+                                </div>
+                                <div className={styles.shareContainer}>
+                                    <p>Partagez-moi :</p>
+                                    <div>
+                                        <Link href={"#"} target={"_blank"}
+                                              className={styles.socialButton}><FaFacebook/></Link>
+                                        <Link href={"#"} target={"_blank"}
+                                              className={styles.socialButton}><FaInstagram/></Link>
+                                        <Link href={"#"} target={"_blank"}
+                                              className={styles.socialButton}><FaWhatsapp/></Link>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        {
-                            oeuvre && oeuvre.tags.length > 0 && (
-                                <div className={styles.tagsSection}>
-                                    {
-                                        oeuvre.tags.map((tag, index) => {
-                                            return (
-                                                <span key={index}>#{tag}</span>
-                                            )
-                                        })
-                                    }
-                                </div>
-                            )
-                        }
-                    </div>
-                </div>
-                <div className={styles.featureAndIASection}>
-                    <div className={styles.featuresSection}>
-                        <OeuvreFeatureItem
-                            Icon={FaRulerHorizontal}
-                            title={"Dimensions (cm)"}
-                            content={oeuvre && (
-                                oeuvre.hauteur + ' x ' + oeuvre.longueur + (oeuvre.profondeur ? ' x ' + oeuvre.profondeur : '')
-                            )}
-                            description={"Hauteur x Largeur" + (oeuvre && oeuvre.profondeur ? ' x Profondeur' : '')}
-                        />
-                        <OeuvreFeatureItem
-                            Icon={TbFileOrientation}
-                            title={"Orientation"}
-                            content={oeuvre && oeuvre.orientation ? oeuvre.orientation : "Non renseignée"}
-                        />
-                        <OeuvreFeatureItem
-                            Icon={FaChair}
-                            title={"Support"}
-                            content={oeuvre && oeuvre.support ? oeuvre.support : "Non renseigné"}
-                        />
-                        <OeuvreFeatureItem
-                            Icon={FaPaintBrush}
-                            title={"Technique"}
-                            content={oeuvre && oeuvre.technique ? oeuvre.technique : "Non renseignée"}
-                        />
-                        <OeuvreFeatureItem
-                            Icon={MdOutlineFilterFrames}
-                            title={"Encadrement"}
-                            content={oeuvre && oeuvre.encadrement ? oeuvre.encadrement : "Non renseigné"}
-                        />
-                        <span className={styles.separator}/>
-                        <OeuvreFeatureItem
-                            Icon={FaSignature}
-                            title={"Signature"}
-                            content={oeuvre && oeuvre.signature ? oeuvre.signature : "Non renseignée"}
-                        />
-                        <OeuvreFeatureItem
-                            Icon={AiOutlineFieldNumber}
-                            title={"Numérotation"}
-                            content={oeuvre && oeuvre.numerotation ? (oeuvre.numerotation == 1 ? "Œuvre unique" : oeuvre.numerotation) : "Non renseignée"}
-                        />
-                        <OeuvreFeatureItem
-                            Icon={AiOutlineFieldNumber}
-                            title={"Limitation"}
-                            content={oeuvre && oeuvre.limitation ? oeuvre.limitation == 1 ? "Œuvre unique" : oeuvre.limitation : "Non renseignée"}
-                        />
-                    </div>
-                    <div className={styles.moreInfoContainer}>
-                        <div className={styles.messages}>
-                            {message.map((msg, index) => {
-                                if (msg[0] === MESSAGE_TYPE.REQUEST) {
-                                    return (
-                                        <div key={index} className={styles.requestMessage}>
-                                            <p>
-                                                {msg[1]}
-                                            </p>
-                                        </div>
-                                    )
-                                } else {
-                                    return (
-                                        <div key={index} className={styles.responseMessage}>
-                                            <p>
-                                                {msg[1]}
-                                            </p>
-                                        </div>
-                                    )
-                                }
-                            })}
                             {
-                                convLoading && <div className={styles.responseMessage}>
-                                    <p>
-                                        <LittleSpinner/>
-                                    </p>
-                                </div>
+                                oeuvre && oeuvre.tags.length > 0 && (
+                                    <div className={styles.tagsSection}>
+                                        {
+                                            oeuvre.tags.map((tag, index) => {
+                                                return (
+                                                    <span key={index}>#{tag}</span>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                )
                             }
                         </div>
-                        <form onSubmit={async (e) => {
-                            e.preventDefault();
-                            await handleSendMessage();
-                        }}>
-                            <div className={styles.textspace}>
+                    </div>
+                    <div className={styles.featureAndIASection}>
+                        <div className={styles.featuresSection}>
+                            <OeuvreFeatureItem
+                                Icon={FaRulerHorizontal}
+                                title={"Dimensions (cm)"}
+                                content={oeuvre && (
+                                    oeuvre.hauteur + ' x ' + oeuvre.longueur + (oeuvre.profondeur ? ' x ' + oeuvre.profondeur : '')
+                                )}
+                                description={"Hauteur x Largeur" + (oeuvre && oeuvre.profondeur ? ' x Profondeur' : '')}
+                            />
+                            <OeuvreFeatureItem
+                                Icon={TbFileOrientation}
+                                title={"Orientation"}
+                                content={oeuvre && oeuvre.orientation ? oeuvre.orientation : "Non renseignée"}
+                            />
+                            <OeuvreFeatureItem
+                                Icon={FaChair}
+                                title={"Support"}
+                                content={oeuvre && oeuvre.support ? oeuvre.support : "Non renseigné"}
+                            />
+                            <OeuvreFeatureItem
+                                Icon={FaPaintBrush}
+                                title={"Technique"}
+                                content={oeuvre && oeuvre.technique ? oeuvre.technique : "Non renseignée"}
+                            />
+                            <OeuvreFeatureItem
+                                Icon={MdOutlineFilterFrames}
+                                title={"Encadrement"}
+                                content={oeuvre && oeuvre.encadrement ? oeuvre.encadrement : "Non renseigné"}
+                            />
+                            <span className={styles.separator}/>
+                            <OeuvreFeatureItem
+                                Icon={FaSignature}
+                                title={"Signature"}
+                                content={oeuvre && oeuvre.signature ? oeuvre.signature : "Non renseignée"}
+                            />
+                            <OeuvreFeatureItem
+                                Icon={AiOutlineFieldNumber}
+                                title={"Numérotation"}
+                                content={oeuvre && oeuvre.numerotation ? (oeuvre.numerotation == 1 ? "Œuvre unique" : oeuvre.numerotation) : "Non renseignée"}
+                            />
+                            <OeuvreFeatureItem
+                                Icon={AiOutlineFieldNumber}
+                                title={"Limitation"}
+                                content={oeuvre && oeuvre.limitation ? oeuvre.limitation == 1 ? "Œuvre unique" : oeuvre.limitation : "Non renseignée"}
+                            />
+                        </div>
+                        <div className={styles.moreInfoContainer}>
+                            <div className={styles.messages}>
+                                {message.map((msg, index) => {
+                                    if (msg[0] === MESSAGE_TYPE.REQUEST) {
+                                        return (
+                                            <div key={index} className={styles.requestMessage}>
+                                                <p>
+                                                    {msg[1]}
+                                                </p>
+                                            </div>
+                                        )
+                                    } else {
+                                        return (
+                                            <div key={index} className={styles.responseMessage}>
+                                                <p>
+                                                    {msg[1]}
+                                                </p>
+                                            </div>
+                                        )
+                                    }
+                                })}
+                                {
+                                    convLoading && <div className={styles.responseMessage}>
+                                        <p>
+                                            <LittleSpinner/>
+                                        </p>
+                                    </div>
+                                }
+                            </div>
+                            <form onSubmit={async (e) => {
+                                e.preventDefault();
+                                await handleSendMessage();
+                            }}>
+                                <div className={styles.textspace}>
                                 <textarea
                                     placeholder="Parles moi de cette oeuvre"
                                     value={messageValue}
@@ -328,97 +329,100 @@ export default function OeuvreHomePage() {
                                     disabled={convLoading}
                                     rows={1}
                                 />
-                                <button
-                                    type="submit"
-                                    disabled={convLoading}
-                                >
-                                    {
-                                        convLoading ? <LittleSpinner/> : <IoSend style={{fontSize: 20}}/>
-                                    }
-                                </button>
+                                    <button
+                                        type="submit"
+                                        disabled={convLoading}
+                                    >
+                                        {
+                                            convLoading ? <LittleSpinner/> : <IoSend style={{fontSize: 20}}/>
+                                        }
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div className={styles.mockupSection}>
+                        <div className={styles.head}>
+                            <h2>Encore plus belle chez vous...</h2>
+                        </div>
+                        <div className={styles.mockups}>
+                            <div className={styles.imgContainer}>
+                                <Image
+                                    src={'/assets/img/mockups/mockup1.avif'}
+                                    alt={'Mockup 1'}
+                                    width={1000}
+                                    height={1000}
+                                />
                             </div>
-                        </form>
-                    </div>
-                </div>
-                <div className={styles.mockupSection}>
-                    <div className={styles.head}>
-                        <h2>Encore plus belle chez vous...</h2>
-                    </div>
-                    <div className={styles.mockups}>
-                        <div className={styles.imgContainer}>
-                            <Image
-                                src={'/assets/img/mockups/mockup1.avif'}
-                                alt={'Mockup 1'}
-                                width={1000}
-                                height={1000}
-                            />
-                        </div>
-                        <div className={styles.imgContainer}>
-                            <Image
-                                src={'/assets/img/mockups/mockup2.jpg'}
-                                alt={'Mockup 1'}
-                                width={1000}
-                                height={1000}
-                            />
-                        </div>
-                        <div className={styles.imgContainer}>
-                            <Image
-                                src={'/assets/img/mockups/mockup3.avif'}
-                                alt={'Mockup 1'}
-                                width={1000}
-                                height={1000}
-                            />
+                            <div className={styles.imgContainer}>
+                                <Image
+                                    src={'/assets/img/mockups/mockup2.jpg'}
+                                    alt={'Mockup 1'}
+                                    width={1000}
+                                    height={1000}
+                                />
+                            </div>
+                            <div className={styles.imgContainer}>
+                                <Image
+                                    src={'/assets/img/mockups/mockup3.avif'}
+                                    alt={'Mockup 1'}
+                                    width={1000}
+                                    height={1000}
+                                />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className={styles.oeuvreMemeStyleSection}>
-                    <h2>Découvrez d&apos;autres oeuvres dans le même style</h2>
-                    <MultiCarousel/>
-                </div>
-                <div className={styles.artistSection}>
-                    {
-                        oeuvre && oeuvre.artists.length && oeuvre.artists.map((artist, index) => {
-                            return <div className={styles.artistContainer} key={index}>
-                                <div className={styles.left}>
-                                    <div className={styles.imgContainer}>
-                                        <Image
-                                            src={artist && artist.user && artist.user.avatarURL ? artist.user.avatarURL : '/assets/img/avatar.png'}
-                                            alt={"Photo de l'artiste"} width={500}
-                                            height={500}/>
-                                        <div className={styles.flag}>
-                                            <Image src={"/assets/img/drapeau_france.png"} alt={"Drapeau de la France"}
-                                                   width={50} height={50}/>
+                    <div className={styles.oeuvreMemeStyleSection}>
+                        <h2>Découvrez d&apos;autres oeuvres dans le même style</h2>
+                        <MultiCarousel/>
+                    </div>
+                    <div className={styles.artistSection}>
+                        {
+                            oeuvre && oeuvre.artists.length && oeuvre.artists.map((artist, index) => {
+                                return <div className={styles.artistContainer} key={index}>
+                                    <div className={styles.left}>
+                                        <div className={styles.imgContainer}>
+                                            <Image
+                                                src={artist && artist.user && artist.user.avatarURL ? artist.user.avatarURL : '/assets/img/avatar.png'}
+                                                alt={"Photo de l'artiste"} width={500}
+                                                height={500}/>
+                                            <div className={styles.flag}>
+                                                <Image src={"/assets/img/drapeau_france.png"} alt={"Drapeau de la France"}
+                                                       width={50} height={50}/>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h3>{artist.pseudo ? artist.pseudo : artist.user.lastname.toUpperCase() + " " + artist.user.firstname}</h3>
                                         </div>
                                     </div>
                                     <div>
-                                        <h3>{artist.pseudo ? artist.pseudo : artist.user.lastname.toUpperCase() + " " + artist.user.firstname}</h3>
+                                        {
+                                            artist.bio && artist.bio.length > 200 ? artist.bio.substr(0, 200) + '...' : artist.bio
+                                        }
+                                        <Link
+                                            href={ROUTES.ARTISTES.PROFIL(artist.id)}
+                                            className={styles.showMore}
+                                        >
+                                            <button>
+                                                Voir plus
+                                            </button>
+                                        </Link>
                                     </div>
                                 </div>
-                                <div>
-                                    {
-                                        artist.bio && artist.bio.length > 200 ? artist.bio.substr(0, 200) + '...' : artist.bio
-                                    }
-                                    <Link
-                                        href={ROUTES.ARTISTES.PROFIL(artist.id)}
-                                        className={styles.showMore}
-                                    >
-                                        <button>
-                                            Voir plus
-                                        </button>
-                                    </Link>
-                                </div>
-                            </div>
-                        })
-                    }
-                </div>
-                <div className={styles.autreOeuvreArtiste}>
-                    <h2>Découvrez d&apos;autres oeuvres du même artiste</h2>
-                    <MultiCarousel/>
+                            })
+                        }
+                    </div>
+                    <div className={styles.autreOeuvreArtiste}>
+                        <h2>Découvrez d&apos;autres oeuvres du même artiste</h2>
+                        <MultiCarousel/>
+                    </div>
+                    <div>
+                        <Picto/>
+                        <Footer/>
+                    </div>
                 </div>
             </div>
-            <Picto/>
-            <Footer/>
-        </div>
+        </>
     )
 
 }

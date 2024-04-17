@@ -15,7 +15,7 @@ const useOeuvresStore = create((set, get) => ({
         try {
             const response = await fetchOeuvres();
             if (!response.success) throw new Error(response.error.message);
-            set({oeuvres: response.data});
+            set({oeuvres: response.oeuvres});
         } catch (error) {
             set({error: error.message});
         } finally {
@@ -40,3 +40,5 @@ const useOeuvresStore = create((set, get) => ({
         }
     }
 }));
+
+export default useOeuvresStore;
