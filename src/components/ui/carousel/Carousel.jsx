@@ -56,6 +56,10 @@ export default function Carousel({
         setMainImage((mainImage + 1) % images.length);
     };
 
+    if (images.length === 0) {
+        images = ['/assets/img/no-img.jpg'];
+    }
+
     return (
         <div
             className={styles.main}
