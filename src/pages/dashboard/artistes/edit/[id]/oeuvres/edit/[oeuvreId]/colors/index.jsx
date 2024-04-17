@@ -32,8 +32,6 @@ export default function HomeOeuvreDashboardEditColors() {
 
     const handleSubmit = async () => {
 
-        console.log(formData)
-
         if (formData.couleurs !== undefined) {
 
             const couleurs = formData.couleurs.map(couleur => {
@@ -52,8 +50,6 @@ export default function HomeOeuvreDashboardEditColors() {
                     couleurs,
                 }),
             });
-
-            console.log(response)
 
             const data = await response.json();
 
@@ -163,6 +159,7 @@ export default function HomeOeuvreDashboardEditColors() {
                                 oeuvre && oeuvre.couleurs && (
                                     <DashboardSectionItem
                                         sectionName={"Couleur(s)"}
+                                        defaultOpen
                                     >
                                         <MultiColors
                                             onChange={(e) => {

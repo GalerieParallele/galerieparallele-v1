@@ -5,7 +5,7 @@ import DashboardNavbar from "@/components/dashboard/items/DashboardNavbar";
 import DashboardTuiles from "@/components/dashboard/items/DashboardTuiles";
 
 import styles from './Index.module.scss';
-import {IoMdColorPalette} from "react-icons/io";
+import {IoIosResize, IoMdColorPalette} from "react-icons/io";
 import {FaInfoCircle} from "react-icons/fa";
 import {IoHammer} from "react-icons/io5";
 import {useEffect, useState} from "react";
@@ -127,7 +127,7 @@ export default function DashboardArtisteOeuvreEdit() {
                             </div>
                             {
                                 !errorArtist && !errorOeuvre && (
-                                    Array(3).fill(0).map((_, index) => {
+                                    Array(4).fill(0).map((_, index) => {
                                         return (
                                             <div
                                                 key={index}
@@ -169,11 +169,11 @@ export default function DashboardArtisteOeuvreEdit() {
                             {/*    name={"Artistes"}*/}
                             {/*    to={"#"}*/}
                             {/*/>*/}
-                            {/*<DashboardTuiles*/}
-                            {/*    IconComponent={IoIosResize}*/}
-                            {/*    name={"Dimensions"}*/}
-                            {/*    to={"#"}*/}
-                            {/*/>*/}
+                            <DashboardTuiles
+                                IconComponent={IoIosResize}
+                                name={"Dimensions"}
+                                to={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.DIMENSIONS(artist.id, oeuvre.id)}
+                            />
                             {/*<DashboardTuiles*/}
                             {/*    IconComponent={LuPlus}*/}
                             {/*    name={"Autres"}*/}
