@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-import useFiltersStore from "@/stores/oeuvresFIltersStore";
+import useFiltersStore from "@/stores/oeuvresFiltersStore";
 import {useOeuvres} from "@/hooks/useOeuvres";
 
 import Link from "next/link";

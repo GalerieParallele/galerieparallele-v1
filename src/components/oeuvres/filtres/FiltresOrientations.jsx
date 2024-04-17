@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './FiltresOrientation.module.scss';
-import useFiltersStore from "@/stores/oeuvresFIltersStore";
+import useFiltersStore from "@/stores/oeuvresFiltersStore";
 import InitialFiltresItem from "@/components/oeuvres/filtres/InitialFiltresItem";
 
 export default function FiltresOrientations() {

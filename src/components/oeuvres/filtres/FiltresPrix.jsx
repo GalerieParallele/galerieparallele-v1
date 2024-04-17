@@ -1,7 +1,7 @@
 import SliderRange from "@/components/ui/SliderRange";
 
 import styles from './General.module.scss';
-import useFiltersStore from "@/stores/oeuvresFIltersStore";
+import useFiltersStore from "@/stores/oeuvresFiltersStore";
 import InitialFiltresItem from "@/components/oeuvres/filtres/InitialFiltresItem";
 
 export default function FiltresPrix({min, max}) {

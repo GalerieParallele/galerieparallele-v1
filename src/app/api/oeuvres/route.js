@@ -558,11 +558,104 @@ export async function PATCH(req) {
 
 
         if (artists) {
-            // TODO : Patch artists to oeuvre
+
+
+            let currentArtistsOeuvre = await prisma.artistOeuvre.findMany({
+                where: {
+                    oeuvreId: oeuvreData.id,
+                },
+                select: {
+                    artistId: true,
+                }
+            });
+
+            currentArtistsOeuvre = currentArtistsOeuvre.map(({artistId}) => artistId);
+
+            const addedArtists = artists.filter((artistId) => !currentArtistsOeuvre.includes(artistId));
+            const removedArtists = currentArtistsOeuvre.filter((artistId) => !artists.includes(artistId));
+
+            console.log("addedArtists", addedArtists);
+
+            console.log("removedArtists", removedArtists);
+
+            await prisma.$transaction(async (tx) => {
+
+                if (addedArtists.length > 0) {
+                    await Promise.all(addedArtists.map(async (artistId) => {
+                        try {
+                            await tx.artistOeuvre.create({
+                                data: {
+                                    artistId,
+                                    oeuvreId: oeuvreData.id,
+                                }
+                            });
+                        } catch (error) {
+                            throw new Error("Une erreur est survenue lors de l'ajout d'un artiste à l'oeuvre");
+                        }
+                    }));
+                }
+
+                if (removedArtists.length > 0) {
+                    await Promise.all(removedArtists.map(async (artistId) => {
+                        try {
+                            await tx.artistOeuvre.delete({
+                                where: {
+                                    artistId_oeuvreId: {
+                                        artistId,
+                                        oeuvreId: oeuvreData.id,
+                                    }
+                                }
+                            });
+                        } catch (error) {
+                            throw new Error("Une erreur est survenue lors de la suppression d'un artiste de l'oeuvre");
+                        }
+                    }));
+                }
+            });
         }
 
         if (unknowartists) {
-            // TODO : Patch unknowartists to oeuvre
+
+            const currentUnknowArtistsOeuvre = (await prisma.artistUnknowOeuvre.findMany({
+                where: {oeuvreId: oeuvreData.id},
+                select: {artist: {select: {name: true}}}
+            })).map(({artist}) => artist.name);
+
+            const currentArtistsSet = new Set(currentUnknowArtistsOeuvre);
+            const incomingArtistsSet = new Set(unknowartists);
+
+            const addedUnknowArtists = [...incomingArtistsSet].filter(artist => !currentArtistsSet.has(artist));
+            const removedUnknowArtists = [...currentArtistsSet].filter(artist => !incomingArtistsSet.has(artist));
+
+            await prisma.$transaction(async (tx) => {
+                for (const artist of addedUnknowArtists) {
+                    const unknowArtist = await tx.artistUnknow.upsert({
+                        where: {name: artist},
+                        update: {},
+                        create: {name: artist},
+                    });
+
+                    await tx.artistUnknowOeuvre.create({
+                        data: {artistId: unknowArtist.id, oeuvreId: oeuvreData.id},
+                    });
+                }
+
+                for (const artistName of removedUnknowArtists) {
+                    const unknowArtist = await tx.artistUnknow.findUnique({
+                        where: {name: artistName},
+                        select: {id: true},
+                    });
+
+                    await tx.artistUnknowOeuvre.deleteMany({
+                        where: {
+                            artistId: unknowArtist.id,
+                            oeuvreId: oeuvreData.id,
+                        }
+                    });
+                }
+            });
+
+
         }
 
         if (couleurs) {

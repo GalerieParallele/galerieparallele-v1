@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './SliderRange.module.scss';
-import useFiltersStore from "@/stores/oeuvresFIltersStore";
+import useFiltersStore from "@/stores/oeuvresFiltersStore";
 
 export default function SliderRange({ max, min, filterKey, filterValue, symbol }) {
 
