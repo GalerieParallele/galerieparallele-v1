@@ -46,6 +46,9 @@ import StorageUtils from "@/utils/StorageUtils";
 import {Toast} from "@/constants/ToastConfig";
 import useArtistsStore from "@/stores/artistsStore";
 import DashboardSectionItem from "@/components/dashboard/items/sections/DashboardSectionItem";
+import {IoMdColorPalette} from "react-icons/io";
+import MultiTags from "@/components/ui/select/MultiTags";
+import MultiTypes from "@/components/ui/select/MultiTypes";
 
 export const useOeuvreStore = create((set) => ({
     oeuvre: {
@@ -108,8 +111,6 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
             throw new Error(`Une erreur est survenue lors de l'upload de l'image ${file.name}. Si le problème persiste, veuillez contacter l'administrateur.`);
         }
 
-        console.log(downloadURL);
-
         return downloadURL;
 
     }
@@ -117,8 +118,6 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
     const handleFormat = async () => {
 
         const copyOeuvre = {...oeuvre};
-
-        console.log(copyOeuvre);
 
         await Promise.all(
             selectedFiles.map(async (file) => {
@@ -142,8 +141,6 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
 
         copyOeuvre.Artists = oeuvre.Artists.map(artist => artist.value);
         copyOeuvre.UnknowArtistOeuvre = oeuvre.UnknowArtistOeuvre.map(artist => artist.value);
-        copyOeuvre.type = oeuvre.type.map(type => type.value);
-        copyOeuvre.tag = oeuvre.tag.map(tag => tag.value);
         copyOeuvre.orientation = oeuvre.orientation.value;
 
         return copyOeuvre;
@@ -203,11 +200,9 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                 title: 'L\'oeuvre a bien été créée'
             });
 
-            router.push(ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.HOME(artisteId) );
+            router.push(ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.HOME(artisteId));
 
         } catch (error) {
-
-            console.log(error)
 
             if (process.env.NODE_ENV === 'development') console.error(error);
 
@@ -491,9 +486,19 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                 <DashboardSectionItem
                     sectionName={"Couleur(s)"}
                 >
-                    <MultiColors onChange={(e) => {
-                        updateField('couleurs', e)
-                    }}/>
+                    <div className={sectionStyles.specialSection}>
+                        <div className={sectionStyles.specialSectionHead}>
+                                        <span>
+                                            <IoMdColorPalette/>
+                                        </span>
+                            <div>
+                                <p>Couleur(s)</p>
+                            </div>
+                        </div>
+                        <MultiColors onChange={(e) => {
+                            updateField('couleurs', e)
+                        }}/>
+                    </div>
                 </DashboardSectionItem>
                 <DashboardSectionItem
                     sectionName={"Artistes"}
@@ -636,20 +641,11 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                                 <p>Tags</p>
                             </div>
                         </div>
-                        <CreatableSelect
-                            placeholder={"Sélectionner un ou plusieurs tags"}
-                            closeMenuOnSelect={false}
-                            defaultValue={[]}
-                            isMulti
-                            options={[
-                                {value: 'Tag1', label: 'Tag1'},
-                                {value: 'Tag2', label: 'Tag2'},
-                                {value: 'Tag3', label: 'Tag3'},
-                                {value: 'Tag4', label: 'Tag4'},
-                                {value: 'Tag5', label: 'Tag5'},
-                            ]}
-                            onChange={(e) => updateField('tag', e)}
-                            value={oeuvre.tag}
+                        <MultiTags
+                            onChange={(e) => {
+                                updateField('tag', e)
+                                console.log(e)
+                            }}
                         />
                     </div>
                     <div className={sectionStyles.specialSection}>
@@ -661,20 +657,8 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                                 <p>Type(s) d&apos;oeuvre</p>
                             </div>
                         </div>
-                        <CreatableSelect
-                            placeholder={"Sélectionner un ou plusieurs types d'oeuvre"}
-                            closeMenuOnSelect={false}
-                            defaultValue={[]}
-                            isMulti
-                            options={[
-                                {value: 'Type1', label: 'Type1'},
-                                {value: 'Type2', label: 'Type2'},
-                                {value: 'Type3', label: 'Type3'},
-                                {value: 'Type4', label: 'Type4'},
-                                {value: 'Type5', label: 'Type5'},
-                            ]}
+                        <MultiTypes
                             onChange={(e) => updateField('type', e)}
-                            value={oeuvre.type}
                         />
                     </div>
                 </DashboardSectionItem>
