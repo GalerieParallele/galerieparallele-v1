@@ -32,50 +32,50 @@ async function main() {
         }
     })
 
-    for (let i = 0; i < userNumber; i++) {
-
-        const firstname = faker.person.firstName()
-        const lastname = faker.person.lastName()
-
-        const user = await prisma.user.create({
-                data: {
-                    email: faker.internet.email({
-                        firstName: firstname,
-                        lastName: lastname,
-                    }),
-                    password: hashPassword('Test123456789*'),
-                    lastname: lastname,
-                    firstname: firstname,
-                    street: faker.location.street(),
-                    city: faker.location.city(),
-                    postalCode: faker.location.zipCode(),
-                    phone: '06' + faker.string.numeric(8),
-                    avatarURL: faker.image.url(),
-                }
-            }
-        )
-
-        // 50 % chance of pseudo
-        const chance = Math.random() * 100
-
-        const pseudo = chance > 50 ? faker.internet.userName() : null
-
-        await prisma.artist.create({
-            data: {
-                pseudo,
-                user: {
-                    connect: {
-                        id: user.id
-                    }
-                },
-                nationality: 'France',
-                facebook: 'https://www.facebook.com/' + firstname + '.' + lastname,
-                instagram: 'https://www.instagram.com/' + firstname + '.' + lastname,
-                linkedin: 'https://www.linkedin.com/in/' + firstname + '-' + lastname,
-                website: 'https://' + firstname + lastname + '.com',
-            }
-        })
-    }
+    // for (let i = 0; i < userNumber; i++) {
+    //
+    //     const firstname = faker.person.firstName()
+    //     const lastname = faker.person.lastName()
+    //
+    //     const user = await prisma.user.create({
+    //             data: {
+    //                 email: faker.internet.email({
+    //                     firstName: firstname,
+    //                     lastName: lastname,
+    //                 }),
+    //                 password: hashPassword('Test123456789*'),
+    //                 lastname: lastname,
+    //                 firstname: firstname,
+    //                 street: faker.location.street(),
+    //                 city: faker.location.city(),
+    //                 postalCode: faker.location.zipCode(),
+    //                 phone: '06' + faker.string.numeric(8),
+    //                 avatarURL: faker.image.url(),
+    //             }
+    //         }
+    //     )
+    //
+    //     // 50 % chance of pseudo
+    //     const chance = Math.random() * 100
+    //
+    //     const pseudo = chance > 50 ? faker.internet.userName() : null
+    //
+    //     await prisma.artist.create({
+    //         data: {
+    //             pseudo,
+    //             user: {
+    //                 connect: {
+    //                     id: user.id
+    //                 }
+    //             },
+    //             nationality: 'France',
+    //             facebook: 'https://www.facebook.com/' + firstname + '.' + lastname,
+    //             instagram: 'https://www.instagram.com/' + firstname + '.' + lastname,
+    //             linkedin: 'https://www.linkedin.com/in/' + firstname + '-' + lastname,
+    //             website: 'https://' + firstname + lastname + '.com',
+    //         }
+    //     })
+    // }
 }
 
 main()
