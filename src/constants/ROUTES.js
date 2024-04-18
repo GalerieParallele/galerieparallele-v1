@@ -129,6 +129,12 @@ const PATHS = {
         },
         COULEURS: {
             HOME: 'couleurs',
+        },
+        TAGS: {
+            HOME: 'tags',
+        },
+        TYPES: {
+            HOME: 'typesoeuvres',
         }
     }
 }
@@ -254,6 +260,12 @@ const ROUTES = {
         },
         COULEURS: {
             HOME: API_BASE + PATHS.API.COULEURS.HOME,
+        },
+        TAGS: {
+            HOME: API_BASE + PATHS.API.TAGS.HOME,
+        },
+        TYPES: {
+            HOME: API_BASE + PATHS.API.TYPES.HOME,
         }
     }
 }
