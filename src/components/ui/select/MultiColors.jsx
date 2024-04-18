@@ -8,7 +8,7 @@ export default function MultiColors({onChange, defaultHexaSelected = [], blocked
 
     const [selectedValues, setSelectedValues] = useState([]);
 
-    const options = useMemo(() => colors.map(color => ({
+    const options = useMemo(() => colors && colors.map(color => ({
         value: color.hexa,
         label: color.name,
         isDisabled: blockedColors.includes(color.hexa),
@@ -24,10 +24,10 @@ export default function MultiColors({onChange, defaultHexaSelected = [], blocked
         setSelectedValues(defaultHexaSelected);
     }, []);
 
-    const selectedOptions = options.filter(option => selectedValues.includes(option.value));
+    const selectedOptions = options && options.filter(option => selectedValues.includes(option.value));
 
     return (
-        <div style={{marginBottom: '200px'}}>
+        <div style={{marginBottom: '150px'}}>
             <Select
                 placeholder="Sélectionner une couleur"
                 closeMenuOnSelect={false}
