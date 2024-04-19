@@ -59,7 +59,7 @@
       gap: 10px;
     }
 
-    .buttonEdit, .buttonDelete {
+    .buttonEdit, .buttonDelete, a {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -86,6 +86,11 @@
 
     .buttonDelete {
       background-color: var(--red);
+    }
+
+    .qrcode {
+      background-color: var(--white);
+      color: var(--black);
     }
   }
 

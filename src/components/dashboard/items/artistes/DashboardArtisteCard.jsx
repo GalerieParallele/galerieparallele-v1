@@ -9,6 +9,7 @@ import Link from "next/link";
 import {Toast} from "@/constants/ToastConfig";
 import Swal from "sweetalert2";
 import useArtistsStore from "@/stores/artistsStore";
+import {BsQrCodeScan} from "react-icons/bs";
 
 export default function DashboardArtisteCard({artiste}) {
 
@@ -85,6 +86,11 @@ export default function DashboardArtisteCard({artiste}) {
                     >
                         <MdDelete/>
                     </button>
+                    <Link
+                        className={styles.qrcode}
+                        href={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${ROUTES.ARTISTES.PROFIL(artiste.id)}`}>
+                        <BsQrCodeScan/>
+                    </Link>
                 </div>
             </div>
             <div className={styles.bottom}>
