@@ -13,6 +13,7 @@ import {useOeuvres} from "@/hooks/useOeuvres";
 import {Toast} from "@/constants/ToastConfig";
 import useArtistsStore from "@/stores/artistsStore";
 import Skeleton from "@/components/ui/Skeleton";
+import {LuPlus} from "react-icons/lu";
 
 export default function DashboardArtisteOeuvreEdit() {
 
@@ -174,11 +175,11 @@ export default function DashboardArtisteOeuvreEdit() {
                                 name={"Dimensions"}
                                 to={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.DIMENSIONS(artist.id, oeuvre.id)}
                             />
-                            {/*<DashboardTuiles*/}
-                            {/*    IconComponent={LuPlus}*/}
-                            {/*    name={"Autres"}*/}
-                            {/*    to={"#"}*/}
-                            {/*/>*/}
+                            <DashboardTuiles
+                                IconComponent={LuPlus}
+                                name={"Autres"}
+                                to={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.AUTRES(artist.id, oeuvre.id)}
+                            />
                         </>
                     )
                 }
