@@ -78,7 +78,10 @@ const PATHS = {
                     },
                     ARTISTES(artisteId, oeuvreId) {
                         return createPath('dashboard', 'artistes', 'edit', artisteId, 'oeuvres', 'edit', oeuvreId, 'artistes')
-                    }
+                    },
+                    AUTRES(artisteId, oeuvreId) {
+                        return createPath('dashboard', 'artistes', 'edit', artisteId, 'oeuvres', 'edit', oeuvreId, 'autres')
+                    },
                 },
                 SAVETHEDATE(artisteId) {
                     return createPath('dashboard', 'artistes', 'edit', artisteId, 'save-the-date')
@@ -209,6 +212,9 @@ const ROUTES = {
                     },
                     ARTISTES(artisteId, oeuvreId) {
                         return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.OEUVRES.ARTISTES(artisteId, oeuvreId)
+                    },
+                    AUTRES(artisteId, oeuvreId) {
+                        return BASE_URL + PATHS.ADMIN.ARTISTES.EDIT.OEUVRES.AUTRES(artisteId, oeuvreId)
                     }
                 },
                 SAVETHEDATE(artisteId) {
