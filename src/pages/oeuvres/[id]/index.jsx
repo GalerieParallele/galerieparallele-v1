@@ -129,6 +129,7 @@ export default function OeuvreHomePage() {
     useEffect(() => {
         if (oeuvreId) {
             const fetchOeuvreById = getOeuvreById(oeuvreId)
+            console.log(fetchOeuvreById);
             if (!fetchOeuvreById) {
                 setError(true);
             }

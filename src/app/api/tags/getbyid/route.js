@@ -27,7 +27,7 @@ export async function POST(req) {
 
         const requestBody = GetTagByIdSchema.parse(JSON.parse(await req.text()));
 
-        const id = requestBody.id;
+        const id = parseInt(requestBody.id);
 
         const tag = await prisma.tag.findUnique({
             where: {id},

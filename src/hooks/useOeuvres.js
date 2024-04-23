@@ -39,6 +39,7 @@ export const useOeuvres = () => {
             } else {
                 setError(response.error);
             }
+            console.log(response);
         } catch (err) {
             setError(err.message);
         } finally {

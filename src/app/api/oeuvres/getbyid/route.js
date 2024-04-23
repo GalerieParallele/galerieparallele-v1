@@ -11,7 +11,7 @@ export async function POST(req) {
 
     const requestBody = OeuvreSchema.pick({id: true}).parse(JSON.parse(await req.text()));
 
-    const id = Number(requestBody.id);
+    const id = parseInt(requestBody.id);
 
     try {
 
@@ -115,6 +115,8 @@ export async function POST(req) {
         )
 
     } catch (error) {
+
+        console.log(error)
 
         if (process.env.NODE_ENV === "development") {
             console.error(error);
