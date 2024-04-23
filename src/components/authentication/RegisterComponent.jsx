@@ -63,8 +63,6 @@ export default function RegisterComponent() {
         }
 
         setFormData(prev => ({...prev, [name]: value}));
-
-        console.log(formData);
     };
 
     const handleSubmit = useCallback(

@@ -203,8 +203,6 @@ export async function GET(req) {
 
     } catch (error) {
 
-        console.log(error);
-
         if (error instanceof z.ZodError) {
             return NextResponse.json({errors: error.errors[0].message}, {status: 400});
         }
@@ -265,8 +263,6 @@ export async function POST(req) {
         });
 
     } catch (error) {
-
-        console.log(error);
 
         if (error instanceof z.ZodError) {
             return NextResponse.json({message: error.errors[0].message}, {status: 400});
