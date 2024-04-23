@@ -81,11 +81,10 @@ export default function OeuvreHomePage() {
             }
 
             const data = await response.json();
-            console.log(data);
+
             handleAddNewMessage(MESSAGE_TYPE.RESPONSE, data.message);
         } catch (error) {
             console.error("Erreur lors de l'envoi du message:", error);
-            // Gérer l'erreur (par exemple, en affichant un message d'erreur à l'utilisateur)
         } finally {
             setConvLoading(false);
         }
@@ -129,7 +128,6 @@ export default function OeuvreHomePage() {
     useEffect(() => {
         if (oeuvreId) {
             const fetchOeuvreById = getOeuvreById(oeuvreId)
-            console.log(fetchOeuvreById);
             if (!fetchOeuvreById) {
                 setError(true);
             }
@@ -149,7 +147,6 @@ export default function OeuvreHomePage() {
     }
 
     if (oeuvreError) {
-        console.log(oeuvreError);
         switch (oeuvreError.code) {
             case 404:
                 return <Error
