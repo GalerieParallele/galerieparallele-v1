@@ -11,9 +11,9 @@ export default function MultiTypes({onChange, defaultTypesSelected = [], blocked
     const [selectedValues, setSelectedValues] = useState([]);
 
     const options = useMemo(() => types && types.map(type => ({
-        value: type.name,
-        label: type.name,
-        isDisabled: blockedTypes.includes(type.name),
+        value: type,
+        label: type,
+        isDisabled: blockedTypes.includes(type),
     })), [types, blockedTypes]);
 
     const handleChange = (selectedOptions) => {
@@ -33,6 +33,10 @@ export default function MultiTypes({onChange, defaultTypesSelected = [], blocked
     }, []);
 
     const selectedOptions = options && options.filter(option => selectedValues.includes(option.value));
+
+    useEffect(() => {
+        console.log('selectedValues', selectedValues)
+    })
 
     return (
         <div style={{marginBottom: '150px'}}>

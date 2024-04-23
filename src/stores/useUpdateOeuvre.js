@@ -24,6 +24,8 @@ const initialState = {
     couleurs: undefined,
     artists: undefined,
     unknowartists: undefined,
+    tags: undefined,
+    types: undefined,
 }
 
 const useUpdateOeuvre = create((set, get) => ({
