@@ -54,9 +54,13 @@ export async function GET() {
             }
         })
 
+        console.log(couleurs)
+
         if (!couleurs || couleurs.length === 0) {
             return NextResponse.json({message: MESSAGES.NO_COLORS}, {status: 404})
         }
+
+        console.log(couleurs)
 
         const validatedColors = couleurs.map(couleur => ColorSchema.parse(couleur))
 
@@ -67,6 +71,8 @@ export async function GET() {
         return NextResponse.json(response, {status: 200})
 
     } catch (error) {
+
+        console.error(error)
 
         if (process.env.NODE_ENV === "development") {
             console.error(error)
