@@ -2,6 +2,8 @@ import {OeuvreSchema} from "@/app/api/oeuvres/route";
 import {NextResponse} from "next/server";
 import {z} from "zod";
 
+import {prisma} from "@/utils/PrismaUtil";
+import {Prisma} from "@prisma/client";
 
 const MESSAGES = {
     INVALID_OEUVRE: "L'id renseigné ne correspond à aucune oeuvre",
@@ -24,7 +26,7 @@ export async function POST(req) {
                     select: {
                         artist: {
                             include: {
-                                user:  {
+                                user: {
                                     select: {
                                         firstname: true,
                                         lastname: true,
@@ -126,8 +128,10 @@ export async function POST(req) {
             return NextResponse.json({errors: error.errors[0].message}, {status: 400});
         }
 
-        if (error.code === 'P2025') {
-            return NextResponse.json({message: MESSAGES.INVALID_OEUVRE}, {status: 404});
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            if (error.code === 'P2025') {
+                return NextResponse.json({message: MESSAGES.INVALID_OEUVRE}, {status: 404});
+            }
         }
 
         return NextResponse.json({message: MESSAGES.API_SERVER_ERROR}, {status: 500});
