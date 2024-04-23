@@ -47,7 +47,7 @@ export async function POST(req) {
             return NextResponse.json({errors: error.errors[0].message}, {status: 400});
         }
 
-        if (error.code === '02025') {
+        if (error.code === 'P2025') {
             return NextResponse.json({message: MESSAGES.INVALID_UNKNOW_ARTIST}, {status: 404});
         }
 
