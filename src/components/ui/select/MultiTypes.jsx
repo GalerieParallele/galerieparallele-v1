@@ -7,25 +7,31 @@ import {useType} from "@/hooks/useType";
 export default function MultiTypes({onChange, defaultTypesSelected = [], blockedTypes = []}) {
 
     const {types, loading, error} = useType();
-
     const [selectedValues, setSelectedValues] = useState([]);
+    const [newTypes, setNewTypes] = useState([]);
 
-    const options = useMemo(() => types && types.map(type => ({
-        value: type,
-        label: type,
-        isDisabled: blockedTypes.includes(type),
-    })), [types, blockedTypes]);
+    const options = useMemo(() => {
+        const combinedTypes = types ? [...types, ...newTypes] : newTypes;
+        return combinedTypes.map(type => ({
+            value: type.name,
+            label: type.name,
+            isDisabled: blockedTypes.includes(type.name),
+        }));
+    }, [types, blockedTypes, newTypes]);
 
     const handleChange = (selectedOptions) => {
-        const newValues = selectedOptions.map(option => {
-            if (option.__isNew__) {
-                types.push({name: option.value});
-                return option.value;
-            }
-            return option.value;
-        });
+        const newValues = selectedOptions.map(option => option.value);
         setSelectedValues(newValues);
         onChange(newValues);
+
+        // Traiter les nouveaux tags
+        const newlyAddedTypes = selectedOptions
+            .filter(option => option.__isNew__)
+            .map(option => ({name: option.value}));
+
+        if (newlyAddedTypes.length > 0) {
+            setNewTypes(prevNewTypes => [...prevNewTypes, ...newlyAddedTypes]);
+        }
     };
 
     useEffect(() => {
@@ -33,10 +39,6 @@ export default function MultiTypes({onChange, defaultTypesSelected = [], blocked
     }, []);
 
     const selectedOptions = options && options.filter(option => selectedValues.includes(option.value));
-
-    useEffect(() => {
-        console.log('selectedValues', selectedValues)
-    })
 
     return (
         <div style={{marginBottom: '150px'}}>
