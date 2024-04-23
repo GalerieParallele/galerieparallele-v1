@@ -15,6 +15,8 @@ export const fetchColors = async () => {
             },
         });
 
+        console.log(response);
+
         if (!response.ok) {
 
             const errorDetails = await response.text();
