@@ -8,6 +8,7 @@ import ROUTES from "@/constants/ROUTES";
 import Link from "next/link";
 import {Toast} from "@/constants/ToastConfig";
 import Swal from "sweetalert2";
+import {BsQrCodeScan} from "react-icons/bs";
 
 export default function DashboardArtisteEditOeuvreCard({oeuvre, artist, onDelete}) {
 
@@ -88,6 +89,13 @@ export default function DashboardArtisteEditOeuvreCard({oeuvre, artist, onDelete
                         >
                             <MdDelete/>
                         </button>
+                        <Link
+                            href={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${ROUTES.OEUVRES.VIEW(oeuvre.id)}`}
+                            target={"_blank"}
+                            className={styles.qrCode}
+                            >
+                            <BsQrCodeScan/>
+                        </Link>
                     </div>
                 </div>
                 <div className={styles.bottom}>
