@@ -21,7 +21,6 @@ export default function ArtistListCard({artist, countries}) {
                 setDisplayFlag('');
             }
             setIsFlagLoading(false);
-            console.log(artist)
         }
     }, [countries, artist.nationality]);
 

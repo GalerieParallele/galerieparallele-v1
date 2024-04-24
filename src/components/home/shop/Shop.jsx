@@ -37,7 +37,6 @@ export default function Shop() {
                                 <>
                                     {
                                         oeuvres.map(oeuvre => {
-                                            console.log(oeuvre)
                                             return (
                                                 <ShopItem
                                                     key={oeuvre.id}

@@ -50,8 +50,6 @@ export const fetchOeuvreById = async (id) => {
             body: JSON.stringify({id}),
         });
 
-        console.log(response);
-
         if (!response.ok) {
 
             const errorDetails = await response.text();
@@ -64,8 +62,6 @@ export const fetchOeuvreById = async (id) => {
         }
 
         let data = await response.json();
-
-        console.log(data);
 
         if (!data) {
             throw {message: "Format de réponse invalide", code: 'InvalidFormat'};

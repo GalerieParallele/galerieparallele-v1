@@ -164,8 +164,6 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
 
         const data = await handleFormat();
 
-        console.log(data);
-
         try {
 
             const response = await fetch(ROUTES.API.OEUVRES.HOME, {
@@ -644,7 +642,6 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         <MultiTags
                             onChange={(e) => {
                                 updateField('tag', e)
-                                console.log(e)
                             }}
                         />
                     </div>

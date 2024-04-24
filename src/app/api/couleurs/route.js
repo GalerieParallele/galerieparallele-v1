@@ -1,6 +1,6 @@
 import {prisma} from "@/utils/PrismaUtil";
 import {NextResponse} from "next/server";
-import z from "zod";
+import {z} from "zod";
 import {Prisma} from "@prisma/client";
 
 const MESSAGES = {
@@ -67,6 +67,8 @@ export async function GET() {
         return NextResponse.json(response, {status: 200})
 
     } catch (error) {
+
+        console.error(error)
 
         if (process.env.NODE_ENV === "development") {
             console.error(error)

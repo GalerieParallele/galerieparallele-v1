@@ -88,6 +88,7 @@ export default function DashboardArtisteCard({artiste}) {
                     </button>
                     <Link
                         className={styles.qrcode}
+                        target={"_blank"}
                         href={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${ROUTES.ARTISTES.PROFIL(artiste.id)}`}>
                         <BsQrCodeScan/>
                     </Link>

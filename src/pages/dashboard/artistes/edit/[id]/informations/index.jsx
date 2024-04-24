@@ -53,10 +53,8 @@ export default function DashboardArtisteEditInformations() {
     const handleSubmit = async () => {
 
         const userBody = {...formData.user};
-        console.log("userBody", userBody)
 
         const artistBody = {...formData.artist};
-        console.log("artistBody", artistBody)
 
 
         if (avatarFile !== null || Object.keys(userBody).some(key => userBody[key] !== undefined)) {
