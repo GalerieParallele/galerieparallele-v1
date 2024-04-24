@@ -264,8 +264,24 @@
 
           .responseMessage, .requestMessage {
             display: flex;
-            padding: 10px;
             border-radius: var(--border-radius);
+          }
+
+          .requestContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-right: 10px;
+          }
+
+          .requestContainer, .responseContainer {
+            .authorMessage {
+              display: flex;
+              align-items: center;
+              gap: 5px;
+              font-size: 0.85rem;
+              margin-bottom: 5px;
+            }
           }
 
           .responseMessage {
@@ -277,6 +293,13 @@
             color: var(--white);
 
             max-width: 80%;
+            p {
+                background: var(--gradient-black);
+                padding: 10px;
+                border-radius: var(--border-radius);
+                box-shadow: var(--shadow);
+                color: var(--white);
+            }
           }
 
           .requestMessage {
@@ -288,7 +311,6 @@
               padding: 10px;
               border-radius: var(--border-radius);
               box-shadow: var(--shadow);
-              margin: 10px 0;
               color: var(--black);
             }
           }

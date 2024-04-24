@@ -11,9 +11,9 @@ import {
     FaHeart,
     FaInstagram,
     FaPaintBrush,
-    FaRegHeart,
+    FaRegHeart, FaRobot,
     FaRulerHorizontal,
-    FaSignature,
+    FaSignature, FaUser,
     FaWhatsapp
 } from "react-icons/fa";
 import Link from "next/link";
@@ -73,7 +73,7 @@ export default function OeuvreHomePage() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({message: userMessage, subject: 'La joconde'}),
+                body: JSON.stringify({message: userMessage, subject: oeuvre && oeuvre.name, oeuvre}),
             });
 
             if (!response.ok) {
@@ -291,18 +291,28 @@ export default function OeuvreHomePage() {
                                 {message.map((msg, index) => {
                                     if (msg[0] === MESSAGE_TYPE.REQUEST) {
                                         return (
-                                            <div key={index} className={styles.requestMessage}>
-                                                <p>
-                                                    {msg[1]}
-                                                </p>
+                                            <div
+                                                key={index}
+                                                className={styles.requestContainer}>
+                                                <p className={styles.authorMessage}><FaUser />Vous</p>
+                                                <div key={index} className={styles.requestMessage}>
+                                                    <p>
+                                                        {msg[1]}
+                                                    </p>
+                                                </div>
                                             </div>
                                         )
                                     } else {
                                         return (
-                                            <div key={index} className={styles.responseMessage}>
-                                                <p>
-                                                    {msg[1]}
-                                                </p>
+                                            <div
+                                                key={index}
+                                                className={styles.responseContainer}>
+                                                <p className={styles.authorMessage}><FaRobot />Assistant Virtuel</p>
+                                                <div key={index} className={styles.responseMessage}>
+                                                    <p>
+                                                        {msg[1]}
+                                                    </p>
+                                                </div>
                                             </div>
                                         )
                                     }
