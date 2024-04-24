@@ -22,7 +22,7 @@ import {
     FaArrowAltCircleRight,
     FaChair,
     FaEuroSign,
-    FaExclamation,
+    FaExclamation, FaExternalLinkAlt,
     FaHandSparkles,
     FaHashtag,
     FaRegImages,
@@ -66,6 +66,7 @@ export const useOeuvreStore = create((set) => ({
         longueur: 0,
         profondeur: 0,
         orientation: [],
+        artsperURL: '',
         type: [],
         tag: [],
         images: [],
@@ -345,6 +346,16 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         value={oeuvre.prix}
                         disabled={loading}
                         required
+                    />
+                    <IconInput
+                        label={"Lien Artsper"}
+                        type={"text"}
+                        IconComponent={FaExternalLinkAlt}
+                        placeholder={"Ex: https://www.artsper.com/fr/oeuvres-d-art-contemporain/edition/1625325/myanmar-beauty-violence"}
+                        onChange={(e) => updateField('artsperURL', e.target.value)}
+                        name={"artsperURL"}
+                        value={oeuvre.artsperURL}
+                        disabled={loading}
                     />
                 </DashboardSectionItem>
                 <DashboardSectionItem

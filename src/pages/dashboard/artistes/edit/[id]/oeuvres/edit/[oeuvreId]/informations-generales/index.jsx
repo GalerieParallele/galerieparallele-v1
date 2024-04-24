@@ -9,7 +9,7 @@ import DashboardSectionItem from "@/components/dashboard/items/sections/Dashboar
 import IconInput from "@/components/ui/iconinput/IconInput";
 import Editor from "@/components/ui/Editor";
 
-import {FaEuroSign, FaExclamation} from "react-icons/fa";
+import {FaEuroSign, FaExclamation, FaExternalLinkAlt} from "react-icons/fa";
 import {MdDriveFileRenameOutline, MdOutlineDescription} from "react-icons/md";
 
 import styles from './Index.module.scss';
@@ -205,6 +205,16 @@ export default function HomeOeuvreDashboardEditInfoGen() {
                                     onChange={(e) => updateFormData("informations_generales.prix", e.target.value === "" || parseFloat(e.target.value) === oeuvre.prix ? undefined : parseFloat(e.target.value))}
                                     name={"prix"}
                                     value={formData.informations_generales.prix}
+                                    disabled={loading}
+                                />
+                                <IconInput
+                                    label={"Lien Artsper"}
+                                    type={"text"}
+                                    IconComponent={FaExternalLinkAlt}
+                                    placeholder={oeuvre && oeuvre.artsperURL ? oeuvre.artsperURL : "https://www.artsper.com/fr/oeuvres-d-art-contemporain/edition/1625325/myanmar-beauty-violence"}
+                                    onChange={(e) => updateFormData("informations_generales.artsperURL", e.target.value === "" || e.target.value === oeuvre.artsperURL ? undefined : e.target.value)}
+                                    name={"artsperURL"}
+                                    value={formData.informations_generales.artsperURL}
                                     disabled={loading}
                                 />
                             </DashboardSectionItem>

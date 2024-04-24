@@ -6,6 +6,7 @@ const initialState = {
         description: undefined,
         anecdote: undefined,
         prix: undefined,
+        artsperURL: undefined,
     },
     informations_techniques: {
         numerotation: undefined,
