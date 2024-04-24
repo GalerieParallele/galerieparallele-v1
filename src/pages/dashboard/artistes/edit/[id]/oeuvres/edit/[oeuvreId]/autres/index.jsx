@@ -35,7 +35,59 @@ export default function HomeOeuvreDashboardEditAutres() {
     } = useOeuvres();
 
     const handleSubmit = async () => {
-    };
+
+        if (formData.tags === undefined && formData.types === undefined) {
+            Toast.fire({
+                icon: 'error',
+                title: "Vous n'avez pas modifié d'informations."
+            });
+        }
+
+        let body = undefined;
+
+        if (formData.tags !== undefined) {
+            body = {
+                tag: formData.tags.map(tag => tag),
+            }
+        }
+
+        if (formData.types !== undefined) {
+            body = {
+                ...body,
+                type: formData.types.map(type => type),
+            }
+        }
+
+        const response = await fetch(ROUTES.API.OEUVRES.HOME, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: oeuvre.id,
+                ...body,
+            }),
+        });
+        console.log(body);
+        console.log(response);
+        const data = await response.json();
+
+        if (!response.ok) {
+            Toast.fire({
+                icon: 'error',
+                title: `Erreur lors de la modification de l'oeuvre: ${data.message}`
+            });
+            return;
+        }
+
+        Toast.fire({
+            icon: 'success',
+            title: "L'oeuvre a bien été modifiée."
+        });
+
+        router.push(ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.EDIT(artisteId, oeuvreId));
+
+    }
 
     useEffect(() => {
         resetFormData();
@@ -132,12 +184,7 @@ export default function HomeOeuvreDashboardEditAutres() {
                                             </div>
                                             <MultiTypes
                                                 onChange={(e) => updateFormData('types', e)}
-                                                defaultTypesSelected={oeuvre && oeuvre.types.map(type => {
-                                                    return {
-                                                        value: type,
-                                                        label: type
-                                                    }
-                                                })}
+                                                defaultTypesSelected={oeuvre && oeuvre.types.map(type => type)}
                                             />
                                         </div>
                                     )
@@ -155,6 +202,7 @@ export default function HomeOeuvreDashboardEditAutres() {
                                             </div>
                                             <MultiTags
                                                 onChange={(e) => updateFormData('tags', e)}
+                                                defaultTagsSelected={oeuvre && oeuvre.tags.map(tag => tag)}
                                             />
                                         </div>
                                     )

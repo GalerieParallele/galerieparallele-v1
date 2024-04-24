@@ -179,6 +179,9 @@ const orientation = z
         }
     )
 
+const tagSchema = z.string().min(1).max(255).transform((value) => value.toUpperCase());
+const typeSchema = z.string().min(1).max(255).transform((value) => value.toUpperCase());
+
 export const OeuvreSchema = z.object({
     id,
     name,
@@ -295,7 +298,7 @@ export async function GET() {
             oeuvre.tags = oeuvre.tag.map(({tag}) => tag.name);
             oeuvre.tag = undefined;
 
-            oeuvre.types = oeuvre.type.map(({type}) => type.name);
+            oeuvre.types = oeuvre.type.map(({type}) => type.name.toUpperCase());
             oeuvre.type = undefined;
 
             oeuvre.couleurs = oeuvre.couleurs.map(({couleur}) => couleur);
@@ -419,7 +422,7 @@ export async function POST(req) {
                         tag = await tx.tag.upsert({
                             where: {name: tagValue},
                             update: {},
-                            create: {name: tagValue},
+                            create: {name: tagValue.toUpperCase()},
                         });
                     } catch (error) {
                         throw new Error("Une erreur est survenue lors de la tentative de récupération ou de création d'un tag pour l'oeuvre");
@@ -462,7 +465,7 @@ export async function POST(req) {
                         type = await tx.typesOeuvre.upsert({
                             where: {name: typeValue},
                             update: {},
-                            create: {name: typeValue},
+                            create: {name: typeValue.toUpperCase()},
                         });
                     } catch (error) {
                         throw new Error("Une erreur est survenue lors de la tentative de récupération ou de création d'un type pour l'oeuvre");
@@ -546,7 +549,7 @@ export async function PATCH(req) {
 
     try {
 
-        const {
+        let {
             artists,
             unknowartists,
             couleurs,
@@ -573,10 +576,6 @@ export async function PATCH(req) {
 
             const addedArtists = artists.filter((artistId) => !currentArtistsOeuvre.includes(artistId));
             const removedArtists = currentArtistsOeuvre.filter((artistId) => !artists.includes(artistId));
-
-            console.log("addedArtists", addedArtists);
-
-            console.log("removedArtists", removedArtists);
 
             await prisma.$transaction(async (tx) => {
 
@@ -674,9 +673,6 @@ export async function PATCH(req) {
             const addedColors = currentSelectedColorsHexa.filter((hexa) => !currentOeuvreColors.some((color) => color.hexa === hexa));
             const removedColors = currentOeuvreColors.filter((color) => !currentSelectedColorsHexa.some((hexa) => color.hexa === hexa));
 
-            console.log("addedColors", addedColors);
-            console.log("removedColors", removedColors);
-
             await prisma.$transaction(async (tx) => {
 
                 if (addedColors.length > 0) {
@@ -716,11 +712,161 @@ export async function PATCH(req) {
         }
 
         if (tag) {
-            // TODO : Patch tag to oeuvre
+
+            tag = tagSchema.array().parse(tag);
+
+            let currentOeuvreTags = await prisma.oeuvreTag.findMany({
+                where: {
+                    oeuvreId: oeuvreData.id,
+                },
+                select: {
+                    tag: {
+                        select: {
+                            name: true,
+                        }
+                    }
+                }
+            });
+
+            currentOeuvreTags = currentOeuvreTags.map(({tag}) => tag.name);
+
+            const addedTags = tag.filter((tag) => !currentOeuvreTags.includes(tag));
+            const removedTags = currentOeuvreTags.filter((currentTag) => !tag.includes(currentTag));
+
+            await prisma.$transaction(async (tx) => {
+
+                if (addedTags.length > 0) {
+                    await Promise.all(addedTags.map(async (tagValue) => {
+
+                        let tag;
+
+                        try {
+                            tag = await tx.tag.upsert({
+                                where: {name: tagValue},
+                                update: {},
+                                create: {name: tagValue},
+                            });
+                        } catch (error) {
+                            throw new Error("Une erreur est survenue lors de la récupération ou de la création d'un tag pour l'oeuvre");
+                        }
+
+                        try {
+                            await tx.oeuvreTag.create({
+                                data: {
+                                    tagId: tag.id,
+                                    oeuvreId: oeuvreData.id,
+                                }
+                            });
+                        } catch (error) {
+                            throw new Error("Une erreur est survenue lors de l'ajout d'un tag à l'oeuvre");
+                        }
+                    }));
+                }
+
+                if (removedTags.length > 0) {
+                    await Promise.all(removedTags.map(async (tagValue) => {
+                        try {
+
+                            const tag = await tx.tag.findUnique({
+                                where: {name: tagValue},
+                                select: {id: true},
+                            });
+
+                            await tx.oeuvreTag.delete({
+                                where: {
+                                    oeuvreId_tagId: {
+                                        oeuvreId: oeuvreData.id,
+                                        tagId: tag.id,
+                                    }
+                                }
+                            });
+                        } catch (error) {
+                            console.log(error)
+                            throw new Error("Une erreur est survenue lors de la suppression d'un tag de l'oeuvre");
+                        }
+                    }));
+                }
+            });
+
         }
 
         if (type) {
-            // TODO : Patch type to oeuvre
+
+            type = typeSchema.array().parse(type);
+
+            let currentOeuvreTypes = await prisma.oeuvreTypes.findMany({
+                where: {
+                    oeuvreId: oeuvreData.id,
+                },
+                select: {
+                    type: {
+                        select: {
+                            name: true,
+                        }
+                    }
+                }
+            });
+
+            currentOeuvreTypes = currentOeuvreTypes.map(({type}) => type.name);
+
+            const addedTypes = type.filter((type) => !currentOeuvreTypes.includes(type));
+            const removedTypes = currentOeuvreTypes.filter((currentType) => !type.includes(currentType));
+
+            await prisma.$transaction(async (tx) => {
+
+                if (addedTypes.length > 0) {
+                    await Promise.all(addedTypes.map(async (typeValue) => {
+
+                        let type;
+
+                        try {
+                            type = await tx.typesOeuvre.upsert({
+                                where: {name: typeValue},
+                                update: {},
+                                create: {name: typeValue},
+                                select: {id: true},
+                            });
+                        } catch (error) {
+                            throw new Error("Une erreur est survenue lors de la récupération ou de la création d'un type pour l'oeuvre");
+                        }
+
+
+                        try {
+                            await tx.oeuvreTypes.create({
+                                data: {
+                                    typeOeuvreId: type.id,
+                                    oeuvreId: oeuvreData.id,
+                                }
+                            });
+                        } catch (error) {
+                            throw new Error("Une erreur est survenue lors de l'ajout d'un type à l'oeuvre");
+                        }
+                    }));
+                }
+
+                if (removedTypes.length > 0) {
+                    await Promise.all(removedTypes.map(async (typeValue) => {
+
+                        const type = await tx.typesOeuvre.findUnique({
+                            where: {name: typeValue},
+                            select: {id: true},
+                        });
+
+                        try {
+                            await tx.oeuvreTypes.delete({
+                                where: {
+                                    oeuvreId_typeOeuvreId: {
+                                        oeuvreId: oeuvreData.id,
+                                        typeOeuvreId: type.id,
+                                    }
+                                }
+                            });
+                        } catch (error) {
+                            throw new Error("Une erreur est survenue lors de la suppression d'un type de l'oeuvre");
+                        }
+                    }));
+                }
+            });
         }
 
         if (images) {
