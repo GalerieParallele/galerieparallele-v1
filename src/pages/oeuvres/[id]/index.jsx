@@ -11,9 +11,11 @@ import {
     FaHeart,
     FaInstagram,
     FaPaintBrush,
-    FaRegHeart, FaRobot,
+    FaRegHeart,
+    FaRobot,
     FaRulerHorizontal,
-    FaSignature, FaUser,
+    FaSignature,
+    FaUser,
     FaWhatsapp
 } from "react-icons/fa";
 import Link from "next/link";
@@ -30,6 +32,8 @@ import {useOeuvres} from "@/hooks/useOeuvres";
 import PageLoader from "@/components/ui/PageLoader";
 import Error from "@/components/error/Error";
 import ROUTES from "@/constants/ROUTES";
+import {useAuth} from "@/hooks/useAuth";
+import {Toast} from "@/constants/ToastConfig";
 
 export default function OeuvreHomePage() {
 
@@ -50,6 +54,7 @@ export default function OeuvreHomePage() {
     const [convLoading, setConvLoading] = useState(false);
 
     const {oeuvre, loading: oeuvreLoading, error: oeuvreError, getOeuvreById} = useOeuvres();
+    const {user, loading: userLoading} = useAuth();
 
     /**
      * Ajouter un nouveau message à la conversation
@@ -66,7 +71,25 @@ export default function OeuvreHomePage() {
      * @returns {Promise<void>}
      */
     const sendMessageToAPI = async (userMessage) => {
+
+        if (userLoading) {
+            Toast.fire({
+                icon: 'warning',
+                title: "Veuillez patienter..."
+            });
+            return;
+        }
+
+        if (!user) {
+            Toast.fire({
+                icon: 'warning',
+                title: "Vous devez être connecté pour envoyer un message"
+            });
+            return;
+        }
+
         setConvLoading(true);
+
         try {
             const response = await fetch('/api/ai', {
                 method: 'POST',
@@ -287,6 +310,13 @@ export default function OeuvreHomePage() {
                             />
                         </div>
                         <div className={styles.moreInfoContainer}>
+                            {
+                                !user && !userLoading && (
+                                    <div className={styles.noAuthFilter}>
+                                        <p>Vous devez être connecté pour accéder à cette fonctionnalité</p>
+                                    </div>
+                                )
+                            }
                             <div className={styles.messages}>
                                 {message.map((msg, index) => {
                                     if (msg[0] === MESSAGE_TYPE.REQUEST) {
@@ -294,7 +324,9 @@ export default function OeuvreHomePage() {
                                             <div
                                                 key={index}
                                                 className={styles.requestContainer}>
-                                                <p className={styles.authorMessage}><FaUser />Vous</p>
+                                                <p className={styles.authorMessage}>
+                                                    <FaUser/>{user && user.firstname && user.lastname ? (user.firstname + " " + user.lastname) : "Vous"}
+                                                </p>
                                                 <div key={index} className={styles.requestMessage}>
                                                     <p>
                                                         {msg[1]}
@@ -307,7 +339,7 @@ export default function OeuvreHomePage() {
                                             <div
                                                 key={index}
                                                 className={styles.responseContainer}>
-                                                <p className={styles.authorMessage}><FaRobot />Assistant Virtuel</p>
+                                                <p className={styles.authorMessage}><FaRobot/>Assistant Virtuel</p>
                                                 <div key={index} className={styles.responseMessage}>
                                                     <p>
                                                         {msg[1]}
@@ -335,6 +367,12 @@ export default function OeuvreHomePage() {
                                     value={messageValue}
                                     onChange={(e) => setMessageValue(e.target.value)}
                                     disabled={convLoading}
+                                    onKeyPress={async (e) => {
+                                        if (e.key === 'Enter' && !e.shiftKey) {
+                                            e.preventDefault();
+                                            await handleSendMessage();
+                                        }
+                                    }}
                                     rows={1}
                                 />
                                     <button
