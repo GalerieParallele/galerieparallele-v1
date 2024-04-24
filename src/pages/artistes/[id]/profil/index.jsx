@@ -31,7 +31,7 @@ export default function ArtisteProfilIndex() {
         getArtistById,
     } = useArtistsStore();
 
-    const artistDisplay = artist && artist.user.lastname + " " + artist.user.firstname + (artist.pseudo ? " (" + artist.pseudo + ")" : "");
+    const artistDisplay = artist && (artist.pseudo ? artist.pseudo : artist.user.firstname + " " + artist.user.lastname);
 
     useEffect(() => {
 
