@@ -194,7 +194,7 @@ model Oeuvre {
   longueur   Float // Longueur de l'oeuvre
   profondeur Float? // Largeur de l'oeuvre
 
-  orientation OrientationType // Orientation de l'oeuvre
+  orientation OrientationType? // Orientation de l'oeuvre
 
   prix Float @default(0) // Prix de l'oeuvre
 
@@ -206,7 +206,7 @@ model Oeuvre {
 
   numerotation Int?    @default(1) // Numérotation de l'oeuvre
   limitation   Int?    @default(1) // Limitation de l'oeuvre
-  support      String // Support de l'oeuvre
+  support      String? // Support de l'oeuvre
   technique    String // Technique de l'oeuvre
   encadrement  String? // Encadrement de l'oeuvre
   signature    String? // Signature de l'oeuvre

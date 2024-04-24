@@ -614,12 +614,6 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                                     </span>
                             <p>
                                 Orientation
-                                <span onClick={handleOpenModalInformationRequired} style={{
-                                    color: 'var(--red)',
-                                    marginLeft: '5px'
-                                }}>
-                                       *
-                            </span>
                             </p>
                         </div>
                         <Select

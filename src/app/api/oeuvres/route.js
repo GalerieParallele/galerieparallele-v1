@@ -120,12 +120,11 @@ const support = z
         required_error: "Le support de l'oeuvre est requis",
         invalid_type_error: "Le support de l'oeuvre doit être une chaîne de caractères",
     })
-    .min(1, {
-        message: "Le support de l'oeuvre doit contenir au moins 1 caractère",
-    })
     .max(255, {
         message: "Le support de l'oeuvre doit contenir au plus 255 caractères",
-    });
+    })
+    .nullable()
+    .optional();
 
 const technique = z
     .string({
@@ -178,6 +177,8 @@ const orientation = z
             invalid_type_error: "L'orientation de l'oeuvre doit être soit PORTRAIT, PAYSAGE ou CARRE",
         }
     )
+    .nullable()
+    .optional();
 
 const tagSchema = z.string().min(1).max(255).transform((value) => value.toUpperCase());
 const typeSchema = z.string().min(1).max(255).transform((value) => value.toUpperCase());
