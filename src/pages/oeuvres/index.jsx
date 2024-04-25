@@ -148,7 +148,7 @@ export default function OeuvresIndex() {
                                             key={index}>
                                             <div className={styles.imgContainer}>
                                                 <Image
-                                                    src={oeuvres.find(oeuvre => oeuvre.types.includes(type)).images[0] && oeuvres.find(oeuvre => oeuvre.types.includes(type)).images[0].mediaURL || "/assets/img/no-img.jpg"}
+                                                    src={oeuvres.find(oeuvre => oeuvre.types.includes(type) && oeuvre.images.length > 0) && oeuvres.find(oeuvre => oeuvre.types.includes(type) && oeuvre.images.length > 0).images[0].mediaURL || "/assets/img/no-img.jpg"}
                                                     alt={type}
                                                     width={500}
                                                     height={500}
