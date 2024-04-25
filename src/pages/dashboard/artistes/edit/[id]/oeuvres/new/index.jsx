@@ -278,6 +278,23 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
         reloadArtists();
     }, []);
 
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                handleSubmit();
+            }
+
+            if (e.ctrlKey && e.key === 'Escape') router.push(ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.HOME(artisteId));
+        }
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        }
+    });
+
     if (loading) {
         return <PageLoader/>;
     }
@@ -397,7 +414,6 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                         name={"support"}
                         value={oeuvre.support}
                         disabled={loading}
-                        required
                     />
                     <IconInput
                         label={"Technique"}
@@ -614,6 +630,12 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                                     </span>
                             <p>
                                 Orientation
+                                <span onClick={handleOpenModalInformationRequired} style={{
+                                    color: 'var(--red)',
+                                    marginLeft: '5px'
+                                }}>
+                                       *
+                            </span>
                             </p>
                         </div>
                         <Select
@@ -626,6 +648,7 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                                 {value: 'PORTRAIT', label: 'Portrait'},
                                 {value: 'PAYSAGE', label: 'Paysage'},
                                 {value: 'CARRE', label: 'Carré'},
+                                {value: 'NO_DEFINED', label: 'Non défini'},
                             ]}
                             onChange={(value) => updateField('orientation', value)}
                             value={oeuvre.orientation}

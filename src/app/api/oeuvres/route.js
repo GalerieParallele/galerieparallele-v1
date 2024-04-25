@@ -171,14 +171,13 @@ const prix = z
 
 const orientation = z
     .enum(
-        ["PORTRAIT", "PAYSAGE", "CARRE"],
+        ["PORTRAIT", "PAYSAGE", "CARRE", "NO_DEFINED"],
         {
             required_error: "L'orientation de l'oeuvre est requise",
             invalid_type_error: "L'orientation de l'oeuvre doit être soit PORTRAIT, PAYSAGE ou CARRE",
         }
     )
-    .nullable()
-    .optional();
+    .transform((value) => value.toUpperCase())
 
 const tagSchema = z.string().min(1).max(255).transform((value) => value.toUpperCase());
 const typeSchema = z.string().min(1).max(255).transform((value) => value.toUpperCase());

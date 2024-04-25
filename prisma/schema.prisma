@@ -194,7 +194,7 @@ model Oeuvre {
   longueur   Float // Longueur de l'oeuvre
   profondeur Float? // Largeur de l'oeuvre
 
-  orientation OrientationType? // Orientation de l'oeuvre
+  orientation OrientationType @default(NO_DEFINED) // Orientation de l'oeuvre
 
   prix Float @default(0) // Prix de l'oeuvre
 
@@ -224,6 +224,7 @@ enum OrientationType {
   PORTRAIT
   PAYSAGE
   CARRE
+  NO_DEFINED
 }
 
 model Couleur {

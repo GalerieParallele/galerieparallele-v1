@@ -117,6 +117,7 @@ export default function HomeOeuvreDashboardEditDimensions() {
         { value: 'PORTRAIT', label: 'Portrait' },
         { value: 'PAYSAGE', label: 'Paysage' },
         { value: 'CARRE', label: 'Carré' },
+        { value: 'NO_DEFINED', label: 'Non défini' }
     ];
 
     const defaultOrientationOption = oeuvre && orientationOptions.find(option => option.value === oeuvre.orientation);

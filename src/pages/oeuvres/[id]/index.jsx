@@ -275,7 +275,7 @@ export default function OeuvreHomePage() {
                             <OeuvreFeatureItem
                                 Icon={TbFileOrientation}
                                 title={"Orientation"}
-                                content={oeuvre && oeuvre.orientation ? oeuvre.orientation : "Non renseignée"}
+                                content={oeuvre && oeuvre.orientation !== "NO_DEFINED" ? oeuvre.orientation : "Non renseignée"}
                             />
                             <OeuvreFeatureItem
                                 Icon={FaChair}
