@@ -11,11 +11,11 @@ import DashboardNavbar from "@/components/dashboard/items/DashboardNavbar";
 import DashboardSectionItem from "@/components/dashboard/items/sections/DashboardSectionItem";
 import sectionStyles from "@/components/dashboard/items/sections/DashboardSectionItem.module.scss";
 import {BiGroup} from "react-icons/bi";
-import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 import Skeleton from "@/components/ui/Skeleton";
 import useArtistsStore from "@/stores/artistsStore";
 import Button from "@/components/ui/button/Button";
+import MultiArtists from "@/components/ui/select/MultiArtists";
 
 export default function HomeOeuvreDashboardEditArtists() {
 
@@ -49,7 +49,6 @@ export default function HomeOeuvreDashboardEditArtists() {
 
         if (formData.artists !== undefined || formData.unknowartists !== undefined) {
 
-            const artistIdList = formData.artists && formData.artists.map(artist => artist.value);
             const artistUnknowNameList = formData.unknowartists && formData.unknowartists.map(artist => artist.value);
 
             const response = await fetch(ROUTES.API.OEUVRES.HOME, {
@@ -59,7 +58,7 @@ export default function HomeOeuvreDashboardEditArtists() {
                 },
                 body: JSON.stringify({
                     id: oeuvre.id,
-                    artists: artistIdList,
+                    artists: formData.artists,
                     unknowartists: artistUnknowNameList,
                 }),
             });
@@ -181,27 +180,13 @@ export default function HomeOeuvreDashboardEditArtists() {
                                             <p>Artiste(s) connu(s)</p>
                                         </div>
                                     </div>
-                                    <Select
-                                        placeholder={"Sélectionner un ou plusieurs artistes connus"}
-                                        closeMenuOnSelect={false}
-                                        defaultValue={artists && artists.filter(artist => selectedArtistsId.includes(artist.id)).map(artist => ({
-                                            value: artist.id,
-                                            label: `${artist.user.firstname} ${artist.user.lastname}${artist.pseudo ? ` (${artist.pseudo})` : ''}`,
-                                        }))}
-                                        noOptionsMessage={() => "Aucun artiste trouvé"}
-                                        isMulti
-                                        isLoading={artistLoading}
-                                        options={
-                                            artists && artists.map((artist) => {
-                                                return {
-                                                    value: artist.id,
-                                                    label: `${artist.user.firstname} ${artist.user.lastname}${artist.pseudo ? ` (${artist.pseudo})` : ''}`,
-                                                }
-                                            })
-                                        }
-                                        name={"Artists"}
-                                        onChange={(e) => updateFormData('artists', e)}
-                                        value={formData.artists}
+                                    <MultiArtists
+                                        onChange={(e) => {
+                                            console.log(e);
+                                            console.log(formData);
+                                            updateFormData('artists', e);
+                                        }}
+                                        defaultArtistsSelected={selectedArtistsId}
                                     />
                                 </div>
                                 <div className={sectionStyles.specialSection}>

@@ -22,7 +22,8 @@ import {
     FaArrowAltCircleRight,
     FaChair,
     FaEuroSign,
-    FaExclamation, FaExternalLinkAlt,
+    FaExclamation,
+    FaExternalLinkAlt,
     FaHandSparkles,
     FaHashtag,
     FaRegImages,
@@ -49,6 +50,7 @@ import DashboardSectionItem from "@/components/dashboard/items/sections/Dashboar
 import {IoMdColorPalette} from "react-icons/io";
 import MultiTags from "@/components/ui/select/MultiTags";
 import MultiTypes from "@/components/ui/select/MultiTypes";
+import MultiArtists from "@/components/ui/select/MultiArtists";
 
 export const useOeuvreStore = create((set) => ({
     oeuvre: {
@@ -267,6 +269,7 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
     useEffect(() => {
         if (router.query.id && /^\d+$/.test(router.query.id)) {
             setArtisteId(router.query.id);
+            oeuvre.Artists = [parseInt(router.query.id)];
             setError(false);
         } else {
             setError(true);
@@ -528,35 +531,24 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
                 <DashboardSectionItem
                     sectionName={"Artistes"}
                 >
-                    <div className={sectionStyles.specialSection}>
-                        <div className={sectionStyles.specialSectionHead}>
+                    {
+                        !loading && artisteId && (
+                            <div className={sectionStyles.specialSection}>
+                                <div className={sectionStyles.specialSectionHead}>
                                         <span>
                                             <BiGroup/>
                                         </span>
-                            <div>
-                                <p>Artiste(s) connu(s)</p>
+                                    <div>
+                                        <p>Artiste(s) connu(s)</p>
+                                    </div>
+                                </div>
+                                <MultiArtists
+                                    onChange={(e) => updateField('Artists', e)}
+                                    defaultArtistsSelected={[parseInt(artisteId)]}
+                                />
                             </div>
-                        </div>
-                        <Select
-                            placeholder={"Sélectionner un ou plusieurs artistes connus"}
-                            closeMenuOnSelect={false}
-                            defaultValue={[]}
-                            noOptionsMessage={() => "Aucun artiste trouvé"}
-                            isMulti
-                            isLoading={artistLoading}
-                            options={
-                                artists && artists.map((artist) => {
-                                    return {
-                                        value: artist.id,
-                                        label: `${artist.user.firstname} ${artist.user.lastname}${artist.pseudo ? ` (${artist.pseudo})` : ''}`,
-                                    }
-                                })
-                            }
-                            name={"Artists"}
-                            onChange={(e) => updateField('Artists', e)}
-                            value={oeuvre.Artists}
-                        />
-                    </div>
+                        )
+                    }
                     <div className={sectionStyles.specialSection}>
                         <div className={sectionStyles.specialSectionHead}>
                                         <span>
