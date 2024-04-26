@@ -36,7 +36,6 @@ export default function DashboardArtisteCard({artiste}) {
                 title: 'Artiste supprimé'
             });
         } catch (error) {
-            console.error('Erreur lors de la suppression:', error);
             Toast.fire({
                 icon: 'error',
                 title: 'Erreur lors de la suppression de l’artiste'

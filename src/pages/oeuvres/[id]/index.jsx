@@ -106,8 +106,6 @@ export default function OeuvreHomePage() {
             const data = await response.json();
 
             handleAddNewMessage(MESSAGE_TYPE.RESPONSE, data.message);
-        } catch (error) {
-            console.error("Erreur lors de l'envoi du message:", error);
         } finally {
             setConvLoading(false);
         }

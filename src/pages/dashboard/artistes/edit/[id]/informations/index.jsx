@@ -142,9 +142,6 @@ export default function DashboardArtisteEditInformations() {
                 setCountries(data);
                 setCountriesLoading(false);
             })
-            .catch(err => {
-                console.error(err);
-            })
     }, [])
 
     /**

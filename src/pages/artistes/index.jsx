@@ -32,7 +32,6 @@ export default function ArtistesHomeIndex() {
             .then((data) => {
                 setCountries(data);
             })
-            .catch((error) => console.error("Erreur lors du chargement des pays", error));
         reloadArtists()
     }, []);
 
