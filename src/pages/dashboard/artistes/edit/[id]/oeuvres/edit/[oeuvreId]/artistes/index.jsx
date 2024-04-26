@@ -182,8 +182,6 @@ export default function HomeOeuvreDashboardEditArtists() {
                                     </div>
                                     <MultiArtists
                                         onChange={(e) => {
-                                            console.log(e);
-                                            console.log(formData);
                                             updateFormData('artists', e);
                                         }}
                                         defaultArtistsSelected={selectedArtistsId}

@@ -34,7 +34,6 @@ export default function MultiArtists({onChange, defaultArtistsSelected = [], blo
 
     useEffect(() => {
         reloadArtists();
-        console.log(artists);
         setSelectedValues(defaultArtistsSelected);
     }, []);
 
