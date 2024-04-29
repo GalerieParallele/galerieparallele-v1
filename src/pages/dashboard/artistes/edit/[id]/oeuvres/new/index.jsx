@@ -269,7 +269,9 @@ export default function DashboardArtisteEditOeuvresNewIndex() {
     useEffect(() => {
         if (router.query.id && /^\d+$/.test(router.query.id)) {
             setArtisteId(router.query.id);
-            oeuvre.Artists = [parseInt(router.query.id)];
+            oeuvre.Artists = [{
+                value: parseInt(router.query.id),
+            }];
             setError(false);
         } else {
             setError(true);
