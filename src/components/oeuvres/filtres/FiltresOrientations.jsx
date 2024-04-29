@@ -20,7 +20,7 @@ export default function FiltresOrientations() {
             title={'Orientations'}
         >
             <div className={styles.filtresOrientation}>
-                {['PAYSAGE', 'PORTRAIT', 'CARRE', 'NO_DEFINED'].map((orientation) => (
+                {['PAYSAGE', 'PORTRAIT', 'CARRE'].map((orientation) => (
                     <div
                         key={orientation}
                         className={styles.orientationItem}
