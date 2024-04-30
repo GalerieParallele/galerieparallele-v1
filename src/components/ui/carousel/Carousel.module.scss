@@ -10,6 +10,10 @@
   flex-direction: column;
   gap: 20px;
 
+  @media screen and (max-width: 850px) {
+    width: 100%;
+  }
+
 
   .mainImageContainer {
     position: relative;
@@ -22,6 +26,18 @@
     gap: 12px;
 
     overflow: hidden;
+
+    
+    @media screen and (max-width: 850px) {
+      width: 100%;
+      .imgContainer {
+       width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+    }
 
     button {
       display: flex;
@@ -78,6 +94,22 @@
   .main {
     .mainImageContainer {
       width: 500px;
+    }
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .main {
+    .mainImageContainer {
+      width: 300px;
+    }
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .main {
+    .mainImageContainer {
+      width: 250px;
     }
   }
 }

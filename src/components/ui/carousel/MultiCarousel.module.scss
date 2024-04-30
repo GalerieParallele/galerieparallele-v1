@@ -1,4 +1,6 @@
 .main {
+  position: relative;
+
   width: fit-content;
   display: flex;
   flex-direction: row;
@@ -8,6 +10,26 @@
   overflow: hidden;
 
   padding: 0 10px;
+
+  @media screen and (max-width: 376px) {
+
+    button {
+      position: absolute;
+    }
+
+    .left, .right {
+      box-shadow: none;
+      z-index: 5;
+    }
+
+    .left {
+      left:  20px;
+
+    }
+    .right {
+      right: 20px;
+    }
+  }
 
   button {
     background-color: var(--white);

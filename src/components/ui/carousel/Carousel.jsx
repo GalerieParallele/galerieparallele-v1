@@ -72,7 +72,7 @@ export default function Carousel({
                 </button>
                 {
                     images.length > 0 && (
-                        <div>
+                        <div className={styles.imgContainer}>
                             <Image
                                 src={images[mainImage]}
                                 alt={'Image principale'}

@@ -45,11 +45,27 @@ export default function MultiCarousel({imagesPerView = 5, autoLoop = true}) {
         return () => clearInterval(interval);
     }, [autoLoop, currentIndex, nextImage, windowWidth]);
 
-    const imagesToShow = images.slice(currentIndex, currentIndex + imagesPerView).concat(images.slice(0, Math.max(0, currentIndex + imagesPerView - images.length)));
+    let imagesToShow = images.slice(currentIndex, currentIndex + imagesPerView).concat(images.slice(0, Math.max(0, currentIndex + imagesPerView - images.length)));
+
+    if (windowWidth < 1460) {
+        imagesToShow = images.slice(currentIndex, currentIndex + 4);
+    }
+
+    if (windowWidth < 1220) {
+        imagesToShow = images.slice(currentIndex, currentIndex + 3);
+    }
+
+    if (windowWidth < 940) {
+        imagesToShow = images.slice(currentIndex, currentIndex + 2);
+    }
+
+    if (windowWidth < 650) {
+        imagesToShow = images.slice(currentIndex, currentIndex + 1);
+    }
 
     return (
         <div className={styles.main}>
-            <button onClick={prevImage}>
+            <button onClick={prevImage} className={styles.left}>
                 <IoIosArrowBack/>
             </button>
             <div className={styles.list}>
@@ -59,7 +75,7 @@ export default function MultiCarousel({imagesPerView = 5, autoLoop = true}) {
                     </div>
                 ))}
             </div>
-            <button onClick={nextImage}>
+            <button onClick={nextImage} className={styles.right}>
                 <IoIosArrowForward/>
             </button>
         </div>

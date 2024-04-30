@@ -185,7 +185,6 @@ export default function OeuvreHomePage() {
     }
 
     return (
-        <>
             <div className={styles.main}>
                 <Navbar/>
                 <div className={styles.content}>
@@ -437,20 +436,23 @@ export default function OeuvreHomePage() {
                                         </div>
                                         <div>
                                             <h3>{artist.pseudo ? artist.pseudo : artist.user.lastname.toUpperCase() + " " + artist.user.firstname}</h3>
+                                            <Link
+                                                href={ROUTES.ARTISTES.PROFIL(artist.id)}
+                                                className={styles.showMore}
+                                            >
+                                                <button>
+                                                    Voir plus
+                                                </button>
+                                            </Link>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div className={styles.right}>
+                                        {
+                                            artist && !artist.bio && <p>Cet artiste ne possède pas de biographie</p>
+                                        }
                                         {
                                             artist.bio && artist.bio.length > 200 ? artist.bio.substr(0, 200) + '...' : artist.bio
                                         }
-                                        <Link
-                                            href={ROUTES.ARTISTES.PROFIL(artist.id)}
-                                            className={styles.showMore}
-                                        >
-                                            <button>
-                                                Voir plus
-                                            </button>
-                                        </Link>
                                     </div>
                                 </div>
                             })
@@ -466,7 +468,6 @@ export default function OeuvreHomePage() {
                     </div>
                 </div>
             </div>
-        </>
     )
 
 }
