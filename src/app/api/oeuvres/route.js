@@ -181,7 +181,10 @@ const orientation = z
 
 const tagSchema = z.string().min(1).max(255).transform((value) => value.toUpperCase());
 const typeSchema = z.string().min(1).max(255).transform((value) => value.toUpperCase());
-
+const imageSchema = z.object({
+    url: z.string().url(),
+    position: z.number().int().positive(),
+}).passthrough();
 export const OeuvreSchema = z.object({
     id,
     name,
@@ -870,7 +873,60 @@ export async function PATCH(req) {
         }
 
         if (images) {
-            // TODO : Patch images to oeuvre
+
+            images = imageSchema.array().parse(images);
+
+            let currentOeuvreImages = await prisma.oeuvreImage.findMany({
+                where: {
+                    oeuvreId: oeuvreData.id,
+                },
+                select: {
+                    mediaURL: true,
+                    position: true,
+                }
+            });
+
+            currentOeuvreImages = currentOeuvreImages.map(({mediaURL, position}) => ({url: mediaURL, position}));
+
+            const addedImages = images.filter(({url}) => !currentOeuvreImages.some(({mediaURL}) => mediaURL === url));
+            const removedImages = currentOeuvreImages.filter(({mediaURL}) => !images.some(({url}) => url === mediaURL));
+
+            await prisma.$transaction(async (tx) => {
+
+                if (addedImages.length > 0) {
+                    await Promise.all(addedImages.map(async ({url, position}) => {
+                        try {
+                            await tx.oeuvreImage.create({
+                                data: {
+                                    mediaURL: url,
+                                    position,
+                                    oeuvreId: oeuvreData.id,
+                                }
+                            });
+                        } catch (error) {
+                            throw new Error("Une erreur est survenue lors de l'ajout d'une image à l'oeuvre");
+                        }
+                    }));
+                }
+
+                if (removedImages.length > 0) {
+                    await Promise.all(removedImages.map(async ({url, position}) => {
+                        try {
+                            await tx.oeuvreImage.delete({
+                                where: {
+                                    mediaURL_oeuvreId: {
+                                        oeuvreId: oeuvreData.id,
+                                        mediaURL: url,
+                                    }
+                                }
+                            });
+                        } catch (error) {
+                            throw new Error("Une erreur est survenue lors de la suppression d'une image de l'oeuvre");
+                        }
+                    }));
+                }
+            });
+
         }
 
         const updatedOeuvre = await prisma.oeuvre.update({
