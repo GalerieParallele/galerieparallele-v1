@@ -6,6 +6,7 @@ import Button from "@/components/ui/button/Button";
 import {useRouter} from "next/router";
 import ROUTES from "@/constants/ROUTES";
 import useOeuvresStore from "@/stores/oeuvresStore";
+import LittleSpinner from "@/components/ui/LittleSpinner";
 
 export default function Shop() {
 
@@ -20,7 +21,7 @@ export default function Shop() {
 
     useEffect(() => {
         reloadOeuvres();
-    }, [reloadOeuvres]);
+    }, [router.isReady]);
 
     return (
         <div className={styles.shop}>
@@ -28,10 +29,12 @@ export default function Shop() {
             <div className={styles.list}>
                 {
                     loading ? (
-                        <div>Chargement...</div>
+                        <LittleSpinner/>
                     ) : (
                         error ? (
-                            <div>Erreur: {error}</div>
+                            <div>
+                                <p>Il n&apos;y a pas d&apos;oeuvres disponibles pour le moment.</p>
+                            </div>
                         ) : (
                             oeuvres.length > 0 ? (
                                 <>
