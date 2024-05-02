@@ -43,7 +43,9 @@ export default function Shop() {
                                             return (
                                                 <ShopItem
                                                     key={oeuvre.id}
+                                                    id={oeuvre.id}
                                                     articleName={oeuvre.name}
+                                                    articleDesc={oeuvre.description}
                                                     imgSrc={oeuvre.images && oeuvre.images.length > 0 && oeuvre.images[0].mediaURL || "/assets/img/no-img.jpg"}
                                                 />
                                             )
