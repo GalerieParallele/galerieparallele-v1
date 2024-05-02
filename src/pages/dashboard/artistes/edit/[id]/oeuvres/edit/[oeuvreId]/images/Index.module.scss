@@ -1,0 +1,126 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+
+  .carousel {
+    flex: 1;
+  }
+
+  .addImageZone {
+    border: 2px dashed var(--light-gray);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 30px;
+    border-radius: 10px;
+
+    transition: var(--transition);
+
+    cursor: pointer;
+
+    &:hover {
+      border-color: var(--black);
+
+      svg {
+        color: var(--black);
+      }
+
+      h3 {
+        color: var(--black);
+      }
+    }
+
+    h3 {
+      color: var(--light-gray);
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      transition: var(--transition);
+text-align: center;
+    }
+
+    svg {
+      color: var(--light-gray);
+      font-size: 2rem;
+      transition: var(--transition);
+
+    }
+  }
+
+  .currentImages {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    .imgContainer {
+      width: 250px;
+      height: 250px;
+      position: relative;
+      z-index: 1;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+      }
+
+      button {
+        z-index: 50;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 12px;
+        border-radius: 50%;
+        color: var(--white);
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+
+        transition: var(--transition);
+
+        &:hover {
+          transform: scale(1.05) translateY(-50%);
+        }
+      }
+
+      .leftButton, .rightButton {
+        button {
+          top: 50%;
+          position: absolute;
+          background-color: var(--blue);
+        }
+
+      }
+
+      .leftButton {
+        button {
+          left: 5%;
+        }
+      }
+
+      .rightButton {
+        button {
+          right: 5%;
+        }
+      }
+
+      .deleteButton {
+        button {
+          top: 10%;
+          right: 5%;
+          background-color: var(--red);
+          position: absolute;
+        }
+      }
+    }
+  }
+}
