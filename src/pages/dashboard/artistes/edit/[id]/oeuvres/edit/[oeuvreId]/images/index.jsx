@@ -293,30 +293,26 @@ export default function HomeOeuvreDashboardEditImages() {
                                                     width={200}
                                                     height={200}
                                                 />
-                                                {
-                                                    image.position !== 1 && (
+                                                { // Flèche gauche : affichée si ce n'est pas la première image
+                                                    index !== 0 && (
                                                         <div
                                                             className={specialStyle.leftButton}
                                                             onClick={() => handleMoveImage('left', image.position)}
                                                         >
                                                             <button>
-                                                                {
-                                                                    updateLoading ? <LittleSpinner/> : <FaArrowLeft/>
-                                                                }
+                                                                {updateLoading ? <LittleSpinner/> : <FaArrowLeft/>}
                                                             </button>
                                                         </div>
                                                     )
                                                 }
-                                                {
-                                                    image.position !== localImages.length && image.position !== localImages.length && (
+                                                { // Flèche droite : affichée si ce n'est pas la dernière image
+                                                    index !== localImages.length - 1 && (
                                                         <div
                                                             className={specialStyle.rightButton}
                                                             onClick={() => handleMoveImage('right', image.position)}
                                                         >
                                                             <button>
-                                                                {
-                                                                    updateLoading ? <LittleSpinner/> : <FaArrowRight/>
-                                                                }
+                                                                {updateLoading ? <LittleSpinner/> : <FaArrowRight/>}
                                                             </button>
                                                         </div>
                                                     )
@@ -325,9 +321,7 @@ export default function HomeOeuvreDashboardEditImages() {
                                                     onClick={() => handleDeleteImage(image.url)}
                                                     className={specialStyle.deleteButton}>
                                                     <button>
-                                                        {
-                                                            updateLoading ? <LittleSpinner/> : <FaTrashAlt/>
-                                                        }
+                                                        {updateLoading ? <LittleSpinner/> : <FaTrashAlt/>}
                                                     </button>
                                                 </div>
                                             </div>
