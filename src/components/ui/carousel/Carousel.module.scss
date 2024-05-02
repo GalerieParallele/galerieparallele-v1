@@ -8,6 +8,8 @@
 
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 20px;
 
   @media screen and (max-width: 850px) {
@@ -55,6 +57,7 @@
 
   .bottomThumbs {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 10px;

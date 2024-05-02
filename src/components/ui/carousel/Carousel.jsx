@@ -60,6 +60,15 @@ export default function Carousel({
         images = ['/assets/img/no-img.jpg'];
     }
 
+    useEffect(() => {
+        if (mainImage < 0) {
+            setMainImage(images.length - 1);
+        }
+        if (mainImage >= images.length) {
+            setMainImage(0);
+        }
+    }, [images, mainImage])
+
     return (
         <div
             className={styles.main}
