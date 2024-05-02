@@ -14,10 +14,10 @@ const useOeuvresStore = create((set, get) => ({
         set({loading: true, error: null});
         try {
             const response = await fetchOeuvres();
-            if (!response.success) throw new Error(response.error.message);
+            if (!response.success) throw new Error(response.error);
             set({oeuvres: response.oeuvres});
         } catch (error) {
-            set({error: error.message});
+            set({error});
         } finally {
             set({loading: false});
         }
