@@ -6,7 +6,7 @@ import DashboardTuiles from "@/components/dashboard/items/DashboardTuiles";
 
 import styles from './Index.module.scss';
 import {IoIosResize, IoMdColorPalette} from "react-icons/io";
-import {FaInfoCircle, FaUser} from "react-icons/fa";
+import {FaImage, FaInfoCircle, FaUser} from "react-icons/fa";
 import {IoHammer} from "react-icons/io5";
 import {useEffect, useState} from "react";
 import {useOeuvres} from "@/hooks/useOeuvres";
@@ -155,11 +155,11 @@ export default function DashboardArtisteOeuvreEdit() {
                                 name={"Informations techniques"}
                                 to={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.INFO_TECH(artist.id, oeuvre.id)}
                             />
-                            {/*<DashboardTuiles*/}
-                            {/*    IconComponent={FaImage}*/}
-                            {/*    name={"Images"}*/}
-                            {/*    to={"#"}*/}
-                            {/*/>*/}
+                            <DashboardTuiles
+                                IconComponent={FaImage}
+                                name={"Images"}
+                                to={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.IMAGES(artist.id, oeuvre.id)}
+                            />
                             <DashboardTuiles
                                 IconComponent={IoMdColorPalette}
                                 name={"Couleurs"}
