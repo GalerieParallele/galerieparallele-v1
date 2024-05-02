@@ -234,23 +234,59 @@ export default function HomeOeuvreDashboardEditImages() {
                 returnURL={ROUTES.ADMIN.ARTISTES.EDIT.OEUVRES.EDIT(artisteId, oeuvreId)}
             />
             <div className={styles.content}>
-                {
-                    loading || !oeuvre ? (
-                        <>
-                            <div>
-                                <div
-                                    style={{
-                                        width: '100%',
-                                        height: '500px',
-                                    }}
-                                >
-                                    <Skeleton/>
+                <div className={specialStyle.mainContainer}>
+                    {
+                        loading || !oeuvre ? (
+                            <>
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    gap: '30px'
+                                }}>
+                                    <div
+                                        style={{
+                                            width: '900px',
+                                            height: '500px',
+                                        }}
+                                    >
+                                        <Skeleton/>
+                                    </div>
+                                    <div
+                                        style={{
+                                            width: '500px',
+                                            height: '100px',
+                                        }}
+                                    >
+                                        <Skeleton/>
+                                    </div>
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            flexWrap: 'wrap',
+                                            gap: '30px',
+                                        }}
+                                    >
+                                        {
+                                            Array.from({length: 3}).map((_, index) => (
+                                                <div
+                                                    key={index}
+                                                    style={{
+                                                        width: '200px',
+                                                        height: '200px',
+                                                    }}
+                                                >
+                                                    <Skeleton/>
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
                                 </div>
-                            </div>
-                        </>
-                    ) : (
-                        <>
-                            <div className={specialStyle.mainContainer}>
+                            </>
+                        ) : (
+                            <>
+
                                 <div className={specialStyle.carousel}>
                                     <Carousel
                                         // ranger par position
@@ -328,10 +364,10 @@ export default function HomeOeuvreDashboardEditImages() {
                                         ))
                                     }
                                 </div>
-                            </div>
-                        </>
-                    )
-                }
+                            </>
+                        )
+                    }
+                </div>
             </div>
         </div>
     )
