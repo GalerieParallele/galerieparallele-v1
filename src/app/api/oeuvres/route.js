@@ -874,32 +874,39 @@ export async function PATCH(req) {
 
         if (images) {
 
-            images = imageSchema.array().parse(images);
+            // Trier les images par position pour s'assurer qu'elles sont en ordre croissant
+            images.sort((a, b) => a.position - b.position);
 
-            let currentOeuvreImages = await prisma.oeuvreImage.findMany({
-                where: {
-                    oeuvreId: oeuvreData.id,
-                },
-                select: {
-                    mediaURL: true,
-                    position: true,
-                }
+            // Réattribuer les positions pour être consécutives à partir de 1
+            images.forEach((img, index) => {
+                img.position = index + 1;
             });
 
-            currentOeuvreImages = currentOeuvreImages.map(({mediaURL, position}) => ({url: mediaURL, position}));
+            const currentOeuvreImages = await prisma.oeuvreImage.findMany({
+                where: { oeuvreId: oeuvreData.id },
+            });
 
-            const addedImages = images.filter(({url}) => !currentOeuvreImages.some(({mediaURL}) => mediaURL === url));
-            const removedImages = currentOeuvreImages.filter(({mediaURL}) => !images.some(({url}) => url === mediaURL));
+            const currentImagesMap = new Map(currentOeuvreImages.map(img => [img.mediaURL, img.position]));
+
+            const newImages = images.filter(img => !currentImagesMap.has(img.url));
+            const deletedImages = currentOeuvreImages.filter(img => !images.some(i => i.url === img.mediaURL));
+            const movedImages = images.filter(img => currentImagesMap.has(img.url) && currentImagesMap.get(img.url) !== img.position);
+
+            // Réaffectation des positions pour que les images restantes soient consécutives
+            const remainingImages = images.filter(img => !deletedImages.some(delImg => delImg.mediaURL === img.url));
+            remainingImages.sort((a, b) => a.position - b.position).forEach((img, index) => {
+                img.position = index + 1;  // Réaffectation des positions de manière consécutive
+            });
 
             await prisma.$transaction(async (tx) => {
-
-                if (addedImages.length > 0) {
-                    await Promise.all(addedImages.map(async ({url, position}) => {
+                // Création de nouvelles images
+                if (newImages.length > 0) {
+                    await Promise.all(newImages.map(async (img) => {
                         try {
                             await tx.oeuvreImage.create({
                                 data: {
-                                    mediaURL: url,
-                                    position,
+                                    mediaURL: img.url,
+                                    position: img.position,
                                     oeuvreId: oeuvreData.id,
                                 }
                             });
@@ -909,15 +916,13 @@ export async function PATCH(req) {
                     }));
                 }
 
-                if (removedImages.length > 0) {
-                    await Promise.all(removedImages.map(async ({url, position}) => {
+                // Suppression des images
+                if (deletedImages.length > 0) {
+                    await Promise.all(deletedImages.map(async (img) => {
                         try {
                             await tx.oeuvreImage.delete({
                                 where: {
-                                    mediaURL_oeuvreId: {
-                                        oeuvreId: oeuvreData.id,
-                                        mediaURL: url,
-                                    }
+                                    id: img.id,
                                 }
                             });
                         } catch (error) {
@@ -925,9 +930,27 @@ export async function PATCH(req) {
                         }
                     }));
                 }
-            });
 
+                // Mise à jour des images déplacées
+                if (movedImages.length > 0) {
+                    await Promise.all(movedImages.map(async (img) => {
+                        try {
+                            await tx.oeuvreImage.update({
+                                where: {
+                                    mediaURL: img.url,
+                                },
+                                data: {
+                                    position: img.position,
+                                }
+                            });
+                        } catch (error) {
+                            throw new Error("Une erreur est survenue lors du déplacement d'une image de l'oeuvre");
+                        }
+                    }));
+                }
+            });
         }
+
 
         const updatedOeuvre = await prisma.oeuvre.update({
             where: {

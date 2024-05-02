@@ -1,6 +1,5 @@
 import {useRouter} from "next/router";
 import {useEffect, useRef, useState} from "react";
-import useUpdateOeuvre from "@/stores/useUpdateOeuvre";
 import {useOeuvres} from "@/hooks/useOeuvres";
 import ROUTES from "@/constants/ROUTES";
 import {Toast} from "@/constants/ToastConfig";
@@ -14,16 +13,11 @@ import Image from "next/image";
 import {FaArrowLeft, FaArrowRight, FaTrashAlt} from "react-icons/fa";
 import {BiSolidImageAdd} from "react-icons/bi";
 import StorageUtils from "@/utils/StorageUtils";
+import LittleSpinner from "@/components/ui/LittleSpinner";
 
 export default function HomeOeuvreDashboardEditImages() {
 
     const router = useRouter();
-
-    const {
-        formData,
-        updateFormData,
-        resetFormData
-    } = useUpdateOeuvre();
 
     const {
         oeuvre,
@@ -33,18 +27,29 @@ export default function HomeOeuvreDashboardEditImages() {
 
     const [artisteId, setArtisteId] = useState(null);
     const [oeuvreId, setOeuvreId] = useState(null);
-    const [oeuvreState, setOeuvre] = useState(null);
     const [localImages, setLocalImages] = useState([]);
+    const [userHasModified, setUserHasModified] = useState(false);
+    const [updateLoading, setUpdateLoading] = useState(false);
 
     const addImageZone = useRef(null);
 
+    const handleFormatLocalImages = () => {
+        localImages.sort((a, b) => a.position - b.position);
+
+        localImages.forEach((image, index) => {
+            image.position = index + 1;
+        });
+    };
 
     /**
      * Permet de gérer le déplacement des images dans le tableau suivant la direction et la position actuelle sans sortir du tableau
      * @param direction left | right
-     * @param currentPosition Position actuelle de l'image
+     * @param position La position actuelle de l'image dans le tableau
      */
     const handleMoveImage = (direction, position) => {
+
+        handleFormatLocalImages();
+
         const index = localImages.findIndex(img => img.position === position);
         if (index === -1) return;
 
@@ -60,6 +65,7 @@ export default function HomeOeuvreDashboardEditImages() {
         newImages[swapWith].position = swapWith + 1;  // Update the swapped item to its new position
 
         setLocalImages(newImages);
+        setUserHasModified(true);
     };
     /**
      * Permet de simuler un click sur l'input file pour ajouter une ou plusieurs images
@@ -69,6 +75,8 @@ export default function HomeOeuvreDashboardEditImages() {
     };
 
     const handleUploadImages = async (event) => {
+
+        setUpdateLoading(true);
 
         const files = Array.from(event.target.files);
         event.target.value = '';
@@ -96,13 +104,24 @@ export default function HomeOeuvreDashboardEditImages() {
         if (successfulUploads.length > 0) {
             setLocalImages(prevImages => [
                 ...prevImages,
-                ...successfulUploads.map(upload => ({url: upload.url, position: prevImages.length + 1}))
+                ...successfulUploads.map((upload, index) => ({
+                    url: upload.url,
+                    position: prevImages.length + index + 1
+                }))
             ]);
+            setUserHasModified(true);
         }
+        handleFormatLocalImages();
+        setUpdateLoading(false);
     };
 
 
     const handleSaveImages = async () => {
+        setUpdateLoading(true);
+        Toast.fire({
+            icon: 'info',
+            title: "Mise à jour de l'oeuvre en cours..."
+        });
         try {
             const response = await fetch(ROUTES.API.OEUVRES.HOME, {
                 method: 'PATCH',
@@ -114,8 +133,8 @@ export default function HomeOeuvreDashboardEditImages() {
                     images: localImages
                 })
             });
-            const data = await response.json();
-            if (data.success) {
+
+            if (response.ok) {
                 Toast.fire({
                     icon: 'success',
                     title: "L'oeuvre a été mise à jour avec succès."
@@ -128,23 +147,47 @@ export default function HomeOeuvreDashboardEditImages() {
                 icon: 'error',
                 title: "Une erreur est survenue lors de la mise à jour de l'oeuvre."
             });
+        } finally {
+            setUpdateLoading(false);
         }
     };
 
 
     const handleDeleteImage = (url) => {
-        StorageUtils.deleteFile(url).catch(() => {
+        setUpdateLoading(true);
+        StorageUtils.deleteFile(url)
+            .catch(() => {
+                Toast.fire({
+                    icon: 'error',
+                    title: "Une erreur est survenue lors de la suppression de l'image."
+                });
+            }).then(() => {
+            setLocalImages(prevImages => prevImages.filter(image => image.url !== url));
+            setUserHasModified(true);
+            handleFormatLocalImages();
             Toast.fire({
-                icon: 'error',
-                title: "Une erreur est survenue lors de la suppression de l'image."
+                icon: 'success',
+                title: "L'image a été supprimée avec succès."
             });
-        });
-
-        setLocalImages(prevImages => prevImages.filter(image => image.url !== url));
+        })
+            .finally(() => {
+                setUpdateLoading(false);
+            });
     };
 
+
     useEffect(() => {
-        if (localImages.length > 0)
+        if (oeuvre?.images?.length > 0) {
+            setLocalImages(oeuvre.images.map((image) => ({
+                url: image.url,
+                position: image.position
+            })));
+            setUserHasModified(false);
+        }
+    }, [oeuvre]);
+
+    useEffect(() => {
+        if (userHasModified) {
             handleSaveImages()
                 .catch(() => {
                     Toast.fire({
@@ -152,20 +195,8 @@ export default function HomeOeuvreDashboardEditImages() {
                         title: "Une erreur est survenue lors de la mise à jour de l'oeuvre."
                     });
                 });
-    }, [localImages])
-
-    useEffect(() => {
-        if (oeuvre?.images?.length > 0) {
-            setLocalImages(oeuvre.images.map((image, index) => ({
-                url: image.url,
-                position: image.position
-            })));
         }
-    }, [oeuvre])
-
-    useEffect(() => {
-        resetFormData();
-    }, [resetFormData]);
+    }, [localImages, userHasModified])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -222,8 +253,9 @@ export default function HomeOeuvreDashboardEditImages() {
                             <div className={specialStyle.mainContainer}>
                                 <div className={specialStyle.carousel}>
                                     <Carousel
-                                        images={localImages.map(image => image.url)}
-                                        autoLoop={false}
+                                        // ranger par position
+                                        images={localImages.map(image => image.url).sort((a, b) => a.position - b.position)}
+                                        autoLoop
                                     />
                                 </div>
                                 <div
@@ -237,6 +269,7 @@ export default function HomeOeuvreDashboardEditImages() {
                                         hidden={true}
                                         ref={addImageZone}
                                         onChange={(e) => handleUploadImages(e)}
+                                        disabled={updateLoading}
                                     />
                                     <BiSolidImageAdd/>
                                     <h3>Cliquez pour ajouter une image ou plusieurs images</h3>
@@ -267,19 +300,23 @@ export default function HomeOeuvreDashboardEditImages() {
                                                             onClick={() => handleMoveImage('left', image.position)}
                                                         >
                                                             <button>
-                                                                <FaArrowLeft/>
+                                                                {
+                                                                    updateLoading ? <LittleSpinner/> : <FaArrowLeft/>
+                                                                }
                                                             </button>
                                                         </div>
                                                     )
                                                 }
                                                 {
-                                                    image.position !== localImages.length && (
+                                                    image.position !== localImages.length && image.position !== localImages.length && (
                                                         <div
                                                             className={specialStyle.rightButton}
                                                             onClick={() => handleMoveImage('right', image.position)}
                                                         >
                                                             <button>
-                                                                <FaArrowRight/>
+                                                                {
+                                                                    updateLoading ? <LittleSpinner/> : <FaArrowRight/>
+                                                                }
                                                             </button>
                                                         </div>
                                                     )
@@ -288,7 +325,9 @@ export default function HomeOeuvreDashboardEditImages() {
                                                     onClick={() => handleDeleteImage(image.url)}
                                                     className={specialStyle.deleteButton}>
                                                     <button>
-                                                        <FaTrashAlt/>
+                                                        {
+                                                            updateLoading ? <LittleSpinner/> : <FaTrashAlt/>
+                                                        }
                                                     </button>
                                                 </div>
                                             </div>
