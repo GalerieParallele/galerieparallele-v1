@@ -11,6 +11,14 @@
     overflow-x: hidden;
 }
 
+.canva {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
 .icon {
     color: var(--white);
     font-size: 40px;
