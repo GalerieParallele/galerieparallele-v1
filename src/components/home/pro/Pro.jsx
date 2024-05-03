@@ -11,7 +11,7 @@ export default function Pro() {
         <div className={styles.pro}>
             <div className={styles.left}>
                 <Image
-                    src={"/assets/img/pro.png"}
+                    src={"/assets/img/pro.jpg"}
                     alt={"test"}
                     fill
                     priority
