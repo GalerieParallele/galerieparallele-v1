@@ -43,7 +43,8 @@ model User {
 
   artist Artist?
 
-  articles Article[]
+  articles  Article[]
+  actuality Actuality[]
 }
 
 // --------------------------------------------------------------
@@ -334,10 +335,15 @@ model Portrait {
 model Actuality {
   id Int @id @default(autoincrement())
 
-  title    String  @db.VarChar(255)
-  content  String  @db.Text
-  photoURL String  @db.Text
-  private  Boolean @default(false)
+  title    String   @db.VarChar(255)
+  content  String   @db.Text
+  link     String?  @db.Text
+  mediaURL String   @db.Text
+  private  Boolean  @default(false)
+  date     DateTime @default(now())
+
+  editorId Int?
+  editor   User? @relation(fields: [editorId], references: [id], onDelete: SetNull)
 }
 
 // --------------------------------------------------------------
