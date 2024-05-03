@@ -36,6 +36,7 @@ const PATHS = {
             PREVIEW: createPath('admin', 'articles', 'preview'),
         },
         ACCUEIL: {
+            HOME: createPath('dashboard', 'accueil'),
             ACTUALITY: {
                 HOME: createPath('dashboard', 'accueil', 'actuality'),
             }
@@ -178,6 +179,7 @@ const ROUTES = {
             PREVIEW: BASE_URL + PATHS.ADMIN.ARTICLES.PREVIEW,
         },
         ACCUEIL: {
+            HOME: BASE_URL + PATHS.ADMIN.ACCUEIL.HOME,
             ACTUALITY: {
                 HOME: BASE_URL + PATHS.ADMIN.ACCUEIL.ACTUALITY.HOME,
             }

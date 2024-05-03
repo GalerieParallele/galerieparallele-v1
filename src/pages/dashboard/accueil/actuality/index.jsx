@@ -15,6 +15,9 @@ export default function DashboardAccueilActualityIndex() {
             <DashboardNavbar
                 returnURL={ROUTES.ADMIN.HOME}
             />
+            <div className={styles.content}>
+
+            </div>
         </div>
     )
 }

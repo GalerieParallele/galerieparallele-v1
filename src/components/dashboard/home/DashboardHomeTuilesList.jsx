@@ -10,7 +10,7 @@ export default function DashboardHomeTuilesList() {
             <DashboardTuiles
                 name={"Page d'accueuil"}
                 IconComponent={FaHome}
-                to={ROUTES.ADMIN.ACCUEIL.ACTUALITY.HOME}
+                to={ROUTES.ADMIN.ACCUEIL.HOME}
             />
             <DashboardTuiles
                 name={"Artistes"}
