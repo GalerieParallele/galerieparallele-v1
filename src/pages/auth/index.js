@@ -7,13 +7,13 @@ import Image from "next/image";
 import "@/app/globals.css";
 import styles from './Index.module.css';
 
-import LoginComponent from "@/components/authentication/LoginComponent";
-import RegisterComponent from "@/components/authentication/RegisterComponent";
 import AlreadyLoginComponent from "@/components/authentication/AlreadyLoginComponent";
 import BigSpinner from "@/components/ui/BigSpinner";
 
 import {FaArrowLeft} from "react-icons/fa";
 import {useRouter} from "next/router";
+import RegisterMultiStep from "@/components/ui/multi-step-form/forms/RegisterMultiStep";
+import LoginMultiStep from "@/components/ui/multi-step-form/forms/LoginMultiStep";
 
 
 export default function Index() {
@@ -65,11 +65,20 @@ export default function Index() {
                         ) : (
                             <>
                                 <div className={styles.head}>
+                                    <h4>
+                                        <button
+                                            onClick={() => {
+                                                router.back();
+                                            }}
+                                            className={styles.headButton}>
+                                            <FaArrowLeft className={styles.icon}/>
+                                        </button>
+                                    </h4>
                                     <h4
                                         className={login ? styles.activeSection : ""}
                                         onClick={() => setLogin(true)}
                                     >
-                                        Connexion
+                                    Connexion
                                     </h4>
                                     <h4
                                         className={!login ? styles.activeSection : ""}
@@ -79,7 +88,7 @@ export default function Index() {
                                     </h4>
                                 </div>
                                 <form className={styles.inputs}>
-                                    {login ? <LoginComponent/> : <RegisterComponent/>}
+                                    {login ? <LoginMultiStep/> : <RegisterMultiStep/>}
                                 </form>
                             </>
                         ))

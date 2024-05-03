@@ -26,16 +26,20 @@
     padding: 50px;
 }
 
-.iconBox {
+.iconBox, .headButton {
     background-color: var(--black);
     border-radius: 100%;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px;
     cursor: pointer;
+}
+
+.headButton {
+    display: none;
 }
 
 .icon {
@@ -67,6 +71,7 @@
     align-items: center;
     gap: 25px;
     height: 100%;
+    width: fit-content;
 }
 
 .head h4 {
@@ -95,7 +100,7 @@
     }
 }
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 1060px) {
     .left {
         position: absolute;
         z-index: -1;
@@ -118,10 +123,19 @@
         background-color: var(--white);
         padding: 50px;
         border-radius: var(--border-radius);
+        gap: 5px;
     }
 
     .head h4 {
         font-size: 15px;
+    }
+
+    .iconBox {
+        display: none;
+    }
+
+    .headButton {
+        display: block;
     }
 }
 
