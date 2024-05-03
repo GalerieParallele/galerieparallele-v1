@@ -13,7 +13,7 @@ import {IoHome} from "react-icons/io5";
 import {handleGeneratePassword} from "@/constants/Util";
 import {RxAvatar} from "react-icons/rx";
 import {BsBuildingsFill, BsFillFileEarmarkPersonFill, BsTelephoneFill} from "react-icons/bs";
-import {FaFlag} from "react-icons/fa";
+import {FaEye, FaFlag} from "react-icons/fa";
 import Select from "react-select";
 import sectionStyles from "@/components/dashboard/items/sections/DashboardSectionItem.module.scss";
 import {GrTextAlignCenter} from "react-icons/gr";
@@ -434,7 +434,7 @@ export default function DashboardArtisteEditInformations() {
                                 <div className={sectionStyles.specialSection}>
                                     <div className={sectionStyles.specialSectionHead}>
                                 <span>
-                                    <GrTextAlignCenter/>
+                                    <FaEye/>
                                 </span>
                                         <div>
                                             <p>Visibilité</p>
