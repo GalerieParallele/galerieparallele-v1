@@ -2,7 +2,7 @@ import styles from './Index.module.scss';
 import {useRouter} from "next/router";
 import DashboardNavbar from "@/components/dashboard/items/DashboardNavbar";
 import ROUTES from "@/constants/ROUTES";
-import {FaHome} from "react-icons/fa";
+import { FaInfo} from "react-icons/fa";
 import DashboardTuiles from "@/components/dashboard/items/DashboardTuiles";
 
 export default function DashboardAccueilIndex() {
@@ -16,7 +16,7 @@ export default function DashboardAccueilIndex() {
             <div className={styles.content}>
                 <DashboardTuiles
                     name={"Actualités"}
-                    IconComponent={FaHome}
+                    IconComponent={FaInfo}
                     to={ROUTES.ADMIN.ACCUEIL.ACTUALITY.HOME}
                 />
             </div>

@@ -147,6 +147,9 @@ const PATHS = {
         },
         TYPES: {
             HOME: 'typesoeuvres',
+        },
+        ACTUALITY: {
+            HOME: 'actuality',
         }
     }
 }
@@ -290,6 +293,9 @@ const ROUTES = {
         },
         TYPES: {
             HOME: API_BASE + PATHS.API.TYPES.HOME,
+        },
+        ACTUALITY: {
+            HOME: API_BASE + PATHS.API.ACTUALITY.HOME,
         }
     }
 }

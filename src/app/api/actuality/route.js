@@ -1,6 +1,7 @@
 import {z} from 'zod';
 import {NextResponse} from "next/server";
 import {STATIC_MESSAGES} from "@/constants/STATIC_MESSAGES";
+import StorageUtils from "@/utils/StorageUtils";
 
 const MESSAGES = {
     ID_INVALID_TYPE: "L'id d'une actualité doit être un nombre.",
@@ -119,12 +120,21 @@ const mediaURL = z
     .optional()
     .nullable()
 
+const mediaType = z
+    .string({
+        invalid_type_error: "Le type de média doit être une chaîne de caractères.",
+        required_error: "Le type de média est requis.",
+    })
+    .optional()
+    .nullable();
+
 const ActualitySchema = z.object({
     id,
     title,
     content,
     link,
     mediaURL,
+    mediaType,
     private: isPrivate,
     date,
     editorId,
@@ -132,7 +142,7 @@ const ActualitySchema = z.object({
 
 const ResponseSchema = z.object({
     total: z.number(),
-    list: z.array(ActualitySchema),
+    list: z.array(ActualitySchema.passthrough()),
 })
 
 export async function GET() {
@@ -144,14 +154,11 @@ export async function GET() {
                 editor: {
                     select: {
                         id: true,
-                        email: true,
                         firstname: true,
                         lastname: true,
+                        email: true,
                     }
-                },
-            },
-            orderBy: {
-                date: 'desc',
+                }
             }
         })
 
@@ -164,9 +171,13 @@ export async function GET() {
             }
         }
 
-        actualities.map(actuality => {
+        actualities.map(async actuality => {
             actuality.editorId = undefined
+            await StorageUtils.getFileMetadata(actuality.mediaURL)
+                .then(metadata => actuality.mediaType = metadata.contentType)
+            console.log(actuality)
         })
+
 
         const validatedResponse = ResponseSchema.parse({
             total: actualities.length,
