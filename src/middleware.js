@@ -9,7 +9,7 @@ export default async function middleware(request) {
 
     if (path.startsWith("/dashboard")) {
 
-        if (!user || !user.roles.includes("ROLE_ADMIN")) {
+        if (!user || !user?.roles?.includes("ROLE_ADMIN")) {
             return redirectTo(request, "/auth")
         }
 
