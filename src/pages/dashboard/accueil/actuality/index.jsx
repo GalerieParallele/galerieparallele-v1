@@ -22,6 +22,7 @@ export default function DashboardAccueilActualityIndex() {
     const router = useRouter();
 
     const [loading, setLoading] = useState(false);
+    const [file, setFile] = useState(null);
 
     const [formData, setFormData] = useState({
         actuality: {
@@ -33,15 +34,27 @@ export default function DashboardAccueilActualityIndex() {
         }
     });
 
+    const handleChangeFormData = (e) => {
+        setFormData({
+            ...formData,
+            actuality: {
+                ...formData.actuality,
+                [e.target.name]: e.target.value
+            }
+        })
+    }
+
     const acceptFileTypes = [
         "image/jpeg",
         "image/jpg",
+        'image/tiff',
         "image/png",
         "video/mp4",
-        "video/mp3"
+        "video/mp3",
     ];
 
-    const handleSubmit = () => {}
+    const handleSubmit = () => {
+    }
 
     return (
         <div className={styles.main}>
@@ -66,7 +79,7 @@ export default function DashboardAccueilActualityIndex() {
                         type={"text"}
                         IconComponent={MdTitle}
                         placeholder={"Ex: Just Fontaine, le meilleur buteur..."}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => handleChangeFormData(e)}
                         name={"title"}
                         value={formData?.actuality?.title}
                         disabled={loading}
@@ -77,7 +90,7 @@ export default function DashboardAccueilActualityIndex() {
                         type={"text"}
                         IconComponent={CiTextAlignLeft}
                         placeholder={"Ex: Venez découvrir la sculpture directement en galerie"}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => handleChangeFormData(e)}
                         name={"content"}
                         value={formData?.actuality?.content}
                         disabled={loading}
@@ -88,7 +101,7 @@ export default function DashboardAccueilActualityIndex() {
                         type={"text"}
                         IconComponent={FaExternalLinkAlt}
                         placeholder={"Ex: galerieparallele.com/magazine/1"}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => handleChangeFormData(e)}
                         name={"link"}
                         value={formData?.actuality?.link}
                         disabled={loading}
@@ -97,12 +110,15 @@ export default function DashboardAccueilActualityIndex() {
                         label={"Media"}
                         type={"file"}
                         IconComponent={MdOutlinePermMedia}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setFile(e.target.files[0])}
+                        multiple={false}
                         name={"mediaURL"}
                         value={formData?.actuality?.mediaURL}
                         disabled={loading}
                         required
                     />
+                    <p className={styles.acceptFile}>Les types de fichiers acceptés
+                        sont: {acceptFileTypes.join(", ")}</p>
                     <div className={sectionStyles.specialSection}>
                         <div className={sectionStyles.specialSectionHead}>
                                 <span>

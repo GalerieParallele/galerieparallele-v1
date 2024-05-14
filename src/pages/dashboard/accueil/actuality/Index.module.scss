@@ -10,5 +10,11 @@
       justify-content: center;
       align-items: center;
     }
+
+    .acceptFile {
+      margin-top: -12px;
+      color: var(--red);
+        font-size: 0.78rem;
+    }
   }
 }
