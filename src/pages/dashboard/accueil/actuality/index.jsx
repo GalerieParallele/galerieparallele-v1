@@ -16,6 +16,7 @@ import {FaExternalLinkAlt, FaEye} from "react-icons/fa";
 import styles from './Index.module.scss';
 import sectionStyles from "@/components/dashboard/items/sections/DashboardSectionItem.module.scss";
 import Button from "@/components/ui/button/Button";
+import {Toast} from "@/constants/ToastConfig";
 
 export default function DashboardAccueilActualityIndex() {
 
@@ -54,7 +55,20 @@ export default function DashboardAccueilActualityIndex() {
     ];
 
     const handleSubmit = () => {
+
+        if (file && !handleValidateFile(file)) {
+            Toast.fire({
+                icon: "error",
+                title: "Le type de fichier n'est pas accepté"
+            })
+            return;
+        }
+
     }
+
+    const handleValidateFile = (file) => {
+        return acceptFileTypes.includes(file.type);
+    };
 
     return (
         <div className={styles.main}>
