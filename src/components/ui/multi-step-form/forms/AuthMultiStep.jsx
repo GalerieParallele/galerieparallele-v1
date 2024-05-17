@@ -46,9 +46,6 @@ export default function AuthMultiStep({formConfig, onSubmit, loading = false}) {
                 {formConfig.filter(step => step.step === currentStep).map((step, index) => (
                     <>
                         <h3>{step.title}</h3>
-                        {
-                            formConfig.length > 1 && <p>Étape {currentStep} sur {formConfig.length}</p>
-                        }
                         <FormStep stepConfig={step} loading={loading}/>
                     </>
                 ))
