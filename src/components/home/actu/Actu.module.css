@@ -12,7 +12,7 @@
     width: 100%;
 }
 
-.imgContainer img {
+.imgContainer video, .imgContainer img {
     position: absolute;
     z-index: -2;
     top: 0;

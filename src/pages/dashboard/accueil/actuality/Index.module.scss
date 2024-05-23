@@ -1,0 +1,20 @@
+.main {
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 50px;
+
+    .topSpace {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .acceptFile {
+      margin-top: -12px;
+      color: var(--red);
+        font-size: 0.78rem;
+    }
+  }
+}

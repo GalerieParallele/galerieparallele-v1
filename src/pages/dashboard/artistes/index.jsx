@@ -11,7 +11,7 @@ import {IoIosRefresh} from "react-icons/io";
 import useArtistsStore from "@/stores/artistsStore";
 import {Toast} from "@/constants/ToastConfig";
 
-export default function DashboardArtistesIndex(factory, deps) {
+export default function DashboardArtistesIndex() {
 
     const router = useRouter();
 

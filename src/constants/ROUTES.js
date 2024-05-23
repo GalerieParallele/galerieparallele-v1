@@ -35,6 +35,12 @@ const PATHS = {
             NEW: createPath('admin', 'articles', 'new'),
             PREVIEW: createPath('admin', 'articles', 'preview'),
         },
+        ACCUEIL: {
+            HOME: createPath('dashboard', 'accueil'),
+            ACTUALITY: {
+                HOME: createPath('dashboard', 'accueil', 'actuality'),
+            }
+        },
         ARTISTES: {
             HOME: createPath('dashboard', 'artistes'),
             NEW: createPath('dashboard', 'artistes', 'new'),
@@ -141,6 +147,9 @@ const PATHS = {
         },
         TYPES: {
             HOME: 'typesoeuvres',
+        },
+        ACTUALITY: {
+            HOME: 'actuality',
         }
     }
 }
@@ -171,6 +180,12 @@ const ROUTES = {
             EDIT: BASE_URL + PATHS.ADMIN.ARTICLES.EDIT,
             NEW: BASE_URL + PATHS.ADMIN.ARTICLES.NEW,
             PREVIEW: BASE_URL + PATHS.ADMIN.ARTICLES.PREVIEW,
+        },
+        ACCUEIL: {
+            HOME: BASE_URL + PATHS.ADMIN.ACCUEIL.HOME,
+            ACTUALITY: {
+                HOME: BASE_URL + PATHS.ADMIN.ACCUEIL.ACTUALITY.HOME,
+            }
         },
         ARTISTES: {
             HOME: BASE_URL + PATHS.ADMIN.ARTISTES.HOME,
@@ -278,6 +293,9 @@ const ROUTES = {
         },
         TYPES: {
             HOME: API_BASE + PATHS.API.TYPES.HOME,
+        },
+        ACTUALITY: {
+            HOME: API_BASE + PATHS.API.ACTUALITY.HOME,
         }
     }
 }

@@ -8,11 +8,9 @@ export default function Actu() {
     return (
         <div className={styles.actu}>
             <div className={styles.imgContainer}>
-                <Image
-                    src={"/assets/img/actualite.jpeg"}
-                    alt={"Photo d'actualité"}
-                    fill
-                />
+                <video autoPlay loop muted>
+                    <source src="https://firebasestorage.googleapis.com/v0/b/dp-gallery-37d61.appspot.com/o/actus%2FVid%C3%A9o%20Juan%20Carlos%20Just%20Fontaine.mp4?alt=media&token=04597630-7418-42c3-8e1b-fb0dea2b001b" type="video/mp4"/>
+                </video>
             </div>
             <div className={styles.layoutFilter}></div>
             <div className={styles.content}>
