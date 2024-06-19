@@ -6,8 +6,16 @@
     gap: 25px;
 }
 
+.pictoItem h6 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--black);
+    text-transform: uppercase;
+    text-align: center;
+}
+
 .pictoItem:hover .icon {
-    transform: rotate(360deg);
+    transform: scale(1.1);
 }
 
 .icon {
@@ -23,9 +31,13 @@
 
     padding: 15px;
 
-    background: var(--gradient-black);
+    background: var(--white);
 
     color: var(--white);
 
     transition: var(--transition);
+
+    border: 2px solid var(--black);
+
+    box-shadow: var(--shadow);
 }

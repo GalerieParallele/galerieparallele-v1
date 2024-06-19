@@ -2,12 +2,13 @@ import React from "react";
 
 import styles from "./PictoItem.module.css"
 import PropTypes from "prop-types";
+import Image from "next/image";
 
-export default function PictoItem({IconComponent, title}) {
+export default function PictoItem({mediaURL, title}) {
     return (
         <div className={styles.pictoItem}>
             <div className={styles.icon}>
-                {IconComponent && <IconComponent/>}
+                <Image src={mediaURL} alt={title} width={50} height={50} />
             </div>
             <h6>{title}</h6>
         </div>
@@ -15,6 +16,6 @@ export default function PictoItem({IconComponent, title}) {
 }
 
 PictoItem.propTypes = {
-    IconComponent: PropTypes.elementType.isRequired,
+    mediaURL: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired
 }
