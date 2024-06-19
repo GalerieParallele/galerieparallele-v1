@@ -9,7 +9,7 @@ export default function Actu() {
         <div className={styles.actu}>
             <div className={styles.imgContainer}>
                 <video autoPlay loop muted>
-                    <source src="https://firebasestorage.googleapis.com/v0/b/dp-gallery-37d61.appspot.com/o/actus%2FVid%C3%A9o%20Juan%20Carlos%20Just%20Fontaine.mp4?alt=media&token=04597630-7418-42c3-8e1b-fb0dea2b001b" type="video/mp4"/>
+                    <source src="https://firebasestorage.googleapis.com/v0/b/dp-gallery-37d61.appspot.com/o/actus%2F1%2FVid%C3%A9o%20Juan%20Carlos%20Just%20Fontaine.mp4?alt=media&token=26efbf94-17e4-41fc-9ea4-c75028f13d5c" type="video/mp4"/>
                 </video>
             </div>
             <div className={styles.layoutFilter}></div>
