@@ -1,7 +1,8 @@
-import {z} from 'zod';
+import { z} from 'zod';
 import {NextResponse} from "next/server";
 import {STATIC_MESSAGES} from "@/constants/STATIC_MESSAGES";
 import StorageUtils from "@/utils/StorageUtils";
+import {Prisma} from "@prisma/client";
 
 const MESSAGES = {
     ID_INVALID_TYPE: "L'id d'une actualité doit être un nombre.",
@@ -73,6 +74,8 @@ const isPrivate = z
         required_error: MESSAGES.IS_PRIVATE_REQUIRED,
         description: "Le statut de confidentialité de l'actualité.",
     })
+    .optional()
+    .nullable()
 
 const editorId = z
     .number({
@@ -117,16 +120,17 @@ const mediaURL = z
     .url({
         message: MESSAGES.MEDIA_URL_INVALID_TYPE,
     })
-    .optional()
-    .nullable()
+
 
 const mediaType = z
-    .string({
-        invalid_type_error: "Le type de média doit être une chaîne de caractères.",
-        required_error: "Le type de média est requis.",
-    })
-    .optional()
-    .nullable();
+    .enum(
+        ['image/jpeg', 'image/png', 'image/gif', 'video/mp4', 'video/quicktime'],
+        {
+            required_error: "Le type de média de l'actualité est requis (image/jpeg, image/png, image/gif, video/mp4, video/quicktime).",
+            invalid_type_error: "Le type de média de l'actualité doit être une chaîne de caractères.",
+            description: "Le type de média de l'actualité.",
+        }
+    )
 
 const ActualitySchema = z.object({
     id,
@@ -202,4 +206,64 @@ export async function GET() {
         return NextResponse.json({message: STATIC_MESSAGES.API_SERVER_ERROR}, {status: 500});
 
     }
+}
+
+export async function POST(req) {
+
+    try {
+
+        const body = ActualitySchema.omit({
+            id: true,
+            date: true,
+        }).parse(await req.json())
+
+        const actuality = await prisma.actuality.create({
+            data: {
+                ...body,
+            }
+        })
+
+        if (body.editorId) {
+            await prisma.actuality.update({
+                where: {
+                    id: actuality.id
+                },
+                data: {
+                    editorId: body.editorId
+                }
+            })
+        }
+
+        return NextResponse.json(ActualitySchema.parse(actuality), {status: 201})
+
+
+    } catch (error) {
+
+        if (process.env.NODE_ENV === "development") {
+            console.log(error);
+        }
+
+        if (error instanceof z.ZodError) {
+            return NextResponse.json({message: error.errors[0].message}, {status: 400});
+        }
+
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+
+            if (error.code === 'P2003') {
+                return NextResponse.json({message: MESSAGES.NO_ARTIST_FOUND}, {status: 400});
+            }
+
+            if (error.code === 'P2025') {
+                return NextResponse.json({message: MESSAGES.NO_ARTIST_FOUND}, {status: 400});
+            }
+
+            if (error.code === 'P2002') {
+                return NextResponse.json({message: MESSAGES.INVALID_OEUVRE}, {status: 400});
+            }
+        }
+
+        return NextResponse.json(MESSAGES.API_SERVER_ERROR, {status: 500});
+
+    }
+
 }
