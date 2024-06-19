@@ -1,11 +1,15 @@
 .main {
-    padding: 25px;
+    padding: 50px;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 40px;
+
+    background-color: var(--white);
+
+    box-shadow: var(--shadow);
 }
 
 

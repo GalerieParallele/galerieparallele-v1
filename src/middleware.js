@@ -13,6 +13,12 @@ export default async function middleware(request) {
             return redirectTo(request, "/auth")
         }
 
+    } else if (path.startsWith("/profil")) {
+
+        if (!user || !user?.roles?.includes("ROLE_USER")){
+            return redirectTo(request, "/auth")
+        }
+
     }
 
     return NextResponse.next();
@@ -45,5 +51,8 @@ function redirectTo(request, path) {
 }
 
 export const config = {
-    matcher: ['/dashboard/:path*'],
+    matcher: [
+        '/dashboard/:path*',
+        '/profil/:path*',
+    ],
 };

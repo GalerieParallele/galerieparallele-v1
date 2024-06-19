@@ -16,7 +16,7 @@ export default function Newletters() {
                 <span className={styles.icon}>
                     <IoMdMail/>
                 </span>
-                <input type="text" placeholder="Enter your email address"/>
+                <input type="text" placeholder="Votre adresse e-mail"/>
                 <Button text="Subscribe"/>
             </div>
         </main>
