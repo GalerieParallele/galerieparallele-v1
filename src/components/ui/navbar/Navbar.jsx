@@ -25,7 +25,7 @@ export default function Navbar() {
 
     const router = useRouter();
 
-    const {user} = useAuth();
+    const {user, isLoading} = useAuth();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef();
@@ -56,7 +56,6 @@ export default function Navbar() {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [isMenuOpen, user]);
-
 
     return (
         <>
@@ -105,7 +104,7 @@ export default function Navbar() {
                     <Link href={"#"}>
                         <FiHelpCircle/>
                     </Link>
-                    {user && user.roles && user.roles.includes("ROLE_ADMIN") && (
+                    {!isLoading && user?.roles?.includes("ROLE_ADMIN") && (
                         <>
                             <span className={styles.verticalSeparator}/>
                             <Link href={ROUTES.ADMIN.HOME}>

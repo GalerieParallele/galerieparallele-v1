@@ -70,6 +70,8 @@ export function AuthProvider({children}) {
 
                 setUser(data);
 
+                await checkAuthentication();
+
                 return {user: data};
             } else {
                 return {error: data.message};
@@ -102,6 +104,8 @@ export function AuthProvider({children}) {
 
                 setUser(data);
 
+                await checkAuthentication();
+
                 return {user: data};
             } else {
                 return {error: data.message};
@@ -131,6 +135,7 @@ export function AuthProvider({children}) {
 
         if (response.status === 200) {
             setUser(null)
+            await checkAuthentication();
         }
 
         setIsLoading(false)
